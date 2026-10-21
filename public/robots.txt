@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mi-huerta-casera-stitch.surge.sh/sitemap.xml
