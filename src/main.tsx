@@ -3,9 +3,10 @@ import { createRoot } from 'react-dom/client';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import './index.css';
 import App from './App.tsx';
+import { getCustomClientId } from './services/authService';
 
-// Google OAuth Client ID predeterminado (o desde variable de entorno si se especifica)
 const GOOGLE_CLIENT_ID =
+  getCustomClientId() ||
   (import.meta.env.VITE_GOOGLE_CLIENT_ID as string) ||
   '1054719001150-lhq94042223838383838383838383838.apps.googleusercontent.com';
 

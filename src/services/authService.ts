@@ -8,6 +8,7 @@ export interface UserProfile {
 }
 
 const AUTH_STORAGE_KEY = 'huerta_casera_auth_user';
+const CLIENT_ID_STORAGE_KEY = 'huerta_casera_google_client_id';
 
 export function decodeJwt(token: string): Record<string, unknown> | null {
   try {
@@ -41,4 +42,12 @@ export function getUser(): UserProfile | null {
 
 export function clearUser(): void {
   localStorage.removeItem(AUTH_STORAGE_KEY);
+}
+
+export function saveCustomClientId(clientId: string): void {
+  localStorage.setItem(CLIENT_ID_STORAGE_KEY, clientId);
+}
+
+export function getCustomClientId(): string | null {
+  return localStorage.getItem(CLIENT_ID_STORAGE_KEY);
 }
