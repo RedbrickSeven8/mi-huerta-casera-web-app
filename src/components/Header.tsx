@@ -1,6 +1,7 @@
 import React from 'react';
 import { Sprout, LayoutDashboard, Calendar, PlusCircle, ShieldCheck } from 'lucide-react';
 import type { PageRoute } from '../types/huerta';
+import { GoogleAuthButton } from './GoogleAuthButton';
 
 interface HeaderProps {
   currentRoute: PageRoute;
@@ -57,11 +58,12 @@ export const Header: React.FC<HeaderProps> = ({ currentRoute, onNavigate }) => {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          <GoogleAuthButton />
           <button
             type="button"
             onClick={() => onNavigate('registro')}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-[#2D5A27] text-[#FAF9F6] hover:bg-[#23471E] transition-colors shadow-xs"
+            className="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium bg-[#2D5A27] text-[#FAF9F6] hover:bg-[#23471E] transition-colors shadow-xs"
           >
             <PlusCircle className="w-4 h-4" />
             <span>Registrar Cultivo</span>
