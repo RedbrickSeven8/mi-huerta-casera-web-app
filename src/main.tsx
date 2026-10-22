@@ -8,7 +8,7 @@ import { getCustomClientId } from './services/authService';
 const GOOGLE_CLIENT_ID =
   getCustomClientId() ||
   (import.meta.env.VITE_GOOGLE_CLIENT_ID as string) ||
-  '1054719001150-lhq94042223838383838383838383838.apps.googleusercontent.com';
+  '585678535251-i8ke2ih1vfohfdtbclb348gn6u31udb8.apps.googleusercontent.com';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
