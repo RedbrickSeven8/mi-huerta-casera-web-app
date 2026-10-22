@@ -1,12 +1,18 @@
 import type { CropItem, GardenTask } from '../types/huerta';
 
+const getTodayFormatted = (offsetDays = 0) => {
+  const d = new Date();
+  d.setDate(d.getDate() + offsetDays);
+  return d.toISOString().split('T')[0];
+};
+
 export const INITIAL_CROPS: CropItem[] = [
   {
     id: 'crop-1',
     name: 'Tomate Cherry',
     variety: 'Solanum lycopersicum var. cerasiforme',
     bed: 'Bancal Sur #1',
-    plantedDate: '2025-02-01',
+    plantedDate: getTodayFormatted(-20),
     daysToHarvest: 18,
     stage: 'Floración',
     moisturePercent: 74,
@@ -22,7 +28,7 @@ export const INITIAL_CROPS: CropItem[] = [
     name: 'Albahaca Genovesa',
     variety: 'Ocimum basilicum',
     bed: 'Bancal Sur #1 (Asociación)',
-    plantedDate: '2025-02-10',
+    plantedDate: getTodayFormatted(-15),
     daysToHarvest: 7,
     stage: 'Cosecha',
     moisturePercent: 68,
@@ -38,7 +44,7 @@ export const INITIAL_CROPS: CropItem[] = [
     name: 'Lechuga Hoja de Roble',
     variety: 'Lactuca sativa',
     bed: 'Mesa de Cultivo Norte #2',
-    plantedDate: '2025-02-15',
+    plantedDate: getTodayFormatted(-10),
     daysToHarvest: 12,
     stage: 'Crecimiento',
     moisturePercent: 80,
@@ -54,7 +60,7 @@ export const INITIAL_CROPS: CropItem[] = [
     name: 'Zanahoria Nantesa',
     variety: 'Daucus carota',
     bed: 'Jardinera Profunda #3',
-    plantedDate: '2025-01-20',
+    plantedDate: getTodayFormatted(-25),
     daysToHarvest: 26,
     stage: 'Crecimiento',
     moisturePercent: 64,
@@ -73,7 +79,7 @@ export const INITIAL_TASKS: GardenTask[] = [
     cropId: 'crop-2',
     cropName: 'Albahaca Genovesa',
     type: 'Riego',
-    dueDate: 'Hoy · 19:30',
+    dueDate: getTodayFormatted(0),
     completed: false
   },
   {
@@ -81,7 +87,7 @@ export const INITIAL_TASKS: GardenTask[] = [
     cropId: 'crop-1',
     cropName: 'Tomate Cherry',
     type: 'Abonado',
-    dueDate: 'Mañana · 09:00',
+    dueDate: getTodayFormatted(1),
     completed: false
   },
   {
@@ -89,7 +95,7 @@ export const INITIAL_TASKS: GardenTask[] = [
     cropId: 'crop-4',
     cropName: 'Zanahoria Nantesa',
     type: 'Riego',
-    dueDate: 'Mañana · 18:30',
+    dueDate: getTodayFormatted(2),
     completed: false
   },
   {
@@ -97,7 +103,7 @@ export const INITIAL_TASKS: GardenTask[] = [
     cropId: 'crop-3',
     cropName: 'Lechuga Hoja de Roble',
     type: 'Control preventivo',
-    dueDate: 'En 2 días',
+    dueDate: getTodayFormatted(3),
     completed: true
   }
 ];
