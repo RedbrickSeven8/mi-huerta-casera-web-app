@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleLogin, googleLogout, type CredentialResponse } from '@react-oauth/google';
-import { LogOut, User, CheckCircle2, KeyRound } from 'lucide-react';
-import { getUser, saveUser, clearUser, decodeJwt, type UserProfile, getCustomClientId, saveCustomClientId } from '../services/authService';
+import { LogOut, User, CheckCircle2 } from 'lucide-react';
+import { getUser, saveUser, clearUser, decodeJwt, type UserProfile } from '../services/authService';
 
 interface GoogleAuthButtonProps {
   onAuthChange?: (user: UserProfile | null) => void;
@@ -10,8 +10,6 @@ interface GoogleAuthButtonProps {
 export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ onAuthChange }) => {
   const [user, setUser] = useState<UserProfile | null>(() => getUser());
   const [authError, setAuthError] = useState<string | null>(null);
-  const [showConfigModal, setShowConfigModal] = useState<boolean>(false);
-  const [clientIdInput, setClientIdInput] = useState<string>(() => getCustomClientId() || '');
 
   const handleGoogleSuccess = (credentialResponse: CredentialResponse) => {
     setAuthError(null);
@@ -63,13 +61,6 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ onAuthChange
     if (onAuthChange) onAuthChange(null);
   };
 
-  const handleSaveClientId = (e: React.FormEvent) => {
-    e.preventDefault();
-    saveCustomClientId(clientIdInput.trim());
-    setShowConfigModal(false);
-    window.location.reload();
-  };
-
   if (user) {
     return (
       <div className="flex items-center gap-3 bg-[#EAF2E8] border border-[#2D5A27]/20 px-3 py-1.5 rounded-xl">
@@ -95,7 +86,7 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ onAuthChange
           type="button"
           onClick={handleLogout}
           title="Cerrar sesión"
-          className="p-1.5 rounded-lg text-[#5A655E] hover:text-[#A32A2A] hover:bg-white/80 transition-colors"
+          className="p-1.5 rounded-lg text-[#5A655E] hover:text-[#A32A2A] hover:bg-white/80 transition-colors cursor-pointer"
         >
           <LogOut className="w-4 h-4" />
         </button>
@@ -104,75 +95,26 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ onAuthChange
   }
 
   return (
-    <>
-      <div className="flex flex-col gap-1 items-end">
-        <div className="flex items-center gap-2">
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={() => setAuthError('Error de autenticación con Google (Client ID no válido).')}
-            shape="circle"
-            size="medium"
-            text="signin_with"
-          />
-          <button
-            type="button"
-            onClick={handleDemoLogin}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-[#2D5A27] text-[#2D5A27] hover:bg-[#2D5A27] hover:text-white transition-colors"
-            title="Acceso de prueba demo"
-          >
-            <User className="w-3.5 h-3.5" />
-            <span>Demo</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setShowConfigModal(true)}
-            className="p-1.5 rounded-full text-[#5A655E] hover:text-[#2D5A27] hover:bg-[#2D5A27]/10 transition-colors"
-            title="Configurar Google Client ID"
-          >
-            <KeyRound className="w-4 h-4" />
-          </button>
-        </div>
-        {authError && <p className="text-[11px] text-[#A32A2A]">{authError}</p>}
+    <div className="flex flex-col gap-1 items-end">
+      <div className="flex items-center gap-2">
+        <GoogleLogin
+          onSuccess={handleGoogleSuccess}
+          onError={() => setAuthError('Error de autenticación con Google.')}
+          shape="circle"
+          size="medium"
+          text="signin_with"
+        />
+        <button
+          type="button"
+          onClick={handleDemoLogin}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border border-[#2D5A27] text-[#2D5A27] hover:bg-[#2D5A27] hover:text-white transition-colors cursor-pointer"
+          title="Acceso de prueba demo"
+        >
+          <User className="w-3.5 h-3.5" />
+          <span>Demo</span>
+        </button>
       </div>
-
-      {showConfigModal && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#E2DFD7]">
-            <h3 className="text-lg font-bold text-[#1A231E] mb-2 flex items-center gap-2">
-              <KeyRound className="w-5 h-5 text-[#2D5A27]" />
-              Configurar Google Client ID
-            </h3>
-            <p className="text-xs text-[#5A655E] mb-4 leading-relaxed">
-              Ingresa tu <strong>Google OAuth Client ID</strong> de Google Cloud Console (ej: <code>xxx.apps.googleusercontent.com</code>) para habilitar el inicio de sesión real en tu dominio.
-            </p>
-            <form onSubmit={handleSaveClientId} className="flex flex-col gap-3">
-              <input
-                type="text"
-                value={clientIdInput}
-                onChange={(e) => setClientIdInput(e.target.value)}
-                placeholder="1234567890-abcdef...apps.googleusercontent.com"
-                className="w-full px-3 py-2 text-xs border border-[#E2DFD7] rounded-lg focus:outline-none focus:border-[#2D5A27] font-mono"
-                required
-              />
-              <div className="flex justify-end gap-2 mt-2">
-                <button
-                  type="button"
-                  onClick={() => setShowConfigModal(false)}
-                  className="px-3 py-1.5 rounded-lg text-xs font-medium text-[#5A655E] hover:bg-[#F2EFE9]"
-                >
-                  Cancelar
-                </button>
-                <button
-                  type="submit"
-                  className="px-3 py-1.5 rounded-lg text-xs font-medium bg-[#2D5A27] text-white hover:bg-[#23471E]"
-                >
-                  Guardar y Recargar
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-    </>
+      {authError && <p className="text-[11px] text-[#A32A2A]">{authError}</p>}
+    </div>
   );
 };

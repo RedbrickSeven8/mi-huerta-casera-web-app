@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sprout, Shield, FileText, Cookie, Activity } from 'lucide-react';
+import { Sprout, Shield, FileText, Cookie } from 'lucide-react';
 import type { PageRoute } from '../types/huerta';
 
 interface FooterProps {
@@ -32,22 +32,22 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </h3>
             <ul className="space-y-2 text-xs text-[#4A554E]">
               <li>
-                <button type="button" onClick={() => onNavigate('inicio')} className="hover:text-[#2D5A27] transition-colors">
+                <button type="button" onClick={() => onNavigate('inicio')} className="hover:text-[#2D5A27] transition-colors cursor-pointer">
                   Inicio y Resumen
                 </button>
               </li>
               <li>
-                <button type="button" onClick={() => onNavigate('dashboard')} className="hover:text-[#2D5A27] transition-colors">
-                  Panel de Cultivos (Dashboard)
+                <button type="button" onClick={() => onNavigate('dashboard')} className="hover:text-[#2D5A27] transition-colors cursor-pointer">
+                  Panel de Cultivos (Mi Huerta)
                 </button>
               </li>
               <li>
-                <button type="button" onClick={() => onNavigate('calendario')} className="hover:text-[#2D5A27] transition-colors">
+                <button type="button" onClick={() => onNavigate('calendario')} className="hover:text-[#2D5A27] transition-colors cursor-pointer">
                   Calendario de Riego y Tareas
                 </button>
               </li>
               <li>
-                <button type="button" onClick={() => onNavigate('registro')} className="hover:text-[#2D5A27] transition-colors">
+                <button type="button" onClick={() => onNavigate('registro')} className="hover:text-[#2D5A27] transition-colors cursor-pointer">
                   Añadir Nuevo Cultivo
                 </button>
               </li>
@@ -60,27 +60,21 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </h3>
             <ul className="space-y-2 text-xs text-[#4A554E]">
               <li>
-                <button type="button" onClick={() => onNavigate('privacidad')} className="inline-flex items-center gap-1.5 hover:text-[#2D5A27] transition-colors">
+                <button type="button" onClick={() => onNavigate('privacidad')} className="inline-flex items-center gap-1.5 hover:text-[#2D5A27] transition-colors cursor-pointer">
                   <Shield className="w-3.5 h-3.5" />
                   <span>Política de Privacidad</span>
                 </button>
               </li>
               <li>
-                <button type="button" onClick={() => onNavigate('terminos')} className="inline-flex items-center gap-1.5 hover:text-[#2D5A27] transition-colors">
+                <button type="button" onClick={() => onNavigate('terminos')} className="inline-flex items-center gap-1.5 hover:text-[#2D5A27] transition-colors cursor-pointer">
                   <FileText className="w-3.5 h-3.5" />
                   <span>Términos y Condiciones</span>
                 </button>
               </li>
               <li>
-                <button type="button" onClick={() => onNavigate('cookies')} className="inline-flex items-center gap-1.5 hover:text-[#2D5A27] transition-colors">
+                <button type="button" onClick={() => onNavigate('cookies')} className="inline-flex items-center gap-1.5 hover:text-[#2D5A27] transition-colors cursor-pointer">
                   <Cookie className="w-3.5 h-3.5" />
                   <span>Política de Cookies</span>
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={() => onNavigate('auditoria')} className="inline-flex items-center gap-1.5 hover:text-[#2D5A27] transition-colors">
-                  <Activity className="w-3.5 h-3.5" />
-                  <span>Registro Técnico de Auditoría</span>
                 </button>
               </li>
             </ul>
@@ -93,7 +87,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <div className="p-3.5 rounded-xl bg-[#FAF9F6] border border-[#E2DFD7] space-y-2 text-xs">
               <div className="flex items-center gap-2 text-[#2D5A27] font-medium">
                 <span className="w-2 h-2 rounded-full bg-[#2D5A27]" />
-                <span>Sincronización Local Activa</span>
+                <span>Sincronización en la Nube</span>
               </div>
               <p className="text-[#5A655E]">
                 Dominio oficial: mi-huerta-casera-stitch.surge.sh
@@ -101,7 +95,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <button
                 type="button"
                 onClick={() => onNavigate('404')}
-                className="text-[11px] underline text-[#5A655E] hover:text-[#1A231E]"
+                className="text-[11px] underline text-[#5A655E] hover:text-[#1A231E] cursor-pointer"
               >
                 Verificar vista de página 404
               </button>
@@ -112,9 +106,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="mt-8 pt-6 border-t border-[#E2DFD7] flex flex-col sm:flex-row items-center justify-between text-xs text-[#5A655E] gap-4">
           <p>© {new Date().getFullYear()} Mi Huerta Casera · Titular y responsable: las paginas de dani.</p>
           <div className="flex gap-4">
-            <button type="button" onClick={() => onNavigate('privacidad')} className="hover:text-[#1A231E]">Privacidad</button>
-            <button type="button" onClick={() => onNavigate('terminos')} className="hover:text-[#1A231E]">Términos</button>
-            <button type="button" onClick={() => onNavigate('cookies')} className="hover:text-[#1A231E]">Cookies</button>
+            <button type="button" onClick={() => onNavigate('privacidad')} className="hover:text-[#1A231E] cursor-pointer">Privacidad</button>
+            <button type="button" onClick={() => onNavigate('terminos')} className="hover:text-[#1A231E] cursor-pointer">Términos</button>
+            <button type="button" onClick={() => onNavigate('cookies')} className="hover:text-[#1A231E] cursor-pointer">Cookies</button>
           </div>
         </div>
       </div>

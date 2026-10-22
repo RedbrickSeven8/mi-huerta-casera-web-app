@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import type { CropItem, CropStage, GardenTask, PageRoute } from './types/huerta';
-import { loadCrops, saveCrops, loadTasks, saveTasks } from './services/huertaStorage';
+import { loadCrops, saveCrops, loadTasks, saveTasks, fetchRemoteGardenData } from './services/huertaStorage';
 import { updatePageTitle } from './services/seoManager';
+import { getUser, type UserProfile } from './services/authService';
 import { Header } from './components/Header';
 import { Breadcrumbs } from './components/Breadcrumbs';
 import { Footer } from './components/Footer';
@@ -41,6 +42,7 @@ function resolveInitialRoute(): PageRoute {
 
 export function App() {
   const [currentRoute, setCurrentRoute] = useState<PageRoute>(resolveInitialRoute);
+  const [user, setUser] = useState<UserProfile | null>(() => getUser());
   const [crops, setCrops] = useState<CropItem[]>(() => loadCrops());
   const [tasks, setTasks] = useState<GardenTask[]>(() => loadTasks());
 
@@ -55,6 +57,33 @@ export function App() {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  // When auth state changes, re-load local or remote user crops & tasks
+  const handleAuthChange = (newUser: UserProfile | null) => {
+    setUser(newUser);
+    if (newUser) {
+      // Reload user data
+      const localCrops = loadCrops();
+      const localTasks = loadTasks();
+      setCrops(localCrops);
+      setTasks(localTasks);
+
+      // Attempt remote sync from Supabase
+      fetchRemoteGardenData().then(({ crops: remoteCrops, tasks: remoteTasks }) => {
+        if (remoteCrops && remoteCrops.length > 0) {
+          setCrops(remoteCrops);
+          saveCrops(remoteCrops);
+        }
+        if (remoteTasks && remoteTasks.length > 0) {
+          setTasks(remoteTasks);
+          saveTasks(remoteTasks);
+        }
+      });
+    } else {
+      setCrops(loadCrops());
+      setTasks(loadTasks());
+    }
+  };
 
   const handleNavigate = (route: PageRoute) => {
     setCurrentRoute(route);
@@ -121,9 +150,20 @@ export function App() {
     saveTasks(updated);
   };
 
+  const handleDeleteTask = (taskId: string) => {
+    const updated = tasks.filter((t) => t.id !== taskId);
+    setTasks(updated);
+    saveTasks(updated);
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF9F6] text-[#1A231E]">
-      <Header currentRoute={currentRoute} onNavigate={handleNavigate} />
+      <Header
+        currentRoute={currentRoute}
+        onNavigate={handleNavigate}
+        user={user}
+        onAuthChange={handleAuthChange}
+      />
       <Breadcrumbs currentRoute={currentRoute} onNavigate={handleNavigate} />
 
       <main className="flex-1">
@@ -135,6 +175,8 @@ export function App() {
             onAdvanceStage={handleAdvanceStage}
             onDeleteCrop={handleDeleteCrop}
             onNavigate={handleNavigate}
+            user={user}
+            onAuthChange={handleAuthChange}
           />
         )}
         {currentRoute === 'calendario' && (
@@ -143,6 +185,7 @@ export function App() {
             crops={crops}
             onToggleTask={handleToggleTask}
             onAddTask={handleAddTask}
+            onDeleteTask={handleDeleteTask}
             onNavigate={handleNavigate}
           />
         )}
