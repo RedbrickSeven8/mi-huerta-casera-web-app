@@ -1,28 +1,85 @@
 import React, { useState } from 'react';
-import { Sprout, ShieldCheck, AlertCircle } from 'lucide-react';
+import { Sprout, ShieldCheck, AlertCircle, Calendar } from 'lucide-react';
 import type { CropItem, CropStage, PageRoute } from '../types/huerta';
 import { recordConsentEvent } from '../services/auditLogger';
+import { CROPS_DATABASE, type CropCategory, type CropVarietyInfo } from '../data/cropsDatabase';
 
 interface RegisterPageProps {
   onAddCrop: (crop: CropItem) => void;
   onNavigate: (route: PageRoute) => void;
 }
 
+const STAGES: CropStage[] = ['Semilla', 'Plántula', 'Crecimiento', 'Floración', 'Cosecha'];
+
+const getTodayString = () => new Date().toISOString().split('T')[0];
+
 export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigate }) => {
   const [gardenerEmail, setGardenerEmail] = useState('');
-  const [cropName, setCropName] = useState('');
-  const [variety, setVariety] = useState('');
-  const [bed, setBed] = useState('Bancal Principal #1');
+  
+  // Crop selection
+  const [selectedCropName, setSelectedCropName] = useState<string>(CROPS_DATABASE[0].cropName);
+  const [selectedVarietyName, setSelectedVarietyName] = useState<string>(CROPS_DATABASE[0].varieties[0].varietyName);
+
+  // Agronomic parameters
+  const [plantedDate, setPlantedDate] = useState<string>(getTodayString());
   const [stage, setStage] = useState<CropStage>('Plántula');
-  const [daysToHarvest, setDaysToHarvest] = useState(30);
-  const [waterFrequencyDays, setWaterFrequencyDays] = useState(2);
-  const [sunHours, setSunHours] = useState(6);
-  const [notes, setNotes] = useState('');
+  const [bed, setBed] = useState<string>(CROPS_DATABASE[0].varieties[0].recommendedBed);
+  const [daysToHarvest, setDaysToHarvest] = useState<number>(CROPS_DATABASE[0].varieties[0].stageDaysToHarvest['Plántula']);
+  const [waterFrequencyDays, setWaterFrequencyDays] = useState<number>(CROPS_DATABASE[0].varieties[0].waterFrequencyDays);
+  const [sunHours, setSunHours] = useState<number>(CROPS_DATABASE[0].varieties[0].sunHours);
+  const [notes, setNotes] = useState<string>(CROPS_DATABASE[0].varieties[0].notes);
 
   // Independent legal checkboxes
   const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Current active category object
+  const currentCategory: CropCategory | undefined = CROPS_DATABASE.find(
+    (c) => c.cropName === selectedCropName
+  );
+
+  // Current active variety object
+  const currentVariety: CropVarietyInfo | undefined = currentCategory?.varieties.find(
+    (v) => v.varietyName === selectedVarietyName
+  );
+
+  // When crop name changes, update variety list to first available variety and autofill
+  const handleCropNameChange = (newCropName: string) => {
+    setSelectedCropName(newCropName);
+    const category = CROPS_DATABASE.find((c) => c.cropName === newCropName);
+    if (category && category.varieties.length > 0) {
+      const firstVar = category.varieties[0];
+      setSelectedVarietyName(firstVar.varietyName);
+      updateFieldsFromVariety(firstVar, stage);
+    }
+  };
+
+  // When variety name changes, autofill
+  const handleVarietyNameChange = (newVarietyName: string) => {
+    setSelectedVarietyName(newVarietyName);
+    const varietyObj = currentCategory?.varieties.find((v) => v.varietyName === newVarietyName);
+    if (varietyObj) {
+      updateFieldsFromVariety(varietyObj, stage);
+    }
+  };
+
+  // When stage changes, update days to harvest based on current variety
+  const handleStageChange = (newStage: CropStage) => {
+    setStage(newStage);
+    if (currentVariety) {
+      setDaysToHarvest(currentVariety.stageDaysToHarvest[newStage]);
+    }
+  };
+
+  // Helper to pre-fill fields according to selected variety and stage
+  const updateFieldsFromVariety = (varietyObj: CropVarietyInfo, currentStage: CropStage) => {
+    setBed(varietyObj.recommendedBed);
+    setDaysToHarvest(varietyObj.stageDaysToHarvest[currentStage]);
+    setWaterFrequencyDays(varietyObj.waterFrequencyDays);
+    setSunHours(varietyObj.sunHours);
+    setNotes(varietyObj.notes);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,19 +113,19 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
 
     const newCrop: CropItem = {
       id: 'crop-' + Date.now(),
-      name: cropName.trim() || 'Pimiento Padrón',
-      variety: variety.trim() || 'Capsicum annuum',
-      bed: bed.trim() || 'Bancal #1',
-      plantedDate: new Date().toISOString().split('T')[0],
-      daysToHarvest: Number(daysToHarvest) || 30,
+      name: selectedCropName,
+      variety: selectedVarietyName + (currentVariety ? ` (${currentVariety.botanicalName})` : ''),
+      bed: bed.trim() || 'Bancal Principal',
+      plantedDate: plantedDate || getTodayString(),
+      daysToHarvest: Number(daysToHarvest) || 0,
       stage,
       moisturePercent: 75,
       sunHours: Number(sunHours) || 6,
       waterFrequencyDays: Number(waterFrequencyDays) || 2,
-      lastWatered: 'Hoy, recién plantado',
-      notes: notes.trim() || 'Cultivo registrado con seguimiento de riego activo.',
+      lastWatered: 'Recién registrado',
+      notes: notes.trim() || 'Sin observaciones.',
       imageUrl: '/hero-garden.svg',
-      imageAlt: `Ilustración del cultivo ${cropName.trim() || 'Hortícola'} en ${bed}`
+      imageAlt: `Ilustración del cultivo ${selectedCropName} (${selectedVarietyName}) en ${bed}`
     };
 
     onAddCrop(newCrop);
@@ -86,7 +143,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
           Registrar Nuevo Cultivo y Configurar Seguimiento
         </h1>
         <p className="text-sm text-[#4A554E] mt-1">
-          Introduce los parámetros agronómicos de tu planta. Los consentimientos quedan registrados en el registro técnico de auditoría.
+          Selecciona tu cultivo de la base de datos para autorellenar los parámetros agronómicos recomendados.
         </p>
       </div>
 
@@ -97,141 +154,179 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-[#FFFFFF] border border-[#E2DFD7] rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xs">
+      <form onSubmit={handleSubmit} className="bg-[#FFFFFF] border border-[#E2DFD7] rounded-2xl p-6 space-y-6 shadow-xs">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {/* Nombre de cultivo (Dropdown) */}
           <div>
             <label htmlFor="crop-name" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
               Nombre del cultivo *
             </label>
-            <input
+            <select
               id="crop-name"
-              type="text"
+              value={selectedCropName}
+              onChange={(e) => handleCropNameChange(e.target.value)}
+              className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E] font-medium"
               required
-              value={cropName}
-              onChange={(e) => setCropName(e.target.value)}
-              placeholder="Ej. Espinaca Gigante de Invierno"
-              className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E]"
-            />
+            >
+              {CROPS_DATABASE.map((cat) => (
+                <option key={cat.cropName} value={cat.cropName}>
+                  {cat.cropName}
+                </option>
+              ))}
+            </select>
           </div>
 
+          {/* Variedad botánica (Dropdown) */}
           <div>
             <label htmlFor="crop-variety" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
-              Variedad botánica / cultivar
+              Variedad botánica / cultivar *
             </label>
-            <input
+            <select
               id="crop-variety"
-              type="text"
-              value={variety}
-              onChange={(e) => setVariety(e.target.value)}
-              placeholder="Ej. Spinacia oleracea"
-              className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E]"
-            />
+              value={selectedVarietyName}
+              onChange={(e) => handleVarietyNameChange(e.target.value)}
+              className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E] font-medium"
+              required
+            >
+              {currentCategory?.varieties.map((v) => (
+                <option key={v.varietyName} value={v.varietyName}>
+                  {v.varietyName}
+                </option>
+              ))}
+            </select>
           </div>
+        </div>
 
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          {/* Fecha en que se plantó */}
           <div>
-            <label htmlFor="crop-bed" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
-              Ubicación / Bancal / Maceta *
+            <label htmlFor="planted-date" className="block text-xs font-semibold text-[#1A231E] mb-1.5 flex items-center gap-1">
+              <Calendar className="w-3.5 h-3.5 text-[#2D5A27]" />
+              <span>Fecha de plantación *</span>
             </label>
             <input
-              id="crop-bed"
-              type="text"
-              required
-              value={bed}
-              onChange={(e) => setBed(e.target.value)}
-              placeholder="Ej. Mesa de Cultivo Terraza #1"
+              id="planted-date"
+              type="date"
+              value={plantedDate}
+              onChange={(e) => setPlantedDate(e.target.value)}
               className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E]"
+              required
             />
           </div>
 
+          {/* Etapa actual */}
           <div>
             <label htmlFor="crop-stage" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
-              Etapa fenológica actual
+              Etapa de desarrollo actual
             </label>
             <select
               id="crop-stage"
               value={stage}
-              onChange={(e) => setStage(e.target.value as CropStage)}
+              onChange={(e) => handleStageChange(e.target.value as CropStage)}
               className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E]"
             >
-              <option value="Semilla">Semilla / Germinación</option>
-              <option value="Plántula">Plántula / Trasplante</option>
-              <option value="Crecimiento">Crecimiento vegetativo</option>
-              <option value="Floración">Floración / Fructificación</option>
-              <option value="Cosecha">Listo para cosecha</option>
+              {STAGES.map((st) => (
+                <option key={st} value={st}>
+                  {st}
+                </option>
+              ))}
             </select>
           </div>
 
+          {/* Días estimados hasta la cosecha (Autorellenado según etapa) */}
           <div>
-            <label htmlFor="crop-days" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
-              Días estimados hasta cosecha
+            <label htmlFor="days-harvest" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
+              Días estimados a cosecha (Etapa: {stage})
             </label>
             <input
-              id="crop-days"
+              id="days-harvest"
               type="number"
-              min={1}
+              min={0}
               max={365}
               value={daysToHarvest}
               onChange={(e) => setDaysToHarvest(Number(e.target.value))}
+              className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E] font-bold text-[#2D5A27]"
+              required
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          {/* Ubicación / Bancal */}
+          <div>
+            <label htmlFor="crop-bed" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
+              Ubicación / Bancal recomendado
+            </label>
+            <input
+              id="crop-bed"
+              type="text"
+              value={bed}
+              onChange={(e) => setBed(e.target.value)}
+              placeholder="Ej. Bancal Sur #1"
               className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E]"
+              required
             />
           </div>
 
+          {/* Frecuencia de riego (Autorellenada) */}
           <div>
-            <label htmlFor="crop-water" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
+            <label htmlFor="water-freq" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
               Frecuencia de riego (días)
             </label>
             <input
-              id="crop-water"
+              id="water-freq"
               type="number"
               min={1}
               max={30}
               value={waterFrequencyDays}
               onChange={(e) => setWaterFrequencyDays(Number(e.target.value))}
               className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E]"
+              required
             />
           </div>
 
+          {/* Horas de sol requeridas */}
           <div>
-            <label htmlFor="crop-sun" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
-              Horas de sol directo al día
+            <label htmlFor="sun-hours" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
+              Horas de sol directa (h/día)
             </label>
             <input
-              id="crop-sun"
+              id="sun-hours"
               type="number"
-              step="0.5"
               min={1}
               max={16}
               value={sunHours}
               onChange={(e) => setSunHours(Number(e.target.value))}
               className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E]"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="gardener-email" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
-              Correo o alias para avisos (opcional)
-            </label>
-            <input
-              id="gardener-email"
-              type="email"
-              value={gardenerEmail}
-              onChange={(e) => setGardenerEmail(e.target.value)}
-              placeholder="daniel@mihuerta.es"
-              className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E]"
+              required
             />
           </div>
         </div>
 
+        {/* Observaciones de sustrato y asociación (Autorellenadas) */}
         <div>
           <label htmlFor="crop-notes" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
-            Observaciones de sustrato y asociación
+            Observaciones de sustrato y asociación recomendadas
           </label>
           <textarea
             id="crop-notes"
             rows={3}
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
-            placeholder="Ej. Sustrato con 30% humus de lombriz. Asociado con caléndulas."
+            className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E]"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="gardener-email" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
+            Correo o alias para avisos (opcional)
+          </label>
+          <input
+            id="gardener-email"
+            type="email"
+            value={gardenerEmail}
+            onChange={(e) => setGardenerEmail(e.target.value)}
+            placeholder="daniel@mihuerta.es"
             className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E]"
           />
         </div>

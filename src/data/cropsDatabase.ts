@@ -1,0 +1,229 @@
+import type { CropStage } from '../types/huerta';
+
+export interface CropVarietyInfo {
+  varietyName: string;
+  botanicalName: string;
+  stageDaysToHarvest: Record<CropStage, number>; // Days to harvest depending on current stage
+  waterFrequencyDays: number;
+  sunHours: number;
+  recommendedBed: string;
+  notes: string;
+}
+
+export interface CropCategory {
+  cropName: string;
+  varieties: CropVarietyInfo[];
+}
+
+export const CROPS_DATABASE: CropCategory[] = [
+  {
+    cropName: 'Lechuga',
+    varieties: [
+      {
+        varietyName: 'Lechuga Escarola',
+        botanicalName: 'Cichorium endivia',
+        stageDaysToHarvest: {
+          Semilla: 65,
+          Plántula: 45,
+          Crecimiento: 25,
+          Floración: 10,
+          Cosecha: 0
+        },
+        waterFrequencyDays: 1,
+        sunHours: 5,
+        recommendedBed: 'Mesa de Cultivo Norte #1',
+        notes: 'Sustrato ligero, rico en compost y con alto retención de humedad. Excelente asociación con cebollas y rábanos.'
+      },
+      {
+        varietyName: 'Lechuga Hoja de Roble',
+        botanicalName: 'Lactuca sativa var. crispa',
+        stageDaysToHarvest: {
+          Semilla: 55,
+          Plántula: 35,
+          Crecimiento: 18,
+          Floración: 8,
+          Cosecha: 0
+        },
+        waterFrequencyDays: 1,
+        sunHours: 5,
+        recommendedBed: 'Mesa de Cultivo Norte #2',
+        notes: 'Sustrato fresco con acolchado de paja ecológica. Ideal para cosechar hoja a hoja.'
+      },
+      {
+        varietyName: 'Lechuga Romana',
+        botanicalName: 'Lactuca sativa var. longifolia',
+        stageDaysToHarvest: {
+          Semilla: 70,
+          Plántula: 50,
+          Crecimiento: 30,
+          Floración: 12,
+          Cosecha: 0
+        },
+        waterFrequencyDays: 2,
+        sunHours: 6,
+        recommendedBed: 'Bancal Central #2',
+        notes: 'Sustrato bien drenado enriquecido con humus de lombriz. Agradece riegos constantes sin encharcar.'
+      }
+    ]
+  },
+  {
+    cropName: 'Tomate',
+    varieties: [
+      {
+        varietyName: 'Tomate Cherry',
+        botanicalName: 'Solanum lycopersicum var. cerasiforme',
+        stageDaysToHarvest: {
+          Semilla: 85,
+          Plántula: 60,
+          Crecimiento: 40,
+          Floración: 18,
+          Cosecha: 0
+        },
+        waterFrequencyDays: 2,
+        sunHours: 8,
+        recommendedBed: 'Bancal Sur #1',
+        notes: 'Sustrato suelto y nutritivo con potasio y calcio. Tutorado indispensable y excelente asociación con albahaca.'
+      },
+      {
+        varietyName: 'Tomate Muchamiel',
+        botanicalName: 'Solanum lycopersicum',
+        stageDaysToHarvest: {
+          Semilla: 95,
+          Plántula: 70,
+          Crecimiento: 50,
+          Floración: 25,
+          Cosecha: 0
+        },
+        waterFrequencyDays: 2,
+        sunHours: 8,
+        recommendedBed: 'Bancal Sur #2',
+        notes: 'Exige sustrato profundo enriquecido con compost maduro y potasio para frutos carnosos.'
+      },
+      {
+        varietyName: 'Tomate Raf',
+        botanicalName: 'Solanum lycopersicum (Marmande)',
+        stageDaysToHarvest: {
+          Semilla: 90,
+          Plántula: 65,
+          Crecimiento: 45,
+          Floración: 20,
+          Cosecha: 0
+        },
+        waterFrequencyDays: 2,
+        sunHours: 7,
+        recommendedBed: 'Bancal Sur #1',
+        notes: 'Sustrato fértil con buen drenaje. Moderar el riego en floración para concentrar azúcares en el fruto.'
+      }
+    ]
+  },
+  {
+    cropName: 'Zanahoria',
+    varieties: [
+      {
+        varietyName: 'Zanahoria Nantesa',
+        botanicalName: 'Daucus carota subsp. sativus',
+        stageDaysToHarvest: {
+          Semilla: 75,
+          Plántula: 55,
+          Crecimiento: 35,
+          Floración: 15,
+          Cosecha: 0
+        },
+        waterFrequencyDays: 3,
+        sunHours: 6,
+        recommendedBed: 'Jardinera Profunda #3',
+        notes: 'Sustrato muy arenoso y suelto, sin piedras para evitar deformación de la raíz. Buen maridaje con romero y guisantes.'
+      },
+      {
+        varietyName: 'Zanahoria Morada (Morá de Cuevas)',
+        botanicalName: 'Daucus carota',
+        stageDaysToHarvest: {
+          Semilla: 85,
+          Plántula: 65,
+          Crecimiento: 40,
+          Floración: 20,
+          Cosecha: 0
+        },
+        waterFrequencyDays: 3,
+        sunHours: 6,
+        recommendedBed: 'Jardinera Profunda #3',
+        notes: 'Requiere profundidad de sustrato libre de piedras. Riego regular y constante.'
+      }
+    ]
+  },
+  {
+    cropName: 'Pimiento',
+    varieties: [
+      {
+        varietyName: 'Pimiento del Padrón',
+        botanicalName: 'Capsicum annuum var. annuum',
+        stageDaysToHarvest: {
+          Semilla: 80,
+          Plántula: 55,
+          Crecimiento: 35,
+          Floración: 15,
+          Cosecha: 0
+        },
+        waterFrequencyDays: 2,
+        sunHours: 7,
+        recommendedBed: 'Bancal Principal #1',
+        notes: 'Sustrato cálido con compost maduro y humus. Cosechar en verde cuando alcancen 4-5 cm.'
+      },
+      {
+        varietyName: 'Pimiento Italiano',
+        botanicalName: 'Capsicum annuum',
+        stageDaysToHarvest: {
+          Semilla: 90,
+          Plántula: 65,
+          Crecimiento: 40,
+          Floración: 20,
+          Cosecha: 0
+        },
+        waterFrequencyDays: 2,
+        sunHours: 7,
+        recommendedBed: 'Bancal Principal #2',
+        notes: 'Sustrato esponjoso. Proteger de vientos fuertes y entutorar si se cargan de frutos.'
+      }
+    ]
+  },
+  {
+    cropName: 'Espinaca',
+    varieties: [
+      {
+        varietyName: 'Espinaca Viroflay',
+        botanicalName: 'Spinacia oleracea',
+        stageDaysToHarvest: {
+          Semilla: 50,
+          Plántula: 30,
+          Crecimiento: 15,
+          Floración: 5,
+          Cosecha: 0
+        },
+        waterFrequencyDays: 1,
+        sunHours: 4,
+        recommendedBed: 'Mesa de Cultivo Sombra',
+        notes: 'Sustrato rico en nitrógeno orgánico. Tolera semisombra y prefiere clima fresco.'
+      }
+    ]
+  },
+  {
+    cropName: 'Albahaca',
+    varieties: [
+      {
+        varietyName: 'Albahaca Genovesa',
+        botanicalName: 'Ocimum basilicum',
+        stageDaysToHarvest: {
+          Semilla: 50,
+          Plántula: 35,
+          Crecimiento: 15,
+          Floración: 5,
+          Cosecha: 0
+        },
+        waterFrequencyDays: 2,
+        sunHours: 6,
+        recommendedBed: 'Bancal Sur #1 (Asociación)',
+        notes: 'Poda apical frecuente para evitar floración prematura y promover ramificación abundante.'
+      }
+    ]
+  }
+];
