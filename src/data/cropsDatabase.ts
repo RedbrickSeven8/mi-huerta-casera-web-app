@@ -240,3 +240,27 @@ export const CROPS_DATABASE: CropCategory[] = [
     ]
   }
 ];
+
+export function getDaysToHarvestForCrop(cropName: string, varietyName: string, stage: CropStage): number {
+  const category = CROPS_DATABASE.find(
+    (c) => c.cropName.toLowerCase() === cropName.toLowerCase()
+  );
+  if (category) {
+    const variety = category.varieties.find(
+      (v) => v.varietyName.toLowerCase() === varietyName.toLowerCase()
+    ) || category.varieties[0];
+    if (variety && variety.stageDaysToHarvest && variety.stageDaysToHarvest[stage] !== undefined) {
+      return variety.stageDaysToHarvest[stage];
+    }
+  }
+
+  // Fallback defaults per stage if custom crop
+  const defaults: Record<CropStage, number> = {
+    Semilla: 65,
+    Plántula: 45,
+    Crecimiento: 25,
+    Floración: 15,
+    Cosecha: 0
+  };
+  return defaults[stage];
+}

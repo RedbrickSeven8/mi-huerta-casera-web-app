@@ -14,9 +14,13 @@ import {
   Scissors,
   Droplets,
   ShieldAlert,
-  CalendarCheck
+  CalendarCheck,
+  Lock,
+  LogIn
 } from 'lucide-react';
 import type { GardenTask, CropItem, PageRoute } from '../types/huerta';
+import { GoogleAuthButton } from '../components/GoogleAuthButton';
+import type { UserProfile } from '../services/authService';
 
 interface CalendarPageProps {
   tasks: GardenTask[];
@@ -25,6 +29,8 @@ interface CalendarPageProps {
   onAddTask: (task: Omit<GardenTask, 'id' | 'completed'>) => void;
   onDeleteTask: (taskId: string) => void;
   onNavigate: (route: PageRoute) => void;
+  user: UserProfile | null;
+  onAuthChange: (user: UserProfile | null) => void;
 }
 
 const getTodayString = () => {
@@ -41,7 +47,9 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
   onToggleTask,
   onAddTask,
   onDeleteTask,
-  onNavigate
+  onNavigate,
+  user,
+  onAuthChange
 }) => {
   const [selectedCropId, setSelectedCropId] = useState<string>(crops[0]?.id || '');
   const [taskType, setTaskType] = useState<GardenTask['type']>('Riego');
@@ -58,6 +66,38 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
     formattedDate: string;
     dayTasks: GardenTask[];
   } | null>(null);
+
+  // Authentication gate: Lock calendar if user is not authenticated
+  if (!user) {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-16 text-center space-y-6 animate-fade-in">
+        <div className="w-16 h-16 rounded-2xl bg-[#2D5A27]/10 text-[#2D5A27] flex items-center justify-center mx-auto">
+          <Lock className="w-8 h-8" />
+        </div>
+        <div className="space-y-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#1A231E]">
+            Acceso Restringido al Calendario de Huerta
+          </h1>
+          <p className="text-sm text-[#4A554E] max-w-md mx-auto leading-relaxed">
+            Para gestionar tus labores programadas, sincronizar tareas con la base de datos y mantener tu bitácora entre sesiones, por favor inicia sesión.
+          </p>
+        </div>
+
+        <div className="p-6 bg-white rounded-2xl border border-[#E2DFD7] shadow-xs max-w-md mx-auto space-y-4">
+          <div className="flex items-center justify-center gap-2 text-xs font-semibold text-[#2D5A27]">
+            <LogIn className="w-4 h-4" />
+            <span>Elige un método de inicio de sesión</span>
+          </div>
+          <div className="flex justify-center pt-2">
+            <GoogleAuthButton onAuthChange={onAuthChange} />
+          </div>
+          <p className="text-[11px] text-[#5A655E]">
+            Tus tareas y registros se guardan y sincronizan de forma segura en la nube.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   const handleCreateTask = (e: React.FormEvent) => {
     e.preventDefault();
@@ -370,7 +410,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
         </div>
 
         {/* Right Column: New Task Form */}
-        <div className="lg:col-span-4 bg-white p-6 rounded-2xl border border-[#E2DFD7] shadow-xs space-y-4">
+        <div className="lg:col-span-4 bg-white p-6 rounded-2xl border border-[#E2DFD7] shadow-xs space-y-4 w-full overflow-hidden">
           <div className="border-b border-[#E2DFD7] pb-3">
             <h2 className="text-base font-bold text-[#1A231E] flex items-center gap-2">
               <Plus className="w-4 h-4 text-[#2D5A27]" />
@@ -381,8 +421,8 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
             </p>
           </div>
 
-          <form onSubmit={handleCreateTask} className="space-y-4">
-            <div>
+          <form onSubmit={handleCreateTask} className="space-y-4 w-full">
+            <div className="w-full">
               <label htmlFor="task-crop" className="block text-xs font-semibold text-[#1A231E] mb-1">
                 Cultivo destinatario
               </label>
@@ -390,7 +430,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                 id="task-crop"
                 value={selectedCropId}
                 onChange={(e) => setSelectedCropId(e.target.value)}
-                className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3 py-2 text-xs text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27]"
+                className="w-full max-w-full block rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3 py-2 text-xs text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27] box-border"
               >
                 {crops.map((c) => (
                   <option key={c.id} value={c.id}>
@@ -400,7 +440,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
               </select>
             </div>
 
-            <div>
+            <div className="w-full">
               <label htmlFor="task-type" className="block text-xs font-semibold text-[#1A231E] mb-1">
                 Labor a realizar
               </label>
@@ -408,7 +448,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                 id="task-type"
                 value={taskType}
                 onChange={(e) => setTaskType(e.target.value as GardenTask['type'])}
-                className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3 py-2 text-xs text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27]"
+                className="w-full max-w-full block rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3 py-2 text-xs text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27] box-border"
               >
                 <option value="Riego">Riego</option>
                 <option value="Abonado">Abonado</option>
@@ -418,7 +458,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
               </select>
             </div>
 
-            <div>
+            <div className="w-full">
               <label htmlFor="task-date" className="block text-xs font-semibold text-[#1A231E] mb-1">
                 Fecha programada
               </label>
@@ -428,7 +468,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
                 required
-                className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3 py-2 text-xs text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27]"
+                className="w-full max-w-full block rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3 py-2 text-xs text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27] box-border"
               />
             </div>
 

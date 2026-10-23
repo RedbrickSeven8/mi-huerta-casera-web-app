@@ -15,7 +15,7 @@ export const Header: React.FC<HeaderProps> = ({ currentRoute, onNavigate, user, 
   const navItems: { route: PageRoute; label: string; icon: React.ReactNode; requiresAuth?: boolean }[] = [
     { route: 'inicio', label: 'Inicio', icon: <Sprout className="w-4 h-4" /> },
     { route: 'dashboard', label: 'Mi Huerta', icon: <LayoutDashboard className="w-4 h-4" />, requiresAuth: true },
-    { route: 'calendario', label: 'Calendario', icon: <Calendar className="w-4 h-4" /> },
+    { route: 'calendario', label: 'Calendario', icon: <Calendar className="w-4 h-4" />, requiresAuth: true },
   ];
 
   return (

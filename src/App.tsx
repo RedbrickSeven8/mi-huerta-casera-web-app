@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import type { CropItem, CropStage, CropLogEntry, GardenTask, PageRoute } from './types/huerta';
 import { loadCrops, saveCrops, loadTasks, saveTasks, fetchRemoteGardenData } from './services/huertaStorage';
 import { updatePageTitle } from './services/seoManager';
+import { getDaysToHarvestForCrop } from './data/cropsDatabase';
 import { getUser, type UserProfile } from './services/authService';
 import { Header } from './components/Header';
 import { Breadcrumbs } from './components/Breadcrumbs';
@@ -138,19 +139,20 @@ export function App() {
       if (c.id !== cropId) return c;
       const idx = STAGE_ORDER.indexOf(c.stage);
       const nextStage = STAGE_ORDER[(idx + 1) % STAGE_ORDER.length];
+      const recalculatedDays = getDaysToHarvestForCrop(c.name, c.variety, nextStage);
       const logEntry: CropLogEntry = {
         id: 'log-' + Date.now(),
         type: 'Cambio de etapa',
         title: `Evolución fenológica a etapa: ${nextStage}`,
         date: today,
         time: nowTime,
-        notes: `Transición de ${c.stage} a ${nextStage}.`
+        notes: `Transición de ${c.stage} a ${nextStage}. Días estimados para cosecha recalculados a ${recalculatedDays} días.`
       };
       const existingLogs = c.log || [];
       return {
         ...c,
         stage: nextStage,
-        daysToHarvest: nextStage === 'Cosecha' ? 0 : Math.max(3, c.daysToHarvest - 5),
+        daysToHarvest: recalculatedDays,
         log: [logEntry, ...existingLogs]
       };
     });
@@ -286,6 +288,8 @@ export function App() {
             onAddTask={handleAddTask}
             onDeleteTask={handleDeleteTask}
             onNavigate={handleNavigate}
+            user={user}
+            onAuthChange={handleAuthChange}
           />
         )}
         {currentRoute === 'registro' && (
