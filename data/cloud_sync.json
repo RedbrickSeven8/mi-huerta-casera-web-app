@@ -151,53 +151,6 @@
               "time": "07:45"
             }
           ]
-        },
-        {
-          "id": "crop-4",
-          "name": "Zanahoria Nantesa",
-          "variety": "Daucus carota",
-          "bed": "Jardinera Profunda #3",
-          "plantedDate": "2026-09-27",
-          "daysToHarvest": 40,
-          "stage": "Plántula",
-          "recommendedMoisturePercent": 65,
-          "sunHours": 6.5,
-          "waterFrequencyDays": 3,
-          "lastWatered": "Hace 2 días",
-          "notes": "Aclareo hecho.",
-          "imageUrl": "/crops/zanahoria.svg",
-          "imageAlt": "Zanahoria Nantesa",
-          "log": [
-            {
-              "id": "log-auto-1792723764702-oih",
-              "type": "Cambio de etapa",
-              "title": "Transición automática a: Plántula",
-              "date": "2026-10-22",
-              "time": "21:49",
-              "notes": "Cambio de etapa automatizado por calendario astronómico y agronómico (desde etapa Crecimiento). Días restantes: 40."
-            },
-            {
-              "id": "log-401",
-              "type": "Siembra",
-              "title": "Siembra",
-              "date": "2026-09-27",
-              "time": "16:00"
-            },
-            {
-              "id": "log-402",
-              "type": "Poda",
-              "title": "Aclareo",
-              "date": "2026-10-08",
-              "time": "10:30"
-            },
-            {
-              "id": "log-403",
-              "type": "Riego",
-              "title": "Riego",
-              "date": "2026-10-20",
-              "time": "09:00"
-            }
-          ]
         }
       ],
       "tasks": [
@@ -235,7 +188,7 @@
           "completedAt": "2026-10-21"
         }
       ],
-      "updated_at": "2026-10-23T03:24:27.897Z"
+      "updated_at": "2026-10-23T03:24:41.463Z"
     }
   }
 }
