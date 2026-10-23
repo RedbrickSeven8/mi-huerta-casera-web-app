@@ -4,32 +4,6 @@
     "danicamarillo5215@gmail.com": {
       "crops": [
         {
-          "id": "crop-1792729126052",
-          "name": "Pimiento",
-          "variety": "Pimiento del Padrón",
-          "bed": "Bancal Principal #1",
-          "plantedDate": "2026-10-22",
-          "daysToHarvest": 55,
-          "stage": "Plántula",
-          "recommendedMoisturePercent": 70,
-          "sunHours": 7,
-          "waterFrequencyDays": 2,
-          "lastWatered": "Sin registros",
-          "notes": "Sustrato cálido con compost maduro y humus. Cosechar en verde cuando alcancen 4-5 cm.",
-          "imageUrl": "/crops/pimiento.svg",
-          "imageAlt": "Pimiento",
-          "log": [
-            {
-              "id": "log-1792729126052",
-              "type": "Siembra",
-              "title": "Alta: Pimiento",
-              "date": "2026-10-22",
-              "time": "23:18",
-              "notes": "Sustrato cálido con compost maduro y humus. Cosechar en verde cuando alcancen 4-5 cm."
-            }
-          ]
-        },
-        {
           "id": "crop-1792729115240",
           "name": "Lechuga",
           "variety": "Lechuga Escarola",
@@ -91,7 +65,7 @@
           "completedAt": "2026-10-21"
         }
       ],
-      "updated_at": "2026-10-23T04:18:46.393Z"
+      "updated_at": "2026-10-23T16:56:44.682Z"
     },
     "daniel@laspaginasdedani.com": {
       "crops": [
