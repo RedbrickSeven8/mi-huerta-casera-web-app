@@ -2,7 +2,34 @@
   "users": {
     "u1": {},
     "danicamarillo5215@gmail.com": {
-      "crops": [],
+      "crops": [
+        {
+          "id": "crop-1792729115240",
+          "name": "Lechuga",
+          "variety": "Lechuga Escarola",
+          "bed": "Mesa de Cultivo Norte #1",
+          "plantedDate": "2026-10-22",
+          "daysToHarvest": 45,
+          "stage": "Plántula",
+          "recommendedMoisturePercent": 80,
+          "sunHours": 5,
+          "waterFrequencyDays": 1,
+          "lastWatered": "Sin registros",
+          "notes": "Sustrato ligero, rico en compost y con alto retención de humedad. Excelente asociación con cebollas y rábanos.",
+          "imageUrl": "/crops/lechuga.svg",
+          "imageAlt": "Lechuga",
+          "log": [
+            {
+              "id": "log-1792729115240",
+              "type": "Siembra",
+              "title": "Alta: Lechuga",
+              "date": "2026-10-22",
+              "time": "23:18",
+              "notes": "Sustrato ligero, rico en compost y con alto retención de humedad. Excelente asociación con cebollas y rábanos."
+            }
+          ]
+        }
+      ],
       "tasks": [
         {
           "id": "task-1",
@@ -38,7 +65,7 @@
           "completedAt": "2026-10-21"
         }
       ],
-      "updated_at": "2026-10-23T04:18:24.913Z"
+      "updated_at": "2026-10-23T04:18:35.569Z"
     }
   }
 }
