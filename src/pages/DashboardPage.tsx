@@ -24,6 +24,7 @@ interface DashboardPageProps {
   onAdvanceStage: (cropId: string) => void;
   onDeleteCrop: (cropId: string) => void;
   onAddLogEntry: (cropId: string, entry: Omit<CropLogEntry, 'id'>) => void;
+  onDeleteLogEntry: (cropId: string, logId: string) => void;
   onNavigate: (route: PageRoute) => void;
   user: UserProfile | null;
   onAuthChange: (user: UserProfile | null) => void;
@@ -37,6 +38,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   onAdvanceStage,
   onDeleteCrop,
   onAddLogEntry,
+  onDeleteLogEntry,
   onNavigate,
   user,
   onAuthChange
@@ -450,6 +452,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           crop={crops.find((c) => c.id === activeLogCrop.id) || activeLogCrop}
           onClose={() => setActiveLogCrop(null)}
           onAddLogEntry={onAddLogEntry}
+          onDeleteLogEntry={onDeleteLogEntry}
         />
       )}
     </div>

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import type { CropItem, CropStage, CropLogEntry, GardenTask, PageRoute } from './types/huerta';
 import { loadCrops, saveCrops, loadTasks, saveTasks, fetchRemoteGardenData } from './services/huertaStorage';
 import { updatePageTitle } from './services/seoManager';
-import { getDaysToHarvestForCrop } from './data/cropsDatabase';
+import { getDaysToHarvestForCrop, calculateAutomaticStage } from './data/cropsDatabase';
 import { getUser, type UserProfile } from './services/authService';
 import { Header } from './components/Header';
 import { Breadcrumbs } from './components/Breadcrumbs';
@@ -54,10 +54,50 @@ const getCurrentTimeString = () => {
   return d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
 };
 
+function getSynchronizedInitialCrops(): CropItem[] {
+  const initial = loadCrops();
+  const today = getTodayString();
+  const nowTime = getCurrentTimeString();
+  let hasChanged = false;
+
+  const synchronized = initial.map((c) => {
+    if (!c.plantedDate) return c;
+    const { stage: autoStage, daysToHarvest: autoDays } = calculateAutomaticStage(
+      c.name,
+      c.variety,
+      c.plantedDate
+    );
+    if (autoStage !== c.stage) {
+      hasChanged = true;
+      const autoLogEntry: CropLogEntry = {
+        id: 'log-auto-' + Date.now() + '-' + Math.random().toString(36).substring(2, 5),
+        type: 'Cambio de etapa',
+        title: `Transición automática a: ${autoStage}`,
+        date: today,
+        time: nowTime,
+        notes: `Cambio de etapa automatizado por calendario astronómico y agronómico (desde etapa ${c.stage}). Días restantes: ${autoDays}.`
+      };
+      const currentLogs = c.log || [];
+      return {
+        ...c,
+        stage: autoStage,
+        daysToHarvest: autoDays,
+        log: [autoLogEntry, ...currentLogs]
+      };
+    }
+    return c;
+  });
+
+  if (hasChanged) {
+    saveCrops(synchronized);
+  }
+  return synchronized;
+}
+
 export function App() {
   const [currentRoute, setCurrentRoute] = useState<PageRoute>(resolveInitialRoute);
   const [user, setUser] = useState<UserProfile | null>(() => getUser());
-  const [crops, setCrops] = useState<CropItem[]>(() => loadCrops());
+  const [crops, setCrops] = useState<CropItem[]>(() => getSynchronizedInitialCrops());
   const [tasks, setTasks] = useState<GardenTask[]>(() => loadTasks());
 
   useEffect(() => {
@@ -190,6 +230,20 @@ export function App() {
     saveCrops(updated);
   };
 
+  // Delete log entry from a crop
+  const handleDeleteLogEntry = (cropId: string, logId: string) => {
+    const updated = crops.map((c) => {
+      if (c.id !== cropId) return c;
+      const filteredLog = (c.log || []).filter((l) => l.id !== logId);
+      return {
+        ...c,
+        log: filteredLog
+      };
+    });
+    setCrops(updated);
+    saveCrops(updated);
+  };
+
   // Toggle task: when marked as completed, record into the crop's bitácora!
   const handleToggleTask = (taskId: string) => {
     const targetTask = tasks.find((t) => t.id === taskId);
@@ -275,6 +329,7 @@ export function App() {
             onAdvanceStage={handleAdvanceStage}
             onDeleteCrop={handleDeleteCrop}
             onAddLogEntry={handleAddLogEntry}
+            onDeleteLogEntry={handleDeleteLogEntry}
             onNavigate={handleNavigate}
             user={user}
             onAuthChange={handleAuthChange}

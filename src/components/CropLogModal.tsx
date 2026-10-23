@@ -9,7 +9,8 @@ import {
   CalendarCheck,
   Plus,
   BookOpen,
-  ArrowRight
+  ArrowRight,
+  Trash2
 } from 'lucide-react';
 import type { CropItem, CropLogEntry, LogEntryType } from '../types/huerta';
 
@@ -17,6 +18,7 @@ interface CropLogModalProps {
   crop: CropItem;
   onClose: () => void;
   onAddLogEntry: (cropId: string, entry: Omit<CropLogEntry, 'id'>) => void;
+  onDeleteLogEntry: (cropId: string, logId: string) => void;
 }
 
 const getTodayString = () => {
@@ -74,7 +76,12 @@ const getLogBadgeStyle = (type: LogEntryType) => {
   }
 };
 
-export const CropLogModal: React.FC<CropLogModalProps> = ({ crop, onClose, onAddLogEntry }) => {
+export const CropLogModal: React.FC<CropLogModalProps> = ({
+  crop,
+  onClose,
+  onAddLogEntry,
+  onDeleteLogEntry
+}) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [entryType, setEntryType] = useState<LogEntryType>('Riego');
   const [title, setTitle] = useState('');
@@ -231,7 +238,7 @@ export const CropLogModal: React.FC<CropLogModalProps> = ({ crop, onClose, onAdd
           </form>
         )}
 
-        {/* Timeline Log List */}
+        {/* Timeline Log List with Delete Option */}
         <div className="flex-1 overflow-y-auto pr-1 space-y-3">
           {logs.length === 0 ? (
             <div className="text-center py-10 text-[#5A655E] space-y-2">
@@ -242,7 +249,7 @@ export const CropLogModal: React.FC<CropLogModalProps> = ({ crop, onClose, onAdd
             logs.map((entry) => (
               <div
                 key={entry.id}
-                className="p-3.5 rounded-xl border border-[#E2DFD7] bg-[#FAF9F6] flex items-start gap-3 hover:border-[#D5E0D3] transition-colors"
+                className="p-3.5 rounded-xl border border-[#E2DFD7] bg-[#FAF9F6] flex items-start gap-3 hover:border-[#D5E0D3] transition-colors group"
               >
                 <div
                   className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border ${getLogBadgeStyle(
@@ -257,9 +264,20 @@ export const CropLogModal: React.FC<CropLogModalProps> = ({ crop, onClose, onAdd
                     <span className="text-xs font-bold text-[#1A231E]">
                       {entry.title}
                     </span>
-                    <span className="text-[11px] text-[#5A655E] flex items-center gap-1">
-                      {entry.date} {entry.time ? `· ${entry.time}` : ''}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] text-[#5A655E] flex items-center gap-1">
+                        {entry.date} {entry.time ? `· ${entry.time}` : ''}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => onDeleteLogEntry(crop.id, entry.id)}
+                        title="Eliminar este registro de la bitácora"
+                        aria-label={`Eliminar registro ${entry.title}`}
+                        className="p-1 text-gray-400 hover:text-red-700 hover:bg-red-50 rounded transition-colors cursor-pointer"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
 
                   <div className="flex items-center gap-2 mt-1">

@@ -264,3 +264,60 @@ export function getDaysToHarvestForCrop(cropName: string, varietyName: string, s
   };
   return defaults[stage];
 }
+
+export function calculateAutomaticStage(
+  cropName: string,
+  varietyName: string,
+  plantedDateStr: string
+): { stage: CropStage; daysToHarvest: number } {
+  // Parse planted date
+  const plantedParts = plantedDateStr.split('-').map(Number);
+  const planted = new Date(plantedParts[0], (plantedParts[1] || 1) - 1, plantedParts[2] || 1);
+  const now = new Date();
+  // Strip time for exact day difference
+  const todayUtc = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const plantedUtc = new Date(planted.getFullYear(), planted.getMonth(), planted.getDate());
+  const diffTime = todayUtc.getTime() - plantedUtc.getTime();
+  const daysPassed = Math.max(0, Math.floor(diffTime / (1000 * 60 * 60 * 24)));
+
+  const category = CROPS_DATABASE.find(
+    (c) => c.cropName.toLowerCase() === cropName.toLowerCase()
+  );
+  const variety = category?.varieties.find(
+    (v) => v.varietyName.toLowerCase() === varietyName.toLowerCase()
+  ) || category?.varieties[0];
+
+  const totalSeedDays = variety?.stageDaysToHarvest.Semilla ?? 65;
+  const daysPlántula = variety?.stageDaysToHarvest.Plántula ?? 45;
+  const daysCrecimiento = variety?.stageDaysToHarvest.Crecimiento ?? 25;
+  const daysFloracion = variety?.stageDaysToHarvest.Floración ?? 10;
+
+  // Cumulative intervals from planting date:
+  // Semilla: 0 to (totalSeedDays - daysPlántula)
+  // Plántula: up to (totalSeedDays - daysCrecimiento)
+  // Crecimiento: up to (totalSeedDays - daysFloracion)
+  // Floración: up to totalSeedDays
+  // Cosecha: >= totalSeedDays
+  const thresholdSemilla = Math.max(1, totalSeedDays - daysPlántula);
+  const thresholdPlántula = Math.max(thresholdSemilla + 1, totalSeedDays - daysCrecimiento);
+  const thresholdCrecimiento = Math.max(thresholdPlántula + 1, totalSeedDays - daysFloracion);
+  const thresholdFloracion = Math.max(thresholdCrecimiento + 1, totalSeedDays);
+
+  let stage: CropStage = 'Semilla';
+  let daysToHarvest = Math.max(0, totalSeedDays - daysPassed);
+
+  if (daysPassed >= thresholdFloracion) {
+    stage = 'Cosecha';
+    daysToHarvest = 0;
+  } else if (daysPassed >= thresholdCrecimiento) {
+    stage = 'Floración';
+  } else if (daysPassed >= thresholdPlántula) {
+    stage = 'Crecimiento';
+  } else if (daysPassed >= thresholdSemilla) {
+    stage = 'Plántula';
+  } else {
+    stage = 'Semilla';
+  }
+
+  return { stage, daysToHarvest };
+}
