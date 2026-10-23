@@ -92,6 +92,210 @@
         }
       ],
       "updated_at": "2026-10-23T04:18:46.393Z"
+    },
+    "daniel@laspaginasdedani.com": {
+      "crops": [
+        {
+          "id": "crop-1",
+          "name": "Tomate Cherry",
+          "variety": "Solanum lycopersicum var. cerasiforme",
+          "bed": "Bancal Sur #1",
+          "plantedDate": "2026-10-03",
+          "daysToHarvest": 18,
+          "stage": "Floración",
+          "recommendedMoisturePercent": 72,
+          "sunHours": 7.5,
+          "waterFrequencyDays": 2,
+          "lastWatered": "Hoy, 08:30",
+          "notes": "Tutorado colocado.",
+          "imageUrl": "/crops/tomate.svg",
+          "imageAlt": "Tomate Cherry",
+          "log": [
+            {
+              "id": "log-101",
+              "type": "Siembra",
+              "title": "Siembra en bancal",
+              "date": "2026-10-03",
+              "time": "09:00",
+              "notes": "Sustrato con compost."
+            },
+            {
+              "id": "log-102",
+              "type": "Abonado",
+              "title": "Abonado",
+              "date": "2026-10-11",
+              "time": "18:30"
+            },
+            {
+              "id": "log-103",
+              "type": "Poda",
+              "title": "Poda de brotes",
+              "date": "2026-10-18",
+              "time": "11:15"
+            },
+            {
+              "id": "log-104",
+              "type": "Riego",
+              "title": "Riego",
+              "date": "2026-10-23",
+              "time": "08:30"
+            }
+          ]
+        },
+        {
+          "id": "crop-2",
+          "name": "Albahaca Genovesa",
+          "variety": "Ocimum basilicum",
+          "bed": "Bancal Sur #1",
+          "plantedDate": "2026-10-08",
+          "daysToHarvest": 7,
+          "stage": "Cosecha",
+          "recommendedMoisturePercent": 68,
+          "sunHours": 6,
+          "waterFrequencyDays": 2,
+          "lastWatered": "Ayer, 19:00",
+          "notes": "Poda realizada.",
+          "imageUrl": "/crops/albahaca.svg",
+          "imageAlt": "Albahaca Genovesa",
+          "log": [
+            {
+              "id": "log-201",
+              "type": "Siembra",
+              "title": "Siembra",
+              "date": "2026-10-08",
+              "time": "10:00"
+            },
+            {
+              "id": "log-202",
+              "type": "Poda",
+              "title": "Poda apical",
+              "date": "2026-10-16",
+              "time": "17:00"
+            },
+            {
+              "id": "log-203",
+              "type": "Riego",
+              "title": "Riego",
+              "date": "2026-10-22",
+              "time": "19:00"
+            }
+          ]
+        },
+        {
+          "id": "crop-3",
+          "name": "Lechuga Hoja de Roble",
+          "variety": "Lactuca sativa",
+          "bed": "Mesa de Cultivo Norte #2",
+          "plantedDate": "2026-10-13",
+          "daysToHarvest": 12,
+          "stage": "Crecimiento",
+          "recommendedMoisturePercent": 80,
+          "sunHours": 5,
+          "waterFrequencyDays": 1,
+          "lastWatered": "Hoy, 07:45",
+          "notes": "Sustrato húmedo.",
+          "imageUrl": "/crops/lechuga.svg",
+          "imageAlt": "Lechuga Hoja de Roble",
+          "log": [
+            {
+              "id": "log-301",
+              "type": "Siembra",
+              "title": "Siembra",
+              "date": "2026-10-13",
+              "time": "08:00"
+            },
+            {
+              "id": "log-302",
+              "type": "Control preventivo",
+              "title": "Control preventivo",
+              "date": "2026-10-20",
+              "time": "12:00"
+            },
+            {
+              "id": "log-303",
+              "type": "Riego",
+              "title": "Riego",
+              "date": "2026-10-23",
+              "time": "07:45"
+            }
+          ]
+        },
+        {
+          "id": "crop-4",
+          "name": "Zanahoria Nantesa",
+          "variety": "Daucus carota",
+          "bed": "Jardinera Profunda #3",
+          "plantedDate": "2026-09-28",
+          "daysToHarvest": 26,
+          "stage": "Crecimiento",
+          "recommendedMoisturePercent": 65,
+          "sunHours": 6.5,
+          "waterFrequencyDays": 3,
+          "lastWatered": "Hace 2 días",
+          "notes": "Aclareo hecho.",
+          "imageUrl": "/crops/zanahoria.svg",
+          "imageAlt": "Zanahoria Nantesa",
+          "log": [
+            {
+              "id": "log-401",
+              "type": "Siembra",
+              "title": "Siembra",
+              "date": "2026-09-28",
+              "time": "16:00"
+            },
+            {
+              "id": "log-402",
+              "type": "Poda",
+              "title": "Aclareo",
+              "date": "2026-10-09",
+              "time": "10:30"
+            },
+            {
+              "id": "log-403",
+              "type": "Riego",
+              "title": "Riego",
+              "date": "2026-10-21",
+              "time": "09:00"
+            }
+          ]
+        }
+      ],
+      "tasks": [
+        {
+          "id": "task-1",
+          "cropId": "crop-2",
+          "cropName": "Albahaca Genovesa",
+          "type": "Riego",
+          "dueDate": "2026-10-23",
+          "completed": false
+        },
+        {
+          "id": "task-2",
+          "cropId": "crop-1",
+          "cropName": "Tomate Cherry",
+          "type": "Abonado",
+          "dueDate": "2026-10-24",
+          "completed": false
+        },
+        {
+          "id": "task-3",
+          "cropId": "crop-4",
+          "cropName": "Zanahoria Nantesa",
+          "type": "Riego",
+          "dueDate": "2026-10-25",
+          "completed": false
+        },
+        {
+          "id": "task-4",
+          "cropId": "crop-3",
+          "cropName": "Lechuga Hoja de Roble",
+          "type": "Control preventivo",
+          "dueDate": "2026-10-26",
+          "completed": true,
+          "completedAt": "2026-10-22"
+        }
+      ],
+      "updated_at": "2026-10-23T16:56:18.465Z"
     }
   }
 }
