@@ -4,53 +4,6 @@
     "danicamarillo5215@gmail.com": {
       "crops": [
         {
-          "id": "crop-2",
-          "name": "Albahaca Genovesa",
-          "variety": "Ocimum basilicum",
-          "bed": "Bancal Sur #1",
-          "plantedDate": "2026-10-07",
-          "daysToHarvest": 50,
-          "stage": "Semilla",
-          "recommendedMoisturePercent": 68,
-          "sunHours": 6,
-          "waterFrequencyDays": 2,
-          "lastWatered": "Ayer, 19:00",
-          "notes": "Poda realizada.",
-          "imageUrl": "/crops/albahaca.svg",
-          "imageAlt": "Albahaca Genovesa",
-          "log": [
-            {
-              "id": "log-auto-1792723764702-q3m",
-              "type": "Cambio de etapa",
-              "title": "Transición automática a: Semilla",
-              "date": "2026-10-22",
-              "time": "21:49",
-              "notes": "Cambio de etapa automatizado por calendario astronómico y agronómico (desde etapa Cosecha). Días restantes: 50."
-            },
-            {
-              "id": "log-201",
-              "type": "Siembra",
-              "title": "Siembra",
-              "date": "2026-10-07",
-              "time": "10:00"
-            },
-            {
-              "id": "log-202",
-              "type": "Poda",
-              "title": "Poda apical",
-              "date": "2026-10-15",
-              "time": "17:00"
-            },
-            {
-              "id": "log-203",
-              "type": "Riego",
-              "title": "Riego",
-              "date": "2026-10-21",
-              "time": "19:00"
-            }
-          ]
-        },
-        {
           "id": "crop-3",
           "name": "Lechuga Hoja de Roble",
           "variety": "Lactuca sativa",
@@ -133,7 +86,7 @@
           "completedAt": "2026-10-21"
         }
       ],
-      "updated_at": "2026-10-23T03:24:47.597Z"
+      "updated_at": "2026-10-23T03:39:29.770Z"
     }
   }
 }
