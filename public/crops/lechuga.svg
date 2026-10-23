@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <rect width="120" height="120" rx="16" fill="#ECFDF5"/>
+  <!-- Hojas exteriores -->
+  <circle cx="60" cy="65" r="42" fill="#15803D" opacity="0.8"/>
+  <path d="M25 65 C25 45 40 30 60 30 C80 30 95 45 95 65 C95 85 80 98 60 98 C40 98 25 85 25 65 Z" fill="#16A34A"/>
+  <!-- Capas intermedias onduladas -->
+  <path d="M35 68 C35 50 48 38 60 38 C72 38 85 50 85 68 C85 82 72 92 60 92 C48 92 35 82 35 68 Z" fill="#22C55E"/>
+  <path d="M44 70 C44 56 52 46 60 46 C68 46 76 56 76 70 C76 80 68 86 60 86 C52 86 44 80 44 70 Z" fill="#4ADE80"/>
+  <ellipse cx="60" cy="70" rx="8" ry="12" fill="#86EFAC"/>
+</svg>

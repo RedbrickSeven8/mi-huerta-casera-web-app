@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { ShieldCheck, AlertCircle, CheckCircle2 } from 'lucide-react';
 import type { CropItem, CropStage, PageRoute } from '../types/huerta';
 import { recordConsentEvent } from '../services/auditLogger';
 import { hasAcceptedLegalConsents, setAcceptedLegalConsents } from '../services/consentService';
-import { CROPS_DATABASE, type CropCategory, type CropVarietyInfo } from '../data/cropsDatabase';
+import { CROPS_DATABASE, type CropCategory, type CropVarietyInfo, getCropImage } from '../data/cropsDatabase';
 
 interface RegisterPageProps {
   onAddCrop: (crop: CropItem) => void;
@@ -21,14 +22,11 @@ const getTodayString = () => {
 };
 
 export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigate }) => {
-  // Check if legal consents have already been accepted once
   const [alreadyAcceptedConsents, setAlreadyAcceptedConsents] = useState<boolean>(() => hasAcceptedLegalConsents());
 
-  // Crop selection
   const [selectedCropName, setSelectedCropName] = useState<string>(CROPS_DATABASE[0].cropName);
   const [selectedVarietyName, setSelectedVarietyName] = useState<string>(CROPS_DATABASE[0].varieties[0].varietyName);
 
-  // Agronomic parameters
   const [plantedDate, setPlantedDate] = useState<string>(getTodayString());
   const [stage, setStage] = useState<CropStage>('Plántula');
   const [bed, setBed] = useState<string>(CROPS_DATABASE[0].varieties[0].recommendedBed);
@@ -38,22 +36,18 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
   const [sunHours, setSunHours] = useState<number>(CROPS_DATABASE[0].varieties[0].sunHours);
   const [notes, setNotes] = useState<string>(CROPS_DATABASE[0].varieties[0].notes);
 
-  // Independent legal checkboxes (only needed if not already accepted)
   const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Current active category object
   const currentCategory: CropCategory | undefined = CROPS_DATABASE.find(
     (c) => c.cropName === selectedCropName
   );
 
-  // Current active variety object
   const currentVariety: CropVarietyInfo | undefined = currentCategory?.varieties.find(
     (v) => v.varietyName === selectedVarietyName
   );
 
-  // When crop name changes, update variety list to first available variety and autofill
   const handleCropNameChange = (newCropName: string) => {
     setSelectedCropName(newCropName);
     const category = CROPS_DATABASE.find((c) => c.cropName === newCropName);
@@ -64,7 +58,6 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
     }
   };
 
-  // When variety name changes, autofill
   const handleVarietyNameChange = (newVarietyName: string) => {
     setSelectedVarietyName(newVarietyName);
     const varietyObj = currentCategory?.varieties.find((v) => v.varietyName === newVarietyName);
@@ -73,7 +66,6 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
     }
   };
 
-  // When stage changes, update days to harvest based on current variety
   const handleStageChange = (newStage: CropStage) => {
     setStage(newStage);
     if (currentVariety) {
@@ -81,7 +73,6 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
     }
   };
 
-  // Helper to pre-fill fields according to selected variety and stage
   const updateFieldsFromVariety = (varietyObj: CropVarietyInfo, currentStage: CropStage) => {
     setBed(varietyObj.recommendedBed);
     setDaysToHarvest(varietyObj.stageDaysToHarvest[currentStage]);
@@ -94,62 +85,59 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // If consents were not previously accepted, validate both independent checkboxes
     if (!alreadyAcceptedConsents) {
       if (!acceptedPrivacy || !acceptedTerms) {
         setErrorMessage(
-          'Debes marcar de forma independiente tanto la Política de Privacidad como los Términos y Condiciones antes de continuar.'
+          'Acepta la Política de Privacidad y los Términos y Condiciones.'
         );
         return;
       }
 
-      // Record Technical Audit Log for Privacy Policy Consent
       recordConsentEvent({
         consentType: 'Política de Privacidad',
         status: 'Aceptado',
-        acceptanceMethod: 'Marcado explícito de casilla independiente (checkbox #accept-privacy) + alta de cultivo',
-        formOrigin: 'Formulario de Alta de Cultivo (/registro)',
-        userIdentifier: 'Usuario de Huertamanía'
+        acceptanceMethod: 'Casilla independiente (#accept-privacy) en alta de cultivo',
+        formOrigin: 'Formulario de Alta (/registro)',
+        userIdentifier: 'Usuario'
       });
 
-      // Record Technical Audit Log for Terms and Conditions
       recordConsentEvent({
         consentType: 'Términos y Condiciones',
         status: 'Aceptado',
-        acceptanceMethod: 'Marcado explícito de casilla independiente (checkbox #accept-terms) + alta de cultivo',
-        formOrigin: 'Formulario de Alta de Cultivo (/registro)',
-        userIdentifier: 'Usuario de Huertamanía'
+        acceptanceMethod: 'Casilla independiente (#accept-terms) en alta de cultivo',
+        formOrigin: 'Formulario de Alta (/registro)',
+        userIdentifier: 'Usuario'
       });
 
-      // Save consent flag so Daniel doesn't have to accept again in future crops
       setAcceptedLegalConsents(true);
       setAlreadyAcceptedConsents(true);
     }
 
     const newCropId = 'crop-' + Date.now();
+    const { imageUrl, imageAlt } = getCropImage(selectedCropName);
     const newCrop: CropItem = {
       id: newCropId,
       name: selectedCropName,
       variety: selectedVarietyName,
-      bed: bed.trim() || 'Bancal Huerto 1',
+      bed: bed.trim() || 'Bancal 1',
       plantedDate: plantedDate || getTodayString(),
       daysToHarvest: Number(daysToHarvest) || 30,
       stage,
       recommendedMoisturePercent: Number(recommendedMoisture) || 70,
       sunHours: Number(sunHours) || 6,
       waterFrequencyDays: Number(waterFrequencyDays) || 2,
-      lastWatered: 'Sin registros de riego',
+      lastWatered: 'Sin registros',
       notes: notes.trim(),
-      imageUrl: '/hero-garden.svg',
-      imageAlt: `Fotografía de cultivo de ${selectedCropName} variedad ${selectedVarietyName}`,
+      imageUrl,
+      imageAlt,
       log: [
         {
           id: 'log-' + Date.now(),
           type: 'Siembra',
-          title: `Siembra / Alta en huerta: ${selectedCropName} (${selectedVarietyName})`,
+          title: `Alta: ${selectedCropName}`,
           date: plantedDate || getTodayString(),
           time: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
-          notes: `Ubicación: ${bed}. Etapa inicial: ${stage}. Humedad recomendada: ${recommendedMoisture}%.`
+          notes: notes.trim() || undefined
         }
       ]
     };
@@ -159,29 +147,33 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="max-w-3xl mx-auto px-4 sm:px-6 py-8 space-y-6"
+    >
       <div className="border-b border-[#E2DFD7] pb-4">
         <h1 className="text-2xl sm:text-3xl font-bold text-[#1A231E]">
-          Añadir Nuevo Cultivo a la Huerta
+          Nuevo Cultivo
         </h1>
         <p className="text-sm text-[#4A554E] mt-1">
-          Configuración agronómica de variedad, etapa fenológica, ubicación y parámetros recomendados.
+          Parámetros del cultivo.
         </p>
       </div>
 
       {errorMessage && (
-        <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-800 text-sm flex items-start gap-2.5">
+        <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-sm flex items-start gap-2.5">
           <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-red-600" />
           <span>{errorMessage}</span>
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 sm:p-8 rounded-2xl border border-[#E2DFD7] shadow-xs">
-        {/* Selector de Cultivo y Variedad */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label htmlFor="crop-name" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
-              Tipo de Especie de Huerta *
+              Especie *
             </label>
             <select
               id="crop-name"
@@ -199,7 +191,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
 
           <div>
             <label htmlFor="crop-variety" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
-              Variedad Botánica Específica *
+              Variedad *
             </label>
             <select
               id="crop-variety"
@@ -209,18 +201,17 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
             >
               {currentCategory?.varieties.map((v) => (
                 <option key={v.varietyName} value={v.varietyName}>
-                  {v.varietyName} ({v.botanicalName})
+                  {v.varietyName}
                 </option>
               ))}
             </select>
           </div>
         </div>
 
-        {/* Fecha de plantación y Etapa fenológica */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
           <div className="w-full">
             <label htmlFor="planted-date" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
-              Fecha de plantación o siembra *
+              Fecha de siembra *
             </label>
             <div className="relative w-full">
               <input
@@ -236,7 +227,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
 
           <div>
             <label htmlFor="crop-stage" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
-              Etapa fenológica inicial *
+              Etapa inicial *
             </label>
             <select
               id="crop-stage"
@@ -253,10 +244,9 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
           </div>
         </div>
 
-        {/* Ubicación / Bancal */}
         <div>
           <label htmlFor="crop-bed" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
-            Ubicación / Bancal de destino *
+            Ubicación / Bancal *
           </label>
           <input
             id="crop-bed"
@@ -264,16 +254,15 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
             value={bed}
             onChange={(e) => setBed(e.target.value)}
             required
-            placeholder="Ej: Bancal Sur #1, Mesa Norte, Jardinera Profunda"
+            placeholder="Bancal 1, Mesa Norte, Jardinera"
             className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27]"
           />
         </div>
 
-        {/* Parámetros técnicos agronómicos autorellenados */}
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-[#FAF9F6] p-4 rounded-xl border border-[#E2DFD7]">
           <div>
             <label htmlFor="crop-harvest-days" className="block text-[11px] font-semibold text-[#5A655E] mb-1">
-              Días estim. cosecha
+              Días cosecha
             </label>
             <input
               id="crop-harvest-days"
@@ -287,7 +276,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
 
           <div>
             <label htmlFor="crop-moisture" className="block text-[11px] font-semibold text-[#5A655E] mb-1">
-              Humedad rec. (%)
+              Humedad (%)
             </label>
             <input
               id="crop-moisture"
@@ -302,7 +291,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
 
           <div>
             <label htmlFor="crop-water-freq" className="block text-[11px] font-semibold text-[#5A655E] mb-1">
-              Frecuencia riego (días)
+              Riego (días)
             </label>
             <input
               id="crop-water-freq"
@@ -316,7 +305,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
 
           <div>
             <label htmlFor="crop-sun-hours" className="block text-[11px] font-semibold text-[#5A655E] mb-1">
-              Sol directo (h/día)
+              Sol (h/día)
             </label>
             <input
               id="crop-sun-hours"
@@ -330,48 +319,41 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
           </div>
         </div>
 
-        {/* Observaciones agronómicas */}
         <div>
           <label htmlFor="crop-notes" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
-            Observaciones de sustrato y asociación recomendadas
+            Notas
           </label>
           <textarea
             id="crop-notes"
-            rows={3}
+            rows={2}
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27]"
           />
         </div>
 
-        {/* Independent Legal Checkboxes or Already Accepted Notice */}
         {alreadyAcceptedConsents ? (
-          <div className="p-4 rounded-xl bg-[#2D5A27]/5 border border-[#2D5A27]/20 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5">
-              <CheckCircle2 className="w-5 h-5 text-[#2D5A27] shrink-0" />
-              <div className="text-xs text-[#2D5A27]">
-                <span className="font-semibold block">Consentimientos Legales Aceptados Previamente</span>
-                <span className="text-[#4A554E]">
-                  Ya has validado la Política de Privacidad y Términos y Condiciones. No se requiere volver a marcarlos.
-                </span>
-              </div>
+          <div className="p-3.5 rounded-xl bg-[#2D5A27]/5 border border-[#2D5A27]/20 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-[#2D5A27] shrink-0" />
+              <span className="text-xs text-[#2D5A27] font-medium">Consentimientos aceptados.</span>
             </div>
             <button
               type="button"
               onClick={() => onNavigate('auditoria')}
-              className="text-xs text-[#2D5A27] underline font-medium hover:text-[#1A231E] shrink-0"
+              className="text-xs text-[#2D5A27] underline hover:text-[#1A231E] shrink-0"
             >
-              Ver auditoría
+              Auditoría
             </button>
           </div>
         ) : (
           <div className="p-4 rounded-xl bg-[#FAF9F6] border border-[#E2DFD7] space-y-3">
             <div className="flex items-center gap-1.5 text-xs font-semibold text-[#1A231E]">
               <ShieldCheck className="w-4 h-4 text-[#2D5A27]" />
-              <span>Consentimientos Legales Independientes (Responsable: las paginas de dani)</span>
+              <span>Consentimientos (Responsable: las paginas de dani)</span>
             </div>
 
-            <label htmlFor="accept-privacy" className="flex items-start gap-2.5 text-xs text-[#4A554E] cursor-pointer">
+            <label htmlFor="accept-privacy" className="flex items-start gap-2 text-xs text-[#4A554E] cursor-pointer">
               <input
                 id="accept-privacy"
                 type="checkbox"
@@ -380,22 +362,22 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
                   setAcceptedPrivacy(e.target.checked);
                   setErrorMessage(null);
                 }}
-                className="mt-0.5 rounded border-[#8A968E] text-[#2D5A27] focus:ring-[#2D5A27]"
+                className="mt-0.5 rounded border-[#8A968E] text-[#2D5A27]"
               />
               <span>
-                He leído y acepto la{' '}
+                Acepto la{' '}
                 <button
                   type="button"
                   onClick={() => onNavigate('privacidad')}
-                  className="underline font-semibold text-[#2D5A27] hover:text-[#1A231E]"
+                  className="underline font-semibold text-[#2D5A27]"
                 >
                   Política de Privacidad
-                </button>{' '}
-                sobre el tratamiento de datos de gestión de huerta por parte de <strong>las paginas de dani</strong>. *
+                </button>
+                . *
               </span>
             </label>
 
-            <label htmlFor="accept-terms" className="flex items-start gap-2.5 text-xs text-[#4A554E] cursor-pointer">
+            <label htmlFor="accept-terms" className="flex items-start gap-2 text-xs text-[#4A554E] cursor-pointer">
               <input
                 id="accept-terms"
                 type="checkbox"
@@ -404,18 +386,18 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
                   setAcceptedTerms(e.target.checked);
                   setErrorMessage(null);
                 }}
-                className="mt-0.5 rounded border-[#8A968E] text-[#2D5A27] focus:ring-[#2D5A27]"
+                className="mt-0.5 rounded border-[#8A968E] text-[#2D5A27]"
               />
               <span>
-                He leído y acepto los{' '}
+                Acepto los{' '}
                 <button
                   type="button"
                   onClick={() => onNavigate('terminos')}
-                  className="underline font-semibold text-[#2D5A27] hover:text-[#1A231E]"
+                  className="underline font-semibold text-[#2D5A27]"
                 >
                   Términos y Condiciones
-                </button>{' '}
-                de uso de la aplicación web Mi Huerta Casera. *
+                </button>
+                . *
               </span>
             </label>
           </div>
@@ -427,17 +409,18 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
             onClick={() => onNavigate('auditoria')}
             className="text-xs underline text-[#5A655E] hover:text-[#1A231E]"
           >
-            Inspeccionar registro técnico de auditoría →
+            Auditoría →
           </button>
 
-          <button
+          <motion.button
+            whileTap={{ scale: 0.95 }}
             type="submit"
-            className="px-6 py-3 rounded-xl bg-[#2D5A27] text-[#FAF9F6] text-sm font-semibold hover:bg-[#23471E] transition-all transform active:scale-95 cursor-pointer shadow-sm"
+            className="px-6 py-3 rounded-xl bg-[#2D5A27] text-[#FAF9F6] text-sm font-semibold hover:bg-[#23471E] transition-colors cursor-pointer shadow-sm"
           >
-            Guardar Cultivo en la Huerta
-          </button>
+            Guardar Cultivo
+          </motion.button>
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 };

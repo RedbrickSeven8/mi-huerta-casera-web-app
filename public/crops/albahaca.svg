@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <rect width="120" height="120" rx="16" fill="#DCFCE7"/>
+  <!-- Tallo central -->
+  <path d="M60 100 L60 30" stroke="#166534" stroke-width="4" stroke-linecap="round"/>
+  <!-- Hojas inferiores -->
+  <path d="M60 75 C40 75 30 65 25 55 C35 50 50 60 60 75 Z" fill="#15803D"/>
+  <path d="M60 75 C80 75 90 65 95 55 C85 50 70 60 60 75 Z" fill="#16A34A"/>
+  <!-- Hojas medias -->
+  <path d="M60 55 C42 50 35 40 32 30 C42 28 52 38 60 55 Z" fill="#16A34A"/>
+  <path d="M60 55 C78 50 85 40 88 30 C78 28 68 38 60 55 Z" fill="#22C55E"/>
+  <!-- Cogollo apical -->
+  <path d="M60 32 C50 24 55 12 60 12 C65 12 70 24 60 32 Z" fill="#4ADE80"/>
+</svg>

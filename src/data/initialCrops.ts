@@ -22,41 +22,38 @@ export const INITIAL_CROPS: CropItem[] = [
     sunHours: 7.5,
     waterFrequencyDays: 2,
     lastWatered: 'Hoy, 08:30',
-    notes: 'Tutorado revisado. Racimos florales sanos sin pulgón.',
-    imageUrl: '/hero-garden.svg',
-    imageAlt: 'Ilustración de cultivo de Tomate Cherry en Bancal Sur',
+    notes: 'Tutorado colocado.',
+    imageUrl: '/crops/tomate.svg',
+    imageAlt: 'Tomate Cherry',
     log: [
       {
         id: 'log-101',
         type: 'Siembra',
-        title: 'Trasplante a bancal definitivo',
+        title: 'Siembra en bancal',
         date: getTodayFormatted(-20),
         time: '09:00',
-        notes: 'Sustrato enriquecido con humus y riego profundo inicial.'
+        notes: 'Sustrato con compost.'
       },
       {
         id: 'log-102',
         type: 'Abonado',
-        title: 'Aporte de té de compost y potasio',
+        title: 'Abonado',
         date: getTodayFormatted(-12),
-        time: '18:30',
-        notes: 'Nutrientes para favorecer la floración.'
+        time: '18:30'
       },
       {
         id: 'log-103',
         type: 'Poda',
-        title: 'Deschuponado de axilas foliares',
+        title: 'Poda de brotes',
         date: getTodayFormatted(-5),
-        time: '11:15',
-        notes: 'Retirados brotes axilares para concentrar vigor floral.'
+        time: '11:15'
       },
       {
         id: 'log-104',
         type: 'Riego',
-        title: 'Riego profundo por goteo',
+        title: 'Riego',
         date: getTodayFormatted(0),
-        time: '08:30',
-        notes: 'Riego matutino registrado sin alterar humedad diana recomendada (72%).'
+        time: '08:30'
       }
     ]
   },
@@ -72,33 +69,30 @@ export const INITIAL_CROPS: CropItem[] = [
     sunHours: 6.0,
     waterFrequencyDays: 2,
     lastWatered: 'Ayer, 19:00',
-    notes: 'Poda apical realizada para estimular ramificación lateral.',
-    imageUrl: '/hero-garden.svg',
-    imageAlt: 'Ilustración de planta de Albahaca Genovesa asociada al tomate',
+    notes: 'Poda realizada.',
+    imageUrl: '/crops/albahaca.svg',
+    imageAlt: 'Albahaca Genovesa',
     log: [
       {
         id: 'log-201',
         type: 'Siembra',
-        title: 'Asociación benéfica junto a Tomate Cherry',
+        title: 'Siembra',
         date: getTodayFormatted(-15),
-        time: '10:00',
-        notes: 'Repele plagas y mejora aroma del bancal.'
+        time: '10:00'
       },
       {
         id: 'log-202',
         type: 'Poda',
-        title: 'Despunte apical',
+        title: 'Poda apical',
         date: getTodayFormatted(-7),
-        time: '17:00',
-        notes: 'Se evita floración anticipada para más follaje.'
+        time: '17:00'
       },
       {
         id: 'log-203',
         type: 'Riego',
-        title: 'Riego a pie de planta',
+        title: 'Riego',
         date: getTodayFormatted(-1),
-        time: '19:00',
-        notes: 'Humedad basal mantenida sin mojar follaje.'
+        time: '19:00'
       }
     ]
   },
@@ -114,33 +108,30 @@ export const INITIAL_CROPS: CropItem[] = [
     sunHours: 5.0,
     waterFrequencyDays: 1,
     lastWatered: 'Hoy, 07:45',
-    notes: 'Sustrato fresco con acolchado de paja ecológica.',
-    imageUrl: '/hero-garden.svg',
-    imageAlt: 'Ilustración de cultivo de Lechuga Hoja de Roble en mesa de cultivo',
+    notes: 'Sustrato húmedo.',
+    imageUrl: '/crops/lechuga.svg',
+    imageAlt: 'Lechuga Hoja de Roble',
     log: [
       {
         id: 'log-301',
         type: 'Siembra',
-        title: 'Siembra escalonada en mesa elevada',
+        title: 'Siembra',
         date: getTodayFormatted(-10),
-        time: '08:00',
-        notes: 'Distancia de 20 cm entre plántulas.'
+        time: '08:00'
       },
       {
         id: 'log-302',
         type: 'Control preventivo',
-        title: 'Colocación de barrera anti-babosas',
+        title: 'Control preventivo',
         date: getTodayFormatted(-3),
-        time: '12:00',
-        notes: 'Cinta de cobre en las patas de la mesa.'
+        time: '12:00'
       },
       {
         id: 'log-303',
         type: 'Riego',
-        title: 'Riego matinal suave',
+        title: 'Riego',
         date: getTodayFormatted(0),
-        time: '07:45',
-        notes: 'Humedad óptima recomendada de 80% preservada.'
+        time: '07:45'
       }
     ]
   },
@@ -156,33 +147,30 @@ export const INITIAL_CROPS: CropItem[] = [
     sunHours: 6.5,
     waterFrequencyDays: 3,
     lastWatered: 'Hace 2 días',
-    notes: 'Aclareo completado a 8 cm entre raíces.',
-    imageUrl: '/hero-garden.svg',
-    imageAlt: 'Ilustración de cultivo de Zanahoria Nantesa en jardinera profunda',
+    notes: 'Aclareo hecho.',
+    imageUrl: '/crops/zanahoria.svg',
+    imageAlt: 'Zanahoria Nantesa',
     log: [
       {
         id: 'log-401',
         type: 'Siembra',
-        title: 'Siembra directa en sustrato arenoso',
+        title: 'Siembra',
         date: getTodayFormatted(-25),
-        time: '16:00',
-        notes: 'Líneas rectas a 1 cm de profundidad.'
+        time: '16:00'
       },
       {
         id: 'log-402',
         type: 'Poda',
-        title: 'Aclareo de plántulas apiñadas',
+        title: 'Aclareo',
         date: getTodayFormatted(-14),
-        time: '10:30',
-        notes: 'Espaciado a 8 cm para engorde cónico uniforme.'
+        time: '10:30'
       },
       {
         id: 'log-403',
         type: 'Riego',
-        title: 'Riego regular de penetración',
+        title: 'Riego',
         date: getTodayFormatted(-2),
-        time: '09:00',
-        notes: 'Riego sin encharcamiento para evitar grietas.'
+        time: '09:00'
       }
     ]
   }

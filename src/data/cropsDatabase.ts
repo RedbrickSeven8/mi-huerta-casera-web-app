@@ -321,3 +321,26 @@ export function calculateAutomaticStage(
 
   return { stage, daysToHarvest };
 }
+
+export function getCropImage(cropName: string): { imageUrl: string; imageAlt: string } {
+  const lower = cropName.toLowerCase();
+  if (lower.includes('tomate')) {
+    return { imageUrl: '/crops/tomate.svg', imageAlt: 'Tomate' };
+  }
+  if (lower.includes('albahaca')) {
+    return { imageUrl: '/crops/albahaca.svg', imageAlt: 'Albahaca' };
+  }
+  if (lower.includes('lechuga')) {
+    return { imageUrl: '/crops/lechuga.svg', imageAlt: 'Lechuga' };
+  }
+  if (lower.includes('zanahoria')) {
+    return { imageUrl: '/crops/zanahoria.svg', imageAlt: 'Zanahoria' };
+  }
+  if (lower.includes('pimiento')) {
+    return { imageUrl: '/crops/pimiento.svg', imageAlt: 'Pimiento' };
+  }
+  if (lower.includes('espinaca')) {
+    return { imageUrl: '/crops/espinaca.svg', imageAlt: 'Espinaca' };
+  }
+  return { imageUrl: '/crops/lechuga.svg', imageAlt: cropName };
+}

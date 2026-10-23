@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   Calendar as CalendarIcon,
   CheckSquare,
@@ -15,8 +16,7 @@ import {
   Droplets,
   ShieldAlert,
   CalendarCheck,
-  Lock,
-  LogIn
+  Lock
 } from 'lucide-react';
 import type { GardenTask, CropItem, PageRoute } from '../types/huerta';
 import { GoogleAuthButton } from '../components/GoogleAuthButton';
@@ -56,10 +56,8 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
   const [dueDate, setDueDate] = useState<string>(getTodayString());
   const [viewMode, setViewMode] = useState<'calendar' | 'list'>('calendar');
 
-  // Calendar Grid state
   const [currentMonthDate, setCurrentMonthDate] = useState<Date>(() => new Date());
 
-  // Modal states
   const [selectedTaskModal, setSelectedTaskModal] = useState<GardenTask | null>(null);
   const [selectedDayModal, setSelectedDayModal] = useState<{
     dateStr: string;
@@ -67,35 +65,32 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
     dayTasks: GardenTask[];
   } | null>(null);
 
-  // Authentication gate: Lock calendar if user is not authenticated
   if (!user) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center space-y-6 animate-fade-in">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="max-w-2xl mx-auto px-4 py-16 text-center space-y-6"
+      >
         <div className="w-16 h-16 rounded-2xl bg-[#2D5A27]/10 text-[#2D5A27] flex items-center justify-center mx-auto">
           <Lock className="w-8 h-8" />
         </div>
         <div className="space-y-2">
           <h1 className="text-2xl sm:text-3xl font-bold text-[#1A231E]">
-            Acceso Restringido al Calendario de Huerta
+            Acceso
           </h1>
-          <p className="text-sm text-[#4A554E] max-w-md mx-auto leading-relaxed">
-            Para gestionar tus labores programadas, sincronizar tareas con la base de datos y mantener tu bitácora entre sesiones, por favor inicia sesión.
+          <p className="text-sm text-[#4A554E] max-w-md mx-auto">
+            Inicia sesión para ver tu calendario.
           </p>
         </div>
 
         <div className="p-6 bg-white rounded-2xl border border-[#E2DFD7] shadow-xs max-w-md mx-auto space-y-4">
-          <div className="flex items-center justify-center gap-2 text-xs font-semibold text-[#2D5A27]">
-            <LogIn className="w-4 h-4" />
-            <span>Elige un método de inicio de sesión</span>
-          </div>
           <div className="flex justify-center pt-2">
             <GoogleAuthButton onAuthChange={onAuthChange} />
           </div>
-          <p className="text-[11px] text-[#5A655E]">
-            Tus tareas y registros se guardan y sincronizan de forma segura en la nube.
-          </p>
         </div>
-      </div>
+      </motion.div>
     );
   }
 
@@ -123,10 +118,9 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
   const month = currentMonthDate.getMonth();
   const monthName = currentMonthDate.toLocaleString('es-ES', { month: 'long', year: 'numeric' });
 
-  const firstDayOfMonth = new Date(year, month, 1).getDay(); // 0 is Sunday
+  const firstDayOfMonth = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-  // Adjust for Monday start (0=Monday, 6=Sunday)
   const startOffset = (firstDayOfMonth + 6) % 7;
   const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
@@ -168,18 +162,22 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-8 animate-fade-in">
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-8"
+    >
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2DFD7] pb-6">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#1A231E]">
-            Calendario de Riego y Tareas Hortícolas
+            Calendario
           </h1>
           <p className="text-sm text-[#4A554E] mt-1">
-            Próximas labores de tu huerta. Al marcarlas como hechas quedarán registradas automáticamente en la bitácora del cultivo.
+            Labores programadas. Al marcarlas como hechas van a la bitácora.
           </p>
         </div>
         <div className="flex items-center gap-3">
-          {/* View Toggle */}
           <div className="flex items-center bg-[#F2EFE9] p-1 rounded-xl border border-[#E2DFD7]">
             <button
               type="button"
@@ -191,7 +189,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
               }`}
             >
               <CalendarDays className="w-3.5 h-3.5" />
-              <span>Cuadrícula</span>
+              <span>Mes</span>
             </button>
             <button
               type="button"
@@ -207,21 +205,20 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
             </button>
           </div>
 
-          <button
+          <motion.button
+            whileTap={{ scale: 0.95 }}
             type="button"
             onClick={() => onNavigate('dashboard')}
-            className="px-4 py-2 rounded-xl bg-[#2D5A27] text-[#FAF9F6] text-xs font-semibold hover:bg-[#23471E] transition-all transform active:scale-95 cursor-pointer shadow-xs"
+            className="px-4 py-2 rounded-xl bg-[#2D5A27] text-[#FAF9F6] text-xs font-semibold hover:bg-[#23471E] transition-colors cursor-pointer shadow-xs"
           >
-            Abrir Mi Huerta
-          </button>
+            Mi Huerta
+          </motion.button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left Column: Calendar View or List View */}
         <div className="lg:col-span-8 space-y-6">
           {viewMode === 'calendar' ? (
-            /* Modern Interactive Calendar Grid */
             <div className="bg-white rounded-2xl border border-[#E2DFD7] p-5 sm:p-6 shadow-xs space-y-4">
               <div className="flex items-center justify-between border-b border-[#E2DFD7] pb-4">
                 <h2 className="text-lg font-bold text-[#1A231E] capitalize flex items-center gap-2">
@@ -232,7 +229,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                   <button
                     type="button"
                     onClick={handlePrevMonth}
-                    aria-label="Mes anterior"
+                    aria-label="Anterior"
                     className="p-1.5 rounded-lg border border-[#E2DFD7] hover:bg-[#F2EFE9] text-[#1A231E] transition-colors cursor-pointer"
                   >
                     <ChevronLeft className="w-4 h-4" />
@@ -247,7 +244,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                   <button
                     type="button"
                     onClick={handleNextMonth}
-                    aria-label="Mes siguiente"
+                    aria-label="Siguiente"
                     className="p-1.5 rounded-lg border border-[#E2DFD7] hover:bg-[#F2EFE9] text-[#1A231E] transition-colors cursor-pointer"
                   >
                     <ChevronRight className="w-4 h-4" />
@@ -255,7 +252,6 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                 </div>
               </div>
 
-              {/* Day headers: Monday to Sunday */}
               <div className="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-[#5A655E] pb-2">
                 <div>Lun</div>
                 <div>Mar</div>
@@ -266,7 +262,6 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                 <div>Dom</div>
               </div>
 
-              {/* Day cells */}
               <div className="grid grid-cols-7 gap-1.5">
                 {Array.from({ length: startOffset }).map((_, i) => (
                   <div key={'empty-' + i} className="h-20 sm:h-24 rounded-xl bg-[#FAF9F6]/50 border border-transparent" />
@@ -279,10 +274,12 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                   const pendingCount = dayTasks.filter((t) => !t.completed).length;
 
                   return (
-                    <div
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.15 }}
                       key={day}
                       onClick={() => handleDayClick(day)}
-                      className={`h-20 sm:h-24 p-1.5 rounded-xl border flex flex-col justify-between transition-all cursor-pointer ${
+                      className={`h-20 sm:h-24 p-1.5 rounded-xl border flex flex-col justify-between transition-colors cursor-pointer ${
                         isToday
                           ? 'border-[#2D5A27] bg-[#2D5A27]/5 font-bold shadow-xs'
                           : 'border-[#E2DFD7] hover:border-[#2D5A27]/50 hover:bg-[#FAF9F6]'
@@ -293,11 +290,10 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                           {day}
                         </span>
                         {pendingCount > 0 && (
-                          <span className="w-2 h-2 rounded-full bg-amber-500" title={`${pendingCount} pendiente(s)`} />
+                          <span className="w-2 h-2 rounded-full bg-amber-500" />
                         )}
                       </div>
 
-                      {/* Small task chips */}
                       <div className="space-y-1 overflow-hidden">
                         {dayTasks.slice(0, 2).map((t) => (
                           <div
@@ -309,54 +305,52 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                             className={`text-[10px] px-1.5 py-0.5 rounded truncate font-medium flex items-center gap-1 ${
                               t.completed
                                 ? 'bg-gray-100 text-gray-400 line-through'
-                                : 'bg-[#2D5A27]/10 text-[#2D5A27] hover:bg-[#2D5A27]/20'
+                                : 'bg-[#2D5A27]/10 text-[#2D5A27]'
                             }`}
                           >
                             <span className="truncate">{t.type}: {t.cropName}</span>
                           </div>
                         ))}
                         {dayTasks.length > 2 && (
-                          <div className="text-[9px] text-[#5A655E] font-medium text-center">
-                            +{dayTasks.length - 2} más
+                          <div className="text-[9px] text-[#5A655E] text-center">
+                            +{dayTasks.length - 2}
                           </div>
                         )}
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
 
-              <div className="pt-2 text-xs text-[#5A655E] flex flex-wrap items-center justify-between gap-2 border-t border-[#E2DFD7]">
-                <span>Haz clic en cualquier día o labor para ver detalles, marcar como hecha o eliminar.</span>
-                <span className="text-[#2D5A27] font-semibold">Total labores: {tasks.length}</span>
+              <div className="pt-2 text-xs text-[#5A655E] flex items-center justify-between border-t border-[#E2DFD7]">
+                <span>Total: {tasks.length} labores</span>
               </div>
             </div>
           ) : (
-            /* Traditional List View */
             <div className="space-y-3">
               <h2 className="text-base font-bold text-[#1A231E]">
-                Lista de Próximas Tareas ({tasks.length})
+                Tareas ({tasks.length})
               </h2>
               {tasks.length === 0 ? (
                 <div className="p-8 text-center rounded-2xl bg-white border border-[#E2DFD7] text-xs text-[#5A655E]">
-                  No hay tareas programadas. Programa una nueva labor en el panel lateral.
+                  Sin tareas.
                 </div>
               ) : (
                 tasks.map((task) => (
-                  <div
+                  <motion.div
+                    layout
                     key={task.id}
-                    className={`p-4 rounded-2xl border transition-all flex items-center justify-between gap-4 ${
+                    className={`p-4 rounded-2xl border transition-colors flex items-center justify-between gap-4 ${
                       task.completed
                         ? 'bg-[#FAF9F6] border-[#E2DFD7] opacity-75'
-                        : 'bg-white border-[#E2DFD7] shadow-xs hover:border-[#2D5A27]/40'
+                        : 'bg-white border-[#E2DFD7] shadow-xs'
                     }`}
                   >
                     <div className="flex items-start gap-3">
                       <button
                         type="button"
                         onClick={() => onToggleTask(task.id)}
-                        title={task.completed ? 'Marcar pendiente' : 'Marcar hecha (se registra en la bitácora)'}
-                        className="mt-0.5 text-[#2D5A27] cursor-pointer hover:scale-110 transition-transform"
+                        className="mt-0.5 text-[#2D5A27] cursor-pointer"
                       >
                         {task.completed ? (
                           <CheckSquare className="w-5 h-5 text-[#2D5A27]" />
@@ -377,11 +371,8 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                             {task.cropName}
                           </span>
                         </div>
-                        <p className="text-xs text-[#5A655E] mt-1 flex items-center gap-1.5">
-                          <span>Fecha programada: {task.dueDate}</span>
-                          {task.completed && (
-                            <span className="text-emerald-700 font-medium">· Registrada en bitácora ✓</span>
-                          )}
+                        <p className="text-xs text-[#5A655E] mt-1">
+                          {task.dueDate} {task.completed ? '· Hecha' : ''}
                         </p>
                       </div>
                     </div>
@@ -392,7 +383,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                         onClick={() => onToggleTask(task.id)}
                         className="px-3 py-1.5 rounded-xl border border-[#E2DFD7] bg-[#FAF9F6] text-xs font-medium text-[#1A231E] hover:bg-[#E2DFD7] cursor-pointer"
                       >
-                        {task.completed ? 'Deshacer' : 'Marcar Hecha'}
+                        {task.completed ? 'Deshacer' : 'Hecha'}
                       </button>
                       <button
                         type="button"
@@ -402,29 +393,26 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
-                  </div>
+                  </motion.div>
                 ))
               )}
             </div>
           )}
         </div>
 
-        {/* Right Column: New Task Form */}
+        {/* Formulario */}
         <div className="lg:col-span-4 bg-white p-6 rounded-2xl border border-[#E2DFD7] shadow-xs space-y-4 w-full overflow-hidden">
           <div className="border-b border-[#E2DFD7] pb-3">
             <h2 className="text-base font-bold text-[#1A231E] flex items-center gap-2">
               <Plus className="w-4 h-4 text-[#2D5A27]" />
-              <span>Programar Nueva Tarea</span>
+              <span>Nueva Tarea</span>
             </h2>
-            <p className="text-xs text-[#5A655E] mt-0.5">
-              Al completarla, quedará registrada en la bitácora del cultivo.
-            </p>
           </div>
 
           <form onSubmit={handleCreateTask} className="space-y-4 w-full">
             <div className="w-full">
               <label htmlFor="task-crop" className="block text-xs font-semibold text-[#1A231E] mb-1">
-                Cultivo destinatario
+                Cultivo
               </label>
               <select
                 id="task-crop"
@@ -442,7 +430,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
 
             <div className="w-full">
               <label htmlFor="task-type" className="block text-xs font-semibold text-[#1A231E] mb-1">
-                Labor a realizar
+                Labor
               </label>
               <select
                 id="task-type"
@@ -460,7 +448,7 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
 
             <div className="w-full">
               <label htmlFor="task-date" className="block text-xs font-semibold text-[#1A231E] mb-1">
-                Fecha programada
+                Fecha
               </label>
               <input
                 id="task-date"
@@ -472,64 +460,71 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
               />
             </div>
 
-            <button
+            <motion.button
+              whileTap={{ scale: 0.95 }}
               type="submit"
-              className="w-full py-2.5 rounded-xl bg-[#2D5A27] text-[#FAF9F6] text-xs font-semibold hover:bg-[#23471E] transition-all transform active:scale-95 cursor-pointer shadow-xs"
+              className="w-full py-2.5 rounded-xl bg-[#2D5A27] text-[#FAF9F6] text-xs font-semibold hover:bg-[#23471E] transition-colors cursor-pointer shadow-xs"
             >
-              Añadir a la Agenda
-            </button>
+              Guardar Tarea
+            </motion.button>
           </form>
         </div>
       </div>
 
-      {/* Task Details Modal */}
-      {selectedTaskModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1A231E]/60 backdrop-blur-xs p-4 animate-fade-in">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#E2DFD7] space-y-4">
-            <div className="flex items-start justify-between border-b border-[#E2DFD7] pb-3">
-              <div className="flex items-center gap-2">
-                <span className="p-2 rounded-xl bg-[#2D5A27]/10">
-                  {getTaskIcon(selectedTaskModal.type)}
-                </span>
-                <div>
-                  <h3 className="font-bold text-[#1A231E] text-base">{selectedTaskModal.type}</h3>
-                  <p className="text-xs text-[#5A655E]">{selectedTaskModal.cropName}</p>
+      {/* Modales */}
+      <AnimatePresence>
+        {selectedTaskModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1A231E]/60 backdrop-blur-xs p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#E2DFD7] space-y-4"
+            >
+              <div className="flex items-start justify-between border-b border-[#E2DFD7] pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="p-2 rounded-xl bg-[#2D5A27]/10">
+                    {getTaskIcon(selectedTaskModal.type)}
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-[#1A231E] text-base">{selectedTaskModal.type}</h3>
+                    <p className="text-xs text-[#5A655E]">{selectedTaskModal.cropName}</p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedTaskModal(null)}
+                  className="p-1 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="space-y-2 text-xs text-[#4A554E]">
+                <div className="flex justify-between py-1 border-b border-[#FAF9F6]">
+                  <span>Fecha:</span>
+                  <strong className="text-[#1A231E]">{selectedTaskModal.dueDate}</strong>
+                </div>
+                <div className="flex justify-between py-1 border-b border-[#FAF9F6]">
+                  <span>Estado:</span>
+                  <strong className={selectedTaskModal.completed ? 'text-emerald-700' : 'text-amber-600'}>
+                    {selectedTaskModal.completed ? 'Hecha' : 'Pendiente'}
+                  </strong>
                 </div>
               </div>
-              <button
-                type="button"
-                onClick={() => setSelectedTaskModal(null)}
-                className="p-1 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
 
-            <div className="space-y-2 text-xs text-[#4A554E]">
-              <div className="flex justify-between py-1 border-b border-[#FAF9F6]">
-                <span>Fecha:</span>
-                <strong className="text-[#1A231E]">{selectedTaskModal.dueDate}</strong>
-              </div>
-              <div className="flex justify-between py-1 border-b border-[#FAF9F6]">
-                <span>Estado:</span>
-                <strong className={selectedTaskModal.completed ? 'text-emerald-700' : 'text-amber-600'}>
-                  {selectedTaskModal.completed ? 'Completada (en bitácora)' : 'Pendiente de realizar'}
-                </strong>
-              </div>
-            </div>
-
-            <div className="pt-2 flex items-center justify-between gap-3 border-t border-[#E2DFD7]">
-              <button
-                type="button"
-                onClick={() => {
-                  onDeleteTask(selectedTaskModal.id);
-                  setSelectedTaskModal(null);
-                }}
-                className="px-3 py-1.5 text-xs text-red-600 hover:bg-red-50 rounded-lg cursor-pointer"
-              >
-                Eliminar Tarea
-              </button>
-              <div className="flex items-center gap-2">
+              <div className="pt-2 flex items-center justify-between gap-3 border-t border-[#E2DFD7]">
+                <button
+                  type="button"
+                  onClick={() => {
+                    onDeleteTask(selectedTaskModal.id);
+                    setSelectedTaskModal(null);
+                  }}
+                  className="px-3 py-1.5 text-xs text-red-600 hover:bg-red-50 rounded-lg cursor-pointer"
+                >
+                  Eliminar
+                </button>
                 <button
                   type="button"
                   onClick={() => {
@@ -541,118 +536,122 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                   }}
                   className="px-4 py-2 rounded-xl bg-[#2D5A27] text-white text-xs font-semibold hover:bg-[#23471E] cursor-pointer"
                 >
-                  {selectedTaskModal.completed ? 'Marcar Pendiente' : 'Marcar Hecha (Guardar en Bitácora)'}
+                  {selectedTaskModal.completed ? 'Marcar Pendiente' : 'Marcar Hecha'}
                 </button>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
 
-      {/* Day Details Modal */}
-      {selectedDayModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1A231E]/60 backdrop-blur-xs p-4 animate-fade-in">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-[#E2DFD7] space-y-4 max-h-[85vh] flex flex-col">
-            <div className="flex items-start justify-between border-b border-[#E2DFD7] pb-3">
-              <div>
-                <h3 className="font-bold text-lg text-[#1A231E] capitalize">
-                  {selectedDayModal.formattedDate}
-                </h3>
-                <p className="text-xs text-[#5A655E]">
-                  {selectedDayModal.dayTasks.length} labor(es) programada(s) para este día
-                </p>
+      <AnimatePresence>
+        {selectedDayModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1A231E]/60 backdrop-blur-xs p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-[#E2DFD7] space-y-4 max-h-[85vh] flex flex-col"
+            >
+              <div className="flex items-start justify-between border-b border-[#E2DFD7] pb-3">
+                <div>
+                  <h3 className="font-bold text-lg text-[#1A231E] capitalize">
+                    {selectedDayModal.formattedDate}
+                  </h3>
+                  <p className="text-xs text-[#5A655E]">
+                    {selectedDayModal.dayTasks.length} labores
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedDayModal(null)}
+                  className="p-1 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={() => setSelectedDayModal(null)}
-                className="p-1 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
 
-            <div className="flex-1 overflow-y-auto space-y-2.5 pr-1">
-              {selectedDayModal.dayTasks.length === 0 ? (
-                <p className="text-xs text-center text-[#5A655E] py-8">
-                  No hay tareas programadas para esta fecha.
-                </p>
-              ) : (
-                selectedDayModal.dayTasks.map((task) => (
-                  <div
-                    key={task.id}
-                    className="p-3.5 rounded-xl border border-[#E2DFD7] bg-[#FAF9F6] flex items-center justify-between"
-                  >
+              <div className="flex-1 overflow-y-auto space-y-2.5 pr-1">
+                {selectedDayModal.dayTasks.length === 0 ? (
+                  <p className="text-xs text-center text-[#5A655E] py-8">
+                    Sin tareas para este día.
+                  </p>
+                ) : (
+                  selectedDayModal.dayTasks.map((task) => (
                     <div
-                      onClick={() => {
-                        setSelectedDayModal(null);
-                        setSelectedTaskModal(task);
-                      }}
-                      className="cursor-pointer flex-1"
+                      key={task.id}
+                      className="p-3.5 rounded-xl border border-[#E2DFD7] bg-[#FAF9F6] flex items-center justify-between"
                     >
-                      <p
-                        className={`text-sm font-semibold flex items-center gap-1.5 ${
-                          task.completed ? 'line-through text-gray-400' : 'text-[#1A231E]'
-                        }`}
-                      >
-                        {getTaskIcon(task.type)}
-                        <span>{task.type} · {task.cropName}</span>
-                      </p>
-                      <p className="text-xs text-[#5A655E] mt-0.5">
-                        {task.completed ? '✓ Registrada en bitácora' : 'Pendiente'}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
+                      <div
                         onClick={() => {
-                          onToggleTask(task.id);
-                          setSelectedDayModal({
-                            ...selectedDayModal,
-                            dayTasks: selectedDayModal.dayTasks.map((t) =>
-                              t.id === task.id ? { ...t, completed: !t.completed } : t
-                            )
-                          });
+                          setSelectedDayModal(null);
+                          setSelectedTaskModal(task);
                         }}
-                        className={`px-2.5 py-1 rounded-lg text-xs font-semibold cursor-pointer border ${
-                          task.completed
-                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                            : 'bg-white border-[#E2DFD7] text-[#1A231E] hover:bg-[#F2EFE9]'
-                        }`}
+                        className="cursor-pointer flex-1"
                       >
-                        {task.completed ? 'Hecha ✓' : 'Hacer'}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          onDeleteTask(task.id);
-                          setSelectedDayModal({
-                            ...selectedDayModal,
-                            dayTasks: selectedDayModal.dayTasks.filter((t) => t.id !== task.id)
-                          });
-                        }}
-                        className="p-1 text-red-600 hover:bg-red-50 rounded cursor-pointer"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
+                        <p
+                          className={`text-sm font-semibold flex items-center gap-1.5 ${
+                            task.completed ? 'line-through text-gray-400' : 'text-[#1A231E]'
+                          }`}
+                        >
+                          {getTaskIcon(task.type)}
+                          <span>{task.type} · {task.cropName}</span>
+                        </p>
+                      </div>
 
-            <div className="pt-2 border-t border-[#E2DFD7] flex justify-end">
-              <button
-                type="button"
-                onClick={() => setSelectedDayModal(null)}
-                className="px-4 py-2 rounded-xl bg-[#F2EFE9] text-xs font-semibold text-[#1A231E] hover:bg-[#E2DFD7] cursor-pointer"
-              >
-                Cerrar
-              </button>
-            </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onToggleTask(task.id);
+                            setSelectedDayModal({
+                              ...selectedDayModal,
+                              dayTasks: selectedDayModal.dayTasks.map((t) =>
+                                t.id === task.id ? { ...t, completed: !t.completed } : t
+                              )
+                            });
+                          }}
+                          className={`px-2.5 py-1 rounded-lg text-xs font-semibold cursor-pointer border ${
+                            task.completed
+                              ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                              : 'bg-white border-[#E2DFD7] text-[#1A231E] hover:bg-[#F2EFE9]'
+                          }`}
+                        >
+                          {task.completed ? 'Hecha' : 'Pendiente'}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onDeleteTask(task.id);
+                            setSelectedDayModal({
+                              ...selectedDayModal,
+                              dayTasks: selectedDayModal.dayTasks.filter((t) => t.id !== task.id)
+                            });
+                          }}
+                          className="p-1 text-red-600 hover:bg-red-50 rounded cursor-pointer"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              <div className="pt-2 border-t border-[#E2DFD7] flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => setSelectedDayModal(null)}
+                  className="px-4 py-2 rounded-xl bg-[#F2EFE9] text-xs font-semibold text-[#1A231E] hover:bg-[#E2DFD7] cursor-pointer"
+                >
+                  Cerrar
+                </button>
+              </div>
+            </motion.div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 };

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <rect width="120" height="120" rx="16" fill="#FFEDD5"/>
+  <!-- Hojas verdes superiores -->
+  <path d="M60 35 L45 15 M60 35 L60 10 M60 35 L75 15" stroke="#15803D" stroke-width="3" stroke-linecap="round"/>
+  <path d="M50 20 L40 18 M70 20 L80 18" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Cuerpo de la zanahoria -->
+  <polygon points="44,36 76,36 62,106 58,106" fill="#EA580C"/>
+  <!-- Líneas horizontales características -->
+  <line x1="48" y1="46" x2="66" y2="46" stroke="#C2410C" stroke-width="2" stroke-linecap="round"/>
+  <line x1="52" y1="60" x2="70" y2="60" stroke="#C2410C" stroke-width="2" stroke-linecap="round"/>
+  <line x1="56" y1="74" x2="68" y2="74" stroke="#C2410C" stroke-width="2" stroke-linecap="round"/>
+  <line x1="57" y1="88" x2="65" y2="88" stroke="#C2410C" stroke-width="2" stroke-linecap="round"/>
+</svg>

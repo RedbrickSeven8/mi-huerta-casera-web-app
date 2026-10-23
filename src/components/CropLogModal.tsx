@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   X,
   Droplets,
@@ -108,8 +109,14 @@ export const CropLogModal: React.FC<CropLogModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1A231E]/60 backdrop-blur-xs p-4 overflow-y-auto animate-fade-in">
-      <div className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-7 shadow-2xl border border-[#E2DFD7] space-y-5 my-8 max-h-[90vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1A231E]/60 backdrop-blur-xs p-4 overflow-y-auto">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        transition={{ duration: 0.2 }}
+        className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-7 shadow-2xl border border-[#E2DFD7] space-y-5 my-8 max-h-[90vh] flex flex-col"
+      >
         {/* Header */}
         <div className="flex items-start justify-between border-b border-[#E2DFD7] pb-4 shrink-0">
           <div className="flex items-center gap-3">
@@ -118,138 +125,148 @@ export const CropLogModal: React.FC<CropLogModalProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-xl font-bold text-[#1A231E]">Bitácora de {crop.name}</h2>
+                <h2 className="text-xl font-bold text-[#1A231E]">Bitácora: {crop.name}</h2>
                 <span className="text-[11px] font-medium bg-[#2D5A27]/10 text-[#2D5A27] px-2 py-0.5 rounded-full">
                   {crop.bed}
                 </span>
               </div>
               <p className="text-xs text-[#5A655E] mt-0.5">
-                {crop.variety} · Historial de labores, riegos y evolución fenológica
+                {crop.variety}
               </p>
             </div>
           </div>
           <button
             type="button"
             onClick={onClose}
-            aria-label="Cerrar bitácora"
+            aria-label="Cerrar"
             className="p-1.5 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Action button to open entry form */}
+        {/* Acciones */}
         <div className="flex items-center justify-between shrink-0">
           <span className="text-xs font-semibold text-[#1A231E]">
-            {logs.length} registro(s) en la bitácora
+            {logs.length} registros
           </span>
-          <button
+          <motion.button
+            whileTap={{ scale: 0.95 }}
             type="button"
             onClick={() => setShowAddForm(!showAddForm)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#2D5A27] text-white text-xs font-medium hover:bg-[#23471E] transition-all transform active:scale-95 cursor-pointer shadow-xs"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#2D5A27] text-white text-xs font-medium hover:bg-[#23471E] transition-colors cursor-pointer shadow-xs"
           >
             <Plus className="w-3.5 h-3.5" />
-            <span>{showAddForm ? 'Cancelar' : 'Nuevo Registro'}</span>
-          </button>
+            <span>{showAddForm ? 'Cancelar' : 'Nuevo'}</span>
+          </motion.button>
         </div>
 
-        {/* Add entry collapsible form */}
-        {showAddForm && (
-          <form
-            onSubmit={handleFormSubmit}
-            className="p-4 rounded-xl bg-[#FAF9F6] border border-[#D5E0D3] space-y-3 shrink-0 animate-slide-down"
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {/* Formulario */}
+        <AnimatePresence>
+          {showAddForm && (
+            <motion.form
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              onSubmit={handleFormSubmit}
+              className="p-4 rounded-xl bg-[#FAF9F6] border border-[#D5E0D3] space-y-3 shrink-0 overflow-hidden"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label className="block text-[11px] font-semibold text-[#1A231E] mb-1">
+                    Labor
+                  </label>
+                  <select
+                    value={entryType}
+                    onChange={(e) => setEntryType(e.target.value as LogEntryType)}
+                    className="w-full rounded-lg border border-[#D5E0D3] bg-white px-2.5 py-1.5 text-xs text-[#1A231E]"
+                  >
+                    <option value="Riego">Riego</option>
+                    <option value="Abonado">Abonado</option>
+                    <option value="Poda">Poda</option>
+                    <option value="Cosecha">Cosecha</option>
+                    <option value="Control preventivo">Control preventivo</option>
+                    <option value="Cambio de etapa">Cambio de etapa</option>
+                    <option value="Observación">Observación</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-semibold text-[#1A231E] mb-1">
+                    Fecha
+                  </label>
+                  <input
+                    type="date"
+                    value={entryDate}
+                    onChange={(e) => setEntryDate(e.target.value)}
+                    className="w-full rounded-lg border border-[#D5E0D3] bg-white px-2.5 py-1.5 text-xs text-[#1A231E]"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-semibold text-[#1A231E] mb-1">
+                    Título
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Acción realizada"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="w-full rounded-lg border border-[#D5E0D3] bg-white px-2.5 py-1.5 text-xs text-[#1A231E]"
+                    required
+                  />
+                </div>
+              </div>
+
               <div>
                 <label className="block text-[11px] font-semibold text-[#1A231E] mb-1">
-                  Tipo de Labor *
+                  Nota
                 </label>
-                <select
-                  value={entryType}
-                  onChange={(e) => setEntryType(e.target.value as LogEntryType)}
+                <textarea
+                  rows={2}
+                  placeholder="Detalles"
+                  value={entryNotes}
+                  onChange={(e) => setEntryNotes(e.target.value)}
                   className="w-full rounded-lg border border-[#D5E0D3] bg-white px-2.5 py-1.5 text-xs text-[#1A231E]"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={() => setShowAddForm(false)}
+                  className="px-3 py-1.5 rounded-lg border border-[#D5E0D3] text-xs text-[#5A655E] hover:bg-white"
                 >
-                  <option value="Riego">Riego</option>
-                  <option value="Abonado">Abonado</option>
-                  <option value="Poda">Poda</option>
-                  <option value="Cosecha">Cosecha</option>
-                  <option value="Control preventivo">Control preventivo</option>
-                  <option value="Cambio de etapa">Cambio de etapa</option>
-                  <option value="Observación">Observación</option>
-                </select>
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-1.5 rounded-lg bg-[#2D5A27] text-white text-xs font-semibold hover:bg-[#23471E]"
+                >
+                  Guardar
+                </button>
               </div>
+            </motion.form>
+          )}
+        </AnimatePresence>
 
-              <div>
-                <label className="block text-[11px] font-semibold text-[#1A231E] mb-1">
-                  Fecha *
-                </label>
-                <input
-                  type="date"
-                  value={entryDate}
-                  onChange={(e) => setEntryDate(e.target.value)}
-                  className="w-full rounded-lg border border-[#D5E0D3] bg-white px-2.5 py-1.5 text-xs text-[#1A231E]"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-[11px] font-semibold text-[#1A231E] mb-1">
-                  Título / Acción breve *
-                </label>
-                <input
-                  type="text"
-                  placeholder="Ej: Riego localizado 1.5L"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="w-full rounded-lg border border-[#D5E0D3] bg-white px-2.5 py-1.5 text-xs text-[#1A231E]"
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-[11px] font-semibold text-[#1A231E] mb-1">
-                Detalles / Observaciones
-              </label>
-              <textarea
-                rows={2}
-                placeholder="Observaciones de suelo, plagas o vigor..."
-                value={entryNotes}
-                onChange={(e) => setEntryNotes(e.target.value)}
-                className="w-full rounded-lg border border-[#D5E0D3] bg-white px-2.5 py-1.5 text-xs text-[#1A231E]"
-              />
-            </div>
-
-            <div className="flex justify-end gap-2 pt-1">
-              <button
-                type="button"
-                onClick={() => setShowAddForm(false)}
-                className="px-3 py-1.5 rounded-lg border border-[#D5E0D3] text-xs text-[#5A655E] hover:bg-white"
-              >
-                Cancelar
-              </button>
-              <button
-                type="submit"
-                className="px-4 py-1.5 rounded-lg bg-[#2D5A27] text-white text-xs font-semibold hover:bg-[#23471E]"
-              >
-                Guardar en Bitácora
-              </button>
-            </div>
-          </form>
-        )}
-
-        {/* Timeline Log List with Delete Option */}
+        {/* Lista */}
         <div className="flex-1 overflow-y-auto pr-1 space-y-3">
           {logs.length === 0 ? (
             <div className="text-center py-10 text-[#5A655E] space-y-2">
               <BookOpen className="w-8 h-8 mx-auto text-[#8A968E]" />
-              <p className="text-xs">Aún no hay registros en la bitácora de este cultivo.</p>
+              <p className="text-xs">Sin registros.</p>
             </div>
           ) : (
             logs.map((entry) => (
-              <div
+              <motion.div
                 key={entry.id}
-                className="p-3.5 rounded-xl border border-[#E2DFD7] bg-[#FAF9F6] flex items-start gap-3 hover:border-[#D5E0D3] transition-colors group"
+                layout
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                className="p-3.5 rounded-xl border border-[#E2DFD7] bg-[#FAF9F6] flex items-start gap-3 hover:border-[#D5E0D3] transition-colors"
               >
                 <div
                   className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border ${getLogBadgeStyle(
@@ -265,14 +282,14 @@ export const CropLogModal: React.FC<CropLogModalProps> = ({
                       {entry.title}
                     </span>
                     <div className="flex items-center gap-2">
-                      <span className="text-[11px] text-[#5A655E] flex items-center gap-1">
+                      <span className="text-[11px] text-[#5A655E]">
                         {entry.date} {entry.time ? `· ${entry.time}` : ''}
                       </span>
                       <button
                         type="button"
                         onClick={() => onDeleteLogEntry(crop.id, entry.id)}
-                        title="Eliminar este registro de la bitácora"
-                        aria-label={`Eliminar registro ${entry.title}`}
+                        title="Eliminar"
+                        aria-label={`Eliminar ${entry.title}`}
                         className="p-1 text-gray-400 hover:text-red-700 hover:bg-red-50 rounded transition-colors cursor-pointer"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -282,7 +299,7 @@ export const CropLogModal: React.FC<CropLogModalProps> = ({
 
                   <div className="flex items-center gap-2 mt-1">
                     <span
-                      className={`text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded border ${getLogBadgeStyle(
+                      className={`text-[10px] uppercase font-semibold px-2 py-0.5 rounded border ${getLogBadgeStyle(
                         entry.type
                       )}`}
                     >
@@ -290,7 +307,7 @@ export const CropLogModal: React.FC<CropLogModalProps> = ({
                     </span>
                     {entry.taskId && (
                       <span className="text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">
-                        Labor completada desde Calendario
+                        Desde Calendario
                       </span>
                     )}
                   </div>
@@ -301,7 +318,7 @@ export const CropLogModal: React.FC<CropLogModalProps> = ({
                     </p>
                   )}
                 </div>
-              </div>
+              </motion.div>
             ))
           )}
         </div>
@@ -313,10 +330,10 @@ export const CropLogModal: React.FC<CropLogModalProps> = ({
             onClick={onClose}
             className="px-4 py-2 rounded-xl bg-[#F2EFE9] text-xs font-semibold text-[#1A231E] hover:bg-[#E2DFD7] cursor-pointer"
           >
-            Cerrar Bitácora
+            Cerrar
           </button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
