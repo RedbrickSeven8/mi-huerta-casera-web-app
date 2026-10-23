@@ -320,11 +320,11 @@ export function App() {
       };
     });
     setTasks(updatedTasks);
-    saveTasks(updatedTasks);
 
-    // If marked as completed, add to corresponding crop bitácora and sync atomically
+    // If marked as completed, also log into crop bitácora
+    let updatedCrops = crops;
     if (willBeCompleted) {
-      const updatedCrops = crops.map((c) => {
+      updatedCrops = crops.map((c) => {
         if (c.id === targetTask.cropId || (targetTask.cropId === 'general' && c.name === targetTask.cropName)) {
           const logEntry: CropLogEntry = {
             id: 'log-task-' + Date.now(),
@@ -345,8 +345,10 @@ export function App() {
         return c;
       });
       setCrops(updatedCrops);
-      saveBothToCloud(updatedCrops, updatedTasks);
     }
+
+    // Persist and sync both atomically to avoid race conditions
+    saveBothToCloud(updatedCrops, updatedTasks);
   };
 
   const handleAddTask = (taskData: Omit<GardenTask, 'id' | 'completed'>) => {

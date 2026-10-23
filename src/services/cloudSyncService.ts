@@ -17,12 +17,36 @@ interface CloudSyncPayload {
 
 export const isCloudSyncConfigured = Boolean(GITHUB_TOKEN);
 
+// Timestamp tracker to avoid replacing fresher local data with older cloud data
+let lastLocalMutationTime = 0;
+let isPushing = false;
+let pendingCrops: CropItem[] | null = null;
+let pendingTasks: GardenTask[] | null = null;
+let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+export function markLocalMutation(): void {
+  lastLocalMutationTime = Date.now();
+}
+
+export function isLocalMutatingRecently(): boolean {
+  return (Date.now() - lastLocalMutationTime < 4500) || isPushing;
+}
+
 /**
  * Fetch remote garden data for the currently logged in user
  */
-export async function fetchRemoteGardenData(): Promise<{ crops: CropItem[] | null; tasks: GardenTask[] | null; updated_at?: string }> {
+export async function fetchRemoteGardenData(): Promise<{
+  crops: CropItem[] | null;
+  tasks: GardenTask[] | null;
+  updated_at?: string;
+}> {
   const user = getUser();
   if (!user || !isCloudSyncConfigured) {
+    return { crops: null, tasks: null };
+  }
+
+  // Guard against overwriting local changes while user is active or push in-flight
+  if (isLocalMutatingRecently()) {
     return { crops: null, tasks: null };
   }
 
@@ -48,6 +72,11 @@ export async function fetchRemoteGardenData(): Promise<{ crops: CropItem[] | nul
     const userData = parsed.users ? parsed.users[userKey] : null;
 
     if (userData) {
+      // Re-verify that user didn't perform an action while fetch was in flight
+      if (isLocalMutatingRecently()) {
+        return { crops: null, tasks: null };
+      }
+
       return {
         crops: userData.crops || null,
         tasks: userData.tasks || null,
@@ -62,27 +91,17 @@ export async function fetchRemoteGardenData(): Promise<{ crops: CropItem[] | nul
   }
 }
 
-// In-flight sync state
-let pendingCrops: CropItem[] | null = null;
-let pendingTasks: GardenTask[] | null = null;
-let isPushing = false;
-let needsAnotherPush = false;
-
 async function executePush(): Promise<void> {
   if (isPushing) {
-    needsAnotherPush = true;
+    return;
+  }
+
+  const user = getUser();
+  if (!user || !isCloudSyncConfigured || !pendingCrops || !pendingTasks) {
     return;
   }
 
   isPushing = true;
-  needsAnotherPush = false;
-
-  const user = getUser();
-  if (!user || !isCloudSyncConfigured || !pendingCrops || !pendingTasks) {
-    isPushing = false;
-    return;
-  }
-
   const cropsToSend = pendingCrops;
   const tasksToSend = pendingTasks;
   const userKey = user.email || user.id;
@@ -91,7 +110,7 @@ async function executePush(): Promise<void> {
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
       const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${FILE_PATH}?ref=main&t=${Date.now()}`;
-      
+
       const getRes = await fetch(url, {
         headers: {
           Authorization: `Bearer ${GITHUB_TOKEN}`,
@@ -142,9 +161,8 @@ async function executePush(): Promise<void> {
       });
 
       if (putRes.ok) {
-        break; // Successfully pushed!
+        break;
       } else if (putRes.status === 409) {
-        // Concurrency conflict: wait 250ms and retry with fresh SHA
         await new Promise((r) => setTimeout(r, 250));
         continue;
       } else {
@@ -159,21 +177,29 @@ async function executePush(): Promise<void> {
 
   isPushing = false;
 
-  // If another update came in while pushing, execute again with the latest pending state
-  if (needsAnotherPush) {
+  // If another update occurred while pushing was running
+  if (pendingCrops !== cropsToSend || pendingTasks !== tasksToSend) {
     executePush();
   }
 }
 
 /**
- * Queue immediate sync with the cloud database for crops & tasks
+ * Queue debounced sync with the cloud database for crops & tasks
  */
 export function pushGardenDataToCloud(crops: CropItem[], tasks: GardenTask[]): void {
   const user = getUser();
   if (!user || !isCloudSyncConfigured) return;
 
+  markLocalMutation();
   pendingCrops = crops;
   pendingTasks = tasks;
 
-  executePush();
+  if (debounceTimer) {
+    clearTimeout(debounceTimer);
+  }
+
+  // Debounce for 350ms to consolidate multi-step updates
+  debounceTimer = setTimeout(() => {
+    executePush();
+  }, 350);
 }

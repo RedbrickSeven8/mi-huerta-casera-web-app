@@ -1,7 +1,7 @@
 import type { CropItem, GardenTask } from '../types/huerta';
 import { INITIAL_CROPS, INITIAL_TASKS } from '../data/initialCrops';
 import { getUser } from './authService';
-import { pushGardenDataToCloud, fetchRemoteGardenData } from './cloudSyncService';
+import { pushGardenDataToCloud, fetchRemoteGardenData, markLocalMutation } from './cloudSyncService';
 
 const CROPS_KEY_PREFIX = 'mi_huerta_casera_crops_v3_';
 const TASKS_KEY_PREFIX = 'mi_huerta_casera_tasks_v3_';
@@ -28,6 +28,7 @@ export function loadCrops(): CropItem[] {
 
 export function saveCrops(crops: CropItem[]): void {
   try {
+    markLocalMutation();
     const key = getStorageKey(CROPS_KEY_PREFIX);
     localStorage.setItem(key, JSON.stringify(crops));
     
@@ -55,6 +56,7 @@ export function loadTasks(): GardenTask[] {
 
 export function saveTasks(tasks: GardenTask[]): void {
   try {
+    markLocalMutation();
     const key = getStorageKey(TASKS_KEY_PREFIX);
     localStorage.setItem(key, JSON.stringify(tasks));
 
@@ -68,6 +70,7 @@ export function saveTasks(tasks: GardenTask[]): void {
 
 export function saveBothToCloud(crops: CropItem[], tasks: GardenTask[]): void {
   try {
+    markLocalMutation();
     const cKey = getStorageKey(CROPS_KEY_PREFIX);
     const tKey = getStorageKey(TASKS_KEY_PREFIX);
     localStorage.setItem(cKey, JSON.stringify(crops));
