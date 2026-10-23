@@ -9,8 +9,8 @@
           "variety": "Lactuca sativa",
           "bed": "Mesa de Cultivo Norte #2",
           "plantedDate": "2026-10-12",
-          "daysToHarvest": 55,
-          "stage": "Semilla",
+          "daysToHarvest": 45,
+          "stage": "Plántula",
           "recommendedMoisturePercent": 80,
           "sunHours": 5,
           "waterFrequencyDays": 1,
@@ -19,6 +19,14 @@
           "imageUrl": "/crops/lechuga.svg",
           "imageAlt": "Lechuga Hoja de Roble",
           "log": [
+            {
+              "id": "log-1792726776093",
+              "type": "Cambio de etapa",
+              "title": "Evolución fenológica a etapa: Plántula",
+              "date": "2026-10-22",
+              "time": "22:39",
+              "notes": "Transición de Semilla a Plántula. Días estimados para cosecha recalculados a 45 días."
+            },
             {
               "id": "log-auto-1792723764702-ouq",
               "type": "Cambio de etapa",
@@ -86,7 +94,7 @@
           "completedAt": "2026-10-21"
         }
       ],
-      "updated_at": "2026-10-23T03:39:31.441Z"
+      "updated_at": "2026-10-23T03:39:36.418Z"
     }
   }
 }
