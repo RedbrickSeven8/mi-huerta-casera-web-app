@@ -5,11 +5,19 @@ import { pushGardenDataToCloud, fetchRemoteGardenData, markLocalMutation } from 
 
 const CROPS_KEY_PREFIX = 'mi_huerta_casera_crops_v3_';
 const TASKS_KEY_PREFIX = 'mi_huerta_casera_tasks_v3_';
+const UPDATED_AT_PREFIX = 'mi_huerta_casera_updated_at_';
 
 export function getStorageKey(prefix: string): string {
   const user = getUser();
   const userId = user ? (user.email || user.id) : 'guest';
   return `${prefix}${userId}`;
+}
+
+export function setLocalUpdatedAt(isoTime: string = new Date().toISOString()): void {
+  try {
+    const key = getStorageKey(UPDATED_AT_PREFIX);
+    localStorage.setItem(key, isoTime);
+  } catch {}
 }
 
 export function loadCrops(): CropItem[] {
@@ -31,7 +39,8 @@ export function saveCrops(crops: CropItem[]): void {
     markLocalMutation();
     const key = getStorageKey(CROPS_KEY_PREFIX);
     localStorage.setItem(key, JSON.stringify(crops));
-    
+    setLocalUpdatedAt();
+
     // Auto sync with cloud
     const currentTasks = loadTasks();
     pushGardenDataToCloud(crops, currentTasks);
@@ -59,6 +68,7 @@ export function saveTasks(tasks: GardenTask[]): void {
     markLocalMutation();
     const key = getStorageKey(TASKS_KEY_PREFIX);
     localStorage.setItem(key, JSON.stringify(tasks));
+    setLocalUpdatedAt();
 
     // Auto sync with cloud
     const currentCrops = loadCrops();
@@ -75,6 +85,7 @@ export function saveBothToCloud(crops: CropItem[], tasks: GardenTask[]): void {
     const tKey = getStorageKey(TASKS_KEY_PREFIX);
     localStorage.setItem(cKey, JSON.stringify(crops));
     localStorage.setItem(tKey, JSON.stringify(tasks));
+    setLocalUpdatedAt();
     pushGardenDataToCloud(crops, tasks);
   } catch {
     // ignore

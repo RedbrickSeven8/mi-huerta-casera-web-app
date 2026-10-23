@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import type { CropItem, CropStage, CropLogEntry, GardenTask, PageRoute } from './types/huerta';
 import { loadCrops, saveCrops, loadTasks, saveTasks, saveBothToCloud, fetchRemoteGardenData } from './services/huertaStorage';
 import { updatePageTitle } from './services/seoManager';
-import { getDaysToHarvestForCrop, calculateAutomaticStage } from './data/cropsDatabase';
+import { getDaysToHarvestForCrop } from './data/cropsDatabase';
 import { getUser, type UserProfile } from './services/authService';
 import { Header } from './components/Header';
 import { Breadcrumbs } from './components/Breadcrumbs';
@@ -54,44 +54,9 @@ const getCurrentTimeString = () => {
   return d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
 };
 
+// Respetar las decisiones y etapas establecidas por el usuario
 function getSynchronizedInitialCrops(): CropItem[] {
-  const initial = loadCrops();
-  const today = getTodayString();
-  const nowTime = getCurrentTimeString();
-  let hasChanged = false;
-
-  const synchronized = initial.map((c) => {
-    if (!c.plantedDate) return c;
-    const { stage: autoStage, daysToHarvest: autoDays } = calculateAutomaticStage(
-      c.name,
-      c.variety,
-      c.plantedDate
-    );
-    if (autoStage !== c.stage) {
-      hasChanged = true;
-      const autoLogEntry: CropLogEntry = {
-        id: 'log-auto-' + Date.now() + '-' + Math.random().toString(36).substring(2, 5),
-        type: 'Cambio de etapa',
-        title: `Transición automática a: ${autoStage}`,
-        date: today,
-        time: nowTime,
-        notes: `Cambio de etapa automatizado por calendario astronómico y agronómico (desde etapa ${c.stage}). Días restantes: ${autoDays}.`
-      };
-      const currentLogs = c.log || [];
-      return {
-        ...c,
-        stage: autoStage,
-        daysToHarvest: autoDays,
-        log: [autoLogEntry, ...currentLogs]
-      };
-    }
-    return c;
-  });
-
-  if (hasChanged) {
-    saveCrops(synchronized);
-  }
-  return synchronized;
+  return loadCrops();
 }
 
 export function App() {
@@ -115,24 +80,38 @@ export function App() {
       const currentUser = getUser();
       if (!currentUser) return;
 
-      fetchRemoteGardenData().then(({ crops: remoteCrops, tasks: remoteTasks }) => {
+      fetchRemoteGardenData().then(({ crops: remoteCrops, tasks: remoteTasks, updated_at: remoteUpdatedAt }) => {
+        if (!remoteCrops && !remoteTasks) return;
+
+        const userKey = currentUser.email || currentUser.id;
+        const localUpdatedAt = localStorage.getItem('mi_huerta_casera_updated_at_' + userKey);
+
+        // Si la versión local es más reciente o igual a la nube, no devolver el estado
+        if (remoteUpdatedAt && localUpdatedAt && new Date(localUpdatedAt) >= new Date(remoteUpdatedAt)) {
+          return;
+        }
+
         if (remoteCrops && remoteCrops.length > 0) {
-          const userKey = 'mi_huerta_casera_crops_v3_' + (currentUser.email || currentUser.id);
-          const currentLocalStr = localStorage.getItem(userKey);
+          const userKeyStorage = 'mi_huerta_casera_crops_v3_' + userKey;
+          const currentLocalStr = localStorage.getItem(userKeyStorage);
           const remoteStr = JSON.stringify(remoteCrops);
           if (currentLocalStr !== remoteStr) {
             setCrops(remoteCrops);
-            localStorage.setItem(userKey, remoteStr);
+            localStorage.setItem(userKeyStorage, remoteStr);
           }
         }
         if (remoteTasks && remoteTasks.length > 0) {
-          const taskKey = 'mi_huerta_casera_tasks_v3_' + (currentUser.email || currentUser.id);
-          const currentTasksStr = localStorage.getItem(taskKey);
+          const taskKeyStorage = 'mi_huerta_casera_tasks_v3_' + userKey;
+          const currentTasksStr = localStorage.getItem(taskKeyStorage);
           const remoteTasksStr = JSON.stringify(remoteTasks);
           if (currentTasksStr !== remoteTasksStr) {
             setTasks(remoteTasks);
-            localStorage.setItem(taskKey, remoteTasksStr);
+            localStorage.setItem(taskKeyStorage, remoteTasksStr);
           }
+        }
+
+        if (remoteUpdatedAt) {
+          localStorage.setItem('mi_huerta_casera_updated_at_' + userKey, remoteUpdatedAt);
         }
       });
     };
