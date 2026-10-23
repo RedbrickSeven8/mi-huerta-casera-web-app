@@ -4,6 +4,32 @@
     "danicamarillo5215@gmail.com": {
       "crops": [
         {
+          "id": "crop-1792774703380",
+          "name": "Lechuga",
+          "variety": "Lechuga Escarola",
+          "bed": "mesa de Cultivo Norte #1",
+          "plantedDate": "2026-10-23",
+          "daysToHarvest": 45,
+          "stage": "Plántula",
+          "recommendedMoisturePercent": 80,
+          "sunHours": 5,
+          "waterFrequencyDays": 1,
+          "lastWatered": "Sin registros",
+          "notes": "Sustrato ligero, rico en compost y con alto retención de humedad. Excelente asociación con cebollas y rábanos.",
+          "imageUrl": "/crops/lechuga.svg",
+          "imageAlt": "Lechuga",
+          "log": [
+            {
+              "id": "log-1792774703380",
+              "type": "Siembra",
+              "title": "Alta: Lechuga",
+              "date": "2026-10-23",
+              "time": "11:58",
+              "notes": "Sustrato ligero, rico en compost y con alto retención de humedad. Excelente asociación con cebollas y rábanos."
+            }
+          ]
+        },
+        {
           "id": "crop-1792774675345",
           "name": "Pimiento",
           "variety": "Pimiento del Padrón",
@@ -149,7 +175,7 @@
           "completedAt": "2026-10-21"
         }
       ],
-      "updated_at": "2026-10-23T16:57:55.992Z"
+      "updated_at": "2026-10-23T16:58:24.052Z"
     },
     "daniel@laspaginasdedani.com": {
       "crops": [
