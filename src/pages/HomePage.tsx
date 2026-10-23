@@ -9,7 +9,7 @@ interface HomePageProps {
 
 export const HomePage: React.FC<HomePageProps> = ({ crops, onNavigate }) => {
   return (
-    <div className="space-y-16">
+    <div className="space-y-16 animate-fade-in">
       {/* First Viewport Hero Section with Primary CTA above the fold */}
       <section className="pt-6 pb-10 md:py-14 border-b border-[#E2DFD7]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -196,8 +196,8 @@ export const HomePage: React.FC<HomePageProps> = ({ crops, onNavigate }) => {
 
               <div className="space-y-1.5 pt-2 border-t border-[#F2EFE9] text-xs">
                 <div className="flex justify-between">
-                  <span className="text-[#5A655E]">Humedad sustrato:</span>
-                  <span className="font-semibold text-[#2D5A27]">{crop.moisturePercent}%</span>
+                  <span className="text-[#5A655E]">Humedad rec.:</span>
+                  <span className="font-semibold text-[#2D5A27]">{crop.recommendedMoisturePercent || 70}%</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-[#5A655E]">Cosecha estimada:</span>

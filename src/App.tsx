@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { CropItem, CropStage, GardenTask, PageRoute } from './types/huerta';
+import type { CropItem, CropStage, CropLogEntry, GardenTask, PageRoute } from './types/huerta';
 import { loadCrops, saveCrops, loadTasks, saveTasks, fetchRemoteGardenData } from './services/huertaStorage';
 import { updatePageTitle } from './services/seoManager';
 import { getUser, type UserProfile } from './services/authService';
@@ -39,6 +39,19 @@ function resolveInitialRoute(): PageRoute {
   }
   return '404';
 }
+
+const getTodayString = () => {
+  const d = new Date();
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+const getCurrentTimeString = () => {
+  const d = new Date();
+  return d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+};
 
 export function App() {
   const [currentRoute, setCurrentRoute] = useState<PageRoute>(resolveInitialRoute);
@@ -92,29 +105,53 @@ export function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Water crop: Keep recommended moisture constant, update lastWatered, and append a log entry
   const handleWaterCrop = (cropId: string) => {
+    const nowTime = getCurrentTimeString();
+    const today = getTodayString();
     const updated = crops.map((c) => {
       if (c.id !== cropId) return c;
-      const nextMoisture = Math.min(95, c.moisturePercent + 12);
+      const logEntry: CropLogEntry = {
+        id: 'log-' + Date.now(),
+        type: 'Riego',
+        title: 'Riego registrado en el cultivo',
+        date: today,
+        time: nowTime,
+        notes: `Riego manual efectuado. Humedad recomendada de la especie (${c.recommendedMoisturePercent}%).`
+      };
+      const existingLogs = c.log || [];
       return {
         ...c,
-        moisturePercent: nextMoisture,
-        lastWatered: 'Hace unos instantes'
+        lastWatered: `Hoy, ${nowTime}`,
+        log: [logEntry, ...existingLogs]
       };
     });
     setCrops(updated);
     saveCrops(updated);
   };
 
+  // Advance stage: log the event in bitácora
   const handleAdvanceStage = (cropId: string) => {
+    const nowTime = getCurrentTimeString();
+    const today = getTodayString();
     const updated = crops.map((c) => {
       if (c.id !== cropId) return c;
       const idx = STAGE_ORDER.indexOf(c.stage);
       const nextStage = STAGE_ORDER[(idx + 1) % STAGE_ORDER.length];
+      const logEntry: CropLogEntry = {
+        id: 'log-' + Date.now(),
+        type: 'Cambio de etapa',
+        title: `Evolución fenológica a etapa: ${nextStage}`,
+        date: today,
+        time: nowTime,
+        notes: `Transición de ${c.stage} a ${nextStage}.`
+      };
+      const existingLogs = c.log || [];
       return {
         ...c,
         stage: nextStage,
-        daysToHarvest: nextStage === 'Cosecha' ? 0 : Math.max(3, c.daysToHarvest - 5)
+        daysToHarvest: nextStage === 'Cosecha' ? 0 : Math.max(3, c.daysToHarvest - 5),
+        log: [logEntry, ...existingLogs]
       };
     });
     setCrops(updated);
@@ -133,10 +170,71 @@ export function App() {
     saveCrops(updated);
   };
 
+  // Add manual log entry to a specific crop
+  const handleAddLogEntry = (cropId: string, entryData: Omit<CropLogEntry, 'id'>) => {
+    const newEntry: CropLogEntry = {
+      ...entryData,
+      id: 'log-' + Date.now() + '-' + Math.random().toString(36).substring(2, 5)
+    };
+    const updated = crops.map((c) => {
+      if (c.id !== cropId) return c;
+      const existingLogs = c.log || [];
+      return {
+        ...c,
+        log: [newEntry, ...existingLogs]
+      };
+    });
+    setCrops(updated);
+    saveCrops(updated);
+  };
+
+  // Toggle task: when marked as completed, record into the crop's bitácora!
   const handleToggleTask = (taskId: string) => {
-    const updated = tasks.map((t) => (t.id === taskId ? { ...t, completed: !t.completed } : t));
-    setTasks(updated);
-    saveTasks(updated);
+    const targetTask = tasks.find((t) => t.id === taskId);
+    if (!targetTask) return;
+
+    const willBeCompleted = !targetTask.completed;
+    const today = getTodayString();
+    const nowTime = getCurrentTimeString();
+
+    // Update tasks
+    const updatedTasks = tasks.map((t) => {
+      if (t.id !== taskId) return t;
+      return {
+        ...t,
+        completed: willBeCompleted,
+        completedAt: willBeCompleted ? today : undefined
+      };
+    });
+    setTasks(updatedTasks);
+    saveTasks(updatedTasks);
+
+    // If marked as completed, add to corresponding crop bitácora
+    if (willBeCompleted) {
+      const updatedCrops = crops.map((c) => {
+        // If task has specific cropId or matches name
+        if (c.id === targetTask.cropId || (targetTask.cropId === 'general' && c.name === targetTask.cropName)) {
+          const logEntry: CropLogEntry = {
+            id: 'log-task-' + Date.now(),
+            type: targetTask.type,
+            title: `Labor completada: ${targetTask.type}`,
+            date: today,
+            time: nowTime,
+            notes: `Tarea programada para ${targetTask.dueDate} marcada como realizada desde el calendario.`,
+            taskId: targetTask.id
+          };
+          const existingLogs = c.log || [];
+          return {
+            ...c,
+            lastWatered: targetTask.type === 'Riego' ? `Hoy, ${nowTime}` : c.lastWatered,
+            log: [logEntry, ...existingLogs]
+          };
+        }
+        return c;
+      });
+      setCrops(updatedCrops);
+      saveCrops(updatedCrops);
+    }
   };
 
   const handleAddTask = (taskData: Omit<GardenTask, 'id' | 'completed'>) => {
@@ -174,6 +272,7 @@ export function App() {
             onWaterCrop={handleWaterCrop}
             onAdvanceStage={handleAdvanceStage}
             onDeleteCrop={handleDeleteCrop}
+            onAddLogEntry={handleAddLogEntry}
             onNavigate={handleNavigate}
             user={user}
             onAuthChange={handleAuthChange}

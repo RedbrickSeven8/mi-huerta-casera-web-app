@@ -8,3 +8,47 @@
     -webkit-font-smoothing: antialiased;
   }
 }
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseSubtle {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 2s infinite ease-in-out;
+}

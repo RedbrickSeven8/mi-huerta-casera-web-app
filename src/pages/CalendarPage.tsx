@@ -1,5 +1,21 @@
 import React, { useState } from 'react';
-import { Calendar as CalendarIcon, CheckSquare, Square, Plus, ArrowRight, Trash2, LayoutList, CalendarDays, ChevronLeft, ChevronRight, X, Clock, Sprout } from 'lucide-react';
+import {
+  Calendar as CalendarIcon,
+  CheckSquare,
+  Square,
+  Plus,
+  Trash2,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  LayoutList,
+  CalendarDays,
+  Sparkles,
+  Scissors,
+  Droplets,
+  ShieldAlert,
+  CalendarCheck
+} from 'lucide-react';
 import type { GardenTask, CropItem, PageRoute } from '../types/huerta';
 
 interface CalendarPageProps {
@@ -11,7 +27,13 @@ interface CalendarPageProps {
   onNavigate: (route: PageRoute) => void;
 }
 
-const getTodayString = () => new Date().toISOString().split('T')[0];
+const getTodayString = () => {
+  const d = new Date();
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
 
 export const CalendarPage: React.FC<CalendarPageProps> = ({
   tasks,
@@ -24,14 +46,18 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
   const [selectedCropId, setSelectedCropId] = useState<string>(crops[0]?.id || '');
   const [taskType, setTaskType] = useState<GardenTask['type']>('Riego');
   const [dueDate, setDueDate] = useState<string>(getTodayString());
-  const [viewMode, setViewMode] = useState<'list' | 'calendar'>('calendar');
+  const [viewMode, setViewMode] = useState<'calendar' | 'list'>('calendar');
 
   // Calendar Grid state
-  const [currentMonthDate, setCurrentMonthDate] = useState<Date>(new Date());
+  const [currentMonthDate, setCurrentMonthDate] = useState<Date>(() => new Date());
 
   // Modal states
   const [selectedTaskModal, setSelectedTaskModal] = useState<GardenTask | null>(null);
-  const [selectedDayModal, setSelectedDayModal] = useState<{ dateStr: string; formattedDate: string; dayTasks: GardenTask[] } | null>(null);
+  const [selectedDayModal, setSelectedDayModal] = useState<{
+    dateStr: string;
+    formattedDate: string;
+    dayTasks: GardenTask[];
+  } | null>(null);
 
   const handleCreateTask = (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,15 +112,30 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
     });
   };
 
+  const getTaskIcon = (type: GardenTask['type']) => {
+    switch (type) {
+      case 'Riego':
+        return <Droplets className="w-3.5 h-3.5 text-blue-600" />;
+      case 'Abonado':
+        return <Sparkles className="w-3.5 h-3.5 text-amber-600" />;
+      case 'Poda':
+        return <Scissors className="w-3.5 h-3.5 text-emerald-700" />;
+      case 'Cosecha':
+        return <CalendarCheck className="w-3.5 h-3.5 text-emerald-600" />;
+      case 'Control preventivo':
+        return <ShieldAlert className="w-3.5 h-3.5 text-purple-600" />;
+    }
+  };
+
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-8">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-8 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2DFD7] pb-6">
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#1A231E]">
             Calendario de Riego y Tareas Hortícolas
           </h1>
           <p className="text-sm text-[#4A554E] mt-1">
-            Organiza las labores semanales de riego, poda, abonado y control ecológico de tu huerta.
+            Próximas labores de tu huerta. Al marcarlas como hechas quedarán registradas automáticamente en la bitácora del cultivo.
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -103,21 +144,21 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
             <button
               type="button"
               onClick={() => setViewMode('calendar')}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === 'calendar'
-                  ? 'bg-white text-[#2D5A27] shadow-xs'
+                  ? 'bg-white text-[#1A231E] shadow-xs'
                   : 'text-[#5A655E] hover:text-[#1A231E]'
               }`}
             >
               <CalendarDays className="w-3.5 h-3.5" />
-              <span>Vista Calendario</span>
+              <span>Cuadrícula</span>
             </button>
             <button
               type="button"
               onClick={() => setViewMode('list')}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === 'list'
-                  ? 'bg-white text-[#2D5A27] shadow-xs'
+                  ? 'bg-white text-[#1A231E] shadow-xs'
                   : 'text-[#5A655E] hover:text-[#1A231E]'
               }`}
             >
@@ -129,287 +170,291 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
           <button
             type="button"
             onClick={() => onNavigate('dashboard')}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#F2EFE9] text-[#1A231E] text-xs sm:text-sm font-medium hover:bg-[#E2DFD7] cursor-pointer"
+            className="px-4 py-2 rounded-xl bg-[#2D5A27] text-[#FAF9F6] text-xs font-semibold hover:bg-[#23471E] transition-all transform active:scale-95 cursor-pointer shadow-xs"
           >
-            <span>Volver al Panel</span>
-            <ArrowRight className="w-4 h-4" />
+            Abrir Mi Huerta
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Main View Area */}
-        <div className="lg:col-span-7 space-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Column: Calendar View or List View */}
+        <div className="lg:col-span-8 space-y-6">
           {viewMode === 'calendar' ? (
-            /* Calendar View */
-            <div className="bg-white border border-[#E2DFD7] rounded-2xl p-5 space-y-4 shadow-xs">
-              <div className="flex items-center justify-between border-b border-[#E2DFD7] pb-3">
-                <h2 className="text-base font-bold text-[#1A231E] capitalize">
-                  {monthName}
+            /* Modern Interactive Calendar Grid */
+            <div className="bg-white rounded-2xl border border-[#E2DFD7] p-5 sm:p-6 shadow-xs space-y-4">
+              <div className="flex items-center justify-between border-b border-[#E2DFD7] pb-4">
+                <h2 className="text-lg font-bold text-[#1A231E] capitalize flex items-center gap-2">
+                  <CalendarIcon className="w-5 h-5 text-[#2D5A27]" />
+                  <span>{monthName}</span>
                 </h2>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1.5">
                   <button
                     type="button"
                     onClick={handlePrevMonth}
-                    className="p-1.5 rounded-lg border border-[#E2DFD7] text-[#5A655E] hover:bg-[#F2EFE9] cursor-pointer"
-                    title="Mes anterior"
+                    aria-label="Mes anterior"
+                    className="p-1.5 rounded-lg border border-[#E2DFD7] hover:bg-[#F2EFE9] text-[#1A231E] transition-colors cursor-pointer"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
                   <button
                     type="button"
+                    onClick={() => setCurrentMonthDate(new Date())}
+                    className="px-2.5 py-1 text-xs font-medium rounded-lg border border-[#E2DFD7] hover:bg-[#F2EFE9] text-[#1A231E] cursor-pointer"
+                  >
+                    Hoy
+                  </button>
+                  <button
+                    type="button"
                     onClick={handleNextMonth}
-                    className="p-1.5 rounded-lg border border-[#E2DFD7] text-[#5A655E] hover:bg-[#F2EFE9] cursor-pointer"
-                    title="Mes siguiente"
+                    aria-label="Mes siguiente"
+                    className="p-1.5 rounded-lg border border-[#E2DFD7] hover:bg-[#F2EFE9] text-[#1A231E] transition-colors cursor-pointer"
                   >
                     <ChevronRight className="w-4 h-4" />
                   </button>
                 </div>
               </div>
 
-              {/* Days Header */}
-              <div className="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-[#5A655E]">
-                <span>Lun</span>
-                <span>Mar</span>
-                <span>Mié</span>
-                <span>Jue</span>
-                <span>Vie</span>
-                <span>Sáb</span>
-                <span>Dom</span>
+              {/* Day headers: Monday to Sunday */}
+              <div className="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-[#5A655E] pb-2">
+                <div>Lun</div>
+                <div>Mar</div>
+                <div>Mié</div>
+                <div>Jue</div>
+                <div>Vie</div>
+                <div>Sáb</div>
+                <div>Dom</div>
               </div>
 
-              {/* Month Grid */}
+              {/* Day cells */}
               <div className="grid grid-cols-7 gap-1.5">
-                {Array.from({ length: startOffset }).map((_, idx) => (
-                  <div key={`offset-${idx}`} className="h-24 bg-[#FAF9F6]/50 rounded-lg border border-transparent" />
+                {Array.from({ length: startOffset }).map((_, i) => (
+                  <div key={'empty-' + i} className="h-20 sm:h-24 rounded-xl bg-[#FAF9F6]/50 border border-transparent" />
                 ))}
 
                 {daysArray.map((day) => {
                   const dateStr = formatDayDateString(day);
+                  const isToday = dateStr === getTodayString();
                   const dayTasks = tasks.filter((t) => t.dueDate === dateStr);
-
-                  const today = new Date();
-                  const isToday =
-                    day === today.getDate() &&
-                    month === today.getMonth() &&
-                    year === today.getFullYear();
+                  const pendingCount = dayTasks.filter((t) => !t.completed).length;
 
                   return (
                     <div
                       key={day}
                       onClick={() => handleDayClick(day)}
-                      className={`h-24 p-1.5 rounded-lg border flex flex-col justify-between overflow-hidden text-xs cursor-pointer transition-colors hover:border-[#2D5A27] ${
+                      className={`h-20 sm:h-24 p-1.5 rounded-xl border flex flex-col justify-between transition-all cursor-pointer ${
                         isToday
-                          ? 'border-[#2D5A27] bg-[#2D5A27]/5 font-bold'
-                          : 'border-[#E2DFD7] bg-white'
+                          ? 'border-[#2D5A27] bg-[#2D5A27]/5 font-bold shadow-xs'
+                          : 'border-[#E2DFD7] hover:border-[#2D5A27]/50 hover:bg-[#FAF9F6]'
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className={`text-[11px] ${isToday ? 'text-[#2D5A27] font-bold' : 'text-[#1A231E]'}`}>
+                        <span className={`text-xs ${isToday ? 'text-[#2D5A27] font-bold' : 'text-[#1A231E]'}`}>
                           {day}
                         </span>
-                        {dayTasks.length > 0 && (
-                          <span className="text-[10px] bg-[#2D5A27] text-white px-1.5 py-0.2 rounded-full font-bold">
-                            {dayTasks.length}
-                          </span>
+                        {pendingCount > 0 && (
+                          <span className="w-2 h-2 rounded-full bg-amber-500" title={`${pendingCount} pendiente(s)`} />
                         )}
                       </div>
 
-                      {/* Display task badges inside calendar cell */}
-                      <div className="space-y-1 overflow-y-auto max-h-14 pr-0.5">
-                        {dayTasks.map((t) => (
-                          <button
+                      {/* Small task chips */}
+                      <div className="space-y-1 overflow-hidden">
+                        {dayTasks.slice(0, 2).map((t) => (
+                          <div
                             key={t.id}
-                            type="button"
                             onClick={(e) => {
                               e.stopPropagation();
                               setSelectedTaskModal(t);
                             }}
-                            className={`w-full text-left text-[10px] truncate px-1.5 py-0.5 rounded font-medium cursor-pointer transition-transform hover:scale-102 block ${
+                            className={`text-[10px] px-1.5 py-0.5 rounded truncate font-medium flex items-center gap-1 ${
                               t.completed
-                                ? 'bg-gray-100 text-gray-500 line-through'
-                                : 'bg-[#2D5A27]/10 text-[#2D5A27] border border-[#2D5A27]/20 hover:bg-[#2D5A27] hover:text-white'
+                                ? 'bg-gray-100 text-gray-400 line-through'
+                                : 'bg-[#2D5A27]/10 text-[#2D5A27] hover:bg-[#2D5A27]/20'
                             }`}
                           >
-                            {t.type}
-                          </button>
+                            <span className="truncate">{t.type}: {t.cropName}</span>
+                          </div>
                         ))}
+                        {dayTasks.length > 2 && (
+                          <div className="text-[9px] text-[#5A655E] font-medium text-center">
+                            +{dayTasks.length - 2} más
+                          </div>
+                        )}
                       </div>
                     </div>
                   );
                 })}
               </div>
 
-              <div className="pt-2 text-xs text-[#5A655E] border-t border-[#F2EFE9] flex items-center justify-between">
-                <span>Tareas programadas en total: <strong>{tasks.length}</strong></span>
-                <span className="text-[11px]">Haz clic en cualquier día o tarea para ver los detalles.</span>
+              <div className="pt-2 text-xs text-[#5A655E] flex flex-wrap items-center justify-between gap-2 border-t border-[#E2DFD7]">
+                <span>Haz clic en cualquier día o labor para ver detalles, marcar como hecha o eliminar.</span>
+                <span className="text-[#2D5A27] font-semibold">Total labores: {tasks.length}</span>
               </div>
             </div>
           ) : (
-            /* List View */
+            /* Traditional List View */
             <div className="space-y-3">
-              <h2 className="text-base font-bold text-[#1A231E] flex items-center gap-2">
-                <CalendarIcon className="w-4 h-4 text-[#2D5A27]" />
-                <span>Tareas programadas ({tasks.length})</span>
+              <h2 className="text-base font-bold text-[#1A231E]">
+                Lista de Próximas Tareas ({tasks.length})
               </h2>
-
               {tasks.length === 0 ? (
-                <div className="p-8 text-center bg-white border border-[#E2DFD7] rounded-2xl text-xs text-[#5A655E]">
-                  No hay tareas registradas. Añade una nueva tarea desde el formulario.
+                <div className="p-8 text-center rounded-2xl bg-white border border-[#E2DFD7] text-xs text-[#5A655E]">
+                  No hay tareas programadas. Programa una nueva labor en el panel lateral.
                 </div>
               ) : (
-                <div className="space-y-2.5">
-                  {tasks.map((task) => (
-                    <div
-                      key={task.id}
-                      className={`p-4 rounded-xl border transition-colors flex items-center justify-between ${
-                        task.completed
-                          ? 'bg-[#F2EFE9]/60 border-[#E2DFD7] text-[#8A968E]'
-                          : 'bg-[#FFFFFF] border-[#E2DFD7] hover:border-[#2D5A27]'
-                      }`}
-                    >
-                      <div
-                        onClick={() => setSelectedTaskModal(task)}
-                        role="button"
-                        tabIndex={0}
-                        onKeyDown={(e) => e.key === 'Enter' && setSelectedTaskModal(task)}
-                        className="flex items-center gap-3 cursor-pointer flex-1"
+                tasks.map((task) => (
+                  <div
+                    key={task.id}
+                    className={`p-4 rounded-2xl border transition-all flex items-center justify-between gap-4 ${
+                      task.completed
+                        ? 'bg-[#FAF9F6] border-[#E2DFD7] opacity-75'
+                        : 'bg-white border-[#E2DFD7] shadow-xs hover:border-[#2D5A27]/40'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <button
+                        type="button"
+                        onClick={() => onToggleTask(task.id)}
+                        title={task.completed ? 'Marcar pendiente' : 'Marcar hecha (se registra en la bitácora)'}
+                        className="mt-0.5 text-[#2D5A27] cursor-pointer hover:scale-110 transition-transform"
                       >
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onToggleTask(task.id);
-                          }}
-                          className="cursor-pointer"
-                        >
-                          {task.completed ? (
-                            <CheckSquare className="w-5 h-5 text-[#2D5A27] shrink-0" />
-                          ) : (
-                            <Square className="w-5 h-5 text-[#5A655E] shrink-0" />
-                          )}
-                        </button>
-                        <div>
-                          <p className={`text-sm font-semibold ${task.completed ? 'line-through' : 'text-[#1A231E]'}`}>
-                            {task.type} · {task.cropName}
-                          </p>
-                          <p className="text-xs text-[#5A655E]">Fecha: {task.dueDate}</p>
+                        {task.completed ? (
+                          <CheckSquare className="w-5 h-5 text-[#2D5A27]" />
+                        ) : (
+                          <Square className="w-5 h-5 text-[#8A968E]" />
+                        )}
+                      </button>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-[#2D5A27]/10 text-[#2D5A27]">
+                            {task.type}
+                          </span>
+                          <span
+                            className={`text-sm font-bold ${
+                              task.completed ? 'line-through text-[#5A655E]' : 'text-[#1A231E]'
+                            }`}
+                          >
+                            {task.cropName}
+                          </span>
                         </div>
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        <span
-                          className={`text-xs font-medium px-2.5 py-1 rounded-full ${
-                            task.completed
-                              ? 'bg-[#E2DFD7] text-[#5A655E]'
-                              : 'bg-[#2D5A27]/10 text-[#2D5A27]'
-                          }`}
-                        >
-                          {task.completed ? 'Completada' : 'Pendiente'}
-                        </span>
-
-                        <button
-                          type="button"
-                          onClick={() => onDeleteTask(task.id)}
-                          title="Eliminar tarea"
-                          aria-label={`Eliminar tarea ${task.type}`}
-                          className="p-1.5 text-[#8A968E] hover:text-red-700 rounded-lg hover:bg-red-50 transition-colors cursor-pointer ml-1"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                        <p className="text-xs text-[#5A655E] mt-1 flex items-center gap-1.5">
+                          <span>Fecha programada: {task.dueDate}</span>
+                          {task.completed && (
+                            <span className="text-emerald-700 font-medium">· Registrada en bitácora ✓</span>
+                          )}
+                        </p>
                       </div>
                     </div>
-                  ))}
-                </div>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => onToggleTask(task.id)}
+                        className="px-3 py-1.5 rounded-xl border border-[#E2DFD7] bg-[#FAF9F6] text-xs font-medium text-[#1A231E] hover:bg-[#E2DFD7] cursor-pointer"
+                      >
+                        {task.completed ? 'Deshacer' : 'Marcar Hecha'}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => onDeleteTask(task.id)}
+                        className="p-1.5 text-[#8A968E] hover:text-red-700 rounded-lg hover:bg-red-50 cursor-pointer"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                ))
               )}
             </div>
           )}
         </div>
 
-        {/* Add Task Form */}
-        <div className="lg:col-span-5">
-          <form
-            onSubmit={handleCreateTask}
-            className="bg-[#FFFFFF] border border-[#E2DFD7] rounded-2xl p-6 space-y-4 shadow-xs"
-          >
-            <h2 className="text-base font-bold text-[#1A231E]">Programar Nueva Tarea</h2>
-            <p className="text-xs text-[#5A655E]">
-              Asigna recordatorios operativos a cualquiera de tus cultivos registrados.
+        {/* Right Column: New Task Form */}
+        <div className="lg:col-span-4 bg-white p-6 rounded-2xl border border-[#E2DFD7] shadow-xs space-y-4">
+          <div className="border-b border-[#E2DFD7] pb-3">
+            <h2 className="text-base font-bold text-[#1A231E] flex items-center gap-2">
+              <Plus className="w-4 h-4 text-[#2D5A27]" />
+              <span>Programar Nueva Tarea</span>
+            </h2>
+            <p className="text-xs text-[#5A655E] mt-0.5">
+              Al completarla, quedará registrada en la bitácora del cultivo.
             </p>
+          </div>
 
+          <form onSubmit={handleCreateTask} className="space-y-4">
             <div>
-              <label htmlFor="crop-select" className="block text-xs font-semibold text-[#1A231E] mb-1">
-                Cultivo asociado
+              <label htmlFor="task-crop" className="block text-xs font-semibold text-[#1A231E] mb-1">
+                Cultivo destinatario
               </label>
               <select
-                id="crop-select"
+                id="task-crop"
                 value={selectedCropId}
                 onChange={(e) => setSelectedCropId(e.target.value)}
-                className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E]"
+                className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3 py-2 text-xs text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27]"
               >
-                {crops.length === 0 ? (
-                  <option value="general">Bancal General</option>
-                ) : (
-                  crops.map((crop) => (
-                    <option key={crop.id} value={crop.id}>
-                      {crop.name} ({crop.bed})
-                    </option>
-                  ))
-                )}
+                {crops.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.name} ({c.bed})
+                  </option>
+                ))}
               </select>
             </div>
 
             <div>
               <label htmlFor="task-type" className="block text-xs font-semibold text-[#1A231E] mb-1">
-                Tipo de labor hortícola
+                Labor a realizar
               </label>
               <select
                 id="task-type"
                 value={taskType}
                 onChange={(e) => setTaskType(e.target.value as GardenTask['type'])}
-                className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E]"
+                className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3 py-2 text-xs text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27]"
               >
                 <option value="Riego">Riego</option>
-                <option value="Abonado">Abonado orgánico</option>
-                <option value="Poda">Poda / Entutorado</option>
-                <option value="Control preventivo">Control preventivo de plagas</option>
+                <option value="Abonado">Abonado</option>
+                <option value="Poda">Poda</option>
                 <option value="Cosecha">Cosecha</option>
+                <option value="Control preventivo">Control preventivo</option>
               </select>
             </div>
 
             <div>
-              <label htmlFor="due-date" className="block text-xs font-semibold text-[#1A231E] mb-1">
-                Fecha de programación
+              <label htmlFor="task-date" className="block text-xs font-semibold text-[#1A231E] mb-1">
+                Fecha programada
               </label>
               <input
-                id="due-date"
+                id="task-date"
                 type="date"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
-                className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E]"
                 required
+                className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3 py-2 text-xs text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27]"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#2D5A27] text-[#FAF9F6] text-sm font-semibold hover:bg-[#23471E] transition-colors cursor-pointer"
+              className="w-full py-2.5 rounded-xl bg-[#2D5A27] text-[#FAF9F6] text-xs font-semibold hover:bg-[#23471E] transition-all transform active:scale-95 cursor-pointer shadow-xs"
             >
-              <Plus className="w-4 h-4" />
-              <span>Añadir al Calendario</span>
+              Añadir a la Agenda
             </button>
           </form>
         </div>
       </div>
 
-      {/* Task Detail Modal */}
+      {/* Task Details Modal */}
       {selectedTaskModal && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1A231E]/60 backdrop-blur-xs p-4 animate-fade-in">
           <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#E2DFD7] space-y-4">
             <div className="flex items-start justify-between border-b border-[#E2DFD7] pb-3">
-              <div className="flex items-center gap-2 text-[#2D5A27] font-bold text-lg">
-                <Sprout className="w-5 h-5" />
-                <span>{selectedTaskModal.type}</span>
+              <div className="flex items-center gap-2">
+                <span className="p-2 rounded-xl bg-[#2D5A27]/10">
+                  {getTaskIcon(selectedTaskModal.type)}
+                </span>
+                <div>
+                  <h3 className="font-bold text-[#1A231E] text-base">{selectedTaskModal.type}</h3>
+                  <p className="text-xs text-[#5A655E]">{selectedTaskModal.cropName}</p>
+                </div>
               </div>
               <button
                 type="button"
@@ -420,58 +465,53 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
               </button>
             </div>
 
-            <div className="space-y-3 text-sm text-[#1A231E]">
-              <div>
-                <span className="text-xs text-[#5A655E] block">Cultivo / Ubicación:</span>
-                <p className="font-semibold text-base">{selectedTaskModal.cropName}</p>
+            <div className="space-y-2 text-xs text-[#4A554E]">
+              <div className="flex justify-between py-1 border-b border-[#FAF9F6]">
+                <span>Fecha:</span>
+                <strong className="text-[#1A231E]">{selectedTaskModal.dueDate}</strong>
               </div>
-
-              <div className="flex items-center gap-2 text-xs text-[#5A655E] bg-[#FAF9F6] p-3 rounded-xl border border-[#E2DFD7]">
-                <Clock className="w-4 h-4 text-[#2D5A27]" />
-                <span>Programado para: <strong>{selectedTaskModal.dueDate}</strong></span>
-              </div>
-
-              <div className="flex items-center justify-between pt-2">
-                <span className="text-xs text-[#5A655E]">Estado:</span>
-                <span className={`text-xs font-semibold px-3 py-1 rounded-full ${
-                  selectedTaskModal.completed ? 'bg-gray-200 text-gray-700' : 'bg-[#2D5A27]/10 text-[#2D5A27]'
-                }`}>
-                  {selectedTaskModal.completed ? 'Completada' : 'Pendiente'}
-                </span>
+              <div className="flex justify-between py-1 border-b border-[#FAF9F6]">
+                <span>Estado:</span>
+                <strong className={selectedTaskModal.completed ? 'text-emerald-700' : 'text-amber-600'}>
+                  {selectedTaskModal.completed ? 'Completada (en bitácora)' : 'Pendiente de realizar'}
+                </strong>
               </div>
             </div>
 
-            <div className="flex items-center justify-between pt-4 border-t border-[#E2DFD7] gap-3">
+            <div className="pt-2 flex items-center justify-between gap-3 border-t border-[#E2DFD7]">
               <button
                 type="button"
                 onClick={() => {
                   onDeleteTask(selectedTaskModal.id);
                   setSelectedTaskModal(null);
                 }}
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium text-red-700 hover:bg-red-50 cursor-pointer"
+                className="px-3 py-1.5 text-xs text-red-600 hover:bg-red-50 rounded-lg cursor-pointer"
               >
-                <Trash2 className="w-4 h-4" />
-                <span>Eliminar Tarea</span>
+                Eliminar Tarea
               </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  onToggleTask(selectedTaskModal.id);
-                  setSelectedTaskModal({ ...selectedTaskModal, completed: !selectedTaskModal.completed });
-                }}
-                className="px-4 py-2 rounded-xl bg-[#2D5A27] text-white text-xs font-semibold hover:bg-[#23471E] cursor-pointer"
-              >
-                {selectedTaskModal.completed ? 'Marcar Pendiente' : 'Marcar Completada'}
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    onToggleTask(selectedTaskModal.id);
+                    setSelectedTaskModal({
+                      ...selectedTaskModal,
+                      completed: !selectedTaskModal.completed
+                    });
+                  }}
+                  className="px-4 py-2 rounded-xl bg-[#2D5A27] text-white text-xs font-semibold hover:bg-[#23471E] cursor-pointer"
+                >
+                  {selectedTaskModal.completed ? 'Marcar Pendiente' : 'Marcar Hecha (Guardar en Bitácora)'}
+                </button>
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Day Tasks List Modal */}
+      {/* Day Details Modal */}
       {selectedDayModal && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1A231E]/60 backdrop-blur-xs p-4 animate-fade-in">
           <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-[#E2DFD7] space-y-4 max-h-[85vh] flex flex-col">
             <div className="flex items-start justify-between border-b border-[#E2DFD7] pb-3">
               <div>
@@ -509,10 +549,17 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                       }}
                       className="cursor-pointer flex-1"
                     >
-                      <p className={`text-sm font-semibold ${task.completed ? 'line-through text-gray-400' : 'text-[#1A231E]'}`}>
-                        {task.type} · {task.cropName}
+                      <p
+                        className={`text-sm font-semibold flex items-center gap-1.5 ${
+                          task.completed ? 'line-through text-gray-400' : 'text-[#1A231E]'
+                        }`}
+                      >
+                        {getTaskIcon(task.type)}
+                        <span>{task.type} · {task.cropName}</span>
                       </p>
-                      <p className="text-xs text-[#5A655E]">{task.dueDate}</p>
+                      <p className="text-xs text-[#5A655E] mt-0.5">
+                        {task.completed ? '✓ Registrada en bitácora' : 'Pendiente'}
+                      </p>
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -520,7 +567,6 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                         type="button"
                         onClick={() => {
                           onToggleTask(task.id);
-                          // update local state
                           setSelectedDayModal({
                             ...selectedDayModal,
                             dayTasks: selectedDayModal.dayTasks.map((t) =>
@@ -528,9 +574,13 @@ export const CalendarPage: React.FC<CalendarPageProps> = ({
                             )
                           });
                         }}
-                        className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-white border border-[#E2DFD7] hover:bg-[#F2EFE9] cursor-pointer"
+                        className={`px-2.5 py-1 rounded-lg text-xs font-semibold cursor-pointer border ${
+                          task.completed
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                            : 'bg-white border-[#E2DFD7] text-[#1A231E] hover:bg-[#F2EFE9]'
+                        }`}
                       >
-                        {task.completed ? 'Completada' : 'Pendiente'}
+                        {task.completed ? 'Hecha ✓' : 'Hacer'}
                       </button>
                       <button
                         type="button"

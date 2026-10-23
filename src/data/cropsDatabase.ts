@@ -6,6 +6,7 @@ export interface CropVarietyInfo {
   stageDaysToHarvest: Record<CropStage, number>; // Days to harvest depending on current stage
   waterFrequencyDays: number;
   sunHours: number;
+  recommendedMoisturePercent: number;
   recommendedBed: string;
   notes: string;
 }
@@ -31,6 +32,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         },
         waterFrequencyDays: 1,
         sunHours: 5,
+        recommendedMoisturePercent: 80,
         recommendedBed: 'Mesa de Cultivo Norte #1',
         notes: 'Sustrato ligero, rico en compost y con alto retención de humedad. Excelente asociación con cebollas y rábanos.'
       },
@@ -46,6 +48,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         },
         waterFrequencyDays: 1,
         sunHours: 5,
+        recommendedMoisturePercent: 80,
         recommendedBed: 'Mesa de Cultivo Norte #2',
         notes: 'Sustrato fresco con acolchado de paja ecológica. Ideal para cosechar hoja a hoja.'
       },
@@ -61,6 +64,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         },
         waterFrequencyDays: 2,
         sunHours: 6,
+        recommendedMoisturePercent: 78,
         recommendedBed: 'Bancal Central #2',
         notes: 'Sustrato bien drenado enriquecido con humus de lombriz. Agradece riegos constantes sin encharcar.'
       }
@@ -81,6 +85,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         },
         waterFrequencyDays: 2,
         sunHours: 8,
+        recommendedMoisturePercent: 72,
         recommendedBed: 'Bancal Sur #1',
         notes: 'Sustrato suelto y nutritivo con potasio y calcio. Tutorado indispensable y excelente asociación con albahaca.'
       },
@@ -96,6 +101,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         },
         waterFrequencyDays: 2,
         sunHours: 8,
+        recommendedMoisturePercent: 70,
         recommendedBed: 'Bancal Sur #2',
         notes: 'Exige sustrato profundo enriquecido con compost maduro y potasio para frutos carnosos.'
       },
@@ -111,6 +117,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         },
         waterFrequencyDays: 2,
         sunHours: 7,
+        recommendedMoisturePercent: 68,
         recommendedBed: 'Bancal Sur #1',
         notes: 'Sustrato fértil con buen drenaje. Moderar el riego en floración para concentrar azúcares en el fruto.'
       }
@@ -131,6 +138,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         },
         waterFrequencyDays: 3,
         sunHours: 6,
+        recommendedMoisturePercent: 65,
         recommendedBed: 'Jardinera Profunda #3',
         notes: 'Sustrato muy arenoso y suelto, sin piedras para evitar deformación de la raíz. Buen maridaje con romero y guisantes.'
       },
@@ -146,6 +154,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         },
         waterFrequencyDays: 3,
         sunHours: 6,
+        recommendedMoisturePercent: 65,
         recommendedBed: 'Jardinera Profunda #3',
         notes: 'Requiere profundidad de sustrato libre de piedras. Riego regular y constante.'
       }
@@ -166,6 +175,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         },
         waterFrequencyDays: 2,
         sunHours: 7,
+        recommendedMoisturePercent: 70,
         recommendedBed: 'Bancal Principal #1',
         notes: 'Sustrato cálido con compost maduro y humus. Cosechar en verde cuando alcancen 4-5 cm.'
       },
@@ -181,6 +191,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         },
         waterFrequencyDays: 2,
         sunHours: 7,
+        recommendedMoisturePercent: 70,
         recommendedBed: 'Bancal Principal #2',
         notes: 'Sustrato esponjoso. Proteger de vientos fuertes y entutorar si se cargan de frutos.'
       }
@@ -201,6 +212,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         },
         waterFrequencyDays: 1,
         sunHours: 4,
+        recommendedMoisturePercent: 82,
         recommendedBed: 'Mesa de Cultivo Sombra',
         notes: 'Sustrato rico en nitrógeno orgánico. Tolera semisombra y prefiere clima fresco.'
       }
@@ -221,6 +233,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         },
         waterFrequencyDays: 2,
         sunHours: 6,
+        recommendedMoisturePercent: 68,
         recommendedBed: 'Bancal Sur #1 (Asociación)',
         notes: 'Poda apical frecuente para evitar floración prematura y promover ramificación abundante.'
       }

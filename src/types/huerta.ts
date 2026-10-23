@@ -12,6 +12,26 @@ export type PageRoute =
 
 export type CropStage = 'Semilla' | 'Plántula' | 'Crecimiento' | 'Floración' | 'Cosecha';
 
+export type LogEntryType =
+  | 'Riego'
+  | 'Abonado'
+  | 'Poda'
+  | 'Cosecha'
+  | 'Control preventivo'
+  | 'Cambio de etapa'
+  | 'Siembra'
+  | 'Observación';
+
+export interface CropLogEntry {
+  id: string;
+  type: LogEntryType;
+  title: string;
+  date: string;       // YYYY-MM-DD
+  time?: string;      // HH:mm
+  notes?: string;
+  taskId?: string;    // If originated from completing a task
+}
+
 export interface CropItem {
   id: string;
   name: string;
@@ -20,13 +40,14 @@ export interface CropItem {
   plantedDate: string;
   daysToHarvest: number;
   stage: CropStage;
-  moisturePercent: number;
+  recommendedMoisturePercent: number; // Humedad recomendada según la especie
   sunHours: number;
   waterFrequencyDays: number;
   lastWatered: string;
   notes: string;
   imageUrl: string;
   imageAlt: string;
+  log?: CropLogEntry[]; // Bitácora con registros visuales e historial
 }
 
 export interface GardenTask {
@@ -36,6 +57,7 @@ export interface GardenTask {
   type: 'Riego' | 'Abonado' | 'Poda' | 'Cosecha' | 'Control preventivo';
   dueDate: string;
   completed: boolean;
+  completedAt?: string;
 }
 
 export interface ConsentAuditRecord {
