@@ -4,61 +4,6 @@
     "danicamarillo5215@gmail.com": {
       "crops": [
         {
-          "id": "crop-1",
-          "name": "Tomate Cherry",
-          "variety": "Solanum lycopersicum var. cerasiforme",
-          "bed": "Bancal Sur #1",
-          "plantedDate": "2026-10-02",
-          "daysToHarvest": 45,
-          "stage": "Plántula",
-          "recommendedMoisturePercent": 72,
-          "sunHours": 7.5,
-          "waterFrequencyDays": 2,
-          "lastWatered": "Hoy, 08:30",
-          "notes": "Tutorado colocado.",
-          "imageUrl": "/crops/tomate.svg",
-          "imageAlt": "Tomate Cherry",
-          "log": [
-            {
-              "id": "log-auto-1792723764702-zmc",
-              "type": "Cambio de etapa",
-              "title": "Transición automática a: Plántula",
-              "date": "2026-10-22",
-              "time": "21:49",
-              "notes": "Cambio de etapa automatizado por calendario astronómico y agronómico (desde etapa Floración). Días restantes: 45."
-            },
-            {
-              "id": "log-101",
-              "type": "Siembra",
-              "title": "Siembra en bancal",
-              "date": "2026-10-02",
-              "time": "09:00",
-              "notes": "Sustrato con compost."
-            },
-            {
-              "id": "log-102",
-              "type": "Abonado",
-              "title": "Abonado",
-              "date": "2026-10-10",
-              "time": "18:30"
-            },
-            {
-              "id": "log-103",
-              "type": "Poda",
-              "title": "Poda de brotes",
-              "date": "2026-10-17",
-              "time": "11:15"
-            },
-            {
-              "id": "log-104",
-              "type": "Riego",
-              "title": "Riego",
-              "date": "2026-10-22",
-              "time": "08:30"
-            }
-          ]
-        },
-        {
           "id": "crop-2",
           "name": "Albahaca Genovesa",
           "variety": "Ocimum basilicum",
@@ -188,7 +133,7 @@
           "completedAt": "2026-10-21"
         }
       ],
-      "updated_at": "2026-10-23T03:24:41.463Z"
+      "updated_at": "2026-10-23T03:24:43.246Z"
     }
   }
 }
