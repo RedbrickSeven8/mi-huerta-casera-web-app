@@ -2,63 +2,7 @@
   "users": {
     "u1": {},
     "danicamarillo5215@gmail.com": {
-      "crops": [
-        {
-          "id": "crop-3",
-          "name": "Lechuga Hoja de Roble",
-          "variety": "Lactuca sativa",
-          "bed": "Mesa de Cultivo Norte #2",
-          "plantedDate": "2026-10-12",
-          "daysToHarvest": 45,
-          "stage": "Plántula",
-          "recommendedMoisturePercent": 80,
-          "sunHours": 5,
-          "waterFrequencyDays": 1,
-          "lastWatered": "Hoy, 07:45",
-          "notes": "Sustrato húmedo.",
-          "imageUrl": "/crops/lechuga.svg",
-          "imageAlt": "Lechuga Hoja de Roble",
-          "log": [
-            {
-              "id": "log-1792726776093",
-              "type": "Cambio de etapa",
-              "title": "Evolución fenológica a etapa: Plántula",
-              "date": "2026-10-22",
-              "time": "22:39",
-              "notes": "Transición de Semilla a Plántula. Días estimados para cosecha recalculados a 45 días."
-            },
-            {
-              "id": "log-auto-1792723764702-ouq",
-              "type": "Cambio de etapa",
-              "title": "Transición automática a: Semilla",
-              "date": "2026-10-22",
-              "time": "21:49",
-              "notes": "Cambio de etapa automatizado por calendario astronómico y agronómico (desde etapa Crecimiento). Días restantes: 55."
-            },
-            {
-              "id": "log-301",
-              "type": "Siembra",
-              "title": "Siembra",
-              "date": "2026-10-12",
-              "time": "08:00"
-            },
-            {
-              "id": "log-302",
-              "type": "Control preventivo",
-              "title": "Control preventivo",
-              "date": "2026-10-19",
-              "time": "12:00"
-            },
-            {
-              "id": "log-303",
-              "type": "Riego",
-              "title": "Riego",
-              "date": "2026-10-22",
-              "time": "07:45"
-            }
-          ]
-        }
-      ],
+      "crops": [],
       "tasks": [
         {
           "id": "task-1",
@@ -94,7 +38,7 @@
           "completedAt": "2026-10-21"
         }
       ],
-      "updated_at": "2026-10-23T03:39:36.418Z"
+      "updated_at": "2026-10-23T04:18:24.913Z"
     }
   }
 }
