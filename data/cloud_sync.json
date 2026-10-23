@@ -11,149 +11,7 @@
       "updated_at": "2026-10-23T03:00:00Z"
     },
     "danicamarillo5215@gmail.com": {
-      "crops": [
-        {
-          "id": "crop-2",
-          "name": "Albahaca Genovesa",
-          "variety": "Ocimum basilicum",
-          "bed": "Bancal Sur #1",
-          "plantedDate": "2026-10-07",
-          "daysToHarvest": 50,
-          "stage": "Semilla",
-          "recommendedMoisturePercent": 68,
-          "sunHours": 6,
-          "waterFrequencyDays": 2,
-          "lastWatered": "Ayer, 19:00",
-          "notes": "Poda realizada.",
-          "imageUrl": "/crops/albahaca.svg",
-          "imageAlt": "Albahaca Genovesa",
-          "log": [
-            {
-              "id": "log-auto-1792723752881-bto",
-              "type": "Cambio de etapa",
-              "title": "Transición automática a: Semilla",
-              "date": "2026-10-22",
-              "time": "21:49",
-              "notes": "Cambio de etapa automatizado por calendario astronómico y agronómico (desde etapa Cosecha). Días restantes: 50."
-            },
-            {
-              "id": "log-201",
-              "type": "Siembra",
-              "title": "Siembra",
-              "date": "2026-10-07",
-              "time": "10:00"
-            },
-            {
-              "id": "log-202",
-              "type": "Poda",
-              "title": "Poda apical",
-              "date": "2026-10-15",
-              "time": "17:00"
-            },
-            {
-              "id": "log-203",
-              "type": "Riego",
-              "title": "Riego",
-              "date": "2026-10-21",
-              "time": "19:00"
-            }
-          ]
-        },
-        {
-          "id": "crop-3",
-          "name": "Lechuga Hoja de Roble",
-          "variety": "Lactuca sativa",
-          "bed": "Mesa de Cultivo Norte #2",
-          "plantedDate": "2026-10-12",
-          "daysToHarvest": 55,
-          "stage": "Semilla",
-          "recommendedMoisturePercent": 80,
-          "sunHours": 5,
-          "waterFrequencyDays": 1,
-          "lastWatered": "Hoy, 07:45",
-          "notes": "Sustrato húmedo.",
-          "imageUrl": "/crops/lechuga.svg",
-          "imageAlt": "Lechuga Hoja de Roble",
-          "log": [
-            {
-              "id": "log-auto-1792723752881-agy",
-              "type": "Cambio de etapa",
-              "title": "Transición automática a: Semilla",
-              "date": "2026-10-22",
-              "time": "21:49",
-              "notes": "Cambio de etapa automatizado por calendario astronómico y agronómico (desde etapa Crecimiento). Días restantes: 55."
-            },
-            {
-              "id": "log-301",
-              "type": "Siembra",
-              "title": "Siembra",
-              "date": "2026-10-12",
-              "time": "08:00"
-            },
-            {
-              "id": "log-302",
-              "type": "Control preventivo",
-              "title": "Control preventivo",
-              "date": "2026-10-19",
-              "time": "12:00"
-            },
-            {
-              "id": "log-303",
-              "type": "Riego",
-              "title": "Riego",
-              "date": "2026-10-22",
-              "time": "07:45"
-            }
-          ]
-        },
-        {
-          "id": "crop-4",
-          "name": "Zanahoria Nantesa",
-          "variety": "Daucus carota",
-          "bed": "Jardinera Profunda #3",
-          "plantedDate": "2026-09-27",
-          "daysToHarvest": 40,
-          "stage": "Plántula",
-          "recommendedMoisturePercent": 65,
-          "sunHours": 6.5,
-          "waterFrequencyDays": 3,
-          "lastWatered": "Hace 2 días",
-          "notes": "Aclareo hecho.",
-          "imageUrl": "/crops/zanahoria.svg",
-          "imageAlt": "Zanahoria Nantesa",
-          "log": [
-            {
-              "id": "log-auto-1792723752881-mwa",
-              "type": "Cambio de etapa",
-              "title": "Transición automática a: Plántula",
-              "date": "2026-10-22",
-              "time": "21:49",
-              "notes": "Cambio de etapa automatizado por calendario astronómico y agronómico (desde etapa Crecimiento). Días restantes: 40."
-            },
-            {
-              "id": "log-401",
-              "type": "Siembra",
-              "title": "Siembra",
-              "date": "2026-09-27",
-              "time": "16:00"
-            },
-            {
-              "id": "log-402",
-              "type": "Poda",
-              "title": "Aclareo",
-              "date": "2026-10-08",
-              "time": "10:30"
-            },
-            {
-              "id": "log-403",
-              "type": "Riego",
-              "title": "Riego",
-              "date": "2026-10-20",
-              "time": "09:00"
-            }
-          ]
-        }
-      ],
+      "crops": [],
       "tasks": [
         {
           "id": "task-1",
@@ -189,7 +47,7 @@
           "completedAt": "2026-10-21"
         }
       ],
-      "updated_at": "2026-10-23T02:49:16.272Z"
+      "updated_at": "2026-10-23T02:49:18.141Z"
     }
   }
 }
