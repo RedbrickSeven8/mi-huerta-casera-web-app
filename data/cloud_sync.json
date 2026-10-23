@@ -9,8 +9,8 @@
           "variety": "Lechuga Escarola",
           "bed": "Mesa de Cultivo Norte #1",
           "plantedDate": "2026-10-22",
-          "daysToHarvest": 45,
-          "stage": "Plántula",
+          "daysToHarvest": 25,
+          "stage": "Crecimiento",
           "recommendedMoisturePercent": 80,
           "sunHours": 5,
           "waterFrequencyDays": 1,
@@ -19,6 +19,14 @@
           "imageUrl": "/crops/lechuga.svg",
           "imageAlt": "Lechuga",
           "log": [
+            {
+              "id": "log-1792774605747",
+              "type": "Cambio de etapa",
+              "title": "Evolución fenológica a etapa: Crecimiento",
+              "date": "2026-10-23",
+              "time": "11:56",
+              "notes": "Transición de Plántula a Crecimiento. Días estimados para cosecha recalculados a 25 días."
+            },
             {
               "id": "log-1792729115240",
               "type": "Siembra",
@@ -65,7 +73,7 @@
           "completedAt": "2026-10-21"
         }
       ],
-      "updated_at": "2026-10-23T16:56:44.682Z"
+      "updated_at": "2026-10-23T16:56:46.422Z"
     },
     "daniel@laspaginasdedani.com": {
       "crops": [
