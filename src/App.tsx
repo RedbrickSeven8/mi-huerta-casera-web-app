@@ -109,6 +109,22 @@ export function App() {
       setCurrentRoute(resolveInitialRoute());
     };
     window.addEventListener('popstate', handlePopState);
+
+    // Sync on mount if already authenticated
+    const currentUser = getUser();
+    if (currentUser) {
+      fetchRemoteGardenData().then(({ crops: remoteCrops, tasks: remoteTasks }) => {
+        if (remoteCrops && remoteCrops.length > 0) {
+          setCrops(remoteCrops);
+          saveCrops(remoteCrops);
+        }
+        if (remoteTasks && remoteTasks.length > 0) {
+          setTasks(remoteTasks);
+          saveTasks(remoteTasks);
+        }
+      });
+    }
+
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
@@ -122,15 +138,24 @@ export function App() {
       setCrops(localCrops);
       setTasks(localTasks);
 
-      // Attempt remote sync from Supabase
+      // Attempt remote sync
       fetchRemoteGardenData().then(({ crops: remoteCrops, tasks: remoteTasks }) => {
         if (remoteCrops && remoteCrops.length > 0) {
           setCrops(remoteCrops);
-          saveCrops(remoteCrops);
+          // save locally without re-triggering remote overwrite of fresher cloud data
+          const userKey = 'mi_huerta_casera_crops_v3_' + (newUser.email || newUser.id);
+          localStorage.setItem(userKey, JSON.stringify(remoteCrops));
+        } else {
+          // If remote is empty, push local data to seed the cloud
+          saveCrops(localCrops);
         }
+
         if (remoteTasks && remoteTasks.length > 0) {
           setTasks(remoteTasks);
-          saveTasks(remoteTasks);
+          const taskKey = 'mi_huerta_casera_tasks_v3_' + (newUser.email || newUser.id);
+          localStorage.setItem(taskKey, JSON.stringify(remoteTasks));
+        } else {
+          saveTasks(localTasks);
         }
       });
     } else {

@@ -1,14 +1,14 @@
 import type { CropItem, GardenTask } from '../types/huerta';
 import { INITIAL_CROPS, INITIAL_TASKS } from '../data/initialCrops';
-import { supabase, isSupabaseConfigured } from './supabaseClient';
 import { getUser } from './authService';
+import { pushGardenDataToCloud, fetchRemoteGardenData } from './cloudSyncService';
 
-const CROPS_KEY_PREFIX = 'mi_huerta_casera_crops_v2_';
-const TASKS_KEY_PREFIX = 'mi_huerta_casera_tasks_v2_';
+const CROPS_KEY_PREFIX = 'mi_huerta_casera_crops_v3_';
+const TASKS_KEY_PREFIX = 'mi_huerta_casera_tasks_v3_';
 
 function getStorageKey(prefix: string): string {
   const user = getUser();
-  const userId = user ? user.id : 'guest';
+  const userId = user ? (user.email || user.id) : 'guest';
   return `${prefix}${userId}`;
 }
 
@@ -31,21 +31,9 @@ export function saveCrops(crops: CropItem[]): void {
     const key = getStorageKey(CROPS_KEY_PREFIX);
     localStorage.setItem(key, JSON.stringify(crops));
     
-    // Sync with Supabase if user is logged in
-    const user = getUser();
-    if (user && isSupabaseConfigured && supabase) {
-      supabase
-        .from('user_gardens')
-        .upsert({
-          user_id: user.id,
-          user_email: user.email,
-          crops: crops,
-          updated_at: new Date().toISOString()
-        })
-        .then(({ error }) => {
-          if (error) console.warn('Error al sincronizar cultivos con Supabase:', error.message);
-        });
-    }
+    // Auto sync with cloud
+    const currentTasks = loadTasks();
+    pushGardenDataToCloud(crops, currentTasks);
   } catch {
     // ignore
   }
@@ -70,46 +58,12 @@ export function saveTasks(tasks: GardenTask[]): void {
     const key = getStorageKey(TASKS_KEY_PREFIX);
     localStorage.setItem(key, JSON.stringify(tasks));
 
-    // Sync with Supabase if user is logged in
-    const user = getUser();
-    if (user && isSupabaseConfigured && supabase) {
-      supabase
-        .from('user_tasks')
-        .upsert({
-          user_id: user.id,
-          user_email: user.email,
-          tasks: tasks,
-          updated_at: new Date().toISOString()
-        })
-        .then(({ error }) => {
-          if (error) console.warn('Error al sincronizar tareas con Supabase:', error.message);
-        });
-    }
+    // Auto sync with cloud
+    const currentCrops = loadCrops();
+    pushGardenDataToCloud(currentCrops, tasks);
   } catch {
     // ignore
   }
 }
 
-export async function fetchRemoteGardenData(): Promise<{ crops: CropItem[] | null; tasks: GardenTask[] | null }> {
-  const user = getUser();
-  if (!user || !isSupabaseConfigured || !supabase) {
-    return { crops: null, tasks: null };
-  }
-
-  try {
-    const [cropsRes, tasksRes] = await Promise.all([
-      supabase.from('user_gardens').select('crops').eq('user_id', user.id).single(),
-      supabase.from('user_tasks').select('tasks').eq('user_id', user.id).single()
-    ]);
-
-    const crops = cropsRes.data?.crops as CropItem[] | undefined;
-    const tasks = tasksRes.data?.tasks as GardenTask[] | undefined;
-
-    return {
-      crops: crops || null,
-      tasks: tasks || null
-    };
-  } catch {
-    return { crops: null, tasks: null };
-  }
-}
+export { fetchRemoteGardenData };

@@ -9,102 +9,96 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer className="bg-[#F2EFE9] border-t border-[#E2DFD7] mt-16">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="md:col-span-1 space-y-3">
+          <div className="md:col-span-1 space-y-2">
             <div className="flex items-center gap-2">
               <span className="w-7 h-7 rounded-md bg-[#2D5A27] flex items-center justify-center text-[#FAF9F6]">
                 <Sprout className="w-4 h-4" />
               </span>
               <span className="font-semibold text-[#1A231E]">Mi Huerta Casera</span>
             </div>
-            <p className="text-xs text-[#5A655E] leading-relaxed">
-              Aplicación Web / SaaS minimalista diseñada para gestionar y hacerle seguimiento a tu huerta casera con precisión.
+            <p className="text-xs text-[#5A655E]">
+              Seguimiento de huerta casera.
             </p>
             <p className="text-xs font-medium text-[#1A231E]">
-              Responsable legal: <span className="text-[#2D5A27]">las paginas de dani</span>
+              Responsable: <span className="text-[#2D5A27]">las paginas de dani</span>
             </p>
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#1A231E] mb-3">
-              Aplicación Web
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#1A231E] mb-2">
+              Secciones
             </h3>
-            <ul className="space-y-2 text-xs text-[#4A554E]">
+            <ul className="space-y-1.5 text-xs text-[#4A554E]">
               <li>
-                <button type="button" onClick={() => onNavigate('inicio')} className="hover:text-[#2D5A27] transition-colors cursor-pointer">
-                  Inicio y Resumen
+                <button type="button" onClick={() => onNavigate('inicio')} className="hover:text-[#2D5A27] cursor-pointer">
+                  Inicio
                 </button>
               </li>
               <li>
-                <button type="button" onClick={() => onNavigate('dashboard')} className="hover:text-[#2D5A27] transition-colors cursor-pointer">
-                  Panel de Cultivos (Mi Huerta)
+                <button type="button" onClick={() => onNavigate('dashboard')} className="hover:text-[#2D5A27] cursor-pointer">
+                  Mi Huerta
                 </button>
               </li>
               <li>
-                <button type="button" onClick={() => onNavigate('calendario')} className="hover:text-[#2D5A27] transition-colors cursor-pointer">
-                  Calendario de Riego y Tareas
+                <button type="button" onClick={() => onNavigate('calendario')} className="hover:text-[#2D5A27] cursor-pointer">
+                  Calendario
                 </button>
               </li>
               <li>
-                <button type="button" onClick={() => onNavigate('registro')} className="hover:text-[#2D5A27] transition-colors cursor-pointer">
-                  Añadir Nuevo Cultivo
+                <button type="button" onClick={() => onNavigate('registro')} className="hover:text-[#2D5A27] cursor-pointer">
+                  Nuevo Cultivo
                 </button>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#1A231E] mb-3">
-              Legalidad y Privacidad
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#1A231E] mb-2">
+              Legal
             </h3>
-            <ul className="space-y-2 text-xs text-[#4A554E]">
+            <ul className="space-y-1.5 text-xs text-[#4A554E]">
               <li>
-                <button type="button" onClick={() => onNavigate('privacidad')} className="inline-flex items-center gap-1.5 hover:text-[#2D5A27] transition-colors cursor-pointer">
+                <button type="button" onClick={() => onNavigate('privacidad')} className="inline-flex items-center gap-1.5 hover:text-[#2D5A27] cursor-pointer">
                   <Shield className="w-3.5 h-3.5" />
-                  <span>Política de Privacidad</span>
+                  <span>Privacidad</span>
                 </button>
               </li>
               <li>
-                <button type="button" onClick={() => onNavigate('terminos')} className="inline-flex items-center gap-1.5 hover:text-[#2D5A27] transition-colors cursor-pointer">
+                <button type="button" onClick={() => onNavigate('terminos')} className="inline-flex items-center gap-1.5 hover:text-[#2D5A27] cursor-pointer">
                   <FileText className="w-3.5 h-3.5" />
-                  <span>Términos y Condiciones</span>
+                  <span>Términos</span>
                 </button>
               </li>
               <li>
-                <button type="button" onClick={() => onNavigate('cookies')} className="inline-flex items-center gap-1.5 hover:text-[#2D5A27] transition-colors cursor-pointer">
+                <button type="button" onClick={() => onNavigate('cookies')} className="inline-flex items-center gap-1.5 hover:text-[#2D5A27] cursor-pointer">
                   <Cookie className="w-3.5 h-3.5" />
-                  <span>Política de Cookies</span>
+                  <span>Cookies</span>
                 </button>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#1A231E] mb-3">
-              Estado del Sistema
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#1A231E] mb-2">
+              Auditoría
             </h3>
-            <div className="p-3.5 rounded-xl bg-[#FAF9F6] border border-[#E2DFD7] space-y-2 text-xs">
-              <div className="flex items-center gap-2 text-[#2D5A27] font-medium">
-                <span className="w-2 h-2 rounded-full bg-[#2D5A27]" />
-                <span>Sincronización en la Nube</span>
-              </div>
-              <p className="text-[#5A655E]">
-                Dominio oficial: mi-huerta-casera-stitch.surge.sh
-              </p>
+            <div className="p-3 rounded-xl bg-[#FAF9F6] border border-[#E2DFD7] space-y-1.5 text-xs text-[#5A655E]">
+              <p>Consentimientos registrados.</p>
               <button
                 type="button"
-                onClick={() => onNavigate('404')}
-                className="text-[11px] underline text-[#5A655E] hover:text-[#1A231E] cursor-pointer"
+                onClick={() => onNavigate('auditoria')}
+                className="text-[#2D5A27] font-semibold hover:underline block"
               >
-                Verificar vista de página 404
+                Ver auditoría →
               </button>
             </div>
           </div>
         </div>
 
         <div className="mt-8 pt-6 border-t border-[#E2DFD7] flex flex-col sm:flex-row items-center justify-between text-xs text-[#5A655E] gap-4">
-          <p>© {new Date().getFullYear()} Mi Huerta Casera · Titular y responsable: las paginas de dani.</p>
+          <p>© 2025 Mi Huerta Casera · Responsable: las paginas de dani.</p>
           <div className="flex gap-4">
             <button type="button" onClick={() => onNavigate('privacidad')} className="hover:text-[#1A231E] cursor-pointer">Privacidad</button>
             <button type="button" onClick={() => onNavigate('terminos')} className="hover:text-[#1A231E] cursor-pointer">Términos</button>
