@@ -5,7 +5,7 @@ const GITHUB_REPO = 'RedbrickSeven8/mi-huerta-casera-web-app';
 const FILE_PATH = 'data/cloud_sync.json';
 const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_SYNC_TOKEN || '';
 
-interface UserCloudData {
+export interface UserCloudData {
   crops: CropItem[];
   tasks: GardenTask[];
   updated_at: string;
@@ -20,7 +20,7 @@ export const isCloudSyncConfigured = Boolean(GITHUB_TOKEN);
 /**
  * Fetch remote garden data for the currently logged in user
  */
-export async function fetchRemoteGardenData(): Promise<{ crops: CropItem[] | null; tasks: GardenTask[] | null }> {
+export async function fetchRemoteGardenData(): Promise<{ crops: CropItem[] | null; tasks: GardenTask[] | null; updated_at?: string }> {
   const user = getUser();
   if (!user || !isCloudSyncConfigured) {
     return { crops: null, tasks: null };
@@ -50,36 +50,48 @@ export async function fetchRemoteGardenData(): Promise<{ crops: CropItem[] | nul
     if (userData) {
       return {
         crops: userData.crops || null,
-        tasks: userData.tasks || null
+        tasks: userData.tasks || null,
+        updated_at: userData.updated_at
       };
     }
 
     return { crops: null, tasks: null };
   } catch (err) {
-    console.warn('Error fetching remote data from cloud:', err);
+    console.warn('Error al consultar nube:', err);
     return { crops: null, tasks: null };
   }
 }
 
-let syncTimeout: ReturnType<typeof setTimeout> | null = null;
+// In-flight sync state
+let pendingCrops: CropItem[] | null = null;
+let pendingTasks: GardenTask[] | null = null;
+let isPushing = false;
+let needsAnotherPush = false;
 
-/**
- * Sync both crops and tasks with the cloud database for the logged-in user
- */
-export function pushGardenDataToCloud(crops: CropItem[], tasks: GardenTask[]): void {
-  const user = getUser();
-  if (!user || !isCloudSyncConfigured) return;
-
-  // Debounce consecutive calls (e.g. rapid edits or toggles)
-  if (syncTimeout) {
-    clearTimeout(syncTimeout);
+async function executePush(): Promise<void> {
+  if (isPushing) {
+    needsAnotherPush = true;
+    return;
   }
 
-  syncTimeout = setTimeout(async () => {
+  isPushing = true;
+  needsAnotherPush = false;
+
+  const user = getUser();
+  if (!user || !isCloudSyncConfigured || !pendingCrops || !pendingTasks) {
+    isPushing = false;
+    return;
+  }
+
+  const cropsToSend = pendingCrops;
+  const tasksToSend = pendingTasks;
+  const userKey = user.email || user.id;
+
+  // Retry up to 3 times in case of SHA concurrency conflict
+  for (let attempt = 0; attempt < 3; attempt++) {
     try {
-      const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${FILE_PATH}`;
+      const url = `https://api.github.com/repos/${GITHUB_REPO}/contents/${FILE_PATH}?ref=main&t=${Date.now()}`;
       
-      // 1. Get current SHA and content
       const getRes = await fetch(url, {
         headers: {
           Authorization: `Bearer ${GITHUB_TOKEN}`,
@@ -106,17 +118,16 @@ export function pushGardenDataToCloud(crops: CropItem[], tasks: GardenTask[]): v
         payload.users = {};
       }
 
-      const userKey = user.email || user.id;
       payload.users[userKey] = {
-        crops,
-        tasks,
+        crops: cropsToSend,
+        tasks: tasksToSend,
         updated_at: new Date().toISOString()
       };
 
       const jsonStr = JSON.stringify(payload, null, 2);
       const b64Content = btoa(unescape(encodeURIComponent(jsonStr)));
 
-      await fetch(url, {
+      const putRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${FILE_PATH}`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${GITHUB_TOKEN}`,
@@ -124,13 +135,45 @@ export function pushGardenDataToCloud(crops: CropItem[], tasks: GardenTask[]): v
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          message: `sync: update garden for ${user.email || user.id}`,
+          message: `sync: update garden for ${userKey}`,
           content: b64Content,
           sha: sha || undefined
         })
       });
+
+      if (putRes.ok) {
+        break; // Successfully pushed!
+      } else if (putRes.status === 409) {
+        // Concurrency conflict: wait 250ms and retry with fresh SHA
+        await new Promise((r) => setTimeout(r, 250));
+        continue;
+      } else {
+        console.warn('Error en respuesta de sincronización nube:', putRes.status);
+        break;
+      }
     } catch (err) {
-      console.warn('Error syncing data with cloud:', err);
+      console.warn('Error al enviar sincronización a la nube:', err);
+      break;
     }
-  }, 400);
+  }
+
+  isPushing = false;
+
+  // If another update came in while pushing, execute again with the latest pending state
+  if (needsAnotherPush) {
+    executePush();
+  }
+}
+
+/**
+ * Queue immediate sync with the cloud database for crops & tasks
+ */
+export function pushGardenDataToCloud(crops: CropItem[], tasks: GardenTask[]): void {
+  const user = getUser();
+  if (!user || !isCloudSyncConfigured) return;
+
+  pendingCrops = crops;
+  pendingTasks = tasks;
+
+  executePush();
 }

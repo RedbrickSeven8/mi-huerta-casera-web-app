@@ -6,7 +6,7 @@ import { pushGardenDataToCloud, fetchRemoteGardenData } from './cloudSyncService
 const CROPS_KEY_PREFIX = 'mi_huerta_casera_crops_v3_';
 const TASKS_KEY_PREFIX = 'mi_huerta_casera_tasks_v3_';
 
-function getStorageKey(prefix: string): string {
+export function getStorageKey(prefix: string): string {
   const user = getUser();
   const userId = user ? (user.email || user.id) : 'guest';
   return `${prefix}${userId}`;
@@ -61,6 +61,18 @@ export function saveTasks(tasks: GardenTask[]): void {
     // Auto sync with cloud
     const currentCrops = loadCrops();
     pushGardenDataToCloud(currentCrops, tasks);
+  } catch {
+    // ignore
+  }
+}
+
+export function saveBothToCloud(crops: CropItem[], tasks: GardenTask[]): void {
+  try {
+    const cKey = getStorageKey(CROPS_KEY_PREFIX);
+    const tKey = getStorageKey(TASKS_KEY_PREFIX);
+    localStorage.setItem(cKey, JSON.stringify(crops));
+    localStorage.setItem(tKey, JSON.stringify(tasks));
+    pushGardenDataToCloud(crops, tasks);
   } catch {
     // ignore
   }

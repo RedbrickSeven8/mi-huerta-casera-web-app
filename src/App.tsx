@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { CropItem, CropStage, CropLogEntry, GardenTask, PageRoute } from './types/huerta';
-import { loadCrops, saveCrops, loadTasks, saveTasks, fetchRemoteGardenData } from './services/huertaStorage';
+import { loadCrops, saveCrops, loadTasks, saveTasks, saveBothToCloud, fetchRemoteGardenData } from './services/huertaStorage';
 import { updatePageTitle } from './services/seoManager';
 import { getDaysToHarvestForCrop, calculateAutomaticStage } from './data/cropsDatabase';
 import { getUser, type UserProfile } from './services/authService';
@@ -110,22 +110,54 @@ export function App() {
     };
     window.addEventListener('popstate', handlePopState);
 
-    // Sync on mount if already authenticated
-    const currentUser = getUser();
-    if (currentUser) {
+    // Real-time synchronization loop between devices (iPad, celular, desktop)
+    const checkRemoteSync = () => {
+      const currentUser = getUser();
+      if (!currentUser) return;
+
       fetchRemoteGardenData().then(({ crops: remoteCrops, tasks: remoteTasks }) => {
         if (remoteCrops && remoteCrops.length > 0) {
-          setCrops(remoteCrops);
-          saveCrops(remoteCrops);
+          const userKey = 'mi_huerta_casera_crops_v3_' + (currentUser.email || currentUser.id);
+          const currentLocalStr = localStorage.getItem(userKey);
+          const remoteStr = JSON.stringify(remoteCrops);
+          if (currentLocalStr !== remoteStr) {
+            setCrops(remoteCrops);
+            localStorage.setItem(userKey, remoteStr);
+          }
         }
         if (remoteTasks && remoteTasks.length > 0) {
-          setTasks(remoteTasks);
-          saveTasks(remoteTasks);
+          const taskKey = 'mi_huerta_casera_tasks_v3_' + (currentUser.email || currentUser.id);
+          const currentTasksStr = localStorage.getItem(taskKey);
+          const remoteTasksStr = JSON.stringify(remoteTasks);
+          if (currentTasksStr !== remoteTasksStr) {
+            setTasks(remoteTasks);
+            localStorage.setItem(taskKey, remoteTasksStr);
+          }
         }
       });
-    }
+    };
 
-    return () => window.removeEventListener('popstate', handlePopState);
+    // Execute immediately on mount
+    checkRemoteSync();
+
+    // Check on tab focus / visibility change (e.g. switching back to browser on iPad or phone)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        checkRemoteSync();
+      }
+    };
+    window.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('focus', checkRemoteSync);
+
+    // Real-time polling every 3.5 seconds
+    const pollInterval = setInterval(checkRemoteSync, 3500);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('focus', checkRemoteSync);
+      clearInterval(pollInterval);
+    };
   }, []);
 
   // When auth state changes, re-load local or remote user crops & tasks
@@ -290,18 +322,17 @@ export function App() {
     setTasks(updatedTasks);
     saveTasks(updatedTasks);
 
-    // If marked as completed, add to corresponding crop bitácora
+    // If marked as completed, add to corresponding crop bitácora and sync atomically
     if (willBeCompleted) {
       const updatedCrops = crops.map((c) => {
-        // If task has specific cropId or matches name
         if (c.id === targetTask.cropId || (targetTask.cropId === 'general' && c.name === targetTask.cropName)) {
           const logEntry: CropLogEntry = {
             id: 'log-task-' + Date.now(),
             type: targetTask.type,
-            title: `Labor completada: ${targetTask.type}`,
+            title: `Labor: ${targetTask.type}`,
             date: today,
             time: nowTime,
-            notes: `Tarea programada para ${targetTask.dueDate} marcada como realizada desde el calendario.`,
+            notes: `Completada desde calendario.`,
             taskId: targetTask.id
           };
           const existingLogs = c.log || [];
@@ -314,7 +345,7 @@ export function App() {
         return c;
       });
       setCrops(updatedCrops);
-      saveCrops(updatedCrops);
+      saveBothToCloud(updatedCrops, updatedTasks);
     }
   };
 
