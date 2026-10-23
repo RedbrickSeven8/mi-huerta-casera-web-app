@@ -29,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({ currentRoute, onNavigate, user, 
           <span className="w-9 h-9 rounded-lg bg-[#2D5A27] flex items-center justify-center text-[#FAF9F6] transition-transform group-hover:scale-105">
             <Sprout className="w-5 h-5" />
           </span>
-          <div>
+          <div className="hidden sm:block">
             <span className="block text-base font-semibold tracking-tight text-[#1A231E]">
               Mi Huerta Casera
             </span>
