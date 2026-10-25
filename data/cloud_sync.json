@@ -185,8 +185,8 @@
           "variety": "Solanum lycopersicum var. cerasiforme",
           "bed": "Bancal Sur #1",
           "plantedDate": "2026-10-03",
-          "daysToHarvest": 0,
-          "stage": "Cosecha",
+          "daysToHarvest": 65,
+          "stage": "Semilla",
           "recommendedMoisturePercent": 72,
           "sunHours": 7.5,
           "waterFrequencyDays": 2,
@@ -195,6 +195,14 @@
           "imageUrl": "/crops/tomate.svg",
           "imageAlt": "Tomate Cherry",
           "log": [
+            {
+              "id": "log-1792935276817",
+              "type": "Cambio de etapa",
+              "title": "Evolución fenológica a etapa: Semilla",
+              "date": "2026-10-25",
+              "time": "08:34",
+              "notes": "Transición de Cosecha a Semilla. Días estimados para cosecha recalculados a 65 días."
+            },
             {
               "id": "log-1792935275237",
               "type": "Cambio de etapa",
@@ -387,7 +395,7 @@
           "completedAt": "2026-10-22"
         }
       ],
-      "updated_at": "2026-10-25T13:34:36.027Z"
+      "updated_at": "2026-10-25T13:34:37.778Z"
     }
   }
 }
