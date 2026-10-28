@@ -13,10 +13,10 @@ const ROUTE_LABELS: Record<PageRoute, { label: string; parent?: PageRoute }> = {
   calendario: { label: 'Calendario de Riego y Tareas', parent: 'dashboard' },
   registro: { label: 'Configurar Huerta y Nuevo Cultivo', parent: 'dashboard' },
   agradecimiento: { label: 'Confirmación y Agradecimiento', parent: 'registro' },
-  auditoria: { label: 'Registro Técnico de Auditoría', parent: 'inicio' },
   privacidad: { label: 'Política de Privacidad', parent: 'inicio' },
   terminos: { label: 'Términos y Condiciones', parent: 'inicio' },
   cookies: { label: 'Política de Cookies', parent: 'inicio' },
+  auditoria: { label: 'Administración', parent: 'inicio' },
   '404': { label: 'Error 404 · Página no encontrada', parent: 'inicio' },
 };
 

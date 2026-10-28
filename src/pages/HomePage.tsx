@@ -1,20 +1,16 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React from 'react';
+import { motion } from 'motion/react';
 import {
   Sprout,
   Calendar,
   LayoutDashboard,
-  ShieldCheck,
   ArrowRight,
   Sparkles,
   HeartHandshake,
   CheckCircle2,
   Droplets,
   Sun,
-  AlertTriangle,
-  Lightbulb,
-  Check
-} from 'lucide-react';
+  Lightbulb} from 'lucide-react';
 import type { CropItem, GardenTask, PageRoute } from '../types/huerta';
 import { GoogleAuthButton } from '../components/GoogleAuthButton';
 import type { UserProfile } from '../services/authService';
@@ -27,50 +23,6 @@ interface HomePageProps {
   onAuthChange: (user: UserProfile | null) => void;
 }
 
-// Simulador interactivo para la landing
-interface PlantProblem {
-  id: string;
-  symptom: string;
-  cause: string;
-  solution: string;
-  difficulty: 'Fácil' | 'Media';
-  icon: string;
-}
-
-const PLANT_PROBLEMS: PlantProblem[] = [
-  {
-    id: 'p1',
-    symptom: 'Hojas amarillentas y tierra encharcada',
-    cause: 'Exceso de riego y asfixia radicular (el 78% de los principiantes riega de más pensando que la planta tiene sed).',
-    solution: 'Espacia los riegos. Entierra el dedo 3 cm: si sale húmedo, no riegues. Mi Huerta Casera te avisará el día exacto.',
-    difficulty: 'Fácil',
-    icon: 'droplet'
-  },
-  {
-    id: 'p2',
-    symptom: 'Tallos muy largos, débiles y pálidos (ahilamiento)',
-    cause: 'Falta de radiación solar directa. La planta estira desesperadamente su tallo buscando luz.',
-    solution: 'Ubícala en un lugar con al menos 5-6 horas de sol directo o luz filtrada potente. Ajusta la ubicación en tu perfil.',
-    difficulty: 'Fácil',
-    icon: 'sun'
-  },
-  {
-    id: 'p3',
-    symptom: 'Puntas secas o bordes de hojas quemados',
-    cause: 'Baja humedad ambiental o shock por regar a pleno mediodía bajo sol abrasador.',
-    solution: 'Riega a primera hora de la mañana (07:00-09:00) o al atardecer. Nunca mojes hojas en horas centrales de calor.',
-    difficulty: 'Fácil',
-    icon: 'thermometer'
-  },
-  {
-    id: 'p4',
-    symptom: 'La planta no crece ni da flores tras semanas',
-    cause: 'Sustrato pobre y compactado o falta de nutrientes esenciales (fósforo y potasio).',
-    solution: 'Añade una capa de humus de lombriz o compost orgánico. Activa el recordatorio de abonado en tu calendario.',
-    difficulty: 'Media',
-    icon: 'sprout'
-  }
-];
 
 export const HomePage: React.FC<HomePageProps> = ({
   crops,
@@ -79,7 +31,6 @@ export const HomePage: React.FC<HomePageProps> = ({
   user,
   onAuthChange
 }) => {
-  const [activeSymptomIndex, setActiveSymptomIndex] = useState<number>(0);
 
   // Cálculos si el usuario ha iniciado sesión
   const pendingTasks = tasks.filter((t) => !t.completed);
@@ -329,11 +280,11 @@ export const HomePage: React.FC<HomePageProps> = ({
                 >
                   <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#2D5A27]/10 border border-[#2D5A27]/20 text-[#2D5A27] text-xs font-semibold">
                     <HeartHandshake className="w-4 h-4" />
-                    <span>¿Crees no tener «buena mano» para las plantas?</span>
+                    <span>¿Crees no tener buena mano para las plantas?</span>
                   </div>
 
                   <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#1A231E] leading-[1.12]">
-                    Tener mano verde no es un don.{' '}
+                    Tener buena mano no es un don.{' '}
                     <span className="text-[#2D5A27] block sm:inline">Es tener la información correcta a tiempo.</span>
                   </h1>
 
@@ -381,7 +332,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                         <span className="w-3 h-3 rounded-full bg-emerald-400"></span>
                       </div>
                       <span className="text-[11px] font-semibold text-[#2D5A27] bg-[#2D5A27]/10 px-2.5 py-0.5 rounded-full">
-                        Asistente Inteligente
+                        Vista previa
                       </span>
                     </div>
 
@@ -496,100 +447,6 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
           </section>
 
-          {/* Herramienta Interactiva: Diagnóstico rápido de síntomas comunes */}
-          <section className="max-w-6xl mx-auto px-4 sm:px-6">
-            <div className="bg-white border border-[#E2DFD7] rounded-3xl p-6 sm:p-10 shadow-sm space-y-8">
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-[#F2EFE9] pb-6">
-                <div>
-                  <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2D5A27] mb-1">
-                    <Sparkles className="w-4 h-4" />
-                    <span>Herramienta Interactiva</span>
-                  </div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-[#1A231E]">
-                    Simulador: ¿Qué le ocurre a mi cultivo ahora mismo?
-                  </h2>
-                  <p className="text-xs text-[#5A655E]">
-                    Toca un síntoma frecuente para ver la causa real y cómo recuperarlo.
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-[#5A655E]">¿Te suena familiar?</span>
-                  <span className="text-xs font-bold text-[#2D5A27] bg-[#2D5A27]/10 px-2.5 py-1 rounded-full">
-                    Aprende en 30 seg
-                  </span>
-                </div>
-              </div>
-
-              {/* Botones de síntomas */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                {PLANT_PROBLEMS.map((prob, index) => {
-                  const isSelected = activeSymptomIndex === index;
-                  return (
-                    <button
-                      key={prob.id}
-                      type="button"
-                      onClick={() => setActiveSymptomIndex(index)}
-                      className={`p-4 rounded-xl text-left border transition-all cursor-pointer flex flex-col justify-between space-y-2 ${
-                        isSelected
-                          ? 'border-[#2D5A27] bg-[#2D5A27]/5 shadow-xs ring-1 ring-[#2D5A27]'
-                          : 'border-[#E2DFD7] bg-[#FAF9F6] hover:bg-white'
-                      }`}
-                    >
-                      <span className="text-xs font-semibold text-[#1A231E] leading-snug">
-                        {prob.symptom}
-                      </span>
-                      <span className={`text-[10px] font-bold self-start px-2 py-0.5 rounded-full ${
-                        isSelected ? 'bg-[#2D5A27] text-white' : 'bg-gray-200 text-gray-700'
-                      }`}>
-                        {isSelected ? 'Analizando...' : 'Ver causa'}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Resultado interactivo del síntoma */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeSymptomIndex}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.2 }}
-                  className="bg-[#FAF9F6] border border-[#D5E0D3] rounded-2xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 items-center"
-                >
-                  <div className="space-y-3">
-                    <span className="text-[11px] font-bold text-red-700 uppercase tracking-wide flex items-center gap-1.5">
-                      <AlertTriangle className="w-3.5 h-3.5" />
-                      <span>Diagnóstico botánico</span>
-                    </span>
-                    <h3 className="text-lg sm:text-xl font-bold text-[#1A231E]">
-                      {PLANT_PROBLEMS[activeSymptomIndex].symptom}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-[#4A554E] leading-relaxed">
-                      {PLANT_PROBLEMS[activeSymptomIndex].cause}
-                    </p>
-                  </div>
-
-                  <div className="bg-white border border-[#E2DFD7] rounded-xl p-5 space-y-3">
-                    <span className="text-[11px] font-bold text-[#2D5A27] uppercase tracking-wide flex items-center gap-1.5">
-                      <Check className="w-4 h-4" />
-                      <span>Acción recomendada</span>
-                    </span>
-                    <p className="text-xs sm:text-sm font-medium text-[#1A231E] leading-relaxed">
-                      {PLANT_PROBLEMS[activeSymptomIndex].solution}
-                    </p>
-                    <div className="pt-2 flex items-center justify-between text-xs text-[#5A655E]">
-                      <span>Dificultad de solución: <strong>{PLANT_PROBLEMS[activeSymptomIndex].difficulty}</strong></span>
-                      <span className="text-[#2D5A27] font-semibold">Prevenible al 100%</span>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </section>
-
           {/* Cómo te ayuda la app paso a paso */}
           <section className="max-w-6xl mx-auto px-4 sm:px-6">
             <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
@@ -663,39 +520,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         </>
       )}
 
-      {/* Sección Legal de Transparencia y Consentimientos */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="bg-[#F2EFE9] border border-[#E2DFD7] rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div className="space-y-1 max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#2D5A27]">
-              <ShieldCheck className="w-4 h-4" />
-              <span>Responsable: las paginas de dani</span>
-            </div>
-            <h2 className="text-base sm:text-lg font-bold text-[#1A231E]">
-              Privacidad de datos y registro de consentimientos
-            </h2>
-            <p className="text-xs text-[#4A554E]">
-              Cumplimiento con RGPD/LOPD. Auditoría técnica registrada de aceptaciones independientes.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3 shrink-0">
-            <button
-              type="button"
-              onClick={() => onNavigate('auditoria')}
-              className="px-4 py-2.5 rounded-xl bg-[#FFFFFF] border border-[#D5E0D3] text-xs font-semibold text-[#1A231E] hover:bg-[#FAF9F6] cursor-pointer"
-            >
-              Auditoría
-            </button>
-            <button
-              type="button"
-              onClick={() => onNavigate('privacidad')}
-              className="px-4 py-2.5 rounded-xl bg-[#FAF9F6] border border-[#D5E0D3] text-xs font-semibold text-[#1A231E] hover:bg-white cursor-pointer"
-            >
-              Privacidad
-            </button>
-          </div>
-        </div>
-      </section>
+      
     </div>
   );
 };

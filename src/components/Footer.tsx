@@ -10,8 +10,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer className="bg-[#F2EFE9] border-t border-[#E2DFD7] mt-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="md:col-span-1 space-y-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="space-y-2">
             <div className="flex items-center gap-2">
               <span className="w-7 h-7 rounded-md bg-[#2D5A27] flex items-center justify-center text-[#FAF9F6]">
                 <Sprout className="w-4 h-4" />
@@ -19,7 +19,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <span className="font-semibold text-[#1A231E]">Mi Huerta Casera</span>
             </div>
             <p className="text-xs text-[#5A655E]">
-              Seguimiento de huerta casera.
+              Seguimiento y gestión de tu huerta casera.
             </p>
             <p className="text-xs font-medium text-[#1A231E]">
               Responsable: <span className="text-[#2D5A27]">las paginas de dani</span>
@@ -78,22 +78,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 </button>
               </li>
             </ul>
-          </div>
-
-          <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#1A231E] mb-2">
-              Auditoría
-            </h3>
-            <div className="p-3 rounded-xl bg-[#FAF9F6] border border-[#E2DFD7] space-y-1.5 text-xs text-[#5A655E]">
-              <p>Consentimientos registrados.</p>
-              <button
-                type="button"
-                onClick={() => onNavigate('auditoria')}
-                className="text-[#2D5A27] font-semibold hover:underline block"
-              >
-                Ver auditoría →
-              </button>
-            </div>
           </div>
         </div>
 

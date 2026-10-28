@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from 'motion/react';
 import {
   ShieldCheck,
   AlertCircle,
-  CheckCircle2,
   Plus,
   MapPin,
   X,
   Sparkles,
   Layers,
+  HelpCircle
 } from 'lucide-react';
 import type { CropItem, CropStage, PageRoute, GardenLocation, LocationType } from '../types/huerta';
 import { recordConsentEvent } from '../services/auditLogger';
@@ -22,6 +22,8 @@ interface RegisterPageProps {
 }
 
 const STAGES: CropStage[] = ['Semilla', 'Plántula', 'Crecimiento', 'Floración', 'Cosecha'];
+
+const NOT_SURE_VARIETY = 'No estoy seguro';
 
 const LOCATION_TYPES: LocationType[] = [
   'Bancal elevado',
@@ -78,25 +80,37 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
     (c) => c.cropName === selectedCropName
   );
 
-  const currentVariety: CropVarietyInfo | undefined = currentCategory?.varieties.find(
-    (v) => v.varietyName === selectedVarietyName
-  );
+  const isNotSure = selectedVarietyName === NOT_SURE_VARIETY;
+
+  const currentVariety: CropVarietyInfo | undefined = isNotSure
+    ? currentCategory?.generalInfo
+    : currentCategory?.varieties.find((v) => v.varietyName === selectedVarietyName);
 
   const handleCropNameChange = (newCropName: string) => {
     setSelectedCropName(newCropName);
     const category = CROPS_DATABASE.find((c) => c.cropName === newCropName);
-    if (category && category.varieties.length > 0) {
-      const firstVar = category.varieties[0];
-      setSelectedVarietyName(firstVar.varietyName);
-      updateFieldsFromVariety(firstVar, stage);
+    if (category) {
+      if (selectedVarietyName === NOT_SURE_VARIETY) {
+        updateFieldsFromVariety(category.generalInfo, stage);
+      } else if (category.varieties.length > 0) {
+        const firstVar = category.varieties[0];
+        setSelectedVarietyName(firstVar.varietyName);
+        updateFieldsFromVariety(firstVar, stage);
+      }
     }
   };
 
   const handleVarietyNameChange = (newVarietyName: string) => {
     setSelectedVarietyName(newVarietyName);
-    const varietyObj = currentCategory?.varieties.find((v) => v.varietyName === newVarietyName);
-    if (varietyObj) {
-      updateFieldsFromVariety(varietyObj, stage);
+    if (!currentCategory) return;
+
+    if (newVarietyName === NOT_SURE_VARIETY) {
+      updateFieldsFromVariety(currentCategory.generalInfo, stage);
+    } else {
+      const varietyObj = currentCategory.varieties.find((v) => v.varietyName === newVarietyName);
+      if (varietyObj) {
+        updateFieldsFromVariety(varietyObj, stage);
+      }
     }
   };
 
@@ -114,7 +128,6 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
     setSunHours(varietyObj.sunHours);
     setNotes(varietyObj.notes);
     
-    // Si la ubicación recomendada está entre las ubicaciones existentes o no hay una seleccionada, proponerla
     if (varietyObj.recommendedBed && locations.some((l) => l.name === varietyObj.recommendedBed)) {
       setBed(varietyObj.recommendedBed);
     }
@@ -170,10 +183,15 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
     }
 
     const img = getCropImage(selectedCropName);
+    const varietyLabel = isNotSure
+      ? `${selectedCropName} (Especie general)`
+      : currentVariety
+      ? `${selectedCropName} (${currentVariety.varietyName})`
+      : selectedCropName;
 
     const newCrop: CropItem = {
       id: 'crop-' + Date.now(),
-      name: currentVariety ? `${selectedCropName} (${currentVariety.varietyName})` : selectedCropName,
+      name: varietyLabel,
       variety: currentVariety ? currentVariety.botanicalName : 'Cultivo registrado',
       bed: bed.trim() || 'Bancal Principal',
       plantedDate: plantedDate || getTodayString(),
@@ -193,7 +211,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
           title: 'Siembra registrada',
           date: plantedDate || getTodayString(),
           time: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
-          notes: `Ubicación: ${bed.trim() || 'Bancal Principal'}. Etapa inicial: ${stage}.`
+          notes: `Ubicación: ${bed.trim() || 'Bancal Principal'}. Etapa inicial: ${stage}. ${isNotSure ? 'Configuración general de especie aplicada.' : ''}`
         }
       ]
     };
@@ -231,13 +249,13 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
 
       {locationSuccessMsg && (
         <div className="mb-6 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-[#2D5A27] text-xs flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 shrink-0" />
+          <Sparkles className="w-4 h-4 shrink-0" />
           <span>{locationSuccessMsg}</span>
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="bg-[#FFFFFF] border border-[#E2DFD7] rounded-2xl p-6 sm:p-8 space-y-6 shadow-xs">
-        {/* Especie y Variedad */}
+        {/* Especie y Variedad con opción 'No estoy seguro' */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label htmlFor="crop-name" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
@@ -267,17 +285,27 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
               onChange={(e) => handleVarietyNameChange(e.target.value)}
               className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27] cursor-pointer"
             >
-              {currentCategory?.varieties.map((v) => (
-                <option key={v.varietyName} value={v.varietyName}>
-                  {v.varietyName}
-                </option>
-              ))}
+              <option value={NOT_SURE_VARIETY}>
+                🤔 No estoy seguro (Valores generales de la especie)
+              </option>
+              <optgroup label="Variedades específicas">
+                {currentCategory?.varieties.map((v) => (
+                  <option key={v.varietyName} value={v.varietyName}>
+                    {v.varietyName}
+                  </option>
+                ))}
+              </optgroup>
             </select>
-            {currentVariety && (
+            {isNotSure ? (
+              <span className="text-[11px] text-[#2D5A27] flex items-center gap-1 mt-1 font-medium">
+                <HelpCircle className="w-3 h-3" />
+                <span>Datos pre-rellenados con información botánica general de {selectedCropName}</span>
+              </span>
+            ) : currentVariety ? (
               <span className="text-[11px] text-[#5A655E] italic mt-1 block">
                 {currentVariety.botanicalName}
               </span>
-            )}
+            ) : null}
           </div>
         </div>
 
@@ -320,7 +348,6 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
                   {loc.name} {loc.type ? `(${loc.type})` : ''} {loc.sunExposure ? `• ${loc.sunExposure}` : ''}
                 </option>
               ))}
-              {/* Opción si el valor actual no está en la lista */}
               {!locations.some((l) => l.name === bed) && bed && (
                 <option value={bed}>{bed} (Personalizada)</option>
               )}
@@ -413,9 +440,9 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
           </AnimatePresence>
         </div>
 
-        {/* Fecha y Etapa */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
+        {/* Fecha de Siembra con width reducido y Etapa inicial */}
+        <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-end">
+          <div className="sm:col-span-5">
             <label htmlFor="planted-date" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
               Fecha de siembra *
             </label>
@@ -424,11 +451,11 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
               type="date"
               value={plantedDate}
               onChange={(e) => setPlantedDate(e.target.value)}
-              className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27]"
+              className="w-full max-w-[190px] rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3 py-2 text-xs sm:text-sm text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27]"
             />
           </div>
 
-          <div>
+          <div className="sm:col-span-7">
             <label htmlFor="crop-stage" className="block text-xs font-semibold text-[#1A231E] mb-1.5">
               Etapa inicial *
             </label>
@@ -519,17 +546,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
 
         {alreadyAcceptedConsents ? (
           <div className="p-3.5 rounded-xl bg-[#2D5A27]/5 border border-[#2D5A27]/20 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-[#2D5A27] shrink-0" />
-              <span className="text-xs text-[#2D5A27] font-medium">Consentimientos legales aceptados.</span>
-            </div>
-            <button
-              type="button"
-              onClick={() => onNavigate('auditoria')}
-              className="text-xs text-[#2D5A27] underline hover:text-[#1A231E] shrink-0"
-            >
-              Auditoría
-            </button>
+            <span className="text-xs text-[#2D5A27] font-medium">Consentimientos legales aceptados.</span>
           </div>
         ) : (
           <div className="p-4 rounded-xl bg-[#FAF9F6] border border-[#E2DFD7] space-y-3">
@@ -588,15 +605,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
           </div>
         )}
 
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
-          <button
-            type="button"
-            onClick={() => onNavigate('auditoria')}
-            className="text-xs underline text-[#5A655E] hover:text-[#1A231E]"
-          >
-            Auditoría →
-          </button>
-
+        <div className="flex justify-end pt-2">
           <motion.button
             whileTap={{ scale: 0.95 }}
             type="submit"

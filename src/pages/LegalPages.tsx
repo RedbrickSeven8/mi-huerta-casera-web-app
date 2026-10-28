@@ -32,7 +32,7 @@ export const PrivacyPolicyPage: React.FC<LegalPageProps> = ({ onNavigate }) => (
       </p>
 
       <p>
-        <strong>3. Base Jurídica:</strong> El consentimiento expreso e inequívoco del usuario, otorgado mediante casillas independientes no premarcadas antes del envío de cualquier formulario, auditable con fecha, hora y método de aceptación en el <button type="button" onClick={() => onNavigate('auditoria')} className="underline text-[#2D5A27] font-medium">Registro Técnico de Auditoría</button>.
+        <strong>3. Base Jurídica:</strong> El consentimiento expreso e inequívoco del usuario, otorgado mediante casillas independientes no premarcadas antes del envío de cualquier formulario, registrado técnicamente con fecha, hora y método de aceptación de acuerdo con los estándares de trazabilidad del responsable.
       </p>
 
       <p>
@@ -119,7 +119,7 @@ export const CookiePolicyPage: React.FC<LegalPageProps> = ({ onNavigate }) => (
       </ul>
 
       <p>
-        <strong>3. Registro de tu Preferencia:</strong> Toda decisión tomada en el banner de cookies queda documentada con fecha, hora y método en el <button type="button" onClick={() => onNavigate('auditoria')} className="underline text-[#2D5A27] font-medium">Registro Técnico de Auditoría</button>.
+        <strong>3. Registro de tu Preferencia:</strong> Toda decisión tomada en el banner de cookies queda documentada internamente para trazabilidad del consentimiento.
       </p>
     </div>
   </article>

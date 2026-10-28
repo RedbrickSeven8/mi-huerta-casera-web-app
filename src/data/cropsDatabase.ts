@@ -13,12 +13,29 @@ export interface CropVarietyInfo {
 
 export interface CropCategory {
   cropName: string;
+  generalInfo: CropVarietyInfo;
   varieties: CropVarietyInfo[];
 }
 
 export const CROPS_DATABASE: CropCategory[] = [
   {
     cropName: 'Lechuga',
+    generalInfo: {
+      varietyName: 'No estoy seguro (Especie general)',
+      botanicalName: 'Lactuca sativa L.',
+      stageDaysToHarvest: {
+        Semilla: 60,
+        Plántula: 40,
+        Crecimiento: 20,
+        Floración: 10,
+        Cosecha: 0
+      },
+      waterFrequencyDays: 1,
+      sunHours: 5,
+      recommendedMoisturePercent: 80,
+      recommendedBed: 'Mesa de Cultivo Norte #1',
+      notes: 'Hortaliza de hoja tierna. Requiere sustrato húmedo y fresco, riegos constantes sin encharcar y semisombra o sol suave.'
+    },
     varieties: [
       {
         varietyName: 'Lechuga Escarola',
@@ -72,6 +89,22 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     cropName: 'Tomate',
+    generalInfo: {
+      varietyName: 'No estoy seguro (Especie general)',
+      botanicalName: 'Solanum lycopersicum L.',
+      stageDaysToHarvest: {
+        Semilla: 90,
+        Plántula: 65,
+        Crecimiento: 45,
+        Floración: 20,
+        Cosecha: 0
+      },
+      waterFrequencyDays: 2,
+      sunHours: 7.5,
+      recommendedMoisturePercent: 70,
+      recommendedBed: 'Bancal Sur #1',
+      notes: 'Hortaliza exigente en sol directo (+7h) y nutrientes. Tutorado necesario y riego regular en la base sin mojar hojas.'
+    },
     varieties: [
       {
         varietyName: 'Tomate Cherry',
@@ -125,6 +158,22 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     cropName: 'Zanahoria',
+    generalInfo: {
+      varietyName: 'No estoy seguro (Especie general)',
+      botanicalName: 'Daucus carota L.',
+      stageDaysToHarvest: {
+        Semilla: 80,
+        Plántula: 60,
+        Crecimiento: 35,
+        Floración: 15,
+        Cosecha: 0
+      },
+      waterFrequencyDays: 3,
+      sunHours: 6,
+      recommendedMoisturePercent: 65,
+      recommendedBed: 'Jardinera Profunda #3',
+      notes: 'Raíz comestible que precisa sustrato suelto, arenoso y profundo sin piedras para no bifurcarse. Riego regular.'
+    },
     varieties: [
       {
         varietyName: 'Zanahoria Nantesa',
@@ -162,6 +211,22 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     cropName: 'Pimiento',
+    generalInfo: {
+      varietyName: 'No estoy seguro (Especie general)',
+      botanicalName: 'Capsicum annuum L.',
+      stageDaysToHarvest: {
+        Semilla: 85,
+        Plántula: 60,
+        Crecimiento: 38,
+        Floración: 18,
+        Cosecha: 0
+      },
+      waterFrequencyDays: 2,
+      sunHours: 7,
+      recommendedMoisturePercent: 70,
+      recommendedBed: 'Bancal Principal #1',
+      notes: 'Planta de clima cálido que agradece sol directo y compost maduro. Riego frecuente sin exceso de humedad.'
+    },
     varieties: [
       {
         varietyName: 'Pimiento del Padrón',
@@ -199,6 +264,22 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     cropName: 'Espinaca',
+    generalInfo: {
+      varietyName: 'No estoy seguro (Especie general)',
+      botanicalName: 'Spinacia oleracea L.',
+      stageDaysToHarvest: {
+        Semilla: 50,
+        Plántula: 30,
+        Crecimiento: 15,
+        Floración: 5,
+        Cosecha: 0
+      },
+      waterFrequencyDays: 1,
+      sunHours: 4.5,
+      recommendedMoisturePercent: 82,
+      recommendedBed: 'Mesa de Cultivo Sombra',
+      notes: 'Hojas tiernas ricas en hierro. Gran tolerancia a la semisombra y clima fresco. Riego frecuente ligero.'
+    },
     varieties: [
       {
         varietyName: 'Espinaca Viroflay',
@@ -220,6 +301,22 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     cropName: 'Albahaca',
+    generalInfo: {
+      varietyName: 'No estoy seguro (Especie general)',
+      botanicalName: 'Ocimum basilicum L.',
+      stageDaysToHarvest: {
+        Semilla: 50,
+        Plántula: 35,
+        Crecimiento: 15,
+        Floración: 5,
+        Cosecha: 0
+      },
+      waterFrequencyDays: 2,
+      sunHours: 6,
+      recommendedMoisturePercent: 68,
+      recommendedBed: 'Bancal Sur #1',
+      notes: 'Hierba aromática que repele plagas naturalmente. Proteger del frío, sol moderado y podas de brotes superiores.'
+    },
     varieties: [
       {
         varietyName: 'Albahaca Genovesa',

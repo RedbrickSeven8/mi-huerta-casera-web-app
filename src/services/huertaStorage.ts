@@ -143,3 +143,98 @@ export function addLocation(location: Omit<GardenLocation, 'id' | 'createdAt'>):
   saveLocations(updated);
   return newLoc;
 }
+
+
+export function generateTasksForCrop(crop: CropItem): GardenTask[] {
+  const tasks: GardenTask[] = [];
+  const plantedParts = crop.plantedDate.split('-').map(Number);
+  const baseDate = new Date(plantedParts[0], (plantedParts[1] || 1) - 1, plantedParts[2] || 1);
+  const totalDays = Math.max(1, crop.daysToHarvest);
+
+  const formatDate = (d: Date): string => {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  };
+
+  const addDays = (startDate: Date, days: number): string => {
+    const d = new Date(startDate.getTime());
+    d.setDate(d.getDate() + days);
+    return formatDate(d);
+  };
+
+  // 1. Tareas de Riego periódicas según waterFrequencyDays
+  const freq = Math.max(1, crop.waterFrequencyDays || 2);
+  for (let offset = 0; offset <= totalDays; offset += freq) {
+    const taskDate = addDays(baseDate, offset);
+    tasks.push({
+      id: `task-riego-${crop.id}-${offset}`,
+      cropId: crop.id,
+      cropName: crop.name,
+      type: 'Riego',
+      dueDate: taskDate,
+      completed: offset === 0 // El riego inicial el día de siembra se marca o queda inmediato
+    });
+  }
+
+  // 2. Tarea de Abonado orgánico / nutrición (cada 14-20 días)
+  const abonadoInterval = 18;
+  for (let offset = abonadoInterval; offset < totalDays; offset += abonadoInterval) {
+    const taskDate = addDays(baseDate, offset);
+    tasks.push({
+      id: `task-abonado-${crop.id}-${offset}`,
+      cropId: crop.id,
+      cropName: crop.name,
+      type: 'Abonado',
+      dueDate: taskDate,
+      completed: false
+    });
+  }
+
+  // 3. Tarea de Control preventivo de plagas (a los 10 días y a mitad de ciclo)
+  if (totalDays >= 12) {
+    tasks.push({
+      id: `task-prev-${crop.id}-10`,
+      cropId: crop.id,
+      cropName: crop.name,
+      type: 'Control preventivo',
+      dueDate: addDays(baseDate, Math.min(10, Math.floor(totalDays * 0.25))),
+      completed: false
+    });
+  }
+  if (totalDays >= 28) {
+    tasks.push({
+      id: `task-prev-${crop.id}-mid`,
+      cropId: crop.id,
+      cropName: crop.name,
+      type: 'Control preventivo',
+      dueDate: addDays(baseDate, Math.floor(totalDays * 0.55)),
+      completed: false
+    });
+  }
+
+  // 4. Poda / aclareo (aprox al tercio o dos tercios del ciclo según la especie)
+  if (totalDays >= 20) {
+    tasks.push({
+      id: `task-poda-${crop.id}-1`,
+      cropId: crop.id,
+      cropName: crop.name,
+      type: 'Poda',
+      dueDate: addDays(baseDate, Math.floor(totalDays * 0.4)),
+      completed: false
+    });
+  }
+
+  // 5. Cosecha final el día estimado de cosecha
+  tasks.push({
+    id: `task-cosecha-${crop.id}-end`,
+    cropId: crop.id,
+    cropName: crop.name,
+    type: 'Cosecha',
+    dueDate: addDays(baseDate, totalDays),
+    completed: false
+  });
+
+  return tasks;
+}

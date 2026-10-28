@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { CropItem, CropStage, CropLogEntry, GardenTask, PageRoute } from './types/huerta';
-import { loadCrops, saveCrops, loadTasks, saveTasks, saveBothToCloud, fetchRemoteGardenData } from './services/huertaStorage';
+import { loadCrops, saveCrops, loadTasks, saveTasks, saveBothToCloud, fetchRemoteGardenData, generateTasksForCrop } from './services/huertaStorage';
 import { updatePageTitle } from './services/seoManager';
 import { getDaysToHarvestForCrop } from './data/cropsDatabase';
 import { getUser, type UserProfile } from './services/authService';
@@ -243,9 +243,15 @@ export function App() {
   };
 
   const handleAddCrop = (newCrop: CropItem) => {
-    const updated = [newCrop, ...crops];
-    setCrops(updated);
-    saveCrops(updated);
+    const updatedCrops = [newCrop, ...crops];
+    // Generar automáticamente las tareas agronómicas (riego periódico, abonado, poda, cosecha)
+    const newTasks = generateTasksForCrop(newCrop);
+    const updatedTasks = [...newTasks, ...tasks];
+
+    setCrops(updatedCrops);
+    setTasks(updatedTasks);
+    // Guardar atómicamente ambos en localStorage y sincronizar con la nube
+    saveBothToCloud(updatedCrops, updatedTasks);
   };
 
   // Add manual log entry to a specific crop
