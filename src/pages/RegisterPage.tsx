@@ -13,7 +13,7 @@ import {
 import type { CropItem, CropStage, PageRoute, GardenLocation, LocationType } from '../types/huerta';
 import { recordConsentEvent } from '../services/auditLogger';
 import { hasAcceptedLegalConsents, setAcceptedLegalConsents } from '../services/consentService';
-import { CROPS_DATABASE, type CropCategory, type CropVarietyInfo, getCropImage } from '../data/cropsDatabase';
+import { CROPS_DATABASE, type CropCategory, type CropVarietyInfo, getCropImage, calculateDynamicWaterFrequency, getColombiaSeason } from '../data/cropsDatabase';
 import { loadLocations, addLocation } from '../services/huertaStorage';
 
 interface RegisterPageProps {
@@ -124,9 +124,12 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
   const updateFieldsFromVariety = (varietyObj: CropVarietyInfo, currentStage: CropStage) => {
     setDaysToHarvest(varietyObj.stageDaysToHarvest[currentStage]);
     setRecommendedMoisture(varietyObj.recommendedMoisturePercent);
-    setWaterFrequencyDays(varietyObj.waterFrequencyDays);
     setSunHours(varietyObj.sunHours);
     setNotes(varietyObj.notes);
+
+    // Cálculo dinámico de frecuencia de riego en Colombia según horas de sol y temporada climática
+    const dynamicWater = calculateDynamicWaterFrequency(varietyObj.waterFrequencyDays, varietyObj.sunHours);
+    setWaterFrequencyDays(dynamicWater.adjustedDays);
     
     if (varietyObj.recommendedBed && locations.some((l) => l.name === varietyObj.recommendedBed)) {
       setBed(varietyObj.recommendedBed);
@@ -474,6 +477,19 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
           </div>
         </div>
 
+        {/* Indicador de régimen climático en Colombia */}
+        <div className="p-3.5 rounded-xl bg-blue-50/60 border border-blue-200 text-xs text-blue-900 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+            <span>
+              <strong>Clima Colombia:</strong> {getColombiaSeason().seasonName} ({getColombiaSeason().periodDescription})
+            </span>
+          </div>
+          <span className="text-[11px] text-blue-700 font-medium">
+            Riego calculado dinámicamente
+          </span>
+        </div>
+
         {/* Métricas agronómicas */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#FAF9F6] p-4 rounded-xl border border-[#E2DFD7]">
           <div>
@@ -525,7 +541,14 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
               min={0}
               max={24}
               value={sunHours}
-              onChange={(e) => setSunHours(Number(e.target.value))}
+              onChange={(e) => {
+                const val = Number(e.target.value);
+                setSunHours(val);
+                if (currentVariety) {
+                  const dynamicWater = calculateDynamicWaterFrequency(currentVariety.waterFrequencyDays, val);
+                  setWaterFrequencyDays(dynamicWater.adjustedDays);
+                }
+              }}
               className="w-full rounded-lg border border-[#D5E0D3] bg-white px-2.5 py-1.5 text-xs text-[#1A231E]"
             />
           </div>

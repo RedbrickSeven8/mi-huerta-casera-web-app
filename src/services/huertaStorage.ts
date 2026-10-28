@@ -1,3 +1,4 @@
+import { calculateDynamicWaterFrequency } from '../data/cropsDatabase';
 import type { CropItem, GardenTask, GardenLocation } from '../types/huerta';
 import { INITIAL_CROPS, INITIAL_TASKS } from '../data/initialCrops';
 import { getUser } from './authService';
@@ -164,8 +165,9 @@ export function generateTasksForCrop(crop: CropItem): GardenTask[] {
     return formatDate(d);
   };
 
-  // 1. Tareas de Riego periódicas según waterFrequencyDays
-  const freq = Math.max(1, crop.waterFrequencyDays || 2);
+  // 1. Tareas de Riego periódicas ajustadas dinámicamente según horas de sol y temporada climática en Colombia
+  const dynamicWater = calculateDynamicWaterFrequency(crop.waterFrequencyDays || 2, crop.sunHours || 6, baseDate);
+  const freq = Math.max(1, dynamicWater.adjustedDays);
   for (let offset = 0; offset <= totalDays; offset += freq) {
     const taskDate = addDays(baseDate, offset);
     tasks.push({
@@ -237,4 +239,12 @@ export function generateTasksForCrop(crop: CropItem): GardenTask[] {
   });
 
   return tasks;
+}
+
+
+export function deleteLocation(locationName: string): { remainingLocations: GardenLocation[] } {
+  const current = loadLocations();
+  const remaining = current.filter((loc) => loc.name.toLowerCase() !== locationName.toLowerCase());
+  saveLocations(remaining);
+  return { remainingLocations: remaining };
 }

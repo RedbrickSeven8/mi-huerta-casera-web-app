@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { CropItem, CropStage, CropLogEntry, GardenTask, PageRoute } from './types/huerta';
-import { loadCrops, saveCrops, loadTasks, saveTasks, saveBothToCloud, fetchRemoteGardenData, generateTasksForCrop } from './services/huertaStorage';
+import { loadCrops, saveCrops, loadTasks, saveTasks, saveBothToCloud, fetchRemoteGardenData, generateTasksForCrop, loadLocations, deleteLocation } from './services/huertaStorage';
+import type { GardenLocation } from './types/huerta';
 import { updatePageTitle } from './services/seoManager';
 import { getDaysToHarvestForCrop } from './data/cropsDatabase';
 import { getUser, type UserProfile } from './services/authService';
@@ -64,6 +65,7 @@ export function App() {
   const [user, setUser] = useState<UserProfile | null>(() => getUser());
   const [crops, setCrops] = useState<CropItem[]>(() => getSynchronizedInitialCrops());
   const [tasks, setTasks] = useState<GardenTask[]>(() => loadTasks());
+  const [locations, setLocations] = useState<GardenLocation[]>(() => loadLocations());
 
   useEffect(() => {
     updatePageTitle(currentRoute);
@@ -236,10 +238,38 @@ export function App() {
     saveCrops(updated);
   };
 
+  // Eliminar un cultivo, sus tareas asociadas en el calendario y su bitácora
   const handleDeleteCrop = (cropId: string) => {
-    const updated = crops.filter((c) => c.id !== cropId);
-    setCrops(updated);
-    saveCrops(updated);
+    const targetCrop = crops.find((c) => c.id === cropId);
+    const updatedCrops = crops.filter((c) => c.id !== cropId);
+    // Eliminar también las tareas del calendario asociadas a este cultivo (por id o nombre)
+    const updatedTasks = tasks.filter((t) => t.cropId !== cropId && (!targetCrop || t.cropName !== targetCrop.name));
+    
+    setCrops(updatedCrops);
+    setTasks(updatedTasks);
+    saveBothToCloud(updatedCrops, updatedTasks);
+  };
+
+  // Eliminar una ubicación/bancal y todos los cultivos asociados a él (con sus tareas)
+  const handleDeleteLocation = (locationName: string) => {
+    // 1. Eliminar ubicación de storage
+    const { remainingLocations } = deleteLocation(locationName);
+    setLocations(remainingLocations);
+
+    // 2. Identificar cultivos en esa ubicación
+    const cropsInLocation = crops.filter((c) => c.bed.toLowerCase() === locationName.toLowerCase());
+    const cropIdsToRemove = new Set(cropsInLocation.map((c) => c.id));
+    const cropNamesToRemove = new Set(cropsInLocation.map((c) => c.name));
+
+    // 3. Filtrar cultivos restantes
+    const remainingCrops = crops.filter((c) => !cropIdsToRemove.has(c.id));
+
+    // 4. Filtrar tareas restantes
+    const remainingTasks = tasks.filter((t) => !cropIdsToRemove.has(t.cropId) && !cropNamesToRemove.has(t.cropName));
+
+    setCrops(remainingCrops);
+    setTasks(remainingTasks);
+    saveBothToCloud(remainingCrops, remainingTasks);
   };
 
   const handleAddCrop = (newCrop: CropItem) => {
@@ -368,9 +398,11 @@ export function App() {
         {currentRoute === 'dashboard' && (
           <DashboardPage
             crops={crops}
+            locations={locations}
             onWaterCrop={handleWaterCrop}
             onAdvanceStage={handleAdvanceStage}
             onDeleteCrop={handleDeleteCrop}
+            onDeleteLocation={handleDeleteLocation}
             onAddLogEntry={handleAddLogEntry}
             onDeleteLogEntry={handleDeleteLogEntry}
             onNavigate={handleNavigate}

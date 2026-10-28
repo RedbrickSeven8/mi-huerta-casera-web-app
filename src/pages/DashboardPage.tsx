@@ -11,18 +11,23 @@ import {
   BookOpen,
   MapPin,
   Layers,
-  Sparkles
+  Sparkles,
+  Edit3,
+  AlertTriangle,
+  Info
 } from 'lucide-react';
-import type { CropItem, CropStage, CropLogEntry, PageRoute } from '../types/huerta';
+import type { CropItem, CropStage, CropLogEntry, PageRoute, GardenLocation } from '../types/huerta';
 import { GoogleAuthButton } from '../components/GoogleAuthButton';
 import { CropLogModal } from '../components/CropLogModal';
 import type { UserProfile } from '../services/authService';
 
 interface DashboardPageProps {
   crops: CropItem[];
+  locations: GardenLocation[];
   onWaterCrop: (cropId: string) => void;
   onAdvanceStage: (cropId: string) => void;
   onDeleteCrop: (cropId: string) => void;
+  onDeleteLocation: (locationName: string) => void;
   onAddLogEntry: (cropId: string, entry: Omit<CropLogEntry, 'id'>) => void;
   onDeleteLogEntry: (cropId: string, logId: string) => void;
   onNavigate: (route: PageRoute) => void;
@@ -34,9 +39,11 @@ const STAGES: CropStage[] = ['Semilla', 'Plántula', 'Crecimiento', 'Floración'
 
 export const DashboardPage: React.FC<DashboardPageProps> = ({
   crops,
+  locations,
   onWaterCrop,
   onAdvanceStage,
   onDeleteCrop,
+  onDeleteLocation,
   onAddLogEntry,
   onDeleteLogEntry,
   onNavigate,
@@ -48,10 +55,18 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
   const [activeLogCrop, setActiveLogCrop] = useState<CropItem | null>(null);
 
+  // Estados de edición y confirmación de eliminación
+  const [isEditingBeds, setIsEditingBeds] = useState(false);
+  const [cropToDelete, setCropToDelete] = useState<CropItem | null>(null);
+  const [locationToDelete, setLocationToDelete] = useState<string | null>(null);
+
+  // Ubicaciones disponibles combinando las guardadas y las presentes en cultivos
   const availableBeds = useMemo(() => {
-    const beds = Array.from(new Set(crops.map((c) => c.bed).filter(Boolean)));
-    return ['Todas', ...beds];
-  }, [crops]);
+    const fromCrops = crops.map((c) => c.bed).filter(Boolean);
+    const fromSavedLocations = locations.map((l) => l.name).filter(Boolean);
+    const combined = Array.from(new Set([...fromSavedLocations, ...fromCrops]));
+    return ['Todas', ...combined];
+  }, [crops, locations]);
 
   const bedCounts = useMemo(() => {
     const counts: Record<string, number> = { Todas: crops.length };
@@ -61,9 +76,15 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
     return counts;
   }, [crops]);
 
+  // Metadatos de la ubicación seleccionada actualmente
+  const selectedBedLocationInfo = useMemo(() => {
+    if (selectedBed === 'Todas') return null;
+    return locations.find((l) => l.name.toLowerCase() === selectedBed.toLowerCase()) || null;
+  }, [selectedBed, locations]);
+
   const cropsByBed = useMemo(() => {
     if (selectedBed === 'Todas') return crops;
-    return crops.filter((c) => c.bed === selectedBed);
+    return crops.filter((c) => c.bed.toLowerCase() === selectedBed.toLowerCase());
   }, [crops, selectedBed]);
 
   const stageCounts = useMemo(() => {
@@ -131,8 +152,31 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
 
   const handleWater = (crop: CropItem) => {
     onWaterCrop(crop.id);
-    setFeedbackMessage(`Riego en ${crop.name}.`);
+    setFeedbackMessage(`Riego registrado en ${crop.name}.`);
     setTimeout(() => setFeedbackMessage(null), 3000);
+  };
+
+  // Confirmar eliminación de cultivo
+  const handleConfirmDeleteCrop = () => {
+    if (!cropToDelete) return;
+    const cropName = cropToDelete.name;
+    onDeleteCrop(cropToDelete.id);
+    setCropToDelete(null);
+    setFeedbackMessage(`Cultivo "${cropName}" y sus tareas asociadas eliminados.`);
+    setTimeout(() => setFeedbackMessage(null), 4000);
+  };
+
+  // Confirmar eliminación de ubicación/bancal
+  const handleConfirmDeleteLocation = () => {
+    if (!locationToDelete) return;
+    const locName = locationToDelete;
+    onDeleteLocation(locName);
+    if (selectedBed.toLowerCase() === locName.toLowerCase()) {
+      setSelectedBed('Todas');
+    }
+    setLocationToDelete(null);
+    setFeedbackMessage(`Ubicación "${locName}" y sus cultivos asociados eliminados.`);
+    setTimeout(() => setFeedbackMessage(null), 4000);
   };
 
   return (
@@ -188,40 +232,115 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         )}
       </AnimatePresence>
 
-      {/* Filtro Ubicación */}
-      <div className="space-y-2 bg-[#FAF9F6] p-4 rounded-2xl border border-[#E2DFD7]">
-        <div className="flex items-center gap-2 text-xs font-semibold text-[#1A231E]">
-          <MapPin className="w-4 h-4 text-[#2D5A27]" />
-          <span>Ubicación / Bancal:</span>
+      {/* Filtro Ubicación con Opción de Edición y Eliminación */}
+      <div className="space-y-3 bg-[#FAF9F6] p-4 sm:p-5 rounded-2xl border border-[#E2DFD7]">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#1A231E]">
+            <MapPin className="w-4 h-4 text-[#2D5A27]" />
+            <span>Ubicación / Bancal:</span>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setIsEditingBeds((prev) => !prev)}
+            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-colors cursor-pointer border ${
+              isEditingBeds
+                ? 'bg-[#2D5A27] text-white border-[#2D5A27]'
+                : 'bg-white text-[#4A554E] border-[#D5E0D3] hover:border-[#2D5A27] hover:text-[#1A231E]'
+            }`}
+          >
+            <Edit3 className="w-3.5 h-3.5" />
+            <span>{isEditingBeds ? 'Finalizar edición' : 'Editar ubicaciones'}</span>
+          </button>
         </div>
+
+        {/* Pestañas de bancales / ubicaciones */}
         <div className="flex flex-wrap items-center gap-2">
           {availableBeds.map((bedName) => {
             const count = bedCounts[bedName] || 0;
-            const isSelected = selectedBed === bedName;
+            const isSelected = selectedBed.toLowerCase() === bedName.toLowerCase();
+            const isAll = bedName === 'Todas';
+
             return (
-              <motion.button
-                key={bedName}
-                whileTap={{ scale: 0.95 }}
-                type="button"
-                onClick={() => setSelectedBed(bedName)}
-                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
-                  isSelected
-                    ? 'bg-[#2D5A27] text-[#FAF9F6] shadow-xs'
-                    : 'bg-white border border-[#E2DFD7] text-[#4A554E] hover:border-[#2D5A27]'
-                }`}
-              >
-                <span>{bedName}</span>
-                <span
-                  className={`text-[11px] px-1.5 py-0.2 rounded-full font-semibold ${
-                    isSelected ? 'bg-white/20 text-white' : 'bg-[#F2EFE9] text-[#1A231E]'
-                  }`}
+              <div key={bedName} className="inline-flex items-center">
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  type="button"
+                  onClick={() => setSelectedBed(bedName)}
+                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
+                    isSelected
+                      ? 'bg-[#2D5A27] text-[#FAF9F6] shadow-xs'
+                      : 'bg-white border border-[#E2DFD7] text-[#4A554E] hover:border-[#2D5A27]'
+                  } ${isEditingBeds && !isAll ? 'rounded-r-none border-r-0' : ''}`}
                 >
-                  {count}
-                </span>
-              </motion.button>
+                  <span>{bedName}</span>
+                  <span
+                    className={`text-[11px] px-1.5 py-0.2 rounded-full font-semibold ${
+                      isSelected ? 'bg-white/20 text-white' : 'bg-[#F2EFE9] text-[#1A231E]'
+                    }`}
+                  >
+                    {count}
+                  </span>
+                </motion.button>
+
+                {/* Botón de eliminar ubicación en modo edición (no disponible para 'Todas') */}
+                {isEditingBeds && !isAll && (
+                  <button
+                    type="button"
+                    onClick={() => setLocationToDelete(bedName)}
+                    title={`Eliminar ubicación ${bedName}`}
+                    className="p-1.5 bg-red-50 text-red-700 hover:bg-red-600 hover:text-white border border-red-200 rounded-r-xl transition-colors cursor-pointer"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
             );
           })}
         </div>
+
+        {/* Información detallada de la ubicación seleccionada debajo del filtro */}
+        {selectedBed !== 'Todas' && (
+          <motion.div
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="pt-3 border-t border-[#E2DFD7] flex flex-wrap items-center justify-between gap-3 text-xs bg-white/70 p-3 rounded-xl border border-[#E2DFD7]/80"
+          >
+            <div className="flex items-center gap-2.5">
+              <span className="w-7 h-7 rounded-lg bg-[#2D5A27]/10 text-[#2D5A27] flex items-center justify-center shrink-0">
+                <Info className="w-4 h-4" />
+              </span>
+              <div>
+                <p className="font-bold text-[#1A231E]">
+                  {selectedBed}
+                </p>
+                <p className="text-[11px] text-[#5A655E]">
+                  {selectedBedLocationInfo ? (
+                    <>
+                      Contenedor: <strong className="text-[#1A231E]">{selectedBedLocationInfo.type || 'Bancal'}</strong> · 
+                      Exposición: <strong className="text-[#1A231E]">{selectedBedLocationInfo.sunExposure || 'Pleno sol'}</strong>
+                    </>
+                  ) : (
+                    'Ubicación asignada en cultivos'
+                  )}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 text-[11px] text-[#4A554E]">
+              <span className="bg-[#FAF9F6] px-2.5 py-1 rounded-lg border border-[#E2DFD7]">
+                Cultivos asociados: <strong className="text-[#2D5A27]">{bedCounts[selectedBed] || 0}</strong>
+              </span>
+              <button
+                type="button"
+                onClick={() => setSelectedBed('Todas')}
+                className="text-[#2D5A27] font-semibold hover:underline cursor-pointer"
+              >
+                Ver todos los bancales
+              </button>
+            </div>
+          </motion.div>
+        )}
       </div>
 
       {/* Métricas */}
@@ -359,19 +478,26 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                     height={56}
                   />
                   <div>
-                    <span className="text-xs font-medium text-[#2D5A27] bg-[#2D5A27]/10 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
+                    {/* Al pulsar sobre la etiqueta del bancal, activa el filtro de esa ubicación */}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedBed(crop.bed)}
+                      title={`Filtrar por ${crop.bed}`}
+                      className="text-xs font-medium text-[#2D5A27] bg-[#2D5A27]/10 hover:bg-[#2D5A27] hover:text-white transition-colors px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 cursor-pointer"
+                    >
                       <MapPin className="w-3 h-3" />
-                      {crop.bed}
-                    </span>
+                      <span>{crop.bed}</span>
+                    </button>
                     <h2 className="text-lg font-bold text-[#1A231E] mt-1">{crop.name}</h2>
                     <p className="text-xs italic text-[#5A655E]">{crop.variety}</p>
                   </div>
                 </div>
 
+                {/* Botón eliminar cultivo que abre confirmación */}
                 <button
                   type="button"
-                  onClick={() => onDeleteCrop(crop.id)}
-                  title="Eliminar"
+                  onClick={() => setCropToDelete(crop)}
+                  title="Eliminar cultivo"
                   aria-label={`Eliminar ${crop.name}`}
                   className="p-2 text-[#8A968E] hover:text-red-700 rounded-lg hover:bg-red-50 transition-colors cursor-pointer"
                 >
@@ -380,17 +506,17 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               </div>
 
               {/* Indicadores */}
-              <div className="grid grid-cols-3 gap-3 bg-[#FAF9F6] p-3.5 rounded-xl border border-[#E2DFD7] text-xs">
+              <div className="grid grid-cols-3 gap-3 bg-[#FAF9F6] p-3.5 rounded-xl border border-[#E2DFD7] text-center">
                 <div>
-                  <span className="text-[#5A655E] flex items-center gap-1 text-[11px]">
+                  <span className="text-[#5A655E] flex items-center justify-center gap-1 text-[11px]">
                     <Droplets className="w-3.5 h-3.5 text-blue-600" /> Humedad
                   </span>
-                  <span className="font-bold text-sm text-blue-800 mt-0.5 block">
+                  <span className="font-bold text-sm text-[#1A231E] mt-0.5 block">
                     {crop.recommendedMoisturePercent || 70}%
                   </span>
                 </div>
                 <div>
-                  <span className="text-[#5A655E] flex items-center gap-1 text-[11px]">
+                  <span className="text-[#5A655E] flex items-center justify-center gap-1 text-[11px]">
                     <Sun className="w-3.5 h-3.5 text-amber-600" /> Sol
                   </span>
                   <span className="font-bold text-sm text-[#1A231E] mt-0.5 block">
@@ -398,7 +524,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                   </span>
                 </div>
                 <div>
-                  <span className="text-[#5A655E] flex items-center gap-1 text-[11px]">
+                  <span className="text-[#5A655E] flex items-center justify-center gap-1 text-[11px]">
                     <Sprout className="w-3.5 h-3.5 text-[#2D5A27]" /> Etapa
                   </span>
                   <span className="font-bold text-sm text-[#2D5A27] mt-0.5 block">
@@ -416,7 +542,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                   </strong>
                 </div>
                 <div className="flex justify-between">
-                  <span>Riego:</span>
+                  <span>Riego recomendado:</span>
                   <strong className="text-[#1A231E]">Cada {crop.waterFrequencyDays} d</strong>
                 </div>
                 <div className="flex justify-between">
@@ -481,6 +607,121 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           onDeleteLogEntry={onDeleteLogEntry}
         />
       )}
+
+      {/* Modal de Confirmación: Eliminar Cultivo */}
+      <AnimatePresence>
+        {cropToDelete && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-white rounded-2xl border border-[#E2DFD7] p-6 max-w-md w-full shadow-lg space-y-4"
+            >
+              <div className="flex items-center gap-3 text-red-600">
+                <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center shrink-0">
+                  <AlertTriangle className="w-5 h-5 text-red-700" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-[#1A231E]">
+                    ¿Eliminar este cultivo?
+                  </h3>
+                  <p className="text-xs text-[#5A655E]">
+                    Acción permanente
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-[#FAF9F6] border border-[#E2DFD7] text-xs text-[#4A554E] space-y-1.5">
+                <p>
+                  Vas a eliminar <strong className="text-[#1A231E]">{cropToDelete.name}</strong> en <strong className="text-[#1A231E]">{cropToDelete.bed}</strong>.
+                </p>
+                <p className="text-red-700 font-medium">
+                  • Se borrarán todas sus labores pendientes en el calendario.
+                  <br />
+                  • Se eliminará todo el historial y bitácora de este cultivo.
+                </p>
+              </div>
+
+              <div className="flex items-center justify-end gap-2.5 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setCropToDelete(null)}
+                  className="px-4 py-2 rounded-xl bg-[#F2EFE9] text-xs font-semibold text-[#1A231E] hover:bg-[#E2DFD7] cursor-pointer"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  onClick={handleConfirmDeleteCrop}
+                  className="px-4 py-2 rounded-xl bg-red-600 text-white text-xs font-semibold hover:bg-red-700 cursor-pointer shadow-xs"
+                >
+                  Sí, eliminar cultivo
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Modal de Confirmación: Eliminar Ubicación / Bancal Completo */}
+      <AnimatePresence>
+        {locationToDelete && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-white rounded-2xl border border-[#E2DFD7] p-6 max-w-md w-full shadow-lg space-y-4"
+            >
+              <div className="flex items-center gap-3 text-red-600">
+                <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center shrink-0">
+                  <AlertTriangle className="w-5 h-5 text-red-700" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-[#1A231E]">
+                    ¿Eliminar ubicación y sus cultivos?
+                  </h3>
+                  <p className="text-xs text-[#5A655E]">
+                    Esta acción no se puede deshacer
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-red-50/50 border border-red-200 text-xs text-[#4A554E] space-y-2">
+                <p>
+                  Vas a eliminar la ubicación <strong className="text-[#1A231E]">"{locationToDelete}"</strong>.
+                </p>
+                <div className="p-2.5 rounded-lg bg-white border border-red-100 font-medium text-red-800 text-[11px] space-y-1">
+                  <p>
+                    ⚠️ Se eliminarán los <strong>{bedCounts[locationToDelete] || 0}</strong> cultivo(s) sembrados en este bancal.
+                  </p>
+                  <p>
+                    ⚠️ Se borrarán automáticamente todas sus tareas de calendario y bitácoras asociadas.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-2.5 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setLocationToDelete(null)}
+                  className="px-4 py-2 rounded-xl bg-[#F2EFE9] text-xs font-semibold text-[#1A231E] hover:bg-[#E2DFD7] cursor-pointer"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  onClick={handleConfirmDeleteLocation}
+                  className="px-4 py-2 rounded-xl bg-red-600 text-white text-xs font-semibold hover:bg-red-700 cursor-pointer shadow-xs"
+                >
+                  Sí, eliminar ubicación y cultivos
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
