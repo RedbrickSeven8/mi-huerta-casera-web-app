@@ -165,7 +165,7 @@ export function generateTasksForCrop(crop: CropItem): GardenTask[] {
     return formatDate(d);
   };
 
-  // 1. Tareas de Riego periódicas ajustadas dinámicamente según horas de sol y temporada climática en Colombia
+  // 1. Tareas de Riego periódicas ajustadas dinámicamente según horas de sol y régimen estacional
   const dynamicWater = calculateDynamicWaterFrequency(crop.waterFrequencyDays || 2, crop.sunHours || 6, baseDate);
   const freq = Math.max(1, dynamicWater.adjustedDays);
   for (let offset = 0; offset <= totalDays; offset += freq) {
