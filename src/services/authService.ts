@@ -1,3 +1,23 @@
+
+type AuthListener = (user: UserProfile | null) => void;
+const authListeners: Set<AuthListener> = new Set();
+
+export function subscribeAuth(listener: AuthListener): () => void {
+  authListeners.add(listener);
+  return () => {
+    authListeners.delete(listener);
+  };
+}
+
+function notifyAuthChange(user: UserProfile | null): void {
+  authListeners.forEach((listener) => {
+    try {
+      listener(user);
+    } catch (e) {
+      console.error('Auth listener error:', e);
+    }
+  });
+}
 export interface UserProfile {
   id: string;
   name: string;
@@ -28,6 +48,7 @@ export function decodeJwt(token: string): Record<string, unknown> | null {
 
 export function saveUser(user: UserProfile): void {
   localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+  notifyAuthChange(user);
 }
 
 export function getUser(): UserProfile | null {
@@ -42,6 +63,7 @@ export function getUser(): UserProfile | null {
 
 export function clearUser(): void {
   localStorage.removeItem(AUTH_STORAGE_KEY);
+  notifyAuthChange(null);
 }
 
 export function saveCustomClientId(clientId: string): void {

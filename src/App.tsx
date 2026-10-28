@@ -358,7 +358,7 @@ export function App() {
       <Breadcrumbs currentRoute={currentRoute} onNavigate={handleNavigate} />
 
       <main className="flex-1">
-        {currentRoute === 'inicio' && <HomePage crops={crops} onNavigate={handleNavigate} />}
+        {currentRoute === 'inicio' && <HomePage crops={crops} tasks={tasks} onNavigate={handleNavigate} user={user} onAuthChange={handleAuthChange} />}
         {currentRoute === 'dashboard' && (
           <DashboardPage
             crops={crops}

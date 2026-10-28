@@ -1,15 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GoogleLogin, googleLogout, type CredentialResponse } from '@react-oauth/google';
 import { LogOut, User, CheckCircle2 } from 'lucide-react';
-import { getUser, saveUser, clearUser, decodeJwt, type UserProfile } from '../services/authService';
+import { getUser, saveUser, clearUser, decodeJwt, subscribeAuth, type UserProfile } from '../services/authService';
 
 interface GoogleAuthButtonProps {
+  user?: UserProfile | null;
   onAuthChange?: (user: UserProfile | null) => void;
 }
 
-export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ onAuthChange }) => {
-  const [user, setUser] = useState<UserProfile | null>(() => getUser());
+export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ user: propUser, onAuthChange }) => {
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(() => propUser !== undefined ? propUser : getUser());
   const [authError, setAuthError] = useState<string | null>(null);
+
+
+
+  useEffect(() => {
+    const unsubscribe = subscribeAuth((updatedUser) => {
+      setCurrentUser(updatedUser);
+    });
+    return unsubscribe;
+  }, []);
 
   const handleGoogleSuccess = (credentialResponse: CredentialResponse) => {
     setAuthError(null);
@@ -34,7 +44,6 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ onAuthChange
     };
 
     saveUser(profile);
-    setUser(profile);
     if (onAuthChange) onAuthChange(profile);
   };
 
@@ -50,16 +59,16 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ onAuthChange
     };
 
     saveUser(demoProfile);
-    setUser(demoProfile);
     if (onAuthChange) onAuthChange(demoProfile);
   };
 
   const handleLogout = () => {
     googleLogout();
     clearUser();
-    setUser(null);
     if (onAuthChange) onAuthChange(null);
   };
+
+  const user = propUser !== undefined ? propUser : currentUser;
 
   if (user) {
     return (

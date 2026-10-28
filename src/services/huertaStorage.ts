@@ -1,4 +1,4 @@
-import type { CropItem, GardenTask } from '../types/huerta';
+import type { CropItem, GardenTask, GardenLocation } from '../types/huerta';
 import { INITIAL_CROPS, INITIAL_TASKS } from '../data/initialCrops';
 import { getUser } from './authService';
 import { pushGardenDataToCloud, fetchRemoteGardenData, markLocalMutation } from './cloudSyncService';
@@ -93,3 +93,53 @@ export function saveBothToCloud(crops: CropItem[], tasks: GardenTask[]): void {
 }
 
 export { fetchRemoteGardenData };
+
+
+const LOCATIONS_KEY_PREFIX = 'mi_huerta_casera_locations_v3_';
+
+export const DEFAULT_LOCATIONS: GardenLocation[] = [
+  { id: 'loc-1', name: 'Bancal Sur #1', type: 'Bancal elevado', sunExposure: 'Pleno sol', createdAt: '2025-01-01' },
+  { id: 'loc-2', name: 'Bancal Sur #2', type: 'Bancal elevado', sunExposure: 'Pleno sol', createdAt: '2025-01-01' },
+  { id: 'loc-3', name: 'Bancal Central #2', type: 'Bancal elevado', sunExposure: 'Pleno sol', createdAt: '2025-01-01' },
+  { id: 'loc-4', name: 'Mesa de Cultivo Norte #1', type: 'Mesa de cultivo', sunExposure: 'Semisombra', createdAt: '2025-01-01' },
+  { id: 'loc-5', name: 'Mesa de Cultivo Norte #2', type: 'Mesa de cultivo', sunExposure: 'Semisombra', createdAt: '2025-01-01' },
+  { id: 'loc-6', name: 'Jardinera Profunda #3', type: 'Jardinera', sunExposure: 'Pleno sol', createdAt: '2025-01-01' },
+  { id: 'loc-7', name: 'Maceta Terraza', type: 'Maceta', sunExposure: 'Semisombra', createdAt: '2025-01-01' }
+];
+
+export function loadLocations(): GardenLocation[] {
+  try {
+    const key = getStorageKey(LOCATIONS_KEY_PREFIX);
+    const raw = localStorage.getItem(key);
+    if (!raw) {
+      localStorage.setItem(key, JSON.stringify(DEFAULT_LOCATIONS));
+      return DEFAULT_LOCATIONS;
+    }
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_LOCATIONS;
+  } catch {
+    return DEFAULT_LOCATIONS;
+  }
+}
+
+export function saveLocations(locations: GardenLocation[]): void {
+  try {
+    const key = getStorageKey(LOCATIONS_KEY_PREFIX);
+    localStorage.setItem(key, JSON.stringify(locations));
+    setLocalUpdatedAt();
+  } catch {
+    // ignore
+  }
+}
+
+export function addLocation(location: Omit<GardenLocation, 'id' | 'createdAt'>): GardenLocation {
+  const current = loadLocations();
+  const newLoc: GardenLocation = {
+    ...location,
+    id: 'loc-' + Date.now(),
+    createdAt: new Date().toISOString()
+  };
+  const updated = [...current, newLoc];
+  saveLocations(updated);
+  return newLoc;
+}

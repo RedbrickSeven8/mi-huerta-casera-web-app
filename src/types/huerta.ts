@@ -71,3 +71,15 @@ export interface ConsentAuditRecord {
   formOrigin: string;
   userIdentifier?: string;
 }
+
+
+export type LocationType = 'Bancal elevado' | 'Mesa de cultivo' | 'Jardinera' | 'Maceta' | 'Suelo directo' | 'Invernadero' | 'Hidroponía / Otro';
+
+export interface GardenLocation {
+  id: string;
+  name: string;
+  type?: LocationType;
+  description?: string;
+  sunExposure?: 'Pleno sol' | 'Semisombra' | 'Sombra';
+  createdAt: string;
+}
