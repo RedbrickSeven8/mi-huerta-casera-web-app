@@ -247,3 +247,151 @@ export function deleteLocation(locationName: string): { remainingLocations: Gard
   saveLocations(remaining);
   return { remainingLocations: remaining };
 }
+
+/**
+ * Recalcula y actualiza de manera reactiva las tareas del calendario para un cultivo
+ * cuando cambia su etapa fenologica o se registran riegos.
+ * - Mantiene el historial de tareas completadas.
+ * - Remueve tareas pendientes desactualizadas de ese cultivo.
+ * - Genera las nuevas tareas adaptadas a la etapa y al registro de riego real.
+ */
+export function recalculateTasksForCrop(
+  crop: CropItem,
+  existingTasks: GardenTask[]
+): GardenTask[] {
+  const now = new Date();
+
+  const formatDate = (d: Date): string => {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return y + '-' + m + '-' + day;
+  };
+
+  const addDays = (startDate: Date, days: number): string => {
+    const d = new Date(startDate.getTime());
+    d.setDate(d.getDate() + days);
+    return formatDate(d);
+  };
+
+  // 1. Conservar tareas completadas y tareas de otros cultivos
+  const tasksToKeep = existingTasks.filter(
+    (t) => (t.cropId !== crop.id && t.cropName !== crop.name) || t.completed
+  );
+
+  // 2. Extraer ultima fecha de riego real registrada
+  const irrigationLogs = (crop.log || [])
+    .filter((l) => l.type === 'Riego' && l.date)
+    .sort((a, b) => b.date.localeCompare(a.date));
+
+  let lastWaterDate = now;
+  if (irrigationLogs.length > 0 && irrigationLogs[0].date) {
+    const parts = irrigationLogs[0].date.split('-').map(Number);
+    lastWaterDate = new Date(parts[0], (parts[1] || 1) - 1, parts[2] || 1);
+  }
+
+  // 3. Frecuencia dinamica de riego adaptada a sol y temporada
+  const dynamicWater = calculateDynamicWaterFrequency(
+    crop.waterFrequencyDays || 2,
+    crop.sunHours || 6,
+    now
+  );
+  let freq = Math.max(1, dynamicWater.adjustedDays);
+
+  // Modulacion segun etapa fenologica
+  if (crop.stage === 'Floración') {
+    freq = Math.max(1, freq - 1); // Mayor demanda hidrica
+  } else if (crop.stage === 'Semilla') {
+    freq = 1; // Riego superficial suave diario
+  } else if (crop.stage === 'Cosecha') {
+    freq = Math.min(6, freq + 1); // Disminucion de riego previo a cosecha
+  }
+
+  const remainingDays = Math.max(1, crop.daysToHarvest || 7);
+  const newTasks: GardenTask[] = [];
+
+  // Calcular fecha para el proximo riego a partir del ultimo riego real registrado
+  let nextWaterDate = new Date(lastWaterDate.getTime());
+  nextWaterDate.setDate(nextWaterDate.getDate() + freq);
+
+  const todayDateObj = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  if (nextWaterDate < todayDateObj) {
+    // Si la fecha cae antes de hoy, programar a partir de hoy o manana segun el dia
+    nextWaterDate = new Date(todayDateObj.getTime());
+    nextWaterDate.setDate(nextWaterDate.getDate() + 1);
+  }
+
+  const maxProjectionDays = Math.min(remainingDays, 40);
+  for (let offset = 0; offset <= maxProjectionDays; offset += freq) {
+    const d = new Date(nextWaterDate.getTime());
+    d.setDate(d.getDate() + offset);
+    const dateStr = formatDate(d);
+
+    const alreadyCompleted = tasksToKeep.some(
+      (t) => (t.cropId === crop.id || t.cropName === crop.name) && t.type === 'Riego' && t.dueDate === dateStr && t.completed
+    );
+
+    if (!alreadyCompleted) {
+      newTasks.push({
+        id: 'task-riego-' + crop.id + '-' + dateStr + '-' + (Date.now() + offset),
+        cropId: crop.id,
+        cropName: crop.name,
+        type: 'Riego',
+        dueDate: dateStr,
+        completed: false
+      });
+    }
+  }
+
+  // Tareas contextuales segun la etapa fenologica actual del cultivo
+  if (crop.stage === 'Plántula') {
+    newTasks.push({
+      id: 'task-prev-' + crop.id + '-plantula-' + Date.now(),
+      cropId: crop.id,
+      cropName: crop.name,
+      type: 'Control preventivo',
+      dueDate: addDays(todayDateObj, 4),
+      completed: false
+    });
+  } else if (crop.stage === 'Crecimiento') {
+    newTasks.push({
+      id: 'task-abonado-' + crop.id + '-crec-' + Date.now(),
+      cropId: crop.id,
+      cropName: crop.name,
+      type: 'Abonado',
+      dueDate: addDays(todayDateObj, 3),
+      completed: false
+    });
+    if (crop.name.toLowerCase().includes('tomate') || crop.name.toLowerCase().includes('albahaca')) {
+      newTasks.push({
+        id: 'task-poda-' + crop.id + '-tutor-' + Date.now(),
+        cropId: crop.id,
+        cropName: crop.name,
+        type: 'Poda',
+        dueDate: addDays(todayDateObj, 7),
+        completed: false
+      });
+    }
+  } else if (crop.stage === 'Floración') {
+    newTasks.push({
+      id: 'task-abonado-' + crop.id + '-flor-' + Date.now(),
+      cropId: crop.id,
+      cropName: crop.name,
+      type: 'Abonado',
+      dueDate: addDays(todayDateObj, 2),
+      completed: false
+    });
+  } else if (crop.stage === 'Cosecha') {
+    newTasks.push({
+      id: 'task-cosecha-' + crop.id + '-cosecha-' + Date.now(),
+      cropId: crop.id,
+      cropName: crop.name,
+      type: 'Cosecha',
+      dueDate: addDays(todayDateObj, Math.min(2, remainingDays)),
+      completed: false
+    });
+  }
+
+  return [...tasksToKeep, ...newTasks];
+}
+

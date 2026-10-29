@@ -171,8 +171,8 @@ export const CropLogModal: React.FC<CropLogModalProps> = ({
               onSubmit={handleFormSubmit}
               className="p-4 rounded-xl bg-[#FAF9F6] border border-[#D5E0D3] space-y-3 shrink-0 overflow-hidden"
             >
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="w-full sm:w-44">
                   <label className="block text-[11px] font-semibold text-[#1A231E] mb-1">
                     Labor
                   </label>
@@ -191,7 +191,7 @@ export const CropLogModal: React.FC<CropLogModalProps> = ({
                   </select>
                 </div>
 
-                <div>
+                <div className="w-full sm:w-36 shrink-0">
                   <label className="block text-[11px] font-semibold text-[#1A231E] mb-1">
                     Fecha
                   </label>
@@ -199,12 +199,12 @@ export const CropLogModal: React.FC<CropLogModalProps> = ({
                     type="date"
                     value={entryDate}
                     onChange={(e) => setEntryDate(e.target.value)}
-                    className="w-full rounded-lg border border-[#D5E0D3] bg-white px-2.5 py-1.5 text-xs text-[#1A231E]"
+                    className="w-full rounded-lg border border-[#D5E0D3] bg-white px-2 py-1.5 text-xs text-[#1A231E]"
                     required
                   />
                 </div>
 
-                <div>
+                <div className="flex-1 min-w-0">
                   <label className="block text-[11px] font-semibold text-[#1A231E] mb-1">
                     Título
                   </label>

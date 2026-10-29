@@ -10,7 +10,7 @@ import {
   HelpCircle
 } from 'lucide-react';
 import type { CropItem, CropStage, PageRoute, GardenLocation, LocationType } from '../types/huerta';
-import { CROPS_DATABASE, type CropCategory, type CropVarietyInfo, getCropImage, calculateDynamicWaterFrequency, getCurrentSeason } from '../data/cropsDatabase';
+import { CROPS_DATABASE, type CropCategory, type CropVarietyInfo, getCropImage, calculateDynamicWaterFrequency } from '../data/cropsDatabase';
 import { loadLocations, addLocation } from '../services/huertaStorage';
 
 interface RegisterPageProps {
@@ -74,7 +74,6 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
     return new Date(parts[0], (parts[1] || 1) - 1, parts[2] || 1);
   };
 
-  const currentPlantedSeason = getCurrentSeason(parsePlantedDate(plantedDate));
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const currentCategory: CropCategory | undefined = CROPS_DATABASE.find(
@@ -478,18 +477,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
           </div>
         </div>
 
-        {/* Indicador de régimen estacional según fecha de siembra */}
-        <div className="p-3.5 rounded-xl bg-blue-50/60 border border-blue-200 text-xs text-blue-900 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-            <span>
-              <strong>Temporada según fecha de siembra ({plantedDate}):</strong> {currentPlantedSeason.seasonName} ({currentPlantedSeason.periodDescription})
-            </span>
-          </div>
-          <span className="text-[11px] text-blue-700 font-medium">
-            Riego calculado según esta fecha
-          </span>
-        </div>
+
 
         {/* Métricas agronómicas */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#FAF9F6] p-4 rounded-xl border border-[#E2DFD7]">

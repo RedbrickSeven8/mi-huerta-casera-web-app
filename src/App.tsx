@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { CropItem, CropStage, CropLogEntry, GardenTask, PageRoute } from './types/huerta';
-import { loadCrops, saveCrops, loadTasks, saveTasks, saveBothToCloud, fetchRemoteGardenData, generateTasksForCrop, loadLocations, deleteLocation } from './services/huertaStorage';
+import { loadCrops, saveCrops, loadTasks, saveTasks, saveBothToCloud, fetchRemoteGardenData, generateTasksForCrop, recalculateTasksForCrop, loadLocations, deleteLocation } from './services/huertaStorage';
 import type { GardenLocation } from './types/huerta';
 import { updatePageTitle } from './services/seoManager';
 import { getDaysToHarvestForCrop } from './data/cropsDatabase';
@@ -184,10 +184,11 @@ export function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Water crop: Keep recommended moisture constant, update lastWatered, and append a log entry
+  // Water crop: Keep recommended moisture constant, update lastWatered, and recalculate calendar tasks
   const handleWaterCrop = (cropId: string) => {
     const nowTime = getCurrentTimeString();
     const today = getTodayString();
+    let updatedCropTarget: CropItem | null = null;
     const updated = crops.map((c) => {
       if (c.id !== cropId) return c;
       const logEntry: CropLogEntry = {
@@ -199,20 +200,31 @@ export function App() {
         notes: `Riego manual efectuado. Humedad recomendada de la especie (${c.recommendedMoisturePercent}%).`
       };
       const existingLogs = c.log || [];
-      return {
+      const updatedCrop = {
         ...c,
         lastWatered: `Hoy, ${nowTime}`,
         log: [logEntry, ...existingLogs]
       };
+      updatedCropTarget = updatedCrop;
+      return updatedCrop;
     });
+
     setCrops(updated);
-    saveCrops(updated);
+
+    // Actualización reactiva del calendario ante registro de riego
+    let updatedTasks = tasks;
+    if (updatedCropTarget) {
+      updatedTasks = recalculateTasksForCrop(updatedCropTarget, tasks);
+      setTasks(updatedTasks);
+    }
+    saveBothToCloud(updated, updatedTasks);
   };
 
-  // Advance stage: log the event in bitácora
+  // Advance stage: log the event in bitácora and dynamically update calendar tasks
   const handleAdvanceStage = (cropId: string) => {
     const nowTime = getCurrentTimeString();
     const today = getTodayString();
+    let updatedCropTarget: CropItem | null = null;
     const updated = crops.map((c) => {
       if (c.id !== cropId) return c;
       const idx = STAGE_ORDER.indexOf(c.stage);
@@ -227,15 +239,25 @@ export function App() {
         notes: `Transición de ${c.stage} a ${nextStage}. Días estimados para cosecha recalculados a ${recalculatedDays} días.`
       };
       const existingLogs = c.log || [];
-      return {
+      const updatedCrop = {
         ...c,
         stage: nextStage,
         daysToHarvest: recalculatedDays,
         log: [logEntry, ...existingLogs]
       };
+      updatedCropTarget = updatedCrop;
+      return updatedCrop;
     });
+
     setCrops(updated);
-    saveCrops(updated);
+
+    // Actualización reactiva del calendario ante cambio fenológico de etapa
+    let updatedTasks = tasks;
+    if (updatedCropTarget) {
+      updatedTasks = recalculateTasksForCrop(updatedCropTarget, tasks);
+      setTasks(updatedTasks);
+    }
+    saveBothToCloud(updated, updatedTasks);
   };
 
   // Eliminar un cultivo, sus tareas asociadas en el calendario y su bitácora
@@ -284,22 +306,33 @@ export function App() {
     saveBothToCloud(updatedCrops, updatedTasks);
   };
 
-  // Add manual log entry to a specific crop
+  // Add manual log entry to a specific crop and reactively refresh calendar if it's a watering or stage record
   const handleAddLogEntry = (cropId: string, entryData: Omit<CropLogEntry, 'id'>) => {
     const newEntry: CropLogEntry = {
       ...entryData,
       id: 'log-' + Date.now() + '-' + Math.random().toString(36).substring(2, 5)
     };
+    let updatedCropTarget: CropItem | null = null;
     const updated = crops.map((c) => {
       if (c.id !== cropId) return c;
       const existingLogs = c.log || [];
-      return {
+      const updatedCrop = {
         ...c,
+        lastWatered: entryData.type === 'Riego' ? `${entryData.date} ${entryData.time || ''}`.trim() : c.lastWatered,
         log: [newEntry, ...existingLogs]
       };
+      updatedCropTarget = updatedCrop;
+      return updatedCrop;
     });
+
     setCrops(updated);
-    saveCrops(updated);
+
+    let updatedTasks = tasks;
+    if (updatedCropTarget && (entryData.type === 'Riego' || entryData.type === 'Cambio de etapa')) {
+      updatedTasks = recalculateTasksForCrop(updatedCropTarget, tasks);
+      setTasks(updatedTasks);
+    }
+    saveBothToCloud(updated, updatedTasks);
   };
 
   // Delete log entry from a crop
@@ -326,7 +359,7 @@ export function App() {
     const nowTime = getCurrentTimeString();
 
     // Update tasks
-    const updatedTasks = tasks.map((t) => {
+    let updatedTasks = tasks.map((t) => {
       if (t.id !== taskId) return t;
       return {
         ...t,
@@ -336,8 +369,9 @@ export function App() {
     });
     setTasks(updatedTasks);
 
-    // If marked as completed, also log into crop bitácora
+    // If marked as completed, also log into crop bitácora and recalculate pending tasks if it was a watering task
     let updatedCrops = crops;
+    let targetCropUpdated: CropItem | null = null;
     if (willBeCompleted) {
       updatedCrops = crops.map((c) => {
         if (c.id === targetTask.cropId || (targetTask.cropId === 'general' && c.name === targetTask.cropName)) {
@@ -351,15 +385,22 @@ export function App() {
             taskId: targetTask.id
           };
           const existingLogs = c.log || [];
-          return {
+          const updatedCrop = {
             ...c,
             lastWatered: targetTask.type === 'Riego' ? `Hoy, ${nowTime}` : c.lastWatered,
             log: [logEntry, ...existingLogs]
           };
+          targetCropUpdated = updatedCrop;
+          return updatedCrop;
         }
         return c;
       });
       setCrops(updatedCrops);
+
+      if (targetCropUpdated && targetTask.type === 'Riego') {
+        updatedTasks = recalculateTasksForCrop(targetCropUpdated, updatedTasks);
+        setTasks(updatedTasks);
+      }
     }
 
     // Persist and sync both atomically to avoid race conditions
