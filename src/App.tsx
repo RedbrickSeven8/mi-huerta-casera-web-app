@@ -392,7 +392,6 @@ export function App() {
     // Persistir eliminación atómica en Supabase
     persistCropDelete(cropId);
     saveBothToCloud(updatedCrops, updatedTasks);
-    triggerDonationPrompt('add_crop');
   };
 
   const handleAddLocation = (locData: Omit<GardenLocation, 'id' | 'createdAt'>): GardenLocation => {
