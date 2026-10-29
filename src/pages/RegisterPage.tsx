@@ -32,6 +32,14 @@ const LOCATION_TYPES: LocationType[] = [
   'Hidroponía / Otro'
 ];
 
+// Obtener horas de sol enteras según la exposición solar de la ubicación/bancal
+const getSunHoursFromExposure = (exposure?: 'Pleno sol' | 'Semisombra' | 'Sombra'): number => {
+  if (exposure === 'Pleno sol') return 8;
+  if (exposure === 'Semisombra') return 5;
+  if (exposure === 'Sombra') return 3;
+  return 6;
+};
+
 const getTodayString = () => {
   const d = new Date();
   const year = d.getFullYear();
@@ -65,7 +73,11 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
   const [daysToHarvest, setDaysToHarvest] = useState<number>(CROPS_DATABASE[0].varieties[0].stageDaysToHarvest['Plántula']);
   const [recommendedMoisture, setRecommendedMoisture] = useState<number>(CROPS_DATABASE[0].varieties[0].recommendedMoisturePercent);
   const [waterFrequencyDays, setWaterFrequencyDays] = useState<number>(CROPS_DATABASE[0].varieties[0].waterFrequencyDays);
-  const [sunHours, setSunHours] = useState<number>(CROPS_DATABASE[0].varieties[0].sunHours);
+  const [sunHours, setSunHours] = useState<number>(() => {
+    const locs = loadLocations();
+    const initialLoc = locs.length > 0 ? locs[0] : null;
+    return getSunHoursFromExposure(initialLoc?.sunExposure);
+  });
   const [notes, setNotes] = useState<string>(CROPS_DATABASE[0].varieties[0].notes);
 
   // Cálculo de la fecha de siembra como objeto Date local
@@ -124,16 +136,22 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
   const updateFieldsFromVariety = (varietyObj: CropVarietyInfo, currentStage: CropStage) => {
     setDaysToHarvest(varietyObj.stageDaysToHarvest[currentStage]);
     setRecommendedMoisture(varietyObj.recommendedMoisturePercent);
-    setSunHours(varietyObj.sunHours);
     setNotes(varietyObj.notes);
 
-    // Cálculo dinámico de frecuencia de riego según horas de sol y régimen estacional en la fecha de siembra
-    const dynamicWater = calculateDynamicWaterFrequency(varietyObj.waterFrequencyDays, varietyObj.sunHours, parsePlantedDate(plantedDate));
-    setWaterFrequencyDays(dynamicWater.adjustedDays);
-    
+    // Si la variedad sugiere una ubicación y existe entre las del usuario, seleccionarla y sincronizar el sol
+    let currentSun = sunHours;
     if (varietyObj.recommendedBed && locations.some((l) => l.name.toLowerCase() === varietyObj.recommendedBed.toLowerCase())) {
       setBed(varietyObj.recommendedBed);
+      const matchedLoc = locations.find((l) => l.name.toLowerCase() === varietyObj.recommendedBed!.toLowerCase());
+      if (matchedLoc) {
+        currentSun = getSunHoursFromExposure(matchedLoc.sunExposure);
+        setSunHours(currentSun);
+      }
     }
+
+    // Cálculo dinámico de frecuencia de riego según las horas de sol de la ubicación
+    const dynamicWater = calculateDynamicWaterFrequency(varietyObj.waterFrequencyDays, currentSun, parsePlantedDate(plantedDate));
+    setWaterFrequencyDays(dynamicWater.adjustedDays);
   };
 
   const handleCreateLocationInline = (e: React.FormEvent) => {
@@ -150,6 +168,12 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
     const updatedLocations = loadLocations();
     setLocations(updatedLocations);
     setBed(created.name);
+    const derivedSun = getSunHoursFromExposure(created.sunExposure);
+    setSunHours(derivedSun);
+    if (currentVariety) {
+      const dynamicWater = calculateDynamicWaterFrequency(currentVariety.waterFrequencyDays, derivedSun, parsePlantedDate(plantedDate));
+      setWaterFrequencyDays(dynamicWater.adjustedDays);
+    }
     setNewLocationName('');
     setIsCreatingLocation(false);
     setLocationSuccessMsg(`Ubicación "${created.name}" creada y seleccionada.`);
@@ -322,7 +346,19 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
             <select
               id="crop-bed"
               value={bed}
-              onChange={(e) => setBed(e.target.value)}
+              onChange={(e) => {
+                const selectedBedName = e.target.value;
+                setBed(selectedBedName);
+                const matched = locations.find((l) => l.name.toLowerCase() === selectedBedName.toLowerCase());
+                if (matched) {
+                  const derivedSun = getSunHoursFromExposure(matched.sunExposure);
+                  setSunHours(derivedSun);
+                  if (currentVariety) {
+                    const dynamicWater = calculateDynamicWaterFrequency(currentVariety.waterFrequencyDays, derivedSun, parsePlantedDate(plantedDate));
+                    setWaterFrequencyDays(dynamicWater.adjustedDays);
+                  }
+                }
+              }}
               className="w-full rounded-xl border border-[#D5E0D3] bg-white px-3.5 py-2.5 text-sm text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27] cursor-pointer"
             >
               {locations.length === 0 ? (
@@ -529,9 +565,10 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
               type="number"
               min={0}
               max={24}
-              value={sunHours}
+              step="1"
+              value={Math.round(sunHours)}
               onChange={(e) => {
-                const val = Number(e.target.value);
+                const val = Math.max(0, Math.min(24, Math.round(Number(e.target.value) || 0)));
                 setSunHours(val);
                 if (currentVariety) {
                   const dynamicWater = calculateDynamicWaterFrequency(currentVariety.waterFrequencyDays, val, parsePlantedDate(plantedDate));
