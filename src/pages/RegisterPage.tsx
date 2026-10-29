@@ -56,10 +56,10 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
   const [plantedDate, setPlantedDate] = useState<string>(getTodayString());
   const [stage, setStage] = useState<CropStage>('Plántula');
   
-  // Selected location (bed)
+  // Selected location (bed): en blanco si el usuario no ha creado ninguna ubicación
   const [bed, setBed] = useState<string>(() => {
     const locs = loadLocations();
-    return locs[0]?.name || CROPS_DATABASE[0].varieties[0].recommendedBed;
+    return locs.length > 0 ? locs[0].name : '';
   });
 
   const [daysToHarvest, setDaysToHarvest] = useState<number>(CROPS_DATABASE[0].varieties[0].stageDaysToHarvest['Plántula']);
@@ -68,6 +68,13 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
   const [sunHours, setSunHours] = useState<number>(CROPS_DATABASE[0].varieties[0].sunHours);
   const [notes, setNotes] = useState<string>(CROPS_DATABASE[0].varieties[0].notes);
 
+  // Cálculo de la fecha de siembra como objeto Date local
+  const parsePlantedDate = (dateStr: string): Date => {
+    const parts = (dateStr || getTodayString()).split('-').map(Number);
+    return new Date(parts[0], (parts[1] || 1) - 1, parts[2] || 1);
+  };
+
+  const currentPlantedSeason = getCurrentSeason(parsePlantedDate(plantedDate));
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const currentCategory: CropCategory | undefined = CROPS_DATABASE.find(
@@ -121,11 +128,11 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
     setSunHours(varietyObj.sunHours);
     setNotes(varietyObj.notes);
 
-    // Cálculo dinámico de frecuencia de riego según horas de sol y régimen estacional
-    const dynamicWater = calculateDynamicWaterFrequency(varietyObj.waterFrequencyDays, varietyObj.sunHours);
+    // Cálculo dinámico de frecuencia de riego según horas de sol y régimen estacional en la fecha de siembra
+    const dynamicWater = calculateDynamicWaterFrequency(varietyObj.waterFrequencyDays, varietyObj.sunHours, parsePlantedDate(plantedDate));
     setWaterFrequencyDays(dynamicWater.adjustedDays);
     
-    if (varietyObj.recommendedBed && locations.some((l) => l.name === varietyObj.recommendedBed)) {
+    if (varietyObj.recommendedBed && locations.some((l) => l.name.toLowerCase() === varietyObj.recommendedBed.toLowerCase())) {
       setBed(varietyObj.recommendedBed);
     }
   };
@@ -311,7 +318,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
             </button>
           </div>
 
-          {/* Selector de ubicaciones pre-creadas */}
+          {/* Selector de ubicaciones: solo las creadas por el usuario, en blanco si no ha creado ninguna */}
           <div>
             <select
               id="crop-bed"
@@ -319,18 +326,28 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
               onChange={(e) => setBed(e.target.value)}
               className="w-full rounded-xl border border-[#D5E0D3] bg-white px-3.5 py-2.5 text-sm text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27] cursor-pointer"
             >
-              {locations.map((loc) => (
-                <option key={loc.id} value={loc.name}>
-                  {loc.name} {loc.type ? `(${loc.type})` : ''} {loc.sunExposure ? `• ${loc.sunExposure}` : ''}
-                </option>
-              ))}
-              {!locations.some((l) => l.name === bed) && bed && (
-                <option value={bed}>{bed} (Personalizada)</option>
+              {locations.length === 0 ? (
+                <option value="">(No has creado ninguna ubicación aún)</option>
+              ) : (
+                <>
+                  <option value="">-- Selecciona una de tus ubicaciones creadas --</option>
+                  {locations.map((loc) => (
+                    <option key={loc.id} value={loc.name}>
+                      {loc.name} {loc.type ? `(${loc.type})` : ''} {loc.sunExposure ? `• ${loc.sunExposure}` : ''}
+                    </option>
+                  ))}
+                </>
               )}
             </select>
-            <p className="text-[11px] text-[#5A655E] mt-1.5">
-              Selecciona una ubicación creada con anterioridad o crea una nueva aquí mismo sin salir del formulario.
-            </p>
+            {locations.length === 0 ? (
+              <p className="text-[11px] text-amber-800 bg-amber-50 border border-amber-200 p-2 rounded-lg mt-2">
+                ⚠️ Aún no has creado ubicaciones. Haz clic en <strong>«Crear nueva ubicación»</strong> arriba para registrar tu primer bancal o maceta sin salir de este formulario.
+              </p>
+            ) : (
+              <p className="text-[11px] text-[#5A655E] mt-1.5">
+                Mostrando únicamente las ubicaciones creadas por ti. Puedes crear una nueva en cualquier momento con el botón superior.
+              </p>
+            )}
           </div>
 
           {/* Formulario rápido inline para crear ubicación/bancal */}
@@ -426,7 +443,18 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
               id="planted-date"
               type="date"
               value={plantedDate}
-              onChange={(e) => setPlantedDate(e.target.value)}
+              onChange={(e) => {
+                const newDateStr = e.target.value;
+                setPlantedDate(newDateStr);
+                if (currentVariety) {
+                  const dynamicWater = calculateDynamicWaterFrequency(
+                    currentVariety.waterFrequencyDays,
+                    sunHours,
+                    parsePlantedDate(newDateStr)
+                  );
+                  setWaterFrequencyDays(dynamicWater.adjustedDays);
+                }
+              }}
               className="w-full max-w-[190px] rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3 py-2 text-xs sm:text-sm text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27]"
             />
           </div>
@@ -450,16 +478,16 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
           </div>
         </div>
 
-        {/* Indicador de régimen estacional */}
+        {/* Indicador de régimen estacional según fecha de siembra */}
         <div className="p-3.5 rounded-xl bg-blue-50/60 border border-blue-200 text-xs text-blue-900 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
             <span>
-              <strong>Régimen estacional:</strong> {getCurrentSeason().seasonName} ({getCurrentSeason().periodDescription})
+              <strong>Temporada según fecha de siembra ({plantedDate}):</strong> {currentPlantedSeason.seasonName} ({currentPlantedSeason.periodDescription})
             </span>
           </div>
           <span className="text-[11px] text-blue-700 font-medium">
-            Riego calculado dinámicamente
+            Riego calculado según esta fecha
           </span>
         </div>
 
@@ -518,7 +546,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
                 const val = Number(e.target.value);
                 setSunHours(val);
                 if (currentVariety) {
-                  const dynamicWater = calculateDynamicWaterFrequency(currentVariety.waterFrequencyDays, val);
+                  const dynamicWater = calculateDynamicWaterFrequency(currentVariety.waterFrequencyDays, val, parsePlantedDate(plantedDate));
                   setWaterFrequencyDays(dynamicWater.adjustedDays);
                 }
               }}

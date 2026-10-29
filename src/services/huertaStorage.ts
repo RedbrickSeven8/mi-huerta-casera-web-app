@@ -113,13 +113,12 @@ export function loadLocations(): GardenLocation[] {
     const key = getStorageKey(LOCATIONS_KEY_PREFIX);
     const raw = localStorage.getItem(key);
     if (!raw) {
-      localStorage.setItem(key, JSON.stringify(DEFAULT_LOCATIONS));
-      return DEFAULT_LOCATIONS;
+      return [];
     }
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_LOCATIONS;
+    return Array.isArray(parsed) ? parsed : [];
   } catch {
-    return DEFAULT_LOCATIONS;
+    return [];
   }
 }
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { GoogleLogin, googleLogout, type CredentialResponse } from '@react-oauth/google';
 import { LogOut, User, CheckCircle2, ShieldCheck, AlertCircle, X, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -204,16 +205,17 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ user: propUs
         {authError && <p className="text-[11px] text-[#A32A2A]">{authError}</p>}
       </div>
 
-      {/* Ventana Emergente (Modal): Consentimientos legales antes de iniciar sesión con Google */}
-      <AnimatePresence>
-        {showConsentModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-3xl border border-[#E2DFD7] p-6 sm:p-7 max-w-md w-full shadow-xl space-y-5"
-            >
+      {/* Ventana Emergente (Modal): Consentimientos legales antes de iniciar sesión con Google montada en Portal */}
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {showConsentModal && (
+            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs overflow-y-auto">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="bg-white rounded-3xl border border-[#E2DFD7] p-6 sm:p-7 max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-5 my-auto"
+              >
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-[#2D5A27]/10 text-[#2D5A27] flex items-center justify-center shrink-0">
@@ -340,18 +342,21 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ user: propUs
             </motion.div>
           </div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body
+    )}
 
-      {/* Ventana Emergente (Modal): Información sobre el funcionamiento de la demo */}
-      <AnimatePresence>
-        {showDemoInfoModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-white rounded-3xl border border-[#E2DFD7] p-6 sm:p-7 max-w-md w-full shadow-xl space-y-5"
-            >
+      {/* Ventana Emergente (Modal): Información sobre el funcionamiento de la demo montada en Portal */}
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {showDemoInfoModal && (
+            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs overflow-y-auto">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="bg-white rounded-3xl border border-[#E2DFD7] p-6 sm:p-7 max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-5 my-auto"
+              >
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
@@ -426,7 +431,9 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ user: propUs
             </motion.div>
           </div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body
+    )}
     </>
   );
 };

@@ -61,12 +61,11 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   const [locationToDelete, setLocationToDelete] = useState<string | null>(null);
 
   // Ubicaciones disponibles combinando las guardadas y las presentes en cultivos
+  // Solo las ubicaciones creadas por el usuario (más la opción global 'Todas')
   const availableBeds = useMemo(() => {
-    const fromCrops = crops.map((c) => c.bed).filter(Boolean);
-    const fromSavedLocations = locations.map((l) => l.name).filter(Boolean);
-    const combined = Array.from(new Set([...fromSavedLocations, ...fromCrops]));
-    return ['Todas', ...combined];
-  }, [crops, locations]);
+    const userLocationNames = locations.map((l) => l.name).filter(Boolean);
+    return ['Todas', ...userLocationNames];
+  }, [locations]);
 
   const bedCounts = useMemo(() => {
     const counts: Record<string, number> = { Todas: crops.length };
