@@ -21,7 +21,7 @@ export async function fetchUserDonorStatus(userId?: string, email?: string): Pro
 
   if (supabase && isSupabaseConfigured && (targetId || targetEmail)) {
     try {
-      let query = supabase.from('profiles').select('is_donor');
+      let query = supabase.from('profiles').select('is_donor, role');
       if (targetId && targetId !== 'demo-user-123') {
         query = query.eq('id', targetId);
       } else if (targetEmail) {
@@ -29,9 +29,15 @@ export async function fetchUserDonorStatus(userId?: string, email?: string): Pro
       }
       
       const { data, error } = await query.maybeSingle();
-      if (!error && data && typeof data.is_donor === 'boolean') {
-        setLocalDonorStatus(data.is_donor);
-        return data.is_donor;
+      if (!error && data) {
+        if (typeof data.is_donor === 'boolean') {
+          setLocalDonorStatus(data.is_donor);
+        }
+        if (data.role && user && user.role !== data.role) {
+          const { setUserRole } = await import('./authService');
+          setUserRole(data.role as 'admin' | 'user');
+        }
+        return Boolean(data.is_donor);
       }
     } catch (err) {
       console.warn('Error al consultar estado de donante en Supabase:', err);

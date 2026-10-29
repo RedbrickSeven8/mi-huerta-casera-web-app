@@ -70,13 +70,15 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ user: propUs
     setConsentsGiven(true);
     setShowConsentModal(false);
 
+    const emailStr = String(decoded.email || 'usuario@google.com');
     const profile: UserProfile = {
       id: String(decoded.sub || Date.now()),
       name: String(decoded.name || 'Usuario Google'),
-      email: String(decoded.email || 'usuario@google.com'),
+      email: emailStr,
       picture: String(decoded.picture || ''),
       provider: 'google',
-      loginTimestamp: new Date().toISOString()
+      loginTimestamp: new Date().toISOString(),
+      role: emailStr === 'daniel@laspaginasdedani.com' ? 'admin' : 'user'
     };
 
     saveUser(profile);
@@ -99,7 +101,8 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ user: propUs
       email: 'daniel@laspaginasdedani.com',
       picture: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
       provider: 'demo',
-      loginTimestamp: new Date().toISOString()
+      loginTimestamp: new Date().toISOString(),
+      role: 'admin'
     };
 
     saveUser(demoProfile);

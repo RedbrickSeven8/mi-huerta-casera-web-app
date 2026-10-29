@@ -12,11 +12,13 @@ import {
   User,
   RefreshCw,
   Sparkles,
-  Search
+  Search,
+  Lock,
+  ShieldAlert
 } from 'lucide-react';
 import { fetchAllDonationRequests, updateDonationRequestStatus, setLocalDonorStatus } from '../services/donationService';
 import type { DonationRequest, PageRoute } from '../types/huerta';
-import type { UserProfile } from '../services/authService';
+import { isUserAdmin, type UserProfile } from '../services/authService';
 
 interface AdminDonationsPageProps {
   onNavigate: (route: PageRoute) => void;
@@ -24,6 +26,8 @@ interface AdminDonationsPageProps {
 }
 
 export const AdminDonationsPage: React.FC<AdminDonationsPageProps> = ({ onNavigate, user }) => {
+  const isAdmin = isUserAdmin(user);
+
   const [requests, setRequests] = useState<DonationRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -31,6 +35,7 @@ export const AdminDonationsPage: React.FC<AdminDonationsPageProps> = ({ onNaviga
   const [actionMsg, setActionMsg] = useState<string | null>(null);
 
   const loadData = async () => {
+    if (!isAdmin) return;
     setLoading(true);
     try {
       const data = await fetchAllDonationRequests();
@@ -41,8 +46,44 @@ export const AdminDonationsPage: React.FC<AdminDonationsPageProps> = ({ onNaviga
   };
 
   useEffect(() => {
-    loadData();
-  }, []);
+    if (isAdmin) {
+      loadData();
+    }
+  }, [isAdmin]);
+
+  // Si el usuario no es admin, mostrar pantalla de acceso restringido
+  if (!isAdmin) {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-16 text-center space-y-6">
+        <div className="w-16 h-16 mx-auto rounded-3xl bg-red-100 text-red-800 flex items-center justify-center">
+          <Lock className="w-8 h-8" />
+        </div>
+        <div className="space-y-2">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-100 text-red-800 text-xs font-bold">
+            <ShieldAlert className="w-3.5 h-3.5" />
+            Acceso Restringido
+          </span>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1A231E]">
+            Área Exclusiva de Administrador
+          </h1>
+          <p className="text-sm text-[#4A554E] max-w-md mx-auto leading-relaxed">
+            Esta sección es de uso interno y administrativo para la verificación de comprobantes de pago. No está abierta al público general.
+          </p>
+        </div>
+
+        <div className="pt-2">
+          <button
+            type="button"
+            onClick={() => onNavigate('inicio')}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#2D5A27] text-white text-xs sm:text-sm font-semibold hover:bg-[#23471E] transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Volver al Inicio</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const handleApprove = async (req: DonationRequest) => {
     await updateDonationRequestStatus(req.id, 'approved', req.userEmail, req.userId);
@@ -83,7 +124,7 @@ export const AdminDonationsPage: React.FC<AdminDonationsPageProps> = ({ onNaviga
         <div>
           <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#2D5A27] mb-1">
             <ShieldCheck className="w-4 h-4" />
-            <span>Panel de Gestión y Validación de Comprobantes</span>
+            <span>Panel de Gestión y Validación de Comprobantes (Admin: {user?.email})</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#1A231E] flex items-center gap-2">
             <span>Validación de Donaciones</span>
@@ -284,7 +325,7 @@ export const AdminDonationsPage: React.FC<AdminDonationsPageProps> = ({ onNaviga
                     type="button"
                     onClick={() => handleReject(req)}
                     disabled={isRejected}
-                    className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-colors ${
+                    className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-colors ${
                       isRejected
                         ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                         : 'bg-[#F2EFE9] text-[#A32A2A] hover:bg-red-50'

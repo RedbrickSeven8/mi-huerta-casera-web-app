@@ -26,6 +26,7 @@ export interface UserProfile {
   provider: 'google' | 'demo';
   loginTimestamp: string;
   isDonor?: boolean;
+  role?: 'admin' | 'user';
 }
 
 const AUTH_STORAGE_KEY = 'huerta_casera_auth_user';
@@ -79,5 +80,19 @@ export function setDonorStatus(isDonor: boolean): void {
   const current = getUser();
   if (!current) return;
   const updated: UserProfile = { ...current, isDonor };
+  saveUser(updated);
+}
+
+export function isUserAdmin(user: UserProfile | null): boolean {
+  if (!user) return false;
+  if (user.role === 'admin') return true;
+  if (user.email === 'daniel@laspaginasdedani.com') return true;
+  return false;
+}
+
+export function setUserRole(role: 'admin' | 'user'): void {
+  const current = getUser();
+  if (!current) return;
+  const updated: UserProfile = { ...current, role };
   saveUser(updated);
 }
