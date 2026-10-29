@@ -86,7 +86,7 @@ export function setDonorStatus(isDonor: boolean): void {
 export function isUserAdmin(user: UserProfile | null): boolean {
   if (!user) return false;
   if (user.role === 'admin') return true;
-  if (user.email === 'daniel@laspaginasdedani.com') return true;
+  if (user.email === 'danicamarillo5215@gmail.com') return true;
   return false;
 }
 

@@ -78,7 +78,7 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ user: propUs
       picture: String(decoded.picture || ''),
       provider: 'google',
       loginTimestamp: new Date().toISOString(),
-      role: emailStr === 'daniel@laspaginasdedani.com' ? 'admin' : 'user'
+      role: emailStr === 'danicamarillo5215@gmail.com' ? 'admin' : 'user'
     };
 
     saveUser(profile);
@@ -97,12 +97,12 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ user: propUs
 
     const demoProfile: UserProfile = {
       id: 'demo-user-123',
-      name: 'Daniel Cultivador',
-      email: 'daniel@laspaginasdedani.com',
+      name: 'Cultivador Demo',
+      email: 'demo@mihuertacasera.com',
       picture: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
       provider: 'demo',
       loginTimestamp: new Date().toISOString(),
-      role: 'admin'
+      role: 'user'
     };
 
     saveUser(demoProfile);
