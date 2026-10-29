@@ -10,6 +10,7 @@ const PAGE_TITLES: Record<PageRoute, string> = {
   privacidad: 'Política de Privacidad | Mi Huerta Casera · las paginas de dani',
   terminos: 'Términos y Condiciones de Uso | Mi Huerta Casera · las paginas de dani',
   cookies: 'Política de Cookies y Evaluación de Consentimiento | Mi Huerta Casera',
+  'admin-donaciones': 'Validación de Donaciones y Comprobantes | Mi Huerta Casera',
   '404': 'Página No Encontrada (Error 404) | Mi Huerta Casera'
 };
 

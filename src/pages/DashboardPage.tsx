@@ -1,3 +1,4 @@
+import { UserAvatar } from '../components/UserAvatar';
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
@@ -212,13 +213,28 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
     >
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2DFD7] pb-6">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-[#1A231E]">
-            Mi Huerta
-          </h1>
-          <p className="text-sm text-[#4A554E] mt-1">
-            Cultivos de {user.name}.
-          </p>
+        <div className="flex items-center gap-3.5">
+          <UserAvatar
+            name={user.name}
+            picture={user.picture}
+            isDonor={user.isDonor}
+            size="lg"
+          />
+          <div>
+            <div className="flex items-center gap-2">
+              <h1 className="text-2xl sm:text-3xl font-bold text-[#1A231E]">
+                Mi Huerta
+              </h1>
+              {user.isDonor && (
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/15 border border-amber-500/30 text-amber-900">
+                  Insignia Donante
+                </span>
+              )}
+            </div>
+            <p className="text-sm text-[#4A554E] mt-0.5">
+              Cultivos y seguimiento de {user.name}.
+            </p>
+          </div>
         </div>
         <div className="flex items-center gap-3">
           <motion.button

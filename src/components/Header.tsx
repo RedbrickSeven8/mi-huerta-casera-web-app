@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sprout, LayoutDashboard, Calendar, Lock } from 'lucide-react';
+import { Sprout, LayoutDashboard, Calendar, Lock, Coffee } from 'lucide-react';
 import type { PageRoute } from '../types/huerta';
 import { GoogleAuthButton } from './GoogleAuthButton';
 import type { UserProfile } from '../services/authService';
@@ -16,6 +16,7 @@ export const Header: React.FC<HeaderProps> = ({ currentRoute, onNavigate, user, 
     { route: 'inicio', label: 'Inicio', icon: <Sprout className="w-4 h-4" /> },
     { route: 'dashboard', label: 'Mi Huerta', icon: <LayoutDashboard className="w-4 h-4" />, requiresAuth: true },
     { route: 'calendario', label: 'Calendario', icon: <Calendar className="w-4 h-4" />, requiresAuth: true },
+    { route: 'admin-donaciones', label: 'Donaciones', icon: <Coffee className="w-4 h-4 text-amber-600" /> },
   ];
 
   return (

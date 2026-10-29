@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import {
   Sprout,
@@ -13,8 +13,10 @@ import {
   Lightbulb,
   Coffee,
   Heart,
-  ExternalLink
+  ExternalLink,
+  Award
 } from 'lucide-react';
+import { DonationBadgeModal } from '../components/DonationBadgeModal';
 import type { CropItem, GardenTask, PageRoute } from '../types/huerta';
 import { GoogleAuthButton } from '../components/GoogleAuthButton';
 import type { UserProfile } from '../services/authService';
@@ -35,6 +37,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   user,
   onAuthChange
 }) => {
+  const [showDonationBadgeModal, setShowDonationBadgeModal] = useState(false);
 
   // Cálculos si el usuario ha iniciado sesión
   const pendingTasks = tasks.filter((t) => !t.completed);
@@ -574,7 +577,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 Tu donación ayuda directamente a cubrir los costos de infraestructura (hosting, dominio y servicios de backend) para mantener la app abierta y gratuita para toda la comunidad. ¡Cada café cuenta!
               </p>
 
-              <div className="pt-2 flex flex-wrap items-center gap-4">
+              <div className="pt-2 flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-3 sm:gap-4">
                 <a
                   href="https://link.mercadopago.com.co/mihuertacasera"
                   target="_blank"
@@ -585,11 +588,27 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <span>Apoyar en Mercado Pago</span>
                   <ExternalLink className="w-3.5 h-3.5 opacity-80" />
                 </a>
-                <span className="text-[11px] text-[#5A655E] flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+
+                <button
+                  type="button"
+                  onClick={() => setShowDonationBadgeModal(true)}
+                  className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-900 text-xs sm:text-sm font-bold hover:bg-amber-500/20 transition-all shadow-xs cursor-pointer"
+                >
+                  <Award className="w-4 h-4 text-amber-600" />
+                  <span>Ya doné / Solicitar mi insignia de Donante</span>
+                </button>
+
+                <span className="text-[11px] text-[#5A655E] flex items-center gap-1.5 w-full sm:w-auto mt-1 sm:mt-0">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block shrink-0" />
                   Aportes seguros procesados por Mercado Pago Colombia
                 </span>
               </div>
+
+              <DonationBadgeModal
+                isOpen={showDonationBadgeModal}
+                onClose={() => setShowDonationBadgeModal(false)}
+                user={user}
+              />
             </div>
           </div>
         </motion.div>

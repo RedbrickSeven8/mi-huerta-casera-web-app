@@ -1,3 +1,4 @@
+import { UserAvatar } from './UserAvatar';
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { GoogleLogin, googleLogout, type CredentialResponse } from '@react-oauth/google';
@@ -116,17 +117,12 @@ export const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ user: propUs
   if (user) {
     return (
       <div className="flex items-center gap-3 bg-[#EAF2E8] border border-[#2D5A27]/20 px-3 py-1.5 rounded-xl">
-        {user.picture ? (
-          <img
-            src={user.picture}
-            alt={user.name}
-            className="w-8 h-8 rounded-full border border-[#2D5A27]/30 object-cover"
-          />
-        ) : (
-          <div className="w-8 h-8 rounded-full bg-[#2D5A27] text-white flex items-center justify-center font-bold text-xs">
-            {user.name.charAt(0).toUpperCase()}
-          </div>
-        )}
+        <UserAvatar
+          name={user.name}
+          picture={user.picture}
+          isDonor={user.isDonor}
+          size="sm"
+        />
         <div className="hidden sm:block text-left">
           <p className="text-xs font-semibold text-[#1A231E] leading-tight flex items-center gap-1">
             {user.name}

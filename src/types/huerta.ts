@@ -8,6 +8,7 @@ export type PageRoute =
   | 'privacidad'
   | 'terminos'
   | 'cookies'
+  | 'admin-donaciones'
   | '404';
 
 export type CropStage = 'Semilla' | 'Plántula' | 'Crecimiento' | 'Floración' | 'Cosecha';
@@ -82,4 +83,17 @@ export interface GardenLocation {
   description?: string;
   sunExposure?: 'Pleno sol' | 'Semisombra' | 'Sombra';
   createdAt: string;
+}
+
+export interface DonationRequest {
+  id: string;
+  userId?: string | null;
+  userEmail: string;
+  userName: string;
+  receiptNumber: string;
+  payerEmail: string;
+  notes?: string;
+  status: 'pending' | 'approved' | 'rejected';
+  createdAt: string;
+  reviewedAt?: string | null;
 }

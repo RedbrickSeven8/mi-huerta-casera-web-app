@@ -16,6 +16,7 @@ const ROUTE_LABELS: Record<PageRoute, { label: string; parent?: PageRoute }> = {
   privacidad: { label: 'Política de Privacidad', parent: 'inicio' },
   terminos: { label: 'Términos y Condiciones', parent: 'inicio' },
   cookies: { label: 'Política de Cookies', parent: 'inicio' },
+  'admin-donaciones': { label: 'Validación de Donaciones', parent: 'inicio' },
   auditoria: { label: 'Administración', parent: 'inicio' },
   '404': { label: 'Error 404 · Página no encontrada', parent: 'inicio' },
 };

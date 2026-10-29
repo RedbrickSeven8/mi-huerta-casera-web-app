@@ -36,6 +36,8 @@ import { CalendarPage } from './pages/CalendarPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { ThankYouPage } from './pages/ThankYouPage';
 import { AuditLogPage } from './pages/AuditLogPage';
+import { AdminDonationsPage } from './pages/AdminDonationsPage';
+import { fetchUserDonorStatus } from './services/donationService';
 import { PrivacyPolicyPage, TermsConditionsPage, CookiePolicyPage } from './pages/LegalPages';
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -51,6 +53,7 @@ const VALID_ROUTES: PageRoute[] = [
   'privacidad',
   'terminos',
   'cookies',
+  'admin-donaciones',
   '404'
 ];
 
@@ -88,6 +91,12 @@ export function App() {
   useEffect(() => {
     updatePageTitle(currentRoute);
   }, [currentRoute]);
+
+  useEffect(() => {
+    if (user) {
+      fetchUserDonorStatus(user.id, user.email);
+    }
+  }, [user]);
 
   // Manejador del canal de tiempo real de Supabase (WebSockets CDC)
   useEffect(() => {
@@ -573,6 +582,7 @@ export function App() {
         )}
         {currentRoute === 'agradecimiento' && <ThankYouPage onNavigate={handleNavigate} />}
         {currentRoute === 'auditoria' && <AuditLogPage onNavigate={handleNavigate} />}
+        {currentRoute === 'admin-donaciones' && <AdminDonationsPage onNavigate={handleNavigate} user={user} />}
         {currentRoute === 'privacidad' && <PrivacyPolicyPage onNavigate={handleNavigate} />}
         {currentRoute === 'terminos' && <TermsConditionsPage onNavigate={handleNavigate} />}
         {currentRoute === 'cookies' && <CookiePolicyPage onNavigate={handleNavigate} />}

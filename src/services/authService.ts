@@ -25,6 +25,7 @@ export interface UserProfile {
   picture: string;
   provider: 'google' | 'demo';
   loginTimestamp: string;
+  isDonor?: boolean;
 }
 
 const AUTH_STORAGE_KEY = 'huerta_casera_auth_user';
@@ -72,4 +73,11 @@ export function saveCustomClientId(clientId: string): void {
 
 export function getCustomClientId(): string | null {
   return localStorage.getItem(CLIENT_ID_STORAGE_KEY);
+}
+
+export function setDonorStatus(isDonor: boolean): void {
+  const current = getUser();
+  if (!current) return;
+  const updated: UserProfile = { ...current, isDonor };
+  saveUser(updated);
 }

@@ -1,3 +1,5 @@
+import { getUser } from '../services/authService';
+import { UserAvatar } from './UserAvatar';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
@@ -278,9 +280,30 @@ export const CropLogModal: React.FC<CropLogModalProps> = ({
 
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-center justify-between gap-1">
-                    <span className="text-xs font-bold text-[#1A231E]">
-                      {entry.title}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-[#1A231E]">
+                        {entry.title}
+                      </span>
+                      {(() => {
+                        const currentUser = getUser();
+                        if (currentUser) {
+                          return (
+                            <div className="inline-flex items-center gap-1.5 bg-[#FAF9F6] border border-[#E2DFD7] px-1.5 py-0.5 rounded-full">
+                              <UserAvatar
+                                name={currentUser.name}
+                                picture={currentUser.picture}
+                                isDonor={currentUser.isDonor}
+                                size="xs"
+                              />
+                              <span className="text-[10px] text-[#5A655E] hidden sm:inline">
+                                {currentUser.name}
+                              </span>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })()}
+                    </div>
                     <div className="flex items-center gap-2">
                       <span className="text-[11px] text-[#5A655E]">
                         {entry.date} {entry.time ? `· ${entry.time}` : ''}
