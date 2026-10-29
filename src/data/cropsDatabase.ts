@@ -1260,162 +1260,271 @@ export const CROPS_DATABASE: CropCategory[] = [
     "category": "Plantas de Huerta"
   },
   {
-    "cropName": "Albahaca",
-    "climateOverview": "Clima templado a cálido (18-28°C). Sensible a heladas y fríos intensos. Fomenta el crecimiento y aroma con despunte de flores.",
+    "cropName": "Lavanda",
+    "climateOverview": "Aromática subarbustiva mediterránea a pleno sol directo, suelos calizos pedregosos y excelente drenaje. Atrae abejas y polinizadores, repele pulgones y polillas.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
-      "botanicalName": "Ocimum basilicum L.",
+      "botanicalName": "Lavandula spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 120,
+        "Plántula": 70,
+        "Crecimiento": 35,
+        "Floración": 15,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 5,
+      "sunHours": 7.5,
+      "recommendedMoisturePercent": 40,
+      "recommendedBed": "Bancal Aromático Seco",
+      "climateAdaptation": "Pleno sol seco y templado",
+      "notes": "Riego escaso dejando secar el sustrato entre riegos. Podar las espigas secas tras la floración para mantener porte redondeado."
+    },
+    "varieties": [
+      {
+        "varietyName": "Dentata (francesa)",
+        "botanicalName": "Lavandula dentata",
+        "stageDaysToHarvest": {
+          "Semilla": 110,
+          "Plántula": 65,
+          "Crecimiento": 30,
+          "Floración": 12,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 42,
+        "recommendedBed": "Bordura Aromática Frontal",
+        "climateAdaptation": "Clima templado a cálido",
+        "notes": "Hojas dentadas verde grisáceas aromáticas y espigas violetas de floración casi continua."
+      },
+      {
+        "varietyName": "Angustifolia (inglesa)",
+        "botanicalName": "Lavandula angustifolia",
+        "stageDaysToHarvest": {
+          "Semilla": 120,
+          "Plántula": 75,
+          "Crecimiento": 40,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 8.0,
+        "recommendedMoisturePercent": 38,
+        "recommendedBed": "Rocalla o Bancal Soleado",
+        "climateAdaptation": "Templado con inviernos frescos",
+        "notes": "La lavanda verdadera con la fragancia más dulce, floral y relajante, muy valorada para aceites e infusiones."
+      },
+      {
+        "varietyName": "Stoechas (mariposa)",
+        "botanicalName": "Lavandula stoechas (Cantueso)",
+        "stageDaysToHarvest": {
+          "Semilla": 115,
+          "Plántula": 68,
+          "Crecimiento": 32,
+          "Floración": 12,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 40,
+        "recommendedBed": "Bancal Ácido Pedregoso",
+        "climateAdaptation": "Mediterráneo soleado",
+        "notes": "Inflorescencia coronada por vistosas brácteas moradas erectas que parecen alas de mariposa."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Romero",
+    "climateOverview": "Arbusto perenne leñoso muy rústico, con hojas aciculares resinosas y flores azulinas o lilas. Excelente repelente de plagas en la huerta.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Salvia rosmarinus (Rosmarinus officinalis)",
+      "stageDaysToHarvest": {
+        "Semilla": 120,
+        "Plántula": 70,
+        "Crecimiento": 35,
+        "Floración": 15,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 5,
+      "sunHours": 7.5,
+      "recommendedMoisturePercent": 40,
+      "recommendedBed": "Esquina o Bordura Soleada",
+      "climateAdaptation": "Pleno sol y suelos drenados",
+      "notes": "Muy resistente a la sequía. No tolera el encharcamiento prolongado ni suelos arcillosos compactos."
+    },
+    "varieties": [
+      {
+        "varietyName": "Común (officinalis)",
+        "botanicalName": "Salvia rosmarinus 'Officinalis'",
+        "stageDaysToHarvest": {
+          "Semilla": 120,
+          "Plántula": 70,
+          "Crecimiento": 35,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 8.0,
+        "recommendedMoisturePercent": 40,
+        "recommendedBed": "Seto Bajo o Esquina de Bancal",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Porte erguido leñoso de hasta 1-1.5 m con aroma intenso canforado, ideal para cocina y destilación."
+      },
+      {
+        "varietyName": "Rastrero (prostratus)",
+        "botanicalName": "Salvia rosmarinus 'Prostratus'",
+        "stageDaysToHarvest": {
+          "Semilla": 110,
+          "Plántula": 65,
+          "Crecimiento": 30,
+          "Floración": 12,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 42,
+        "recommendedBed": "Murete, Talud o Maceta Colgante",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Tallos arqueados rastreros que caen en cascada sobre muretes o jardineras con densa floración celeste."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Albahaca",
+    "climateOverview": "Herbácea anual o perenne de hojas tiernas sumamente aromáticas. Compañera ideal del tomate: repele moscas blancas, trips y realza el sabor.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Ocimum basilicum",
       "stageDaysToHarvest": {
         "Semilla": 55,
-        "Plántula": 38,
+        "Plántula": 35,
         "Crecimiento": 20,
         "Floración": 10,
         "Cosecha": 0
       },
       "waterFrequencyDays": 2,
-      "sunHours": 6.5,
+      "sunHours": 6.0,
       "recommendedMoisturePercent": 68,
-      "recommendedBed": "",
-      "climateAdaptation": "Templado a cálido",
-      "notes": "Sustrato suelto y aireado. Cortar las espigas florales al asomar para conservar hojas tiernas y sabrosas."
+      "recommendedBed": "Junto al Tomatero o Mesa de Cultivo",
+      "climateAdaptation": "Cálido y templado soleado",
+      "notes": "Pellizcar brotes terminales para favorecer ramificación y evitar que florezca prematuramente."
     },
     "varieties": [
       {
         "varietyName": "Genovesa",
         "botanicalName": "Ocimum basilicum 'Genovese'",
         "stageDaysToHarvest": {
-          "Semilla": 50,
+          "Semilla": 55,
+          "Plántula": 35,
+          "Crecimiento": 20,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 68,
+        "recommendedBed": "Bancal de Huerta",
+        "climateAdaptation": "Cálido soleado",
+        "notes": "Hojas anchas abombadas verde brillante con aroma dulce anisado insustituible para pesto y salsas."
+      },
+      {
+        "varietyName": "Morada",
+        "botanicalName": "Ocimum basilicum 'Purpurascens' (Dark Opal)",
+        "stageDaysToHarvest": {
+          "Semilla": 60,
+          "Plántula": 38,
+          "Crecimiento": 22,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Bordura de Huerto o Maceta",
+        "climateAdaptation": "Cálido a pleno sol",
+        "notes": "Hojas moradas profundas casi negras con matices cobrizos y notas ligeramente especiadas a clavo."
+      },
+      {
+        "varietyName": "Limón",
+        "botanicalName": "Ocimum basilicum var. citriodorum",
+        "stageDaysToHarvest": {
+          "Semilla": 55,
+          "Plántula": 35,
+          "Crecimiento": 18,
+          "Floración": 8,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 6.0,
+        "recommendedMoisturePercent": 66,
+        "recommendedBed": "Jardinera Aromática",
+        "climateAdaptation": "Cálido y templado",
+        "notes": "Aroma cítrico penetrante a lima limón, excelente para infusiones, aderezos y pescados."
+      },
+      {
+        "varietyName": "Tailandesa",
+        "botanicalName": "Ocimum basilicum var. thyrsiflora (Thai Basil)",
+        "stageDaysToHarvest": {
+          "Semilla": 60,
+          "Plántula": 36,
+          "Crecimiento": 20,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 68,
+        "recommendedBed": "Bancal Aromático Cálido",
+        "climateAdaptation": "Cálido húmedo",
+        "notes": "Tallos púrpuras, hojas lanceoladas con notas marcadas de anís estrellado y regaliz, clave en cocina asiática."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Menta",
+    "climateOverview": "Herbácea perenne estolonífera de rápida expansión con aroma fresco mentolado. Estimulante digestivo y gran atrayente de polinizadores.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Mentha spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 60,
+        "Plántula": 35,
+        "Crecimiento": 18,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 2,
+      "sunHours": 5.0,
+      "recommendedMoisturePercent": 75,
+      "recommendedBed": "Maceta Independiente (para controlar rizomas)",
+      "climateAdaptation": "Semisombra o sol fresco",
+      "notes": "Sembrar preferiblemente en maceta para impedir que invada otros cultivos mediante sus rizomas vigorosos."
+    },
+    "varieties": [
+      {
+        "varietyName": "Piperita",
+        "botanicalName": "Mentha x piperita",
+        "stageDaysToHarvest": {
+          "Semilla": 60,
           "Plántula": 35,
           "Crecimiento": 18,
           "Floración": 10,
           "Cosecha": 0
         },
         "waterFrequencyDays": 2,
-        "sunHours": 6.5,
-        "recommendedMoisturePercent": 68,
-        "recommendedBed": "",
-        "climateAdaptation": "Templado a cálido",
-        "notes": "La albahaca clásica de pesto y salsas. Hojas grandes abombadas verde brillante con aroma dulce y penetrante."
+        "sunHours": 5.0,
+        "recommendedMoisturePercent": 75,
+        "recommendedBed": "Maceta Húmeda Semisombra",
+        "climateAdaptation": "Fresco a templado",
+        "notes": "Alto contenido en mentol natural, aroma picante y refrescante inconfundible para té e infusiones."
       },
       {
-        "varietyName": "Morada",
-        "botanicalName": "Ocimum basilicum var. purpurascens 'Dark Opal'",
-        "stageDaysToHarvest": {
-          "Semilla": 55,
-          "Plántula": 38,
-          "Crecimiento": 20,
-          "Floración": 10,
-          "Cosecha": 0
-        },
-        "waterFrequencyDays": 2,
-        "sunHours": 7.0,
-        "recommendedMoisturePercent": 66,
-        "recommendedBed": "",
-        "climateAdaptation": "Templado con buena radiación",
-        "notes": "Follaje púrpura oscuro con matices aromáticos anisados. Excelente valor ornamental y culinario."
-      },
-      {
-        "varietyName": "Limón",
-        "botanicalName": "Ocimum × africanum 'Lemon Basil'",
-        "stageDaysToHarvest": {
-          "Semilla": 52,
-          "Plántula": 36,
-          "Crecimiento": 18,
-          "Floración": 10,
-          "Cosecha": 0
-        },
-        "waterFrequencyDays": 2,
-        "sunHours": 6.5,
-        "recommendedMoisturePercent": 68,
-        "recommendedBed": "",
-        "climateAdaptation": "Templado y cálido",
-        "notes": "Hojas verde claro con fresco aroma y sabor cítrico a limón. Ideal para infusiones, pescados y ensaladas."
-      }
-    ],
-    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
-  },
-  {
-    "cropName": "Perejil",
-    "climateOverview": "Clima frío a templado (12-22°C). Germinación lenta (15-20 días); una vez establecido es muy duradero y resistente.",
-    "generalInfo": {
-      "varietyName": "No estoy seguro (Especie general)",
-      "botanicalName": "Petroselinum crispum (Mill.) Fuss",
-      "stageDaysToHarvest": {
-        "Semilla": 75,
-        "Plántula": 50,
-        "Crecimiento": 28,
-        "Floración": 14,
-        "Cosecha": 0
-      },
-      "waterFrequencyDays": 2,
-      "sunHours": 5.5,
-      "recommendedMoisturePercent": 70,
-      "recommendedBed": "",
-      "climateAdaptation": "Frío a templado",
-      "notes": "Remojar la semilla 24h antes de sembrar para acelerar la germinación. Cosechar los tallos exteriores."
-    },
-    "varieties": [
-      {
-        "varietyName": "Crespo",
-        "botanicalName": "Petroselinum crispum var. crispum",
-        "stageDaysToHarvest": {
-          "Semilla": 75,
-          "Plántula": 50,
-          "Crecimiento": 28,
-          "Floración": 14,
-          "Cosecha": 0
-        },
-        "waterFrequencyDays": 2,
-        "sunHours": 5.5,
-        "recommendedMoisturePercent": 70,
-        "recommendedBed": "",
-        "climateAdaptation": "Frío y templado",
-        "notes": "Hojas densamente rizadas muy decorativas y de sabor suave. Ideal para adorno culinario y ensaladas."
-      },
-      {
-        "varietyName": "Liso",
-        "botanicalName": "Petroselinum crispum var. neapolitanum 'Italiano'",
-        "stageDaysToHarvest": {
-          "Semilla": 70,
-          "Plántula": 48,
-          "Crecimiento": 25,
-          "Floración": 12,
-          "Cosecha": 0
-        },
-        "waterFrequencyDays": 2,
-        "sunHours": 6.0,
-        "recommendedMoisturePercent": 70,
-        "recommendedBed": "",
-        "climateAdaptation": "Frío y templado",
-        "notes": "Hojas planas verde oscuro de aroma más robusto e intenso. El preferido para guisos y caldos aromáticos."
-      }
-    ],
-    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
-  },
-  {
-    "cropName": "Hierbabuena",
-    "climateOverview": "Clima templado a frío moderado (14-22°C). Crecimiento rastrero por estolones. Se aconseja sembrar en maceta para controlar su expansión.",
-    "generalInfo": {
-      "varietyName": "No estoy seguro (Especie general)",
-      "botanicalName": "Mentha spicata L.",
-      "stageDaysToHarvest": {
-        "Semilla": 60,
-        "Plántula": 35,
-        "Crecimiento": 18,
-        "Floración": 8,
-        "Cosecha": 0
-      },
-      "waterFrequencyDays": 2,
-      "sunHours": 5.5,
-      "recommendedMoisturePercent": 74,
-      "recommendedBed": "",
-      "climateAdaptation": "Templado y frío",
-      "notes": "Prefiere sustrato húmedo con semisombra o sol suave. Podar periódicamente para estimular brotes tiernos."
-    },
-    "varieties": [
-      {
-        "varietyName": "Criolla",
-        "botanicalName": "Mentha spicata 'Criolla colombiana'",
+        "varietyName": "Spicata (Hierbabuena)",
+        "botanicalName": "Mentha spicata",
         "stageDaysToHarvest": {
           "Semilla": 55,
           "Plántula": 30,
@@ -1425,79 +1534,386 @@ export const CROPS_DATABASE: CropCategory[] = [
         },
         "waterFrequencyDays": 2,
         "sunHours": 5.5,
-        "recommendedMoisturePercent": 75,
-        "recommendedBed": "",
-        "climateAdaptation": "Templado y frío",
-        "notes": "Aroma fresco y dulce tradicional de las huertas familiares colombianas. Esencial en infusiones, limonadas y aromáticas."
-      }
-    ],
-    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
-  },
-  {
-    "cropName": "Menta",
-    "climateOverview": "Clima templado a frío (12-20°C). Exigente en humedad ambiental y del suelo; prefiere semisombra luminosa.",
-    "generalInfo": {
-      "varietyName": "No estoy seguro (Especie general)",
-      "botanicalName": "Mentha × piperita L.",
-      "stageDaysToHarvest": {
-        "Semilla": 60,
-        "Plántula": 35,
-        "Crecimiento": 18,
-        "Floración": 8,
-        "Cosecha": 0
+        "recommendedMoisturePercent": 72,
+        "recommendedBed": "Jardinera de Hierbas",
+        "climateAdaptation": "Templado húmedo",
+        "notes": "Sabor dulce y suave mentolado, la clásica hierbabuena de mojitos, sopas, ensaladas y postres."
       },
-      "waterFrequencyDays": 2,
-      "sunHours": 5.0,
-      "recommendedMoisturePercent": 75,
-      "recommendedBed": "",
-      "climateAdaptation": "Frío y templado",
-      "notes": "Suelo húmedo y rico en humus. Excelente en macetas individuales para que sus raíces no invadan otros cultivos."
-    },
-    "varieties": [
       {
-        "varietyName": "Piperita",
-        "botanicalName": "Mentha × piperita L.",
+        "varietyName": "Chocolate",
+        "botanicalName": "Mentha x piperita 'Chocolate'",
         "stageDaysToHarvest": {
-          "Semilla": 58,
-          "Plántula": 32,
-          "Crecimiento": 16,
-          "Floración": 8,
+          "Semilla": 60,
+          "Plántula": 35,
+          "Crecimiento": 18,
+          "Floración": 10,
           "Cosecha": 0
         },
         "waterFrequencyDays": 2,
         "sunHours": 5.0,
         "recommendedMoisturePercent": 75,
-        "recommendedBed": "",
-        "climateAdaptation": "Frío y templado",
-        "notes": "Hojas con alto contenido de mentol, tallos ligeramente violáceos y frescor balsámico penetrante."
+        "recommendedBed": "Maceta Gourmet",
+        "climateAdaptation": "Semisombra templada",
+        "notes": "Tallos oscuros con hojas redondeadas y una sutil nota aromática a cacao y menta tipo bombón."
+      },
+      {
+        "varietyName": "Manzana",
+        "botanicalName": "Mentha suaveolens (Menta manzana)",
+        "stageDaysToHarvest": {
+          "Semilla": 65,
+          "Plántula": 38,
+          "Crecimiento": 20,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 5.0,
+        "recommendedMoisturePercent": 75,
+        "recommendedBed": "Maceta Semisombra",
+        "climateAdaptation": "Fresco y húmedo",
+        "notes": "Hojas vellosas suaves con delicado toque frutal que recuerda a manzana verde fresca."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Tomillo",
+    "climateOverview": "Mata leñosa perenne baja, muy rústica y resistente a la sequía. Famosa por sus propiedades antibacterianas y antisépticas gracias al timol.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Thymus spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 80,
+        "Plántula": 45,
+        "Crecimiento": 25,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 4,
+      "sunHours": 7.0,
+      "recommendedMoisturePercent": 45,
+      "recommendedBed": "Rocalla o Bordura Soleada",
+      "climateAdaptation": "Pleno sol y suelos drenados",
+      "notes": "Suelo arenoso o pedregoso. Riego espaciado; el exceso de humedad encharcada pudre sus raíces finas."
+    },
+    "varieties": [
+      {
+        "varietyName": "Común",
+        "botanicalName": "Thymus vulgaris",
+        "stageDaysToHarvest": {
+          "Semilla": 80,
+          "Plántula": 45,
+          "Crecimiento": 25,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 45,
+        "recommendedBed": "Bancal de Aromáticas",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Aroma profundo terroso y balsámico clásico para guisos, marinados y vahos medicinales respiratorios."
+      },
+      {
+        "varietyName": "Limón (citriodorus)",
+        "botanicalName": "Thymus citriodorus",
+        "stageDaysToHarvest": {
+          "Semilla": 75,
+          "Plántula": 42,
+          "Crecimiento": 22,
+          "Floración": 8,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 48,
+        "recommendedBed": "Jardinera Aromática Cítrica",
+        "climateAdaptation": "Pleno sol a sol suave",
+        "notes": "Hojas diminutas con marcado e irresistible aroma a ralladura de limón, ideal para carnes blancas y té."
       }
     ],
     "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
   },
   {
     "cropName": "Orégano",
-    "climateOverview": "Clima templado a cálido (16-26°C). Muy resistente a sequía relativa; prefiere suelos secos y bien drenados a pleno sol.",
+    "climateOverview": "Planta herbácea aromática vivaz de hojas ovaladas perfumadas y flores en espigas terminales rosáceas o blancas. Potente antioxidante y antimicrobiano.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
-      "botanicalName": "Origanum vulgare / Plectranthus amboinicus",
+      "botanicalName": "Origanum spp.",
       "stageDaysToHarvest": {
-        "Semilla": 80,
+        "Semilla": 70,
+        "Plántula": 40,
+        "Crecimiento": 20,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 4,
+      "sunHours": 7.0,
+      "recommendedMoisturePercent": 50,
+      "recommendedBed": "Bancal Soleado o Jardinera",
+      "climateAdaptation": "Pleno sol",
+      "notes": "Cosechar las ramitas justo antes de abrir la floración para obtener la mayor concentración de aceites esenciales."
+    },
+    "varieties": [
+      {
+        "varietyName": "Común",
+        "botanicalName": "Origanum vulgare",
+        "stageDaysToHarvest": {
+          "Semilla": 70,
+          "Plántula": 40,
+          "Crecimiento": 20,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Bordura de Huerta",
+        "climateAdaptation": "Pleno sol templado",
+        "notes": "Sabor herbáceo aromático suave indispensable en pastas, pizzas, salsas de tomate y secado tradicional."
+      },
+      {
+        "varietyName": "Griego",
+        "botanicalName": "Origanum vulgare subsp. hirtum",
+        "stageDaysToHarvest": {
+          "Semilla": 75,
+          "Plántula": 42,
+          "Crecimiento": 22,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 8.0,
+        "recommendedMoisturePercent": 45,
+        "recommendedBed": "Rocalla Seca Soleada",
+        "climateAdaptation": "Pleno sol seco",
+        "notes": "Sabor intenso, picante y penetrante con alto porcentaje de carvacrol; el orégano más valorado por chefs."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Oreganón / Orégano orejón",
+    "climateOverview": "Herbácea tropical crasa perenne de hojas gruesas, aterciopeladas y suculentas con intenso aroma a orégano y menta. Ampliamente usada en la medicina tradicional y cocina caribeña/andina.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Plectranthus amboinicus (Coleus amboinicus)",
+      "stageDaysToHarvest": {
+        "Semilla": 60,
+        "Plántula": 35,
+        "Crecimiento": 18,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 4,
+      "sunHours": 5.5,
+      "recommendedMoisturePercent": 50,
+      "recommendedBed": "Maceta de Jardín o Balcón",
+      "climateAdaptation": "Cálido y templado semisombra",
+      "notes": "Hojas carnosas que acumulan agua; no regar en exceso. Muy fácil propagación por esqueje de tallo."
+    },
+    "varieties": [
+      {
+        "varietyName": "Verde común",
+        "botanicalName": "Plectranthus amboinicus 'Green'",
+        "stageDaysToHarvest": {
+          "Semilla": 60,
+          "Plántula": 35,
+          "Crecimiento": 18,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 5.5,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Bancal Semisombra Cálido",
+        "climateAdaptation": "Cálido libre de heladas",
+        "notes": "Hojas verde vivo aterciopeladas, usadas como condimento en sopas, carnes y remedio tradicional para afecciones respiratorias."
+      },
+      {
+        "varietyName": "Variegado",
+        "botanicalName": "Plectranthus amboinicus 'Variegatus'",
+        "stageDaysToHarvest": {
+          "Semilla": 65,
+          "Plántula": 38,
+          "Crecimiento": 20,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 6.0,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Jardinera Ornamental de Entrada",
+        "climateAdaptation": "Semisombra luminosa",
+        "notes": "Bordes blanco crema o marfil ondulados en hojas carnosas, sumando gran valor ornamental y aromático."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Toronjil",
+    "climateOverview": "Herbácea vivaz con aroma cítrico a limón fresco y propiedades relajantes, sedantes suaves y digestivas. Muy atrayente de abejas por su néctar abundante.",
+    "generalInfo": {
+      "varietyName": "Melissa officinalis",
+      "botanicalName": "Melissa officinalis",
+      "stageDaysToHarvest": {
+        "Semilla": 70,
+        "Plántula": 40,
+        "Crecimiento": 20,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 5.5,
+      "recommendedMoisturePercent": 65,
+      "recommendedBed": "Rincón Semisombra Fresco",
+      "climateAdaptation": "Templado a fresco húmedo",
+      "notes": "Prefiere suelos ricos y frescos sin sol achicharrante de mediodía. Cosechar hojas tiernas antes de la floración."
+    },
+    "varieties": [
+      {
+        "varietyName": "Melissa officinalis",
+        "botanicalName": "Melissa officinalis L.",
+        "stageDaysToHarvest": {
+          "Semilla": 70,
+          "Plántula": 40,
+          "Crecimiento": 20,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 5.5,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Bancal de Infusiones",
+        "climateAdaptation": "Semisombra templada",
+        "notes": "Hojas rugosas dentadas con aroma limpio a limón para tisanas calmantes contra el insomnio y la tensión nerviosa."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Limonaria / Limoncillo",
+    "climateOverview": "Gramínea cespitosa perenne de gran porte que forma densas matas de hojas acintadas glaucas con alto contenido de citral (aroma a hierbalimón).",
+    "generalInfo": {
+      "varietyName": "Cymbopogon citratus",
+      "botanicalName": "Cymbopogon citratus",
+      "stageDaysToHarvest": {
+        "Semilla": 90,
         "Plántula": 50,
         "Crecimiento": 25,
-        "Floración": 12,
+        "Floración": 10,
         "Cosecha": 0
       },
       "waterFrequencyDays": 3,
       "sunHours": 7.0,
       "recommendedMoisturePercent": 60,
-      "recommendedBed": "",
-      "climateAdaptation": "Templado y cálido",
-      "notes": "Evitar el exceso de humedad en raíces. El sol directo concentra sus aceites esenciales aromáticos."
+      "recommendedBed": "Macizo Perimetral o Gran Macetón",
+      "climateAdaptation": "Pleno sol templado a cálido",
+      "notes": "Excelente repelente de mosquitos y malezas. Cosechar los tallos engrosados basales para sopas, curris e infusiones."
     },
     "varieties": [
       {
-        "varietyName": "Común",
-        "botanicalName": "Origanum vulgare L.",
+        "varietyName": "Cymbopogon citratus",
+        "botanicalName": "Cymbopogon citratus (Hierba Luisa / Lemongrass)",
+        "stageDaysToHarvest": {
+          "Semilla": 90,
+          "Plántula": 50,
+          "Crecimiento": 25,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Bordura de Huerta",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Porte de 1 a 1.5 m con aroma cítrico dulce. Proteger de heladas fuertes."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Eneldo",
+    "climateOverview": "Herbácea anual de la familia de las apiáceas con hojas finamente divididas plumosas y umbelas amarillas aromáticas. Atrae crisopas y mariquitas benéficas.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Anethum graveolens",
+      "stageDaysToHarvest": {
+        "Semilla": 65,
+        "Plántula": 40,
+        "Crecimiento": 20,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 6.5,
+      "recommendedMoisturePercent": 60,
+      "recommendedBed": "Bancal de Huerta Mixta",
+      "climateAdaptation": "Templado soleado",
+      "notes": "Siembra directa preferible ya que su raíz pivotante sufre con los trasplantes. Regar regularmente sin encharcar."
+    },
+    "varieties": [
+      {
+        "varietyName": "Mammoth",
+        "botanicalName": "Anethum graveolens 'Mammoth'",
+        "stageDaysToHarvest": {
+          "Semilla": 70,
+          "Plántula": 42,
+          "Crecimiento": 22,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Bancal de Cosecha",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Variedad gigante (hasta 1 m) de gran producción de semillas y follaje para encurtidos y conservas."
+      },
+      {
+        "varietyName": "Bouquet",
+        "botanicalName": "Anethum graveolens 'Bouquet'",
+        "stageDaysToHarvest": {
+          "Semilla": 60,
+          "Plántula": 38,
+          "Crecimiento": 18,
+          "Floración": 8,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Jardinera o Huerto Urbano",
+        "climateAdaptation": "Templado",
+        "notes": "Porte más compacto y floración temprana con umbelas florales densas muy aromáticas."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Estragón",
+    "climateOverview": "Aromática perenne de hojas lanceoladas aromáticas de sabor refinado anisado con notas a pimienta dulce, pilar de las finas hierbas culinarias.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Artemisia dracunculus",
+      "stageDaysToHarvest": {
+        "Semilla": 75,
+        "Plántula": 45,
+        "Crecimiento": 22,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 6.0,
+      "recommendedMoisturePercent": 55,
+      "recommendedBed": "Bancal Aromático Fértil",
+      "climateAdaptation": "Templado soleado o semisombra ligera",
+      "notes": "Suelo drenado rico en compost. Evitar exceso de nitrógeno que atenúa su sabor aromático característico."
+    },
+    "varieties": [
+      {
+        "varietyName": "Francés",
+        "botanicalName": "Artemisia dracunculus var. sativa",
         "stageDaysToHarvest": {
           "Semilla": 75,
           "Plántula": 45,
@@ -1506,161 +1922,137 @@ export const CROPS_DATABASE: CropCategory[] = [
           "Cosecha": 0
         },
         "waterFrequencyDays": 3,
-        "sunHours": 7.0,
-        "recommendedMoisturePercent": 58,
-        "recommendedBed": "",
+        "sunHours": 6.0,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Jardinera Gourmet",
         "climateAdaptation": "Templado",
-        "notes": "Hojas pequeñas redondeadas muy fragantes. Perfecto para secar y usar en pastas, salsas y pizzas."
+        "notes": "El verdadero estragón culinario, dulce y anisado, estéril (se reproduce exclusivamente por esquejes o división)."
       },
       {
-        "varietyName": "Oreganón",
-        "botanicalName": "Plectranthus amboinicus (Lour.) Spreng.",
+        "varietyName": "Ruso",
+        "botanicalName": "Artemisia dracunculus var. inodora",
         "stageDaysToHarvest": {
-          "Semilla": 60,
-          "Plántula": 35,
-          "Crecimiento": 18,
-          "Floración": 10,
-          "Cosecha": 0
-        },
-        "waterFrequencyDays": 3,
-        "sunHours": 6.5,
-        "recommendedMoisturePercent": 62,
-        "recommendedBed": "",
-        "climateAdaptation": "Cálido y templado",
-        "notes": "Orégano de hoja ancha, gruesa y aterciopelada muy común en Colombia. Aroma potente, ideal para sopas y marinados."
-      }
-    ],
-    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
-  },
-  {
-    "cropName": "Tomillo",
-    "climateOverview": "Clima templado a frío moderado (14-24°C). Planta subarbustiva de montaña mediterránea adaptada a suelos secos y pedregosos.",
-    "generalInfo": {
-      "varietyName": "No estoy seguro (Especie general)",
-      "botanicalName": "Thymus vulgaris L.",
-      "stageDaysToHarvest": {
-        "Semilla": 85,
-        "Plántula": 55,
-        "Crecimiento": 28,
-        "Floración": 14,
-        "Cosecha": 0
-      },
-      "waterFrequencyDays": 3,
-      "sunHours": 7.5,
-      "recommendedMoisturePercent": 55,
-      "recommendedBed": "",
-      "climateAdaptation": "Templado",
-      "notes": "Suelo muy drenante y arenoso. Riego escaso; soporta periodos secos y requiere exposición a pleno sol."
-    },
-    "varieties": [
-      {
-        "varietyName": "Común",
-        "botanicalName": "Thymus vulgaris L.",
-        "stageDaysToHarvest": {
-          "Semilla": 80,
-          "Plántula": 50,
-          "Crecimiento": 25,
-          "Floración": 12,
+          "Semilla": 70,
+          "Plántula": 40,
+          "Crecimiento": 20,
+          "Floración": 8,
           "Cosecha": 0
         },
         "waterFrequencyDays": 4,
-        "sunHours": 7.5,
-        "recommendedMoisturePercent": 55,
-        "recommendedBed": "",
-        "climateAdaptation": "Templado y seco",
-        "notes": "Hojas diminutas grisáceas con potente contenido de timol. Cosechar ramitas en flor para máxima concentración de aroma."
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Bancal Rústico",
+        "climateAdaptation": "Muy resistente al frío y sequía",
+        "notes": "Porte más vigoroso y rústico, con sabor más suave y amargo, fértil por semilla."
       }
     ],
     "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
   },
   {
-    "cropName": "Romero",
-    "climateOverview": "Clima templado a cálido seco (15-26°C). Arbusto perenne muy longevo; no soporta encharcamientos ni exceso de agua.",
+    "cropName": "Laurel",
+    "climateOverview": "Árbol o arbusto perennifolio mediterráneo de hojas coriáceas verde oscuro brillante altamente aromáticas, esencial en guisos, caldos y adobos.",
     "generalInfo": {
-      "varietyName": "No estoy seguro (Especie general)",
-      "botanicalName": "Salvia rosmarinus Spenn.",
+      "varietyName": "Laurus nobilis",
+      "botanicalName": "Laurus nobilis",
       "stageDaysToHarvest": {
-        "Semilla": 100,
-        "Plántula": 60,
-        "Crecimiento": 30,
+        "Semilla": 180,
+        "Plántula": 110,
+        "Crecimiento": 50,
         "Floración": 15,
         "Cosecha": 0
       },
       "waterFrequencyDays": 4,
-      "sunHours": 8.0,
+      "sunHours": 6.5,
       "recommendedMoisturePercent": 50,
-      "recommendedBed": "",
-      "climateAdaptation": "Templado a cálido",
-      "notes": "Sustrato arenoso o rocoso con excelente drenaje. Regar solo cuando la tierra esté completamente seca."
+      "recommendedBed": "Maceta Grande o Esquina de Huerto",
+      "climateAdaptation": "Pleno sol o semisombra",
+      "notes": "Muy longevo y resistente. Tolera podas de formación como pirámides o arbolitos. Riego moderado."
     },
     "varieties": [
       {
-        "varietyName": "Común",
-        "botanicalName": "Salvia rosmarinus Spenn.",
+        "varietyName": "Laurus nobilis",
+        "botanicalName": "Laurus nobilis (Laurel de cocina)",
         "stageDaysToHarvest": {
-          "Semilla": 95,
-          "Plántula": 55,
-          "Crecimiento": 28,
+          "Semilla": 180,
+          "Plántula": 110,
+          "Crecimiento": 50,
           "Floración": 15,
           "Cosecha": 0
         },
         "waterFrequencyDays": 4,
-        "sunHours": 8.0,
+        "sunHours": 6.5,
         "recommendedMoisturePercent": 50,
-        "recommendedBed": "",
-        "climateAdaptation": "Templado y cálido",
-        "notes": "Hojas aciculares verde oscuro con envés blanquecino y aroma alcanforado y resinoso. Esquejes arraigan con facilidad."
+        "recommendedBed": "Esquina Soleada del Jardín",
+        "climateAdaptation": "Templado mediterráneo",
+        "notes": "Hojas elípticas onduladas que se utilizan frescas o secas para aromatizar cocciones lentas."
       }
     ],
     "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
   },
   {
-    "cropName": "Limonaria / Limoncillo",
-    "climateOverview": "Clima cálido a templado (18-28°C). Gramínea perenne en macolla de rápido desarrollo con aroma cítrico penetrante.",
+    "cropName": "Sábila / Aloe",
+    "climateOverview": "Suculenta xerófita perenne con hojas carnosas dispuestas en roseta basal, provista de abundante acíbar y gel transparente regenerador celular y cicatrizante.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
-      "botanicalName": "Cymbopogon citratus (DC.) Stapf",
+      "botanicalName": "Aloe spp.",
       "stageDaysToHarvest": {
-        "Semilla": 90,
-        "Plántula": 50,
-        "Crecimiento": 25,
-        "Floración": 10,
+        "Semilla": 200,
+        "Plántula": 120,
+        "Crecimiento": 60,
+        "Floración": 20,
         "Cosecha": 0
       },
-      "waterFrequencyDays": 2,
+      "waterFrequencyDays": 7,
       "sunHours": 7.0,
-      "recommendedMoisturePercent": 68,
-      "recommendedBed": "",
-      "climateAdaptation": "Cálido y templado",
-      "notes": "Macolla vigorosa; cosechar cortando los tallos exteriores a ras del suelo para infusiones y cocina aromática."
+      "recommendedMoisturePercent": 35,
+      "recommendedBed": "Rocalla o Maceta de Barro",
+      "climateAdaptation": "Pleno sol o sol filtrado cálido",
+      "notes": "Sustrato arenoso muy permeable. Riego espaciado dejando secar la tierra; sensible a heladas y pudrición por exceso de agua."
     },
     "varieties": [
       {
-        "varietyName": "Común",
-        "botanicalName": "Cymbopogon citratus (DC.) Stapf",
+        "varietyName": "Aloe vera (Barbadensis Miller)",
+        "botanicalName": "Aloe barbadensis Miller",
         "stageDaysToHarvest": {
-          "Semilla": 85,
-          "Plántula": 45,
-          "Crecimiento": 22,
-          "Floración": 10,
+          "Semilla": 200,
+          "Plántula": 120,
+          "Crecimiento": 60,
+          "Floración": 20,
           "Cosecha": 0
         },
-        "waterFrequencyDays": 2,
+        "waterFrequencyDays": 7,
         "sunHours": 7.0,
-        "recommendedMoisturePercent": 68,
-        "recommendedBed": "",
-        "climateAdaptation": "Cálido y templado",
-        "notes": "Hojas acintadas largas y bulbos tiernos con alto porcentaje de citral. Popular en agua de panela y cocina fusión."
+        "recommendedMoisturePercent": 35,
+        "recommendedBed": "Macetero de Huerto Medicinal",
+        "climateAdaptation": "Cálido soleado",
+        "notes": "La especie medicinal por excelencia; hojas carnosas de hasta 50 cm repletas de gel cicatrizante para quemaduras y piel."
+      },
+      {
+        "varietyName": "Aloe arborescens",
+        "botanicalName": "Aloe arborescens (Planta pulpo)",
+        "stageDaysToHarvest": {
+          "Semilla": 220,
+          "Plántula": 130,
+          "Crecimiento": 65,
+          "Floración": 20,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 7,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 35,
+        "recommendedBed": "Jardín Xérico Exterior",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Porte arbustivo ramificado con vistosas espigas florales rojo anaranjadas en invierno y alta concentración terapéutica."
       }
     ],
     "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
   },
   {
     "cropName": "Caléndula",
-    "climateOverview": "Clima templado a frío (12-22°C). Flor benéfica indispensable en el huerto: atrae polinizadores y repele nematodos y plagas.",
+    "climateOverview": "Flor benéfica indispensable en el huerto: atrae abejas y polinizadores, repele nematodos y plagas, y sus flores son medicinales y comestibles.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
-      "botanicalName": "Calendula officinalis L.",
+      "botanicalName": "Calendula spp.",
       "stageDaysToHarvest": {
         "Semilla": 60,
         "Plántula": 40,
@@ -1668,35 +2060,513 @@ export const CROPS_DATABASE: CropCategory[] = [
         "Floración": 10,
         "Cosecha": 0
       },
-      "waterFrequencyDays": 2,
+      "waterFrequencyDays": 3,
       "sunHours": 6.5,
-      "recommendedMoisturePercent": 65,
-      "recommendedBed": "",
-      "climateAdaptation": "Frío y templado",
-      "notes": "Cosechar las flores abiertas para prolongar la floración. Pétalos comestibles y con reconocidas propiedades calmantes y medicinales."
+      "recommendedMoisturePercent": 60,
+      "recommendedBed": "Bancal de Huerto o Bordura",
+      "climateAdaptation": "Clima templado a fresco",
+      "notes": "Cosechar capítulos florales abiertos para estimular nuevas flores continuas. Pétalos útiles en pomadas calmantes."
     },
     "varieties": [
       {
         "varietyName": "Officinalis",
-        "botanicalName": "Calendula officinalis L.",
+        "botanicalName": "Calendula officinalis L. (Maravilla)",
         "stageDaysToHarvest": {
-          "Semilla": 58,
+          "Semilla": 60,
           "Plántula": 38,
           "Crecimiento": 20,
           "Floración": 10,
           "Cosecha": 0
         },
-        "waterFrequencyDays": 2,
+        "waterFrequencyDays": 3,
         "sunHours": 6.5,
-        "recommendedMoisturePercent": 65,
-        "recommendedBed": "",
-        "climateAdaptation": "Frío y templado",
-        "notes": "Capítulos florales de color naranja y amarillo brillante. Excelente compañera de bancal para tomates, lechugas y aromáticas."
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Compañera de Tomates y Lechugas",
+        "climateAdaptation": "Templado",
+        "notes": "Grandes flores naranja y amarillo vivo muy ricas en flavonoides para ungüentos y afecciones de la piel."
+      },
+      {
+        "varietyName": "Arvensis",
+        "botanicalName": "Calendula arvensis (Caléndula silvestre)",
+        "stageDaysToHarvest": {
+          "Semilla": 55,
+          "Plántula": 35,
+          "Crecimiento": 18,
+          "Floración": 8,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Pradera Polinizadora",
+        "climateAdaptation": "Pleno sol rústico",
+        "notes": "Especie silvestre más menuda, muy rústica y autosiembra espontánea en los márgenes de los bancales."
       }
     ],
     "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
   },
   {
+    "cropName": "Manzanilla",
+    "climateOverview": "Herbácea aromática anual o vivaz con pequeñas cabezuelas florales con pétalos blancos y botón central amarillo cónico, célebre por su acción sedante y antiespasmódica.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Matricaria / Chamaemelum",
+      "stageDaysToHarvest": {
+        "Semilla": 60,
+        "Plántula": 35,
+        "Crecimiento": 18,
+        "Floración": 8,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 6.0,
+      "recommendedMoisturePercent": 60,
+      "recommendedBed": "Bancal de Flor Medicinal",
+      "climateAdaptation": "Templado soleado",
+      "notes": "Cosechar las cabezuelas florales en días secos y soleados justo cuando los pétalos están horizontales."
+    },
+    "varieties": [
+      {
+        "varietyName": "Dulce / Alemana (Matricaria chamomilla)",
+        "botanicalName": "Matricaria chamomilla (Matricaria recutita)",
+        "stageDaysToHarvest": {
+          "Semilla": 60,
+          "Plántula": 35,
+          "Crecimiento": 18,
+          "Floración": 8,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Bancal de Infusiones",
+        "climateAdaptation": "Templado soleado",
+        "notes": "Anual de receptáculo floral cónico hueco y dulce aroma a manzana, ideal para tisanas digestivas y relajantes."
+      },
+      {
+        "varietyName": "Romana (Chamaemelum nobile)",
+        "botanicalName": "Chamaemelum nobile",
+        "stageDaysToHarvest": {
+          "Semilla": 65,
+          "Plántula": 38,
+          "Crecimiento": 20,
+          "Floración": 8,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.0,
+        "recommendedMoisturePercent": 62,
+        "recommendedBed": "Tapizante Aromático o Maceta",
+        "climateAdaptation": "Templado a fresco",
+        "notes": "Perenne de porte rastrero tapizante con flores más amargas y potente acción tónica estomacal."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Llantén",
+    "climateOverview": "Herbácea perenne rústica de hojas radicales en roseta con nervaduras longitudinales pronunciadas. Extraordinaria planta depurativa, cicatrizante y antiinflamatoria.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Plantago spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 60,
+        "Plántula": 35,
+        "Crecimiento": 18,
+        "Floración": 8,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 5.5,
+      "recommendedMoisturePercent": 65,
+      "recommendedBed": "Bordura de Huerta o Rincón Fresco",
+      "climateAdaptation": "Clima templado a frío",
+      "notes": "Suelo compacto o fresco. Planta muy adaptable que resiste pisoteo y no exige cuidados intensivos."
+    },
+    "varieties": [
+      {
+        "varietyName": "Mayor (Plantago major)",
+        "botanicalName": "Plantago major",
+        "stageDaysToHarvest": {
+          "Semilla": 60,
+          "Plántula": 35,
+          "Crecimiento": 18,
+          "Floración": 8,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 5.5,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Huerto Medicinal",
+        "climateAdaptation": "Templado a frío",
+        "notes": "Hojas anchas ovaladas carnosas en roseta basal con espigas cilíndricas largas; hojas ricas en mucílagos y taninos."
+      },
+      {
+        "varietyName": "Menor (Plantago lanceolata)",
+        "botanicalName": "Plantago lanceolata (Llantén menor / Siete venas)",
+        "stageDaysToHarvest": {
+          "Semilla": 55,
+          "Plántula": 32,
+          "Crecimiento": 16,
+          "Floración": 7,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.0,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Bancal Rústico",
+        "climateAdaptation": "Templado",
+        "notes": "Hojas estrechas lanceoladas erectas muy valoradas en jarabes para calmar la tos y afecciones de garganta."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Prontoalivio",
+    "climateOverview": "Arbusto aromático medicinal andino y tropical de ramas flexibles y hojas muy olorosas con flores diminutas rosadas o violáceas. Utilizado popularmente para aliviar cólicos, dolores y catarros.",
+    "generalInfo": {
+      "varietyName": "Lippia alba",
+      "botanicalName": "Lippia alba",
+      "stageDaysToHarvest": {
+        "Semilla": 70,
+        "Plántula": 40,
+        "Crecimiento": 20,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 6.5,
+      "recommendedMoisturePercent": 60,
+      "recommendedBed": "Bancal de Hierbas Medicinales",
+      "climateAdaptation": "Cálido y templado soleado",
+      "notes": "Fácil propagación por estacas. Riego moderado y poda regular para mantener mata densa y follaje tierno."
+    },
+    "varieties": [
+      {
+        "varietyName": "Lippia alba",
+        "botanicalName": "Lippia alba (Salvia morada / Prontoalivio)",
+        "stageDaysToHarvest": {
+          "Semilla": 70,
+          "Plántula": 40,
+          "Crecimiento": 20,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Bancal Aromático Tradicional",
+        "climateAdaptation": "Cálido a templado",
+        "notes": "Hojas aserradas con intenso aroma mentolado alimonado, indispensable en el botiquín verde casero."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Diente de león",
+    "climateOverview": "Herbácea perenne vivaz con hojas profundamente dentadas en roseta, flor dorada solitaria y aquenios plumosos (vilano). Planta depurativa hepática y renal de primer orden.",
+    "generalInfo": {
+      "varietyName": "Taraxacum officinale",
+      "botanicalName": "Taraxacum officinale",
+      "stageDaysToHarvest": {
+        "Semilla": 50,
+        "Plántula": 30,
+        "Crecimiento": 15,
+        "Floración": 7,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 6.0,
+      "recommendedMoisturePercent": 65,
+      "recommendedBed": "Bancal de Hojas Verdes o Silvestre",
+      "climateAdaptation": "Clima templado a frío",
+      "notes": "Hojas amargas comestibles en ensaladas jóvenes y raíz secada utilizada como sustituto saludable del café."
+    },
+    "varieties": [
+      {
+        "varietyName": "Taraxacum officinale",
+        "botanicalName": "Taraxacum officinale Weber",
+        "stageDaysToHarvest": {
+          "Semilla": 50,
+          "Plántula": 30,
+          "Crecimiento": 15,
+          "Floración": 7,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.0,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Huerto Casero Multiuso",
+        "climateAdaptation": "Templado a frío",
+        "notes": "Toda la planta es comestible y medicinal; gran bioacumulador de minerales en el suelo."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Ruda",
+    "climateOverview": "Subarbusto perenne leñoso de hojas azuladas glandulares con aroma muy penetrante y característico. Gran guardiana del huerto: repele insectos, pulgones y orugas.",
+    "generalInfo": {
+      "varietyName": "Ruta graveolens",
+      "botanicalName": "Ruta graveolens",
+      "stageDaysToHarvest": {
+        "Semilla": 90,
+        "Plántula": 50,
+        "Crecimiento": 25,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 5,
+      "sunHours": 7.0,
+      "recommendedMoisturePercent": 40,
+      "recommendedBed": "Esquina Protectora de Huerto",
+      "climateAdaptation": "Pleno sol y suelos secos",
+      "notes": "Manejar con precaución y guantes en horas de sol: su savia puede provocar fotosensibilidad cutánea en personas susceptibles."
+    },
+    "varieties": [
+      {
+        "varietyName": "Ruta graveolens",
+        "botanicalName": "Ruta graveolens L.",
+        "stageDaysToHarvest": {
+          "Semilla": 90,
+          "Plántula": 50,
+          "Crecimiento": 25,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 40,
+        "recommendedBed": "Borde Protector de Bancal",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Flores amarillas de 4-5 pétalos ondulados. Planta protectora tradicional de huertos y hogares."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Anamú",
+    "climateOverview": "Herbácea perenne rústica erecta de follaje con aroma fuerte aliáceo (olor a ajo silvestre). Reconocida planta tradicional con propiedades inmunoestimulantes y analgésicas.",
+    "generalInfo": {
+      "varietyName": "Petiveria alliacea",
+      "botanicalName": "Petiveria alliacea",
+      "stageDaysToHarvest": {
+        "Semilla": 80,
+        "Plántula": 45,
+        "Crecimiento": 22,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 5.5,
+      "recommendedMoisturePercent": 60,
+      "recommendedBed": "Bancal Medicinal Semisombra",
+      "climateAdaptation": "Tropical y templado cálido",
+      "notes": "Riego moderado y suelo fértil con buen drenaje. Follaje con flores diminutas blancas en espigas delgadas."
+    },
+    "varieties": [
+      {
+        "varietyName": "Petiveria alliacea",
+        "botanicalName": "Petiveria alliacea L. (Hierba de las gallinitas)",
+        "stageDaysToHarvest": {
+          "Semilla": 80,
+          "Plántula": 45,
+          "Crecimiento": 22,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 5.5,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Huerto Medicinal Tradicional",
+        "climateAdaptation": "Cálido",
+        "notes": "Hojas elípticas alternas ricas en compuestos azufrados y flavonoides de alto interés etnobotánico."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Moringa",
+    "climateOverview": "Árbol caducifolio o perennifolio de crecimiento ultrarrápido apodado 'el árbol de la vida' por el valor nutricional excepcional de sus hojas, flores y vainas.",
+    "generalInfo": {
+      "varietyName": "Moringa oleifera",
+      "botanicalName": "Moringa oleifera",
+      "stageDaysToHarvest": {
+        "Semilla": 90,
+        "Plántula": 50,
+        "Crecimiento": 25,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 4,
+      "sunHours": 7.5,
+      "recommendedMoisturePercent": 45,
+      "recommendedBed": "Suelo o Macetón Profundo Exterior",
+      "climateAdaptation": "Pleno sol cálido y seco",
+      "notes": "Gran resistencia a sequías gracias a su raíz tuberosa. Podar la punta para que no crezca solo hacia arriba y produzca muchas hojas tiernas."
+    },
+    "varieties": [
+      {
+        "varietyName": "Moringa oleifera",
+        "botanicalName": "Moringa oleifera Lam.",
+        "stageDaysToHarvest": {
+          "Semilla": 90,
+          "Plántula": 50,
+          "Crecimiento": 25,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 8.0,
+        "recommendedMoisturePercent": 45,
+        "recommendedBed": "Fondo Soleado de Huerto",
+        "climateAdaptation": "Cálido a templado",
+        "notes": "Hojas compuestas de alto valor en proteínas, calcio y vitamina C que se cosechan regularmente para batidos y guisos."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Valeriana",
+    "climateOverview": "Herbácea vivaz perenne de tallos acanalados y umbelas de flores aromáticas blancas o rosadas. Famosa por sus raíces de contrastado efecto tranquilizante y favorecedor del sueño.",
+    "generalInfo": {
+      "varietyName": "Valeriana officinalis",
+      "botanicalName": "Valeriana officinalis",
+      "stageDaysToHarvest": {
+        "Semilla": 150,
+        "Plántula": 90,
+        "Crecimiento": 45,
+        "Floración": 15,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 5.5,
+      "recommendedMoisturePercent": 70,
+      "recommendedBed": "Bancal Húmedo Rico en Humus",
+      "climateAdaptation": "Clima templado a frío húmedo",
+      "notes": "Prefiere sustratos húmedos y ricos. Las raíces se cosechan al segundo año de cultivo durante el reposo otoñal."
+    },
+    "varieties": [
+      {
+        "varietyName": "Valeriana officinalis",
+        "botanicalName": "Valeriana officinalis L.",
+        "stageDaysToHarvest": {
+          "Semilla": 150,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 5.5,
+        "recommendedMoisturePercent": 70,
+        "recommendedBed": "Bancal de Raíces Medicinales",
+        "climateAdaptation": "Templado a frío",
+        "notes": "Inflorescencias dulcefragantes y rizomas subterráneos con valepotriatos y ácido valerénico."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Ajenjo",
+    "climateOverview": "Herbácea perenne leñosa en la base de aspecto plateado cenizo sedoso y sabor amargo muy característico. Excepcional repelente de insectos y tónico digestivo tradicional.",
+    "generalInfo": {
+      "varietyName": "Artemisia absinthium",
+      "botanicalName": "Artemisia absinthium",
+      "stageDaysToHarvest": {
+        "Semilla": 90,
+        "Plántula": 50,
+        "Crecimiento": 25,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 4,
+      "sunHours": 7.0,
+      "recommendedMoisturePercent": 45,
+      "recommendedBed": "Bordura Seca Soleada",
+      "climateAdaptation": "Pleno sol y suelos drenados",
+      "notes": "Tolera suelos áridos y pobres. Se prepara en maceración acuosa para fumigar ecológicamente contra pulgones y orugas."
+    },
+    "varieties": [
+      {
+        "varietyName": "Artemisia absinthium",
+        "botanicalName": "Artemisia absinthium L. (Hierba santa)",
+        "stageDaysToHarvest": {
+          "Semilla": 90,
+          "Plántula": 50,
+          "Crecimiento": 25,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 45,
+        "recommendedBed": "Perímetro Bioinsecticida",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Hojas divididas cubiertas de vellosidad blanca sedosa con principios activos amargos (absintina)."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+  {
+    "cropName": "Sauco",
+    "climateOverview": "Arbusto o árbol pequeño de rápido desarrollo con corimbos densos de flores blancas muy aromáticas y bayas oscuras, apreciado tradicionalmente para jarabes contra la gripe y el resfriado.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Sambucus spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 180,
+        "Plántula": 100,
+        "Crecimiento": 50,
+        "Floración": 15,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 6.0,
+      "recommendedMoisturePercent": 65,
+      "recommendedBed": "Linde o Seto Silvestre de Huerta",
+      "climateAdaptation": "Templado a frío con humedad",
+      "notes": "Suelo fresco fértil y riego regular. Flores comestibles en infusión o fritas en masa; bayas maduras cocidas en jarabes."
+    },
+    "varieties": [
+      {
+        "varietyName": "Sambucus nigra",
+        "botanicalName": "Sambucus nigra (Sauco europeo)",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Seto Vivo Medicinal",
+        "climateAdaptation": "Templado",
+        "notes": "Corimbos planos de flores blancas con aroma almizclado dulce y bayas negro violáceas ricas en antocianinas."
+      },
+      {
+        "varietyName": "Sambucus peruviana",
+        "botanicalName": "Sambucus peruviana (Sauco andino)",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.0,
+        "recommendedMoisturePercent": 68,
+        "recommendedBed": "Bancal de Clima Frío Andino",
+        "climateAdaptation": "Clima frío de montaña (1800-3000 msnm)",
+        "notes": "Árbol andino muy vigoroso adaptado a zonas altas con excelente producción de flores pectorales."
+      }
+    ],
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+    {
     "cropName": "Veranera / Buganvilla (Bougainvillea)",
     "climateOverview": "Arbusto trepador vigoroso y muy rústico para exteriores a pleno sol directo y clima cálido a templado. Excepcional resistencia a sequías y profusa floración de brácteas coloreadas.",
     "generalInfo": {
@@ -5082,8 +5952,14 @@ export function inferCropCategory(cropName: string): PlantCategory {
 
   // 1. Otros complementarios y transversales (cactus, aromáticas, etc.)
   const transversalKeywords = [
-    'albahaca', 'perejil', 'hierbabuena', 'menta', 'orégano', 'oregano',
-    'tomillo', 'romero', 'limonaria', 'limoncillo', 'caléndula', 'calendula',
+    'lavanda', 'romero', 'albahaca', 'menta', 'hierbabuena', 'tomillo', 'orégano', 'oregano',
+    'oreganón', 'oreganon', 'orégano orejón', 'oregano orejon', 'toronjil', 'melissa',
+    'limonaria', 'limoncillo', 'cymbopogon', 'eneldo', 'estragón', 'estragon',
+    'laurel', 'sábila', 'sabila', 'aloe', 'caléndula', 'calendula',
+    'manzanilla', 'chamomilla', 'llantén', 'llanten', 'plantago',
+    'prontoalivio', 'lippia', 'diente de león', 'diente de leon', 'taraxacum',
+    'ruda', 'anamú', 'anamu', 'moringa', 'valeriana', 'ajenjo', 'absinthium',
+    'sauco', 'sambucus', 'perejil',
     'cactus', 'suculenta', 'crassula', 'jade', 'haworthia', 'echeveria',
     'aromática', 'aromatica', 'medicinal'
   ];
@@ -5237,6 +6113,77 @@ export function getCropImage(cropName: string): { imageUrl: string; imageAlt: st
   }
   if (lower.includes('cactus') || lower.includes('suculenta') || lower.includes('crassula') || lower.includes('jade') || lower.includes('haworthia') || lower.includes('schlumbergera') || lower.includes('echeveria')) {
     return { imageUrl: '/crops/rabano.svg', imageAlt: 'Cactus o suculenta de interior' };
+  }
+
+  // Plantas complementarias y transversales (aromáticas, medicinales, cactus)
+  if (lower.includes('lavanda')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Lavanda aromática' };
+  }
+  if (lower.includes('romero')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Romero aromático' };
+  }
+  if (lower.includes('albahaca')) {
+    return { imageUrl: '/crops/albahaca.svg', imageAlt: 'Albahaca aromática' };
+  }
+  if (lower.includes('menta') || lower.includes('hierbabuena')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Menta / Hierbabuena' };
+  }
+  if (lower.includes('tomillo')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Tomillo aromático' };
+  }
+  if (lower.includes('orégano') || lower.includes('oregano') || lower.includes('oreganón') || lower.includes('oreganon')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Orégano / Oreganón' };
+  }
+  if (lower.includes('toronjil') || lower.includes('melissa')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Toronjil relajante' };
+  }
+  if (lower.includes('limonaria') || lower.includes('limoncillo')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Limonaria aromática' };
+  }
+  if (lower.includes('eneldo')) {
+    return { imageUrl: '/crops/cilantro.svg', imageAlt: 'Eneldo aromático' };
+  }
+  if (lower.includes('estragón') || lower.includes('estragon')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Estragón aromático' };
+  }
+  if (lower.includes('laurel')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Laurel de cocina' };
+  }
+  if (lower.includes('sábila') || lower.includes('sabila') || lower.includes('aloe')) {
+    return { imageUrl: '/crops/acelga.svg', imageAlt: 'Sábila / Aloe medicinal' };
+  }
+  if (lower.includes('caléndula') || lower.includes('calendula')) {
+    return { imageUrl: '/crops/calendula.svg', imageAlt: 'Caléndula medicinal' };
+  }
+  if (lower.includes('manzanilla') || lower.includes('chamomilla')) {
+    return { imageUrl: '/crops/calendula.svg', imageAlt: 'Manzanilla medicinal' };
+  }
+  if (lower.includes('llantén') || lower.includes('llanten')) {
+    return { imageUrl: '/crops/espinaca.svg', imageAlt: 'Llantén medicinal' };
+  }
+  if (lower.includes('prontoalivio')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Prontoalivio medicinal' };
+  }
+  if (lower.includes('diente de león') || lower.includes('diente de leon')) {
+    return { imageUrl: '/crops/calendula.svg', imageAlt: 'Diente de león' };
+  }
+  if (lower.includes('ruda')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Ruda protectora' };
+  }
+  if (lower.includes('anamú') || lower.includes('anamu')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Anamú medicinal' };
+  }
+  if (lower.includes('moringa')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Moringa nutritiva' };
+  }
+  if (lower.includes('valeriana')) {
+    return { imageUrl: '/crops/calendula.svg', imageAlt: 'Valeriana medicinal' };
+  }
+  if (lower.includes('ajenjo')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Ajenjo amargo' };
+  }
+  if (lower.includes('sauco')) {
+    return { imageUrl: '/crops/calendula.svg', imageAlt: 'Sauco medicinal' };
   }
 
   // Plantas de exterior ornamentales, florales, arbustos y palmas
