@@ -408,7 +408,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   «Amor mortal»: El exceso de agua
                 </h3>
                 <p className="text-xs text-[#4A554E] leading-relaxed">
-                  Creer que si las hojas caen o amarillean necesitan más agua. El encharcamiento pudre las raíces silenciosamente bajo tierra.
+                  Creer que cada síntoma se cura con la regadera. El encharcamiento por exceso de cariño termina ahogando y pudriendo las raíces en silencio bajo tierra.
                 </p>
                 <div className="text-[11px] font-semibold text-[#2D5A27] bg-[#2D5A27]/5 p-2.5 rounded-lg border border-[#2D5A27]/10">
                   Solución: Te indicamos los días exactos y la humedad requerida por especie.
@@ -420,10 +420,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                   2
                 </div>
                 <h3 className="text-base font-bold text-[#1A231E]">
-                  Ubicación incorrecta (falta de luz)
+                  «Castigo a oscuras»: El rincón sin sol
                 </h3>
                 <p className="text-xs text-[#4A554E] leading-relaxed">
-                  Poner plantas de huerto de frutos (como tomates o pimientos) en rincones oscuros donde no reciben las 6-8 horas mínimas de sol.
+                  Condenar tomateras y pimientos a vivir en penumbra esperando que hagan milagros. Sin sus 6 horas de sol directo, se estiran pidiendo auxilio hasta desfallecer.
                 </p>
                 <div className="text-[11px] font-semibold text-[#2D5A27] bg-[#2D5A27]/5 p-2.5 rounded-lg border border-[#2D5A27]/10">
                   Solución: Elige el bancal o maceta adecuado con nuestro selector de exposición.
@@ -435,10 +435,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                   3
                 </div>
                 <h3 className="text-base font-bold text-[#1A231E]">
-                  Desconocer las etapas botánicas
+                  «Síndrome del bebé gigante»: Tratar a todas por igual
                 </h3>
                 <p className="text-xs text-[#4A554E] leading-relaxed">
-                  Una plántula recién nacida no necesita los mismos cuidados que una tomatera en plena floración o maduración de fruto.
+                  Exigirle a un brote recién nacido que resista lo mismo que una planta madura. Cada etapa exige su propio menú: no alimentas a un bebé con un filete.
                 </p>
                 <div className="text-[11px] font-semibold text-[#2D5A27] bg-[#2D5A27]/5 p-2.5 rounded-lg border border-[#2D5A27]/10">
                   Solución: Seguimiento secuencial de Semilla → Plántula → Crecimiento → Floración → Cosecha.
