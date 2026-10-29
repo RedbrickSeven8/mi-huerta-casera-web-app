@@ -213,6 +213,41 @@ export const INITIAL_CROPS: CropItem[] = [
         notes: 'Comprobación de humedad superficial seca.'
       }
     ]
+  },
+  {
+    id: 'crop-6',
+    name: 'Monstera Deliciosa',
+    variety: 'Monstera deliciosa',
+    category: 'Interior',
+    bed: 'Maceta Salón Luminoso',
+    plantedDate: getTodayFormatted(-35),
+    daysToHarvest: 20,
+    stage: 'Crecimiento',
+    recommendedMoisturePercent: 55,
+    sunHours: 3.5,
+    waterFrequencyDays: 6,
+    lastWatered: 'Hace 2 días',
+    notes: 'Planta de interior en rincón amplio con luz filtrada.',
+    imageUrl: '/crops/acelga.svg',
+    imageAlt: 'Monstera Deliciosa de interior',
+    log: [
+      {
+        id: 'log-601',
+        type: 'Siembra',
+        title: 'Ubicación en maceta de interior',
+        date: getTodayFormatted(-35),
+        time: '10:30',
+        notes: 'Sustrato aireado con corteza y perlita con tutor de fibra.'
+      },
+      {
+        id: 'log-602',
+        type: 'Riego',
+        title: 'Riego suave',
+        date: getTodayFormatted(-2),
+        time: '19:15',
+        notes: 'Limpieza de hojas con paño húmedo.'
+      }
+    ]
   }
 ];
 

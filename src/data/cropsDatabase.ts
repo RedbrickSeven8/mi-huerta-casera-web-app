@@ -1697,67 +1697,9 @@ export const CROPS_DATABASE: CropCategory[] = [
     "category": "Exterior"
   },
   {
-    "cropName": "Pothos / Potus",
+    "cropName": "Monstera",
     "category": "Interior",
-    "climateOverview": "Planta de interior purificadora muy resistente (15-28°C). Prefiere luz indirecta moderada o baja y riegos espaciados cuando el sustrato seque.",
-    "generalInfo": {
-      "varietyName": "No estoy seguro (Especie general)",
-      "botanicalName": "Epipremnum aureum",
-      "stageDaysToHarvest": {
-        "Semilla": 180,
-        "Plántula": 90,
-        "Crecimiento": 45,
-        "Floración": 30,
-        "Cosecha": 15
-      },
-      "waterFrequencyDays": 5,
-      "sunHours": 3.0,
-      "recommendedMoisturePercent": 50,
-      "recommendedBed": "",
-      "notes": "Ideal para estanterías y macetas colgantes de interior. Riego moderado cuando la superficie del sustrato esté seca.",
-      "climateAdaptation": "Interior templado, tolerante a iluminación tenue y sombra."
-    },
-    "varieties": [
-      {
-        "varietyName": "Pothos Dorado",
-        "botanicalName": "Epipremnum aureum 'Golden'",
-        "stageDaysToHarvest": {
-          "Semilla": 180,
-          "Plántula": 90,
-          "Crecimiento": 45,
-          "Floración": 30,
-          "Cosecha": 15
-        },
-        "waterFrequencyDays": 5,
-        "sunHours": 3.5,
-        "recommendedMoisturePercent": 50,
-        "recommendedBed": "",
-        "notes": "Hojas jaspeadas en tonos amarillo y verde vivo. Muy resistente y decorativa.",
-        "climateAdaptation": "Interior bien iluminado o con luz indirecta tamizada."
-      },
-      {
-        "varietyName": "Pothos Marble Queen",
-        "botanicalName": "Epipremnum aureum 'Marble Queen'",
-        "stageDaysToHarvest": {
-          "Semilla": 190,
-          "Plántula": 95,
-          "Crecimiento": 50,
-          "Floración": 35,
-          "Cosecha": 20
-        },
-        "waterFrequencyDays": 5,
-        "sunHours": 4.0,
-        "recommendedMoisturePercent": 50,
-        "recommendedBed": "",
-        "notes": "Jaspeado blanco crema abundante. Demanda algo más de luz indirecta para conservar el contraste.",
-        "climateAdaptation": "Interior con abundante luz indirecta."
-      }
-    ]
-  },
-  {
-    "cropName": "Monstera Deliciosa",
-    "category": "Interior",
-    "climateOverview": "Planta tropical de interior por excelencia (18-30°C). Destaca por sus hojas grandes fenestradas. Exige luz indirecta brillante y humedad media-alta.",
+    "climateOverview": "Planta tropical de interior por excelencia (18-30°C). Destaca por sus hojas de gran tamaño y perforaciones naturales. Requiere luz indirecta brillante y riego moderado cuando el sustrato seque en la parte superior.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
       "botanicalName": "Monstera deliciosa Liebm.",
@@ -1771,14 +1713,14 @@ export const CROPS_DATABASE: CropCategory[] = [
       "waterFrequencyDays": 6,
       "sunHours": 3.5,
       "recommendedMoisturePercent": 55,
-      "recommendedBed": "",
-      "notes": "Limpiar el polvo de las hojas periódicamente con un paño húmedo. Evitar sol directo para no quemar las hojas.",
-      "climateAdaptation": "Salones e interiores cálidos con luz indirecta constante."
+      "recommendedBed": "Maceta Salón",
+      "notes": "Limpiar el polvo de las hojas periódicamente con un paño suave húmedo. Evitar radiación solar directa para proteger el follaje.",
+      "climateAdaptation": "Interiores luminosos, salones y oficinas cálidas sin sol abrasador."
     },
     "varieties": [
       {
-        "varietyName": "Monstera Deliciosa Clásica",
-        "botanicalName": "Monstera deliciosa var. deliciosa",
+        "varietyName": "Deliciosa (Costilla de Adán)",
+        "botanicalName": "Monstera deliciosa",
         "stageDaysToHarvest": {
           "Semilla": 240,
           "Plántula": 120,
@@ -1789,16 +1731,142 @@ export const CROPS_DATABASE: CropCategory[] = [
         "waterFrequencyDays": 6,
         "sunHours": 3.5,
         "recommendedMoisturePercent": 55,
-        "recommendedBed": "",
-        "notes": "Costilla de Adán clásica con grandes hojas acanaladas. Tutorar con fibra de coco.",
-        "climateAdaptation": "Espacios interiores luminosos sin sol directo."
+        "recommendedBed": "Maceta Salón",
+        "notes": "Hojas de gran porte con cortes profundos y fenestraciones. Emplear tutor de musgo o fibra de coco para guiar el crecimiento trepador.",
+        "climateAdaptation": "Luz indirecta moderada o alta."
+      },
+      {
+        "varietyName": "Adansonii (Monkey Mask)",
+        "botanicalName": "Monstera adansonii",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 4.0,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Maceta Colgante",
+        "notes": "Hojas lanceoladas compactas con orificios cerrados distintivos. Idónea para estanterías, macetas colgantes o trepadora en tutores pequeños.",
+        "climateAdaptation": "Luz filtrada brillante y humedad ambiental media-alta."
+      },
+      {
+        "varietyName": "Deliciosa 'Variegata'",
+        "botanicalName": "Monstera deliciosa var. borsigiana albo-variegata",
+        "stageDaysToHarvest": {
+          "Semilla": 270,
+          "Plántula": 140,
+          "Crecimiento": 70,
+          "Floración": 45,
+          "Cosecha": 25
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 4.5,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Mutación con manchas blancas y crema marmóreas. Exige mayor luminosidad indirecta para conservar los sectores blancos sin manchas marrones.",
+        "climateAdaptation": "Luz indirecta muy abundante sin sol directo."
       }
     ]
   },
   {
-    "cropName": "Sansevieria / Lengua de Suegra",
+    "cropName": "Pothos / Miami (Epipremnum aureum)",
     "category": "Interior",
-    "climateOverview": "Una de las plantas de interior más longevas y resistentes (12-32°C). Excelente purificadora de aire nocturno con mínimo requerimiento hídrico.",
+    "climateOverview": "Planta purificadora extremadamente resistente (15-28°C). Prospera con luz difusa moderada y riegos espaciados cuando el sustrato seque.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Epipremnum aureum",
+      "stageDaysToHarvest": {
+        "Semilla": 180,
+        "Plántula": 90,
+        "Crecimiento": 45,
+        "Floración": 30,
+        "Cosecha": 15
+      },
+      "waterFrequencyDays": 5,
+      "sunHours": 3.0,
+      "recommendedMoisturePercent": 50,
+      "recommendedBed": "Maceta Estantería",
+      "notes": "Ideal para repisas, estanterías y macetas colgantes. Riego moderado cuando el sustrato esté seco al tacto.",
+      "climateAdaptation": "Se adapta a luz indirecta abundante o sombra parcial en interiores."
+    },
+    "varieties": [
+      {
+        "varietyName": "Dorado (Golden Pothos)",
+        "botanicalName": "Epipremnum aureum 'Golden'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Maceta Colgante",
+        "notes": "Hojas acorazonadas verde esmeralda con salpicaduras amarillas doradas vivas.",
+        "climateAdaptation": "Interior templado y versátil."
+      },
+      {
+        "varietyName": "Marble Queen",
+        "botanicalName": "Epipremnum aureum 'Marble Queen'",
+        "stageDaysToHarvest": {
+          "Semilla": 190,
+          "Plántula": 95,
+          "Crecimiento": 50,
+          "Floración": 35,
+          "Cosecha": 20
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 4.0,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Maceta Estantería",
+        "notes": "Jaspeado blanco crema denso. Demanda buena iluminación indirecta para nutrir las zonas variegadas.",
+        "climateAdaptation": "Espacios con luz indirecta abundante."
+      },
+      {
+        "varietyName": "Neon",
+        "botanicalName": "Epipremnum aureum 'Neon'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 4.0,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Maceta Colgante",
+        "notes": "Follaje verde lima eléctrico brillante muy llamativo. Mayor luz estimula su tono fluorescente.",
+        "climateAdaptation": "Luz indirecta brillante."
+      },
+      {
+        "varietyName": "N'Joy",
+        "botanicalName": "Epipremnum aureum 'N-Joy'",
+        "stageDaysToHarvest": {
+          "Semilla": 200,
+          "Plántula": 100,
+          "Crecimiento": 55,
+          "Floración": 35,
+          "Cosecha": 20
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 4.0,
+        "recommendedMoisturePercent": 48,
+        "recommendedBed": "Maceta Pequeña",
+        "notes": "Hojas compactas con parches blancos puros y verdes nítidamente delimitados. Crecimiento más pausado.",
+        "climateAdaptation": "Luz tamizada constante."
+      }
+    ]
+  },
+  {
+    "cropName": "Sansevieria / Lengua de suegra",
+    "category": "Interior",
+    "climateOverview": "Planta purificadora sobresaliente y casi indestructible (13-32°C). Libera oxígeno de noche y tolera períodos prolongados sin riego.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
       "botanicalName": "Dracaena trifasciata (Prain) Mabb.",
@@ -1812,13 +1880,13 @@ export const CROPS_DATABASE: CropCategory[] = [
       "waterFrequencyDays": 10,
       "sunHours": 2.5,
       "recommendedMoisturePercent": 40,
-      "recommendedBed": "",
-      "notes": "Riego muy espaciado: regar únicamente cuando el sustrato esté completamente seco. Gran tolerancia al olvido.",
-      "climateAdaptation": "Se adapta a sombras densas o interiores con poca luz natural."
+      "recommendedBed": "Maceta Suelo",
+      "notes": "Regar exclusivamente cuando el sustrato esté completamente seco. Gran resistencia a ambientes secos de interior.",
+      "climateAdaptation": "Desde sombra ligera hasta sol matutino suave."
     },
     "varieties": [
       {
-        "varietyName": "Sansevieria Laurentii",
+        "varietyName": "Laurentii",
         "botanicalName": "Dracaena trifasciata 'Laurentii'",
         "stageDaysToHarvest": {
           "Semilla": 200,
@@ -1830,12 +1898,29 @@ export const CROPS_DATABASE: CropCategory[] = [
         "waterFrequencyDays": 10,
         "sunHours": 3.0,
         "recommendedMoisturePercent": 40,
-        "recommendedBed": "",
-        "notes": "Bordes dorados distintivos a lo largo de hojas erectas y rígidas.",
-        "climateAdaptation": "Espacios interiores residenciales o de oficina."
+        "recommendedBed": "Maceta Suelo",
+        "notes": "Hojas erectas en forma de espada con vistosos bordes amarillos dorados continuos.",
+        "climateAdaptation": "Interiores luminosos o semisombra."
       },
       {
-        "varietyName": "Sansevieria Moonshine",
+        "varietyName": "Zeylanica",
+        "botanicalName": "Dracaena trifasciata 'Zeylanica'",
+        "stageDaysToHarvest": {
+          "Semilla": 200,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 10,
+        "sunHours": 2.5,
+        "recommendedMoisturePercent": 40,
+        "recommendedBed": "Maceta Suelo",
+        "notes": "Patrón atigrado de franjas verde oscuro y verde plateado sin bordes amarillos.",
+        "climateAdaptation": "Muy tolerante a zonas con iluminación moderada."
+      },
+      {
+        "varietyName": "Moonshine",
         "botanicalName": "Dracaena trifasciata 'Moonshine'",
         "stageDaysToHarvest": {
           "Semilla": 200,
@@ -1847,19 +1932,496 @@ export const CROPS_DATABASE: CropCategory[] = [
         "waterFrequencyDays": 10,
         "sunHours": 3.0,
         "recommendedMoisturePercent": 40,
-        "recommendedBed": "",
-        "notes": "Tonalidad verde plateado claro muy moderna y decorativa.",
-        "climateAdaptation": "Interiores luminosos o semi-sombreados."
+        "recommendedBed": "Maceta Mesa",
+        "notes": "Hojas anchas de tono plateado cenizo moderno y elegante. Se oscurecen si la luz es muy baja.",
+        "climateAdaptation": "Luz indirecta moderada para conservar su tono plateado."
+      },
+      {
+        "varietyName": "Hahnii (Nido de pájaro)",
+        "botanicalName": "Dracaena trifasciata 'Hahnii'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 25,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 9,
+        "sunHours": 2.5,
+        "recommendedMoisturePercent": 40,
+        "recommendedBed": "Maceta Pequeña / Escritorio",
+        "notes": "Formato enano en roseta baja acampanada. Perfecta para mesas, escritorios y repisas angostas.",
+        "climateAdaptation": "Cualquier rincón interior con ventilación."
+      },
+      {
+        "varietyName": "Cylindrica",
+        "botanicalName": "Dracaena cylindrica",
+        "stageDaysToHarvest": {
+          "Semilla": 210,
+          "Plántula": 105,
+          "Crecimiento": 55,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 12,
+        "sunHours": 3.0,
+        "recommendedMoisturePercent": 35,
+        "recommendedBed": "Maceta Escultórica",
+        "notes": "Tallos cilíndricos carnosos y puntiagudos con porte arquitectónico. Mínima demanda de riego.",
+        "climateAdaptation": "Interiores secos o soleados tamizados."
+      }
+    ]
+  },
+  {
+    "cropName": "Zamioculca (ZZ Plant)",
+    "category": "Interior",
+    "climateOverview": "Planta todoterreno de interior (16-30°C) con tubérculos subterráneos que almacenan agua. Excelente resistencia a condiciones de poca luz y olvido de riegos.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Zamioculcas zamiifolia",
+      "stageDaysToHarvest": {
+        "Semilla": 220,
+        "Plántula": 110,
+        "Crecimiento": 55,
+        "Floración": 35,
+        "Cosecha": 15
+      },
+      "waterFrequencyDays": 12,
+      "sunHours": 2.5,
+      "recommendedMoisturePercent": 38,
+      "recommendedBed": "Maceta Suelo / Pasillo",
+      "notes": "Regar únicamente cuando el sustrato esté seco en profundidad. Evitar encharcamientos.",
+      "climateAdaptation": "Sobresaliente tolerancia a luz baja, pasillos o rincones de oficina."
+    },
+    "varieties": [
+      {
+        "varietyName": "Clásica (verde)",
+        "botanicalName": "Zamioculcas zamiifolia",
+        "stageDaysToHarvest": {
+          "Semilla": 220,
+          "Plántula": 110,
+          "Crecimiento": 55,
+          "Floración": 35,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 12,
+        "sunHours": 2.5,
+        "recommendedMoisturePercent": 38,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Follaje compuesto verde brillante lustroso como encerado. Sumamente longeva y resistente.",
+        "climateAdaptation": "Luz indirecta moderada o baja."
+      },
+      {
+        "varietyName": "Raven (hoja negra)",
+        "botanicalName": "Zamioculcas zamiifolia 'Raven'",
+        "stageDaysToHarvest": {
+          "Semilla": 240,
+          "Plántula": 120,
+          "Crecimiento": 60,
+          "Floración": 40,
+          "Cosecha": 20
+        },
+        "waterFrequencyDays": 12,
+        "sunHours": 3.0,
+        "recommendedMoisturePercent": 38,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Los brotes nuevos nacen verde esmeralda y maduran a un púrpura negruzco brillante casi azabache.",
+        "climateAdaptation": "Luz indirecta media para una pigmentación oscura uniforme."
+      },
+      {
+        "varietyName": "Zenzi",
+        "botanicalName": "Zamioculcas zamiifolia 'Zenzi'",
+        "stageDaysToHarvest": {
+          "Semilla": 200,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 10,
+        "sunHours": 2.5,
+        "recommendedMoisturePercent": 38,
+        "recommendedBed": "Maceta Escritorio",
+        "notes": "Variedad enana compacta con foliolos densamente agrupados a lo largo de tallos gruesos.",
+        "climateAdaptation": "Escritorios o mesas auxiliares con iluminación indirecta."
+      }
+    ]
+  },
+  {
+    "cropName": "Ficus",
+    "category": "Interior",
+    "climateOverview": "Árboles y arbustos de interior con porte escultórico (16-28°C). Prefieren luz abundante indirecta, riego medido y estabilidad sin corrientes bruscas ni traslados frecuentes.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Ficus spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 240,
+        "Plántula": 120,
+        "Crecimiento": 60,
+        "Floración": 35,
+        "Cosecha": 15
+      },
+      "waterFrequencyDays": 6,
+      "sunHours": 4.5,
+      "recommendedMoisturePercent": 50,
+      "recommendedBed": "Maceta Suelo Grande",
+      "notes": "Evitar moverlo de ubicación una vez adaptado. Regar cuando los primeros 3 cm de sustrato estén secos.",
+      "climateAdaptation": "Ambientes interiores amplios con buena luz natural."
+    },
+    "varieties": [
+      {
+        "varietyName": "Lyrata (Pandurata / Higuera hoja de violín)",
+        "botanicalName": "Ficus lyrata",
+        "stageDaysToHarvest": {
+          "Semilla": 260,
+          "Plántula": 130,
+          "Crecimiento": 65,
+          "Floración": 40,
+          "Cosecha": 20
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 5.0,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Maceta Salón Suelo",
+        "notes": "Hojas enormes coriáceas en forma de violín. Limpiar sus hojas periódicamente y rotar la maceta para desarrollo recto.",
+        "climateAdaptation": "Luz brillante filtrada cerca de ventanales."
+      },
+      {
+        "varietyName": "Elastica Burgundy",
+        "botanicalName": "Ficus elastica 'Burgundy'",
+        "stageDaysToHarvest": {
+          "Semilla": 220,
+          "Plántula": 110,
+          "Crecimiento": 55,
+          "Floración": 35,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 7,
+        "sunHours": 4.5,
+        "recommendedMoisturePercent": 48,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Hojas gruesas carnosas de color burdeos muy oscuro con nervadura central rojiza.",
+        "climateAdaptation": "Luz indirecta moderada a alta."
+      },
+      {
+        "varietyName": "Elastica Tineke",
+        "botanicalName": "Ficus elastica 'Tineke'",
+        "stageDaysToHarvest": {
+          "Semilla": 230,
+          "Plántula": 115,
+          "Crecimiento": 60,
+          "Floración": 35,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 5.0,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Follaje variegado tricolor en verde pastel, crema y toques rosáceos en brotes nuevos.",
+        "climateAdaptation": "Luz indirecta abundante sin sol directo abrasador."
+      },
+      {
+        "varietyName": "Elastica Robusta",
+        "botanicalName": "Ficus elastica 'Robusta'",
+        "stageDaysToHarvest": {
+          "Semilla": 220,
+          "Plántula": 110,
+          "Crecimiento": 55,
+          "Floración": 35,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 7,
+        "sunHours": 4.5,
+        "recommendedMoisturePercent": 48,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Gomero clásico de hojas grandes verde oscuro intenso con vaina rojiza en cada brote.",
+        "climateAdaptation": "Interior bien iluminado."
+      },
+      {
+        "varietyName": "Benjamina",
+        "botanicalName": "Ficus benjamina",
+        "stageDaysToHarvest": {
+          "Semilla": 210,
+          "Plántula": 105,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 4.5,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Copa densa y ramas colgantes de hojas menudas. Sensible a cambios bruscos de corriente o frío.",
+        "climateAdaptation": "Ambiente luminoso y temperatura estable."
+      }
+    ]
+  },
+  {
+    "cropName": "Filodendro (Philodendron)",
+    "category": "Interior",
+    "climateOverview": "Familia de aráceas tropicales de porte colgante o erguido (18-28°C). Resaltan por la diversidad de texturas, variegaciones y siluetas.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Philodendron spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 190,
+        "Plántula": 95,
+        "Crecimiento": 50,
+        "Floración": 30,
+        "Cosecha": 15
+      },
+      "waterFrequencyDays": 5,
+      "sunHours": 3.5,
+      "recommendedMoisturePercent": 58,
+      "recommendedBed": "Maceta Estantería",
+      "notes": "Prefiere sustrato aireado con corteza de pino y perlita. Regar al secar la mitad superior.",
+      "climateAdaptation": "Luz indirecta tamizada constante."
+    },
+    "varieties": [
+      {
+        "varietyName": "Birkin",
+        "botanicalName": "Philodendron 'Birkin'",
+        "stageDaysToHarvest": {
+          "Semilla": 190,
+          "Plántula": 95,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 4.0,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Maceta Mesa",
+        "notes": "Hojas redondeadas oscuras con delicadas líneas blancas en aguja en cada nueva hoja.",
+        "climateAdaptation": "Luz indirecta brillante para sostener las líneas blancas."
+      },
+      {
+        "varietyName": "Brasil (Hederaceum)",
+        "botanicalName": "Philodendron hederaceum 'Brasil'",
+        "stageDaysToHarvest": {
+          "Semilla": 170,
+          "Plántula": 85,
+          "Crecimiento": 45,
+          "Floración": 25,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Maceta Colgante",
+        "notes": "Enredadera trepadora o colgante de rápido crecimiento con franja central verde lima brillante.",
+        "climateAdaptation": "Interiores templados con luz indirecta media o alta."
+      },
+      {
+        "varietyName": "Pink Princess",
+        "botanicalName": "Philodendron erubescens 'Pink Princess'",
+        "stageDaysToHarvest": {
+          "Semilla": 210,
+          "Plántula": 105,
+          "Crecimiento": 55,
+          "Floración": 35,
+          "Cosecha": 20
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 4.5,
+        "recommendedMoisturePercent": 58,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Hojas borgoña oscuro con llamativas manchas rosadas chicle. Exige luz indirecta generosa.",
+        "climateAdaptation": "Luz indirecta generosa y humedad ambiente cálida."
+      },
+      {
+        "varietyName": "Micans (Terciopelo)",
+        "botanicalName": "Philodendron hederaceum var. micans",
+        "stageDaysToHarvest": {
+          "Semilla": 170,
+          "Plántula": 85,
+          "Crecimiento": 45,
+          "Floración": 25,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 58,
+        "recommendedBed": "Maceta Colgante",
+        "notes": "Hojas acorazonadas con textura de terciopelo y envés en tonos cobrizos y óxido.",
+        "climateAdaptation": "Luz tamizada suave."
+      },
+      {
+        "varietyName": "Xanadu",
+        "botanicalName": "Thaumatophyllum xanadu (Philodendron xanadu)",
+        "stageDaysToHarvest": {
+          "Semilla": 220,
+          "Plántula": 110,
+          "Crecimiento": 55,
+          "Floración": 35,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 4.0,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Maceta Suelo",
+        "notes": "Planta arbustiva de hojas lobuladas profundamente divididas de color verde lustroso.",
+        "climateAdaptation": "Salones e interiores luminosos amplios."
+      }
+    ]
+  },
+  {
+    "cropName": "Calatea (Calathea / Goeppertia)",
+    "category": "Interior",
+    "climateOverview": "Plantas tropicales selváticas (18-27°C) con fascinantes patrones geométricos en el follaje y envés púrpura. Exigen humedad ambiental media-alta y agua reposada sin cal.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Goeppertia / Calathea spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 180,
+        "Plántula": 90,
+        "Crecimiento": 45,
+        "Floración": 25,
+        "Cosecha": 10
+      },
+      "waterFrequencyDays": 4,
+      "sunHours": 3.0,
+      "recommendedMoisturePercent": 68,
+      "recommendedBed": "Maceta Salón",
+      "notes": "Regar con agua reposada o filtrada para proteger las puntas. Evitar exposición directa al sol.",
+      "climateAdaptation": "Zonas húmedas y cálidas con luz tamizada."
+    },
+    "varieties": [
+      {
+        "varietyName": "Orbifolia",
+        "botanicalName": "Goeppertia orbifolia",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 25,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 3.0,
+        "recommendedMoisturePercent": 70,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Enormes hojas redondas surcadas por franjas verde plata y verde manzana.",
+        "climateAdaptation": "Luz suave indirecta y ambiente húmedo."
+      },
+      {
+        "varietyName": "Medallion",
+        "botanicalName": "Goeppertia veitchiana 'Medallion'",
+        "stageDaysToHarvest": {
+          "Semilla": 170,
+          "Plántula": 85,
+          "Crecimiento": 45,
+          "Floración": 25,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 3.0,
+        "recommendedMoisturePercent": 68,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Patrón concéntrico ovalado semejante a un medallón pintado al óleo sobre envés borgoña.",
+        "climateAdaptation": "Sombra luminosa protegida."
+      },
+      {
+        "varietyName": "Makoyana (Pavorreal)",
+        "botanicalName": "Goeppertia makoyana",
+        "stageDaysToHarvest": {
+          "Semilla": 170,
+          "Plántula": 85,
+          "Crecimiento": 45,
+          "Floración": 25,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 3.0,
+        "recommendedMoisturePercent": 68,
+        "recommendedBed": "Maceta Mesa",
+        "notes": "Hojas finas y traslúcidas con dibujos de plumas de pavo real verde oscuro sobre fondo pálido.",
+        "climateAdaptation": "Interiores cálidos con humedad."
+      },
+      {
+        "varietyName": "Roseopicta",
+        "botanicalName": "Goeppertia roseopicta",
+        "stageDaysToHarvest": {
+          "Semilla": 170,
+          "Plántula": 85,
+          "Crecimiento": 45,
+          "Floración": 25,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 3.0,
+        "recommendedMoisturePercent": 68,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Hojas elípticas oscuras bordeadas por pinceladas en tonos rosa magenta o crema vivo.",
+        "climateAdaptation": "Luz filtrada sin sol."
+      }
+    ]
+  },
+  {
+    "cropName": "Maranta (Planta de la oración)",
+    "category": "Interior",
+    "climateOverview": "Planta fascinante de interior (18-26°C) que levanta sus hojas por la noche en gesto de oración. Resalta por sus venaciones coloreadas y crecimiento rastrero o colgante.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Maranta leuconeura",
+      "stageDaysToHarvest": {
+        "Semilla": 160,
+        "Plántula": 80,
+        "Crecimiento": 40,
+        "Floración": 20,
+        "Cosecha": 10
+      },
+      "waterFrequencyDays": 4,
+      "sunHours": 3.0,
+      "recommendedMoisturePercent": 65,
+      "recommendedBed": "Maceta Mesa / Repisa",
+      "notes": "Mantener el sustrato ligeramente húmedo sin anegar. Responde al ritmo circadiano plegándose al anochecer.",
+      "climateAdaptation": "Luz indirecta moderada o tamizada."
+    },
+    "varieties": [
+      {
+        "varietyName": "Leuconeura erythroneura (Tricolor / Venas rojas)",
+        "botanicalName": "Maranta leuconeura var. erythroneura",
+        "stageDaysToHarvest": {
+          "Semilla": 160,
+          "Plántula": 80,
+          "Crecimiento": 40,
+          "Floración": 20,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 3.0,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Maceta Repisa",
+        "notes": "Vistas nervaduras de color rojo coral en espiga sobre hojas verde oliva con manchas aterciopeladas.",
+        "climateAdaptation": "Interior fresco y sombreado con humedad."
+      },
+      {
+        "varietyName": "Leuconeura kerchoveana (Manchas verdes)",
+        "botanicalName": "Maranta leuconeura var. kerchoveana",
+        "stageDaysToHarvest": {
+          "Semilla": 160,
+          "Plántula": 80,
+          "Crecimiento": 40,
+          "Floración": 20,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 3.0,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Maceta Repisa",
+        "notes": "Follaje verde claro decorado con hileras de manchas verde oscuro o chocolate a ambos lados del nervio.",
+        "climateAdaptation": "Luz indirecta suave o semisombra."
       }
     ]
   },
   {
     "cropName": "Espatifilo / Cuna de Moisés",
     "category": "Interior",
-    "climateOverview": "Elegante planta de interior con brácteas blancas (16-26°C). Filtra toxinas del aire e indica sed bajando sutilmente sus hojas.",
+    "climateOverview": "Planta purificadora con elegantes espatas blancas (16-26°C). Filtra toxinas del aire e inclina sus hojas avisando con claridad cuando necesita riego.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
-      "botanicalName": "Spathiphyllum wallisii",
+      "botanicalName": "Spathiphyllum spp.",
       "stageDaysToHarvest": {
         "Semilla": 160,
         "Plántula": 80,
@@ -1870,14 +2432,14 @@ export const CROPS_DATABASE: CropCategory[] = [
       "waterFrequencyDays": 4,
       "sunHours": 2.5,
       "recommendedMoisturePercent": 65,
-      "recommendedBed": "",
-      "notes": "Prefiere sustrato húmedo sin encharcamiento y sombra o luz tamizada. Pulverizar follaje en días secos.",
-      "climateAdaptation": "Interior fresco y sombreado, dormitorios y salas de estar."
+      "recommendedBed": "Maceta Salón",
+      "notes": "Sustrato húmedo sin encharcar. Pulverizar las hojas en temporadas secas y mantener alejado de radiación directa.",
+      "climateAdaptation": "Interior sombreado o luz difusa, dormitorios y estancias tranquilas."
     },
     "varieties": [
       {
-        "varietyName": "Espatifilo Flor Blanca",
-        "botanicalName": "Spathiphyllum wallisii 'Sweet Chico'",
+        "varietyName": "Wallisii",
+        "botanicalName": "Spathiphyllum wallisii",
         "stageDaysToHarvest": {
           "Semilla": 160,
           "Plántula": 80,
@@ -1888,91 +2450,885 @@ export const CROPS_DATABASE: CropCategory[] = [
         "waterFrequencyDays": 4,
         "sunHours": 2.5,
         "recommendedMoisturePercent": 65,
-        "recommendedBed": "",
-        "notes": "Floración blanca continua con hojas lustrosas verde oscuro.",
-        "climateAdaptation": "Sombra luminosa o luz difusa en interior."
-      }
-    ]
-  },
-  {
-    "cropName": "Calathea / Maranta",
-    "category": "Interior",
-    "climateOverview": "Planta de oración fascinante de interior (18-27°C). Cierra sus hojas en la noche y muestra envés purpúreo. Requiere alta humedad ambiental.",
-    "generalInfo": {
-      "varietyName": "No estoy seguro (Especie general)",
-      "botanicalName": "Goeppertia insignis / Calathea",
-      "stageDaysToHarvest": {
-        "Semilla": 170,
-        "Plántula": 85,
-        "Crecimiento": 45,
-        "Floración": 25,
-        "Cosecha": 10
+        "recommendedBed": "Maceta Salón",
+        "notes": "Espatifilo clásico de porte medio, floración blanca recurrente y follaje verde brillante lustroso.",
+        "climateAdaptation": "Luz indirecta moderada a baja."
       },
-      "waterFrequencyDays": 4,
-      "sunHours": 3.0,
-      "recommendedMoisturePercent": 70,
-      "recommendedBed": "",
-      "notes": "Regar con agua reposada o filtrada para evitar puntas marrones. Luz indirecta suave.",
-      "climateAdaptation": "Interiores protegidos de corrientes frías y sol directo."
-    },
-    "varieties": [
       {
-        "varietyName": "Calathea Orbifolia",
-        "botanicalName": "Goeppertia orbifolia",
+        "varietyName": "Sweet Chico",
+        "botanicalName": "Spathiphyllum 'Sweet Chico'",
+        "stageDaysToHarvest": {
+          "Semilla": 150,
+          "Plántula": 75,
+          "Crecimiento": 35,
+          "Floración": 20,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 2.5,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Maceta Mesa",
+        "notes": "Variedad compacta de floración muy abundante y uniforme con espatas níveas erectas.",
+        "climateAdaptation": "Mesas de centro o estantes interiores."
+      },
+      {
+        "varietyName": "Domino (variegado)",
+        "botanicalName": "Spathiphyllum 'Domino'",
         "stageDaysToHarvest": {
           "Semilla": 170,
           "Plántula": 85,
           "Crecimiento": 45,
           "Floración": 25,
-          "Cosecha": 10
+          "Cosecha": 15
         },
         "waterFrequencyDays": 4,
-        "sunHours": 3.0,
-        "recommendedMoisturePercent": 70,
-        "recommendedBed": "",
-        "notes": "Enormes hojas redondeadas con rayas verde plateado y verde oliva.",
-        "climateAdaptation": "Interior húmedo y cálido."
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 62,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Hojas rugosas salpicadas intensamente de manchas blancas marmóreas. Precisa algo más de luz indirecta.",
+        "climateAdaptation": "Luz indirecta abundante sin sol directo."
       }
     ]
   },
   {
-    "cropName": "Suculenta Echeveria",
+    "cropName": "Anturio",
     "category": "Interior",
-    "climateOverview": "Planta crasa compacta en forma de roseta (15-28°C). Ideal para repisas de ventanas soleadas interiores, escritorios y pequeños maceteros.",
+    "climateOverview": "Planta tropical de interior reconocida por sus brácteas florales cerosas y duraderas (18-28°C) o por sus imponentes hojas venadas aterciopeladas.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
-      "botanicalName": "Echeveria elegans Rose",
+      "botanicalName": "Anthurium spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 200,
+        "Plántula": 100,
+        "Crecimiento": 50,
+        "Floración": 30,
+        "Cosecha": 15
+      },
+      "waterFrequencyDays": 5,
+      "sunHours": 4.0,
+      "recommendedMoisturePercent": 60,
+      "recommendedBed": "Maceta Salón",
+      "notes": "Regar cuando la superficie comience a secar, utilizando agua libre de cloro. Buena aireación radicular.",
+      "climateAdaptation": "Luz brillante filtrada y buena humedad ambiental."
+    },
+    "varieties": [
+      {
+        "varietyName": "Andreanum Rojo",
+        "botanicalName": "Anthurium andraeanum 'Red'",
+        "stageDaysToHarvest": {
+          "Semilla": 200,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 4.0,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Espata cerosa en forma de corazón color rojo fuego brillante con espádice amarillo.",
+        "climateAdaptation": "Luz indirecta alta."
+      },
+      {
+        "varietyName": "Andreanum Blanco",
+        "botanicalName": "Anthurium andraeanum 'White'",
+        "stageDaysToHarvest": {
+          "Semilla": 200,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 4.0,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Elegantes espatas blancas puras muy duraderas que aportan luminosidad a espacios interiores.",
+        "climateAdaptation": "Luz tamizada constante."
+      },
+      {
+        "varietyName": "Andreanum Rosado",
+        "botanicalName": "Anthurium andraeanum 'Pink'",
+        "stageDaysToHarvest": {
+          "Semilla": 200,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 4.0,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Flores cerosas en suave tono rosa pastel o salmón con floración continuada.",
+        "climateAdaptation": "Luz indirecta brillante."
+      },
+      {
+        "varietyName": "Clarinervium",
+        "botanicalName": "Anthurium clarinervium",
+        "stageDaysToHarvest": {
+          "Semilla": 230,
+          "Plántula": 115,
+          "Crecimiento": 60,
+          "Floración": 35,
+          "Cosecha": 20
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Maceta Escultórica",
+        "notes": "Hojas acorazonadas verde oscuro profundo con textura aterciopelada y nervios blancos relucientes.",
+        "climateAdaptation": "Interior cálido, luz filtrada suave y alta humedad."
+      }
+    ]
+  },
+  {
+    "cropName": "Aglaonema",
+    "category": "Interior",
+    "climateOverview": "Planta asiática de follaje ornamental altamente resistente y adaptable (16-28°C). Tolera luz baja y aporta llamativos colores plateados y rojizos.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Aglaonema commutatum",
+      "stageDaysToHarvest": {
+        "Semilla": 180,
+        "Plántula": 90,
+        "Crecimiento": 45,
+        "Floración": 25,
+        "Cosecha": 15
+      },
+      "waterFrequencyDays": 7,
+      "sunHours": 3.0,
+      "recommendedMoisturePercent": 48,
+      "recommendedBed": "Maceta Salón / Oficina",
+      "notes": "Riego moderado permitiendo secar el sustrato a la mitad. Excelente resistencia en oficinas e interiores.",
+      "climateAdaptation": "Desde poca luz natural hasta luz difusa abundante."
+    },
+    "varieties": [
+      {
+        "varietyName": "Silver Bay",
+        "botanicalName": "Aglaonema 'Silver Bay'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 25,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 7,
+        "sunHours": 2.5,
+        "recommendedMoisturePercent": 48,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Hojas anchas con un centro gris plateado luminoso enmarcado en verde oliva oscuro.",
+        "climateAdaptation": "Tolerante a ambientes con baja luminosidad."
+      },
+      {
+        "varietyName": "Creta (Roja)",
+        "botanicalName": "Aglaonema 'Crete'",
+        "stageDaysToHarvest": {
+          "Semilla": 190,
+          "Plántula": 95,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Maceta Mesa",
+        "notes": "Bordes y nervios de encendido color rojo carmín sobre fondo verde moteado. Requiere algo más de luz indirecta.",
+        "climateAdaptation": "Luz indirecta media para mantener el color rojizo."
+      },
+      {
+        "varietyName": "White Joy",
+        "botanicalName": "Aglaonema 'White Joy'",
+        "stageDaysToHarvest": {
+          "Semilla": 200,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Maceta Mesa",
+        "notes": "Hojas casi totalmente blanco nieve con finos márgenes verde bosque.",
+        "climateAdaptation": "Luz indirecta brillante constante."
+      }
+    ]
+  },
+  {
+    "cropName": "Peperomia",
+    "category": "Interior",
+    "climateOverview": "Plantas compactas semi-suculentas de porte ordenado (16-26°C). Hojas carnosas que retienen agua; ideales para mesas de centro, escritorios y repisas.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Peperomia spp.",
       "stageDaysToHarvest": {
         "Semilla": 150,
         "Plántula": 75,
         "Crecimiento": 40,
-        "Floración": 25,
+        "Floración": 20,
         "Cosecha": 10
       },
-      "waterFrequencyDays": 8,
-      "sunHours": 4.5,
-      "recommendedMoisturePercent": 35,
-      "recommendedBed": "",
-      "notes": "Riego por inmersión o en la base evitando que quede agua estancada en el corazón de la roseta.",
-      "climateAdaptation": "Ventrana interior soleada y bien ventilada."
+      "waterFrequencyDays": 7,
+      "sunHours": 3.5,
+      "recommendedMoisturePercent": 45,
+      "recommendedBed": "Maceta Escritorio",
+      "notes": "Regar por abajo o con precaución en la base. Evitar el exceso de humedad en raíces.",
+      "climateAdaptation": "Luz indirecta moderada, oficinas y estancias iluminadas."
     },
     "varieties": [
       {
-        "varietyName": "Echeveria Elegans (Rosa de Alabastro)",
-        "botanicalName": "Echeveria elegans",
+        "varietyName": "Watermelon (Argyreia / Sandía)",
+        "botanicalName": "Peperomia argyreia",
         "stageDaysToHarvest": {
           "Semilla": 150,
           "Plántula": 75,
           "Crecimiento": 40,
-          "Floración": 25,
+          "Floración": 20,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Maceta Mesa",
+        "notes": "Hojas carnosas que imitan a la perfección la cáscara de una sandía con rayas plateadas y pecíolos rojos.",
+        "climateAdaptation": "Luz tamizada abundante."
+      },
+      {
+        "varietyName": "Obtusifolia Verde",
+        "botanicalName": "Peperomia obtusifolia",
+        "stageDaysToHarvest": {
+          "Semilla": 150,
+          "Plántula": 75,
+          "Crecimiento": 40,
+          "Floración": 20,
           "Cosecha": 10
         },
         "waterFrequencyDays": 8,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 42,
+        "recommendedBed": "Maceta Repisa",
+        "notes": "Hojas ovaladas muy carnosas verde oscuro lustroso. Gran aguante a riegos espaciados.",
+        "climateAdaptation": "Luz indirecta o semisombra."
+      },
+      {
+        "varietyName": "Obtusifolia Variegada",
+        "botanicalName": "Peperomia obtusifolia 'Variegata'",
+        "stageDaysToHarvest": {
+          "Semilla": 160,
+          "Plántula": 80,
+          "Crecimiento": 45,
+          "Floración": 20,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 7,
+        "sunHours": 4.0,
+        "recommendedMoisturePercent": 45,
+        "recommendedBed": "Maceta Repisa",
+        "notes": "Follaje carnoso con orlas crema y amarillo pálido en los bordes.",
+        "climateAdaptation": "Luz indirecta media a alta."
+      },
+      {
+        "varietyName": "Caperata Esmeralda",
+        "botanicalName": "Peperomia caperata 'Emerald Ripple'",
+        "stageDaysToHarvest": {
+          "Semilla": 150,
+          "Plántula": 75,
+          "Crecimiento": 40,
+          "Floración": 20,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 3.0,
+        "recommendedMoisturePercent": 48,
+        "recommendedBed": "Maceta Escritorio",
+        "notes": "Hojas acorazonadas con llamativa textura arrugada en relieve y espigas florales en forma de ratón.",
+        "climateAdaptation": "Luz filtrada moderada."
+      }
+    ]
+  },
+  {
+    "cropName": "Palmas de interior",
+    "category": "Interior",
+    "climateOverview": "Palmeras tropicales adaptadas a interiores luminosos (17-28°C). Aportan frescura, altura y elegancia natural mientras purifican el aire.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Arecaceae spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 240,
+        "Plántula": 120,
+        "Crecimiento": 60,
+        "Floración": 30,
+        "Cosecha": 15
+      },
+      "waterFrequencyDays": 5,
+      "sunHours": 4.0,
+      "recommendedMoisturePercent": 58,
+      "recommendedBed": "Maceta Grande Suelo",
+      "notes": "Mantener humedad moderada sin que el agua quede estancada en el plato. Pulverizar en días secos.",
+      "climateAdaptation": "Salones amplios, recibidores y salas iluminadas."
+    },
+    "varieties": [
+      {
+        "varietyName": "Areca (Dypsis lutescens)",
+        "botanicalName": "Dypsis lutescens",
+        "stageDaysToHarvest": {
+          "Semilla": 240,
+          "Plántula": 120,
+          "Crecimiento": 60,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 4.5,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Troncos múltiples en caña amarilla y frondas arqueadas plumosas. Gran poder purificador.",
+        "climateAdaptation": "Luz indirecta brillante constante."
+      },
+      {
+        "varietyName": "Chamaedorea elegans (Palma de salón)",
+        "botanicalName": "Chamaedorea elegans",
+        "stageDaysToHarvest": {
+          "Semilla": 200,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 25,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 3.0,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Maceta Mediana",
+        "notes": "Palmera enana compacta muy resistente a condiciones de poca luz y calefacción.",
+        "climateAdaptation": "Excelente para estancias con luz moderada o semisombra."
+      },
+      {
+        "varietyName": "Raphis excelsa (Palma dama)",
+        "botanicalName": "Rhapis excelsa",
+        "stageDaysToHarvest": {
+          "Semilla": 260,
+          "Plántula": 130,
+          "Crecimiento": 65,
+          "Floración": 35,
+          "Cosecha": 20
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 3.0,
+        "recommendedMoisturePercent": 52,
+        "recommendedBed": "Maceta Suelo",
+        "notes": "Frondas palmadas en abanico sobre tallos revestidos de fibra marrón. Sumamente resistente y sofisticada.",
+        "climateAdaptation": "Luz indirecta o sombra luminosa."
+      }
+    ]
+  },
+  {
+    "cropName": "Helechos",
+    "category": "Interior",
+    "climateOverview": "Plantas ancestrales de frondas exuberantes (16-25°C). Demandan humedad ambiental constante, sustrato aireado y luz difusa sin sol directo.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Polypodiopsida spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 180,
+        "Plántula": 90,
+        "Crecimiento": 45,
+        "Floración": 20,
+        "Cosecha": 10
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 2.5,
+      "recommendedMoisturePercent": 72,
+      "recommendedBed": "Maceta Colgante",
+      "notes": "Mantener el sustrato siempre húmedo sin encharcar. Pulverizar regularmente con agua blanda.",
+      "climateAdaptation": "Baños luminosos, cocinas y rincones frescos húmedos."
+    },
+    "varieties": [
+      {
+        "varietyName": "Boston (Nephrolepis exaltata)",
+        "botanicalName": "Nephrolepis exaltata 'Bostoniensis'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 20,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 3.0,
+        "recommendedMoisturePercent": 70,
+        "recommendedBed": "Maceta Colgante",
+        "notes": "Frondas largas plumosas arqueadas en cascada verde viva. Excelente purificador.",
+        "climateAdaptation": "Luz difusa y buena humedad ambiental."
+      },
+      {
+        "varietyName": "Culantrillo (Adiantum)",
+        "botanicalName": "Adiantum capillus-veneris",
+        "stageDaysToHarvest": {
+          "Semilla": 170,
+          "Plántula": 85,
+          "Crecimiento": 40,
+          "Floración": 20,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 2.5,
+        "recommendedMoisturePercent": 75,
+        "recommendedBed": "Maceta Mesa / Baño",
+        "notes": "Folíolos triangulares delicadísimos sobre peciolos negros finos como alambre.",
+        "climateAdaptation": "Humedad ambiental alta constante y sombra luminosa."
+      },
+      {
+        "varietyName": "Cuerno de alce (Platycerium bifurcatum)",
+        "botanicalName": "Platycerium bifurcatum",
+        "stageDaysToHarvest": {
+          "Semilla": 220,
+          "Plántula": 110,
+          "Crecimiento": 55,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Soporte Epífito / Maceta",
+        "notes": "Frondas fértiles ramificadas como astas de ciervo cubiertas de vellosidad plateada protectora.",
+        "climateAdaptation": "Luz indirecta brillante y buena ventilación."
+      }
+    ]
+  },
+  {
+    "cropName": "Drácena / Tronco de Brasil",
+    "category": "Interior",
+    "climateOverview": "Plantas estructurales arbóreas de interior (16-28°C). Muy resistentes al aire seco y capaces de prosperar en espacios de trabajo y salones.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Dracaena spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 210,
+        "Plántula": 105,
+        "Crecimiento": 50,
+        "Floración": 30,
+        "Cosecha": 15
+      },
+      "waterFrequencyDays": 7,
+      "sunHours": 3.5,
+      "recommendedMoisturePercent": 48,
+      "recommendedBed": "Maceta Suelo",
+      "notes": "Dejar secar el sustrato entre riegos. Sensible a excesos de agua en la base del tronco.",
+      "climateAdaptation": "Luz indirecta moderada a media."
+    },
+    "varieties": [
+      {
+        "varietyName": "Fragrans (Massangeana / Tronco de Brasil)",
+        "botanicalName": "Dracaena fragrans 'Massangeana'",
+        "stageDaysToHarvest": {
+          "Semilla": 210,
+          "Plántula": 105,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 7,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 48,
+        "recommendedBed": "Maceta Suelo",
+        "notes": "Tronco leñoso con penacho de hojas anchas cruzadas por una ancha banda central amarilla lima.",
+        "climateAdaptation": "Interiores templados y luminosos."
+      },
+      {
+        "varietyName": "Marginata",
+        "botanicalName": "Dracaena reflexa var. angustifolia (D. marginata)",
+        "stageDaysToHarvest": {
+          "Semilla": 200,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 25,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 8,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 45,
+        "recommendedBed": "Maceta Suelo",
+        "notes": "Tallos esbeltos coronados por cintas estrechas con bordes rojizos muy definidas.",
+        "climateAdaptation": "Luz indirecta o semisombra."
+      },
+      {
+        "varietyName": "Reflexa (Pleomele / Canción de la India)",
+        "botanicalName": "Dracaena reflexa 'Song of India'",
+        "stageDaysToHarvest": {
+          "Semilla": 210,
+          "Plántula": 105,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 7,
+        "sunHours": 4.0,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Hojas lanceoladas dispuestas en espiral con márgenes amarillo dorado intenso.",
+        "climateAdaptation": "Luz indirecta brillante."
+      }
+    ]
+  },
+  {
+    "cropName": "Begonia",
+    "category": "Interior",
+    "climateOverview": "Plantas de hojas policromáticas y asimétricas (17-26°C). Follajes con motas plateadas, espirales y reflejos satinados que decoran cualquier estancia.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Begonia spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 160,
+        "Plántula": 80,
+        "Crecimiento": 40,
+        "Floración": 25,
+        "Cosecha": 10
+      },
+      "waterFrequencyDays": 4,
+      "sunHours": 4.0,
+      "recommendedMoisturePercent": 60,
+      "recommendedBed": "Maceta Mesa",
+      "notes": "Regar por la base evitando mojar el follaje directamente para prevenir hongos foliares.",
+      "climateAdaptation": "Luz brillante tamizada sin sol directo."
+    },
+    "varieties": [
+      {
+        "varietyName": "Maculata (Polka Dot)",
+        "botanicalName": "Begonia maculata",
+        "stageDaysToHarvest": {
+          "Semilla": 160,
+          "Plántula": 80,
+          "Crecimiento": 40,
+          "Floración": 25,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 4.0,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Maceta Mesa",
+        "notes": "Hojas en forma de ala de ángel verde oliva con lunares plateados en el haz y envés rojo carmín.",
+        "climateAdaptation": "Luz indirecta abundante sin sol directo."
+      },
+      {
+        "varietyName": "Rex",
+        "botanicalName": "Begonia rex-cultorum",
+        "stageDaysToHarvest": {
+          "Semilla": 160,
+          "Plántula": 80,
+          "Crecimiento": 40,
+          "Floración": 25,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 62,
+        "recommendedBed": "Maceta Mesa",
+        "notes": "Follaje espectacular con remolinos en espiral y zonas plateadas, púrpuras y verdes.",
+        "climateAdaptation": "Luz tamizada suave y ambiente húmedo."
+      },
+      {
+        "varietyName": "Coccinea (Ala de ángel)",
+        "botanicalName": "Begonia coccinea",
+        "stageDaysToHarvest": {
+          "Semilla": 160,
+          "Plántula": 80,
+          "Crecimiento": 40,
+          "Floración": 25,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 4.0,
+        "recommendedMoisturePercent": 58,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Porte de caña erguido con racimos colgantes de flores rojas o corales muy vistosas.",
+        "climateAdaptation": "Luz difusa brillante."
+      }
+    ]
+  },
+  {
+    "cropName": "Singonio (Syngonium)",
+    "category": "Interior",
+    "climateOverview": "Planta tropical de interior versátil con hojas en punta de flecha (16-28°C). Funciona como trepadora en tutor o en macetas colgantes frondosas.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Syngonium podophyllum",
+      "stageDaysToHarvest": {
+        "Semilla": 170,
+        "Plántula": 85,
+        "Crecimiento": 45,
+        "Floración": 25,
+        "Cosecha": 15
+      },
+      "waterFrequencyDays": 5,
+      "sunHours": 3.5,
+      "recommendedMoisturePercent": 55,
+      "recommendedBed": "Maceta Repisa / Colgante",
+      "notes": "Riego moderado cuando el sustrato comience a secar. Crece con rapidez y vigor.",
+      "climateAdaptation": "Luz indirecta moderada a brillante."
+    },
+    "varieties": [
+      {
+        "varietyName": "Podophyllum verde",
+        "botanicalName": "Syngonium podophyllum",
+        "stageDaysToHarvest": {
+          "Semilla": 170,
+          "Plántula": 85,
+          "Crecimiento": 45,
+          "Floración": 25,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 3.0,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Maceta Repisa",
+        "notes": "Forma clásica de punta de flecha en verde esmeralda con venaciones claras.",
+        "climateAdaptation": "Gran adaptación a luz media o difusa."
+      },
+      {
+        "varietyName": "Pink Allusion",
+        "botanicalName": "Syngonium podophyllum 'Pink Allusion'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 25,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 4.0,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Maceta Mesa",
+        "notes": "Hojas compactas con tonalidades rosa pastel y nervaduras rojizas delicadas.",
+        "climateAdaptation": "Luz indirecta generosa para vigorizar el tono rosáceo."
+      },
+      {
+        "varietyName": "White Butterfly",
+        "botanicalName": "Syngonium podophyllum 'White Butterfly'",
+        "stageDaysToHarvest": {
+          "Semilla": 170,
+          "Plántula": 85,
+          "Crecimiento": 45,
+          "Floración": 25,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Maceta Colgante",
+        "notes": "Centro blanco verdoso suave que simula las alas de una mariposa enmarcado en verde hoja.",
+        "climateAdaptation": "Luz tamizada constante."
+      }
+    ]
+  },
+  {
+    "cropName": "Crotón",
+    "category": "Interior",
+    "climateOverview": "Arbusto tropical con estallido de color en el follaje (18-29°C). Necesita abundante luminosidad indirecta para manifestar sus vivos tonos amarillos, naranjas y rojos.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Codiaeum variegatum",
+      "stageDaysToHarvest": {
+        "Semilla": 210,
+        "Plántula": 105,
+        "Crecimiento": 50,
+        "Floración": 30,
+        "Cosecha": 15
+      },
+      "waterFrequencyDays": 5,
+      "sunHours": 5.0,
+      "recommendedMoisturePercent": 58,
+      "recommendedBed": "Maceta Salón Soleado",
+      "notes": "Requiere buena luz para evitar la caída de hojas basales y conservar sus colores vivos.",
+      "climateAdaptation": "Cerca de ventanas con abundante luz filtrada o sol matutino suave."
+    },
+    "varieties": [
+      {
+        "varietyName": "Petra",
+        "botanicalName": "Codiaeum variegatum 'Petra'",
+        "stageDaysToHarvest": {
+          "Semilla": 210,
+          "Plántula": 105,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 5.0,
+        "recommendedMoisturePercent": 58,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Hojas anchas coriáceas con nervios en tonos amarillo limón, naranja fuego y rojo rubí.",
+        "climateAdaptation": "Luz brillante indirecta."
+      },
+      {
+        "varietyName": "Mammy",
+        "botanicalName": "Codiaeum variegatum 'Mammy'",
+        "stageDaysToHarvest": {
+          "Semilla": 210,
+          "Plántula": 105,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 5.0,
+        "recommendedMoisturePercent": 58,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Hojas estrechas y rizadas en espiral con llamativos contrastes morados, rojos y amarillos.",
+        "climateAdaptation": "Luz indirecta muy alta."
+      },
+      {
+        "varietyName": "Gold Dust",
+        "botanicalName": "Codiaeum variegatum 'Gold Dust'",
+        "stageDaysToHarvest": {
+          "Semilla": 200,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 4.5,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Maceta Salón",
+        "notes": "Follaje verde oscuro profusamente salpicado de diminutas manchas amarillas como polvo de oro.",
+        "climateAdaptation": "Espacios interiores luminosos."
+      }
+    ]
+  },
+  {
+    "cropName": "Cinta / Mala madre (Chlorophytum)",
+    "category": "Interior",
+    "climateOverview": "Planta clásica de interior sumamente agradecida y purificadora (13-27°C). Emite estolones colgantes con hijuelos ('hijos') de gran valor decorativo.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Chlorophytum comosum",
+      "stageDaysToHarvest": {
+        "Semilla": 150,
+        "Plántula": 75,
+        "Crecimiento": 35,
+        "Floración": 20,
+        "Cosecha": 10
+      },
+      "waterFrequencyDays": 6,
+      "sunHours": 3.5,
+      "recommendedMoisturePercent": 50,
+      "recommendedBed": "Maceta Colgante",
+      "notes": "Tolera descuidos de riego gracias a sus raíces carnosas tuberosas. Gran capacidad purificadora del aire.",
+      "climateAdaptation": "Desde estancias semisombreadas hasta luz tamizada brillante."
+    },
+    "varieties": [
+      {
+        "varietyName": "Comosum variegatum (borde blanco)",
+        "botanicalName": "Chlorophytum comosum 'Variegatum'",
+        "stageDaysToHarvest": {
+          "Semilla": 150,
+          "Plántula": 75,
+          "Crecimiento": 35,
+          "Floración": 20,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Maceta Colgante",
+        "notes": "Cintas arqueadas de centro verde esmeralda y rebordes exteriores blanco crema continuos.",
+        "climateAdaptation": "Luz indirecta moderada o alta."
+      },
+      {
+        "varietyName": "Vittatum (centro blanco)",
+        "botanicalName": "Chlorophytum comosum 'Vittatum'",
+        "stageDaysToHarvest": {
+          "Semilla": 150,
+          "Plántula": 75,
+          "Crecimiento": 35,
+          "Floración": 20,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Maceta Colgante",
+        "notes": "Franja central ancha blanca pura o marfil rodeada por bordes verde oscuro.",
+        "climateAdaptation": "Luz difusa y ambientes templados."
+      }
+    ]
+  },
+  {
+    "cropName": "Cactus y suculentas de interior",
+    "category": "Interior",
+    "climateOverview": "Plantas crasas y cactáceas ideales para interiores (15-28°C). Almacenan agua en hojas o tallos y demandan muy poco mantenimiento.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Succulentae spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 180,
+        "Plántula": 90,
+        "Crecimiento": 45,
+        "Floración": 25,
+        "Cosecha": 10
+      },
+      "waterFrequencyDays": 10,
+      "sunHours": 4.5,
+      "recommendedMoisturePercent": 35,
+      "recommendedBed": "Maceta Ventana / Escritorio",
+      "notes": "Riego profundo solo cuando el sustrato esté seco por completo. Sustrato arenoso con muy buen drenaje.",
+      "climateAdaptation": "Alféizares de ventanas soleadas o interiores ventilados con buena luz natural."
+    },
+    "varieties": [
+      {
+        "varietyName": "Crassula ovata (Árbol de Jade)",
+        "botanicalName": "Crassula ovata",
+        "stageDaysToHarvest": {
+          "Semilla": 200,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 10,
         "sunHours": 4.5,
         "recommendedMoisturePercent": 35,
-        "recommendedBed": "",
-        "notes": "Hojas carnosas de tono verde azulado pálido con pruina protectora.",
-        "climateAdaptation": "Interior con luz solar directa matutina junto a ventanal."
+        "recommendedBed": "Maceta Mesa Soleada",
+        "notes": "Porte de bonsái arbóreo con hojas carnosas ovaladas verde jade que adquieren bordes rojizos con luz solar.",
+        "climateAdaptation": "Luz abundante y sol matutino suave."
+      },
+      {
+        "varietyName": "Haworthia attenuata (Cebra)",
+        "botanicalName": "Haworthiopsis attenuata",
+        "stageDaysToHarvest": {
+          "Semilla": 170,
+          "Plántula": 85,
+          "Crecimiento": 40,
+          "Floración": 20,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 9,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 35,
+        "recommendedBed": "Maceta Escritorio",
+        "notes": "Roseta compacta con tubérculos blancos en relieve que forman franjas de cebra. Tolera sombra mejor que otros cactus.",
+        "climateAdaptation": "Luz indirecta brillante o sol tamizado."
+      },
+      {
+        "varietyName": "Schlumbergera (Cactus de Navidad)",
+        "botanicalName": "Schlumbergera bridgesii / truncata",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 25,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Maceta Repisa",
+        "notes": "Cactus epífito de selva tropical sin espinas con llamativa floración invernal en fucsia, rojo o blanco.",
+        "climateAdaptation": "Luz indirecta suave, sin sol directo abrasador."
       }
     ]
   }
@@ -2015,21 +3371,17 @@ export function inferCropCategory(cropName: string): PlantCategory {
     return match.category;
   }
   const lower = cropName.toLowerCase();
-  if (
-    lower.includes('pothos') ||
-    lower.includes('potus') ||
-    lower.includes('monstera') ||
-    lower.includes('costilla') ||
-    lower.includes('sansevieria') ||
-    lower.includes('lengua de suegra') ||
-    lower.includes('espatifilo') ||
-    lower.includes('cuna de moisés') ||
-    lower.includes('calathea') ||
-    lower.includes('maranta') ||
-    lower.includes('suculenta') ||
-    lower.includes('echeveria') ||
-    lower.includes('interior')
-  ) {
+  const indoorKeywords = [
+    'monstera', 'pothos', 'potus', 'miami', 'epipremnum', 'sansevieria', 'lengua de suegra',
+    'zamioculca', 'zz', 'ficus', 'filodendro', 'philodendron', 'calatea', 'calathea',
+    'maranta', 'espatifilo', 'cuna de moisés', 'moises', 'anturio', 'anthurium',
+    'aglaonema', 'peperomia', 'palma', 'areca', 'chamaedorea', 'raphis', 'helecho',
+    'culantrillo', 'cuerno de alce', 'drácena', 'dracena', 'tronco de brasil',
+    'begonia', 'singonio', 'syngonium', 'crotón', 'croton', 'cinta', 'mala madre',
+    'chlorophytum', 'cactus', 'suculenta', 'crassula', 'jade', 'haworthia',
+    'schlumbergera', 'interior'
+  ];
+  if (indoorKeywords.some(kw => lower.includes(kw))) {
     return 'Interior';
   }
   return 'Exterior';
@@ -2086,24 +3438,70 @@ export function calculateAutomaticStage(
 
 export function getCropImage(cropName: string): { imageUrl: string; imageAlt: string } {
   const lower = cropName.toLowerCase();
-  if (lower.includes('pothos') || lower.includes('potus')) {
-    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Pothos / Potus de interior' };
-  }
+
+  // Plantas de interior
   if (lower.includes('monstera') || lower.includes('costilla')) {
-    return { imageUrl: '/crops/acelga.svg', imageAlt: 'Monstera Deliciosa de interior' };
+    return { imageUrl: '/crops/acelga.svg', imageAlt: 'Monstera de interior' };
+  }
+  if (lower.includes('pothos') || lower.includes('potus') || lower.includes('miami')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Pothos / Miami de interior' };
   }
   if (lower.includes('sansevieria') || lower.includes('lengua de suegra')) {
     return { imageUrl: '/crops/cebolla.svg', imageAlt: 'Sansevieria de interior' };
   }
+  if (lower.includes('zamioculca') || lower.includes('zz')) {
+    return { imageUrl: '/crops/espinaca.svg', imageAlt: 'Zamioculca ZZ de interior' };
+  }
+  if (lower.includes('ficus')) {
+    return { imageUrl: '/crops/albahaca.svg', imageAlt: 'Ficus de interior' };
+  }
+  if (lower.includes('filodendro') || lower.includes('philodendron')) {
+    return { imageUrl: '/crops/acelga.svg', imageAlt: 'Filodendro de interior' };
+  }
+  if (lower.includes('calatea') || lower.includes('calathea')) {
+    return { imageUrl: '/crops/lechuga.svg', imageAlt: 'Calatea de interior' };
+  }
+  if (lower.includes('maranta')) {
+    return { imageUrl: '/crops/lechuga.svg', imageAlt: 'Maranta de interior' };
+  }
   if (lower.includes('espatifilo') || lower.includes('moisés') || lower.includes('moises')) {
     return { imageUrl: '/crops/calendula.svg', imageAlt: 'Espatifilo de interior' };
   }
-  if (lower.includes('calathea') || lower.includes('maranta')) {
-    return { imageUrl: '/crops/lechuga.svg', imageAlt: 'Calathea de interior' };
+  if (lower.includes('anturio') || lower.includes('anthurium')) {
+    return { imageUrl: '/crops/calendula.svg', imageAlt: 'Anturio de interior' };
   }
-  if (lower.includes('suculenta') || lower.includes('echeveria')) {
-    return { imageUrl: '/crops/rabano.svg', imageAlt: 'Suculenta Echeveria de interior' };
+  if (lower.includes('aglaonema')) {
+    return { imageUrl: '/crops/lechuga.svg', imageAlt: 'Aglaonema de interior' };
   }
+  if (lower.includes('peperomia')) {
+    return { imageUrl: '/crops/albahaca.svg', imageAlt: 'Peperomia de interior' };
+  }
+  if (lower.includes('palma') || lower.includes('areca') || lower.includes('chamaedorea') || lower.includes('raphis')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Palma de interior' };
+  }
+  if (lower.includes('helecho') || lower.includes('culantrillo') || lower.includes('cuerno de alce')) {
+    return { imageUrl: '/crops/cilantro.svg', imageAlt: 'Helecho de interior' };
+  }
+  if (lower.includes('drácena') || lower.includes('dracena') || lower.includes('tronco de brasil') || lower.includes('pleomele')) {
+    return { imageUrl: '/crops/cebolla.svg', imageAlt: 'Drácena de interior' };
+  }
+  if (lower.includes('begonia')) {
+    return { imageUrl: '/crops/calendula.svg', imageAlt: 'Begonia de interior' };
+  }
+  if (lower.includes('singonio') || lower.includes('syngonium')) {
+    return { imageUrl: '/crops/espinaca.svg', imageAlt: 'Singonio de interior' };
+  }
+  if (lower.includes('crotón') || lower.includes('croton')) {
+    return { imageUrl: '/crops/pimiento.svg', imageAlt: 'Crotón de interior' };
+  }
+  if (lower.includes('cinta') || lower.includes('mala madre') || lower.includes('chlorophytum')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Cinta / Mala madre de interior' };
+  }
+  if (lower.includes('cactus') || lower.includes('suculenta') || lower.includes('crassula') || lower.includes('jade') || lower.includes('haworthia') || lower.includes('schlumbergera') || lower.includes('echeveria')) {
+    return { imageUrl: '/crops/rabano.svg', imageAlt: 'Cactus o suculenta de interior' };
+  }
+
+  // Plantas de exterior / huerta
   if (lower.includes('tomate')) {
     return { imageUrl: '/crops/tomate.svg', imageAlt: 'Tomate Chonto / Cherry / Milano' };
   }
