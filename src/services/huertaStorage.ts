@@ -46,15 +46,21 @@ export function setLocalUpdatedAt(isoTime: string = new Date().toISOString()): v
 // ---------------------------------------------------------------------
 export function loadCrops(): CropItem[] {
   try {
+    const user = getUser();
     const key = getStorageKey(CROPS_KEY_PREFIX);
     const raw = localStorage.getItem(key);
     if (!raw) {
-      localStorage.setItem(key, JSON.stringify(INITIAL_CROPS));
-      return INITIAL_CROPS;
+      // Solo el modo demo carga datos de ejemplo; usuarios registrados y nuevos empiezan desde cero
+      if (user?.provider === 'demo') {
+        localStorage.setItem(key, JSON.stringify(INITIAL_CROPS));
+        return INITIAL_CROPS;
+      }
+      localStorage.setItem(key, JSON.stringify([]));
+      return [];
     }
     return JSON.parse(raw);
   } catch {
-    return INITIAL_CROPS;
+    return [];
   }
 }
 
@@ -124,15 +130,21 @@ export async function persistDeleteCropLog(logId: string): Promise<void> {
 // ---------------------------------------------------------------------
 export function loadTasks(): GardenTask[] {
   try {
+    const user = getUser();
     const key = getStorageKey(TASKS_KEY_PREFIX);
     const raw = localStorage.getItem(key);
     if (!raw) {
-      localStorage.setItem(key, JSON.stringify(INITIAL_TASKS));
-      return INITIAL_TASKS;
+      // Solo el modo demo carga tareas de ejemplo iniciales
+      if (user?.provider === 'demo') {
+        localStorage.setItem(key, JSON.stringify(INITIAL_TASKS));
+        return INITIAL_TASKS;
+      }
+      localStorage.setItem(key, JSON.stringify([]));
+      return [];
     }
     return JSON.parse(raw);
   } catch {
-    return INITIAL_TASKS;
+    return [];
   }
 }
 

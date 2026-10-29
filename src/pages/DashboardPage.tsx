@@ -480,7 +480,32 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
       </div>
 
       {/* Lista de Cultivos */}
-      {filteredCrops.length === 0 ? (
+      {crops.length === 0 ? (
+        <div className="p-12 sm:p-16 text-center rounded-3xl border-2 border-dashed border-[#D5E0D3] bg-[#FAF9F6] space-y-4 max-w-xl mx-auto my-8">
+          <div className="w-14 h-14 mx-auto rounded-2xl bg-[#2D5A27]/10 text-[#2D5A27] flex items-center justify-center border border-[#2D5A27]/20">
+            <Sprout className="w-7 h-7" />
+          </div>
+          <div className="space-y-1.5">
+            <h3 className="font-bold text-lg text-[#1A231E]">
+              ¡Aún no tienes ningún cultivo en tu huerta!
+            </h3>
+            <p className="text-xs sm:text-sm text-[#5A655E] leading-relaxed max-w-md mx-auto">
+              Empieza dando de alta tu primer cultivo o creando tus bancales y macetas para comenzar el seguimiento hortícola.
+            </p>
+          </div>
+          <div className="pt-2">
+            <motion.button
+              whileTap={{ scale: 0.96 }}
+              type="button"
+              onClick={() => onNavigate('registro')}
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#2D5A27] text-white text-xs sm:text-sm font-semibold hover:bg-[#23471E] transition-all shadow-sm cursor-pointer"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Registrar mi primer cultivo</span>
+            </motion.button>
+          </div>
+        </div>
+      ) : filteredCrops.length === 0 ? (
         <div className="p-12 text-center rounded-2xl border border-dashed border-[#D5E0D3] bg-white space-y-3">
           <Sprout className="w-10 h-10 mx-auto text-[#8A968E]" />
           <h3 className="font-semibold text-base text-[#1A231E]">
@@ -497,7 +522,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
             }}
             className="px-4 py-2 rounded-xl bg-[#F2EFE9] text-xs font-semibold text-[#1A231E] hover:bg-[#E2DFD7] cursor-pointer"
           >
-            Restablecer
+            Restablecer filtros
           </button>
         </div>
       ) : (

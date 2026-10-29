@@ -98,9 +98,18 @@ export function App() {
     setDonationPromptOpen(true);
   };
   const [user, setUser] = useState<UserProfile | null>(() => getUser());
-  const [crops, setCrops] = useState<CropItem[]>(() => loadCrops());
-  const [tasks, setTasks] = useState<GardenTask[]>(() => loadTasks());
-  const [locations, setLocations] = useState<GardenLocation[]>(() => loadLocations());
+  const [crops, setCrops] = useState<CropItem[]>(() => {
+    const u = getUser();
+    return u?.provider === 'demo' ? loadCrops() : (u ? loadCrops() : []);
+  });
+  const [tasks, setTasks] = useState<GardenTask[]>(() => {
+    const u = getUser();
+    return u?.provider === 'demo' ? loadTasks() : (u ? loadTasks() : []);
+  });
+  const [locations, setLocations] = useState<GardenLocation[]>(() => {
+    const u = getUser();
+    return u?.provider === 'demo' ? loadLocations() : (u ? loadLocations() : []);
+  });
 
   const unsubscribeRealtimeRef = useRef<(() => void) | null>(null);
 
@@ -111,6 +120,17 @@ export function App() {
   useEffect(() => {
     if (user) {
       fetchUserDonorStatus(user.id, user.email);
+      if (isSupabaseConfigured) {
+        syncAllWithSupabase(user.id, user.email).then((remote) => {
+          setCrops(remote.crops || []);
+          setTasks(remote.tasks || []);
+          setLocations(remote.locations || []);
+        });
+      }
+    } else {
+      setCrops([]);
+      setTasks([]);
+      setLocations([]);
     }
   }, [user]);
 
@@ -219,38 +239,23 @@ export function App() {
     if (newUser) {
       if (isSupabaseConfigured) {
         syncAllWithSupabase(newUser.id, newUser.email).then((remote) => {
-          if (remote.crops && remote.crops.length > 0) {
-            setCrops(remote.crops);
-          } else {
-            const current = loadCrops();
-            setCrops(current);
-            current.forEach((crop) => persistNewCrop(crop));
-          }
-
-          if (remote.tasks && remote.tasks.length > 0) {
-            setTasks(remote.tasks);
-          } else {
-            const currentT = loadTasks();
-            setTasks(currentT);
-            currentT.forEach((task) => persistNewTask(task));
-          }
-
-          if (remote.locations && remote.locations.length > 0) {
-            setLocations(remote.locations);
-          } else {
-            setLocations(loadLocations());
-          }
+          // Si el usuario tiene datos remotos en Supabase, cargarlos; si no tiene nada (nuevo usuario), comenzar completamente en blanco
+          setCrops(remote.crops || []);
+          setTasks(remote.tasks || []);
+          setLocations(remote.locations || []);
         });
       } else {
         const localCrops = loadCrops();
         const localTasks = loadTasks();
+        const localLocations = loadLocations();
         setCrops(localCrops);
         setTasks(localTasks);
+        setLocations(localLocations);
       }
     } else {
-      setCrops(loadCrops());
-      setTasks(loadTasks());
-      setLocations(loadLocations());
+      setCrops([]);
+      setTasks([]);
+      setLocations([]);
     }
   };
 
