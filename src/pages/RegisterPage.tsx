@@ -14,6 +14,8 @@ import { CROPS_DATABASE, type CropCategory, type CropVarietyInfo, getCropImage, 
 import { loadLocations, addLocation } from '../services/huertaStorage';
 
 interface RegisterPageProps {
+  locations?: GardenLocation[];
+  onAddLocation?: (location: Omit<GardenLocation, 'id' | 'createdAt'>) => GardenLocation;
   onAddCrop: (crop: CropItem) => void;
   onNavigate: (route: PageRoute) => void;
 }
@@ -48,10 +50,24 @@ const getTodayString = () => {
   return `${year}-${month}-${day}`;
 };
 
-export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigate }) => {
+export const RegisterPage: React.FC<RegisterPageProps> = ({
+  locations: initialLocationsProp,
+  onAddLocation,
+  onAddCrop,
+  onNavigate
+}) => {
 
-  // Locations list from storage
-  const [locations, setLocations] = useState<GardenLocation[]>(() => loadLocations());
+  // Locations list from props or storage
+  const [locations, setLocations] = useState<GardenLocation[]>(() => {
+    if (initialLocationsProp && initialLocationsProp.length > 0) return initialLocationsProp;
+    return loadLocations();
+  });
+
+  React.useEffect(() => {
+    if (initialLocationsProp && initialLocationsProp.length > 0) {
+      setLocations(initialLocationsProp);
+    }
+  }, [initialLocationsProp]);
   const [isCreatingLocation, setIsCreatingLocation] = useState(false);
   const [newLocationName, setNewLocationName] = useState('');
   const [newLocationType, setNewLocationType] = useState<LocationType>('Bancal elevado');
@@ -64,9 +80,9 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
   const [plantedDate, setPlantedDate] = useState<string>(getTodayString());
   const [stage, setStage] = useState<CropStage>('Plántula');
   
-  // Selected location (bed): en blanco si el usuario no ha creado ninguna ubicación
+  // Selected location (bed): primera ubicacion disponible o en blanco
   const [bed, setBed] = useState<string>(() => {
-    const locs = loadLocations();
+    const locs = (initialLocationsProp && initialLocationsProp.length > 0) ? initialLocationsProp : loadLocations();
     return locs.length > 0 ? locs[0].name : '';
   });
 
@@ -74,7 +90,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
   const [recommendedMoisture, setRecommendedMoisture] = useState<number>(CROPS_DATABASE[0].varieties[0].recommendedMoisturePercent);
   const [waterFrequencyDays, setWaterFrequencyDays] = useState<number>(CROPS_DATABASE[0].varieties[0].waterFrequencyDays);
   const [sunHours, setSunHours] = useState<number>(() => {
-    const locs = loadLocations();
+    const locs = (initialLocationsProp && initialLocationsProp.length > 0) ? initialLocationsProp : loadLocations();
     const initialLoc = locs.length > 0 ? locs[0] : null;
     return getSunHoursFromExposure(initialLoc?.sunExposure);
   });
@@ -159,11 +175,17 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
     const trimmed = newLocationName.trim();
     if (!trimmed) return;
 
-    const created = addLocation({
-      name: trimmed,
-      type: newLocationType,
-      sunExposure: newLocationSun
-    });
+    const created = onAddLocation
+      ? onAddLocation({
+          name: trimmed,
+          type: newLocationType,
+          sunExposure: newLocationSun
+        })
+      : addLocation({
+          name: trimmed,
+          type: newLocationType,
+          sunExposure: newLocationSun
+        });
 
     const updatedLocations = loadLocations();
     setLocations(updatedLocations);
@@ -199,7 +221,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
       id: 'crop-' + Date.now(),
       name: varietyLabel,
       variety: currentVariety ? currentVariety.botanicalName : 'Cultivo registrado',
-      bed: bed.trim() || 'Bancal Principal',
+      bed: bed.trim(),
       plantedDate: plantedDate || getTodayString(),
       daysToHarvest: Number(daysToHarvest) || 30,
       stage,
@@ -217,7 +239,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
           title: 'Siembra registrada',
           date: plantedDate || getTodayString(),
           time: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
-          notes: `Ubicación: ${bed.trim() || 'Bancal Principal'}. Etapa inicial: ${stage}. ${isNotSure ? 'Configuración general de especie aplicada.' : ''}`
+          notes: `Ubicación: ${bed.trim()}. Etapa inicial: ${stage}. ${isNotSure ? 'Configuración general de especie aplicada.' : ''}`
         }
       ]
     };

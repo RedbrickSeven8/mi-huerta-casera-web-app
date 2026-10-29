@@ -181,7 +181,7 @@ export async function fetchSupabaseCrops(userId: string, locations: GardenLocati
 
   return cropsData.map((row) => {
     // Si location_id está mapeado, usar el nombre del bancal correspondiente
-    let bedName = row.location_id ? locationMap.get(row.location_id) || row.location_id : 'Bancal Principal';
+    let bedName = row.location_id ? (locationMap.get(row.location_id) || row.location_id) : 'Huerta';
     return {
       id: row.id,
       name: row.name,

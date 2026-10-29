@@ -9,6 +9,7 @@ import {
   generateTasksForCrop,
   recalculateTasksForCrop,
   loadLocations,
+  addLocation,
   deleteLocation,
   syncAllWithSupabase,
   subscribeToSupabaseGarden,
@@ -394,6 +395,13 @@ export function App() {
     triggerDonationPrompt('add_crop');
   };
 
+  const handleAddLocation = (locData: Omit<GardenLocation, 'id' | 'createdAt'>): GardenLocation => {
+    const created = addLocation(locData);
+    const updated = loadLocations();
+    setLocations(updated);
+    return created;
+  };
+
   const handleDeleteLocation = (locationName: string) => {
     const { remainingLocations } = deleteLocation(locationName);
     setLocations(remainingLocations);
@@ -420,8 +428,9 @@ export function App() {
     setCrops(updatedCrops);
     setTasks(updatedTasks);
 
-    // Persistir de forma atómica en Supabase
-    persistNewCrop(newCrop);
+    // Persistir de forma atómica en Supabase asociando location_id si existe
+    const matchedLoc = locations.find((l) => l.name.trim().toLowerCase() === newCrop.bed.trim().toLowerCase());
+    persistNewCrop(newCrop, matchedLoc?.id || null);
     newTasks.forEach((t) => persistNewTask(t));
 
     saveBothToCloud(updatedCrops, updatedTasks);
@@ -643,7 +652,12 @@ export function App() {
                 />
               )}
               {currentRoute === 'registro' && (
-                <RegisterPage onAddCrop={handleAddCrop} onNavigate={handleNavigate} />
+                <RegisterPage
+                  locations={locations}
+                  onAddLocation={handleAddLocation}
+                  onAddCrop={handleAddCrop}
+                  onNavigate={handleNavigate}
+                />
               )}
               {currentRoute === 'agradecimiento' && <ThankYouPage onNavigate={handleNavigate} />}
               {currentRoute === 'auditoria' && <AuditLogPage onNavigate={handleNavigate} />}
