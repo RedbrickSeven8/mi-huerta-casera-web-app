@@ -15,12 +15,15 @@ import {
   Sparkles,
   Edit3,
   AlertTriangle,
-  Info
+  Info,
+  Trees,
+  Home
 } from 'lucide-react';
-import type { CropItem, CropStage, CropLogEntry, PageRoute, GardenLocation } from '../types/huerta';
+import type { CropItem, CropStage, CropLogEntry, PageRoute, GardenLocation, PlantCategory } from '../types/huerta';
 import { GoogleAuthButton } from '../components/GoogleAuthButton';
 import { CropLogModal } from '../components/CropLogModal';
 import type { UserProfile } from '../services/authService';
+import { inferCropCategory } from '../data/cropsDatabase';
 
 interface DashboardPageProps {
   crops: CropItem[];
@@ -51,6 +54,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   user,
   onAuthChange
 }) => {
+  const [selectedCategory, setSelectedCategory] = useState<'Todas' | PlantCategory>('Todas');
   const [selectedBed, setSelectedBed] = useState<string>('Todas');
   const [selectedStage, setSelectedStage] = useState<string>('Todos');
   const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
@@ -107,10 +111,25 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
     return locations.find((l) => l.name.toLowerCase() === selectedBed.toLowerCase()) || null;
   }, [selectedBed, locations]);
 
+  // Filtro por categoría: Plantas de Interior vs Plantas de Exterior
+  const cropsByCategory = useMemo(() => {
+    if (selectedCategory === 'Todas') return crops;
+    return crops.filter((c) => (c.category || inferCropCategory(c.name)) === selectedCategory);
+  }, [crops, selectedCategory]);
+
+  const categoryCounts = useMemo(() => {
+    const counts = {
+      Todas: crops.length,
+      Exterior: crops.filter((c) => (c.category || inferCropCategory(c.name)) === 'Exterior').length,
+      Interior: crops.filter((c) => (c.category || inferCropCategory(c.name)) === 'Interior').length
+    };
+    return counts;
+  }, [crops]);
+
   const cropsByBed = useMemo(() => {
-    if (selectedBed === 'Todas') return crops;
-    return crops.filter((c) => c.bed.toLowerCase() === selectedBed.toLowerCase());
-  }, [crops, selectedBed]);
+    if (selectedBed === 'Todas') return cropsByCategory;
+    return cropsByCategory.filter((c) => c.bed.toLowerCase() === selectedBed.toLowerCase());
+  }, [cropsByCategory, selectedBed]);
 
   const stageCounts = useMemo(() => {
     const counts: Record<string, number> = { Todos: cropsByBed.length };
@@ -271,6 +290,99 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Selector interactivo de Categoría: Plantas de Exterior vs Plantas de Interior */}
+      <div className="bg-white border border-[#E2DFD7] rounded-2xl p-4 sm:p-5 shadow-xs space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <span className="w-8 h-8 rounded-xl bg-[#2D5A27]/10 flex items-center justify-center text-[#2D5A27]">
+              <Sprout className="w-4 h-4" />
+            </span>
+            <div>
+              <h2 className="text-sm font-bold text-[#1A231E]">Categoría de Cultivo</h2>
+              <p className="text-[11px] text-[#5A655E]">Filtrado inteligente para plantas de exterior y plantas de interior</p>
+            </div>
+          </div>
+          <span className="text-xs text-[#5A655E] bg-[#FAF9F6] border border-[#E2DFD7] px-2.5 py-1 rounded-full font-medium">
+            {cropsByCategory.length} de {crops.length} cultivos
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+          <motion.button
+            whileTap={{ scale: 0.98 }}
+            type="button"
+            onClick={() => setSelectedCategory('Todas')}
+            className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+              selectedCategory === 'Todas'
+                ? 'bg-[#1A231E] text-white border-[#1A231E] shadow-xs'
+                : 'bg-[#FAF9F6] border-[#E2DFD7] text-[#4A554E] hover:border-[#1A231E]'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <Layers className="w-4 h-4" />
+              <span>Todos los cultivos</span>
+            </div>
+            <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
+              selectedCategory === 'Todas' ? 'bg-white/20 text-white' : 'bg-white text-[#1A231E] border border-[#E2DFD7]'
+            }`}>
+              {categoryCounts.Todas}
+            </span>
+          </motion.button>
+
+          <motion.button
+            whileTap={{ scale: 0.98 }}
+            type="button"
+            onClick={() => setSelectedCategory('Exterior')}
+            className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+              selectedCategory === 'Exterior'
+                ? 'bg-[#2D5A27] text-white border-[#2D5A27] shadow-xs'
+                : 'bg-[#FAF9F6] border-[#E2DFD7] text-[#4A554E] hover:border-[#2D5A27]'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <Trees className={`w-4 h-4 ${selectedCategory === 'Exterior' ? 'text-emerald-200' : 'text-[#2D5A27]'}`} />
+              <div className="text-left">
+                <span className="block leading-tight">Plantas de Exterior</span>
+                <span className={`text-[10px] font-normal ${selectedCategory === 'Exterior' ? 'text-emerald-100' : 'text-[#5A655E]'}`}>
+                  Huerta y bancales
+                </span>
+              </div>
+            </div>
+            <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
+              selectedCategory === 'Exterior' ? 'bg-white/20 text-white' : 'bg-[#E3EBDD] text-[#2D5A27]'
+            }`}>
+              {categoryCounts.Exterior}
+            </span>
+          </motion.button>
+
+          <motion.button
+            whileTap={{ scale: 0.98 }}
+            type="button"
+            onClick={() => setSelectedCategory('Interior')}
+            className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+              selectedCategory === 'Interior'
+                ? 'bg-[#1E3A8A] text-white border-[#1E3A8A] shadow-xs'
+                : 'bg-[#FAF9F6] border-[#E2DFD7] text-[#4A554E] hover:border-[#1E3A8A]'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <Home className={`w-4 h-4 ${selectedCategory === 'Interior' ? 'text-blue-200' : 'text-blue-600'}`} />
+              <div className="text-left">
+                <span className="block leading-tight">Plantas de Interior</span>
+                <span className={`text-[10px] font-normal ${selectedCategory === 'Interior' ? 'text-blue-100' : 'text-[#5A655E]'}`}>
+                  Salón y luz indirecta
+                </span>
+              </div>
+            </div>
+            <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
+              selectedCategory === 'Interior' ? 'bg-white/20 text-white' : 'bg-blue-50 text-blue-700'
+            }`}>
+              {categoryCounts.Interior}
+            </span>
+          </motion.button>
+        </div>
+      </div>
 
       {/* Filtro Ubicación con Opción de Edición y Eliminación */}
       <div className="space-y-3 bg-[#FAF9F6] p-4 sm:p-5 rounded-2xl border border-[#E2DFD7]">
@@ -551,15 +663,40 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                   />
                   <div>
                     {/* Al pulsar sobre la etiqueta del bancal, activa el filtro de esa ubicación */}
-                    <button
-                      type="button"
-                      onClick={() => setSelectedBed(crop.bed)}
-                      title={`Filtrar por ${crop.bed}`}
-                      className="text-xs font-medium text-[#2D5A27] bg-[#2D5A27]/10 hover:bg-[#2D5A27] hover:text-white transition-colors px-2.5 py-0.5 rounded-full inline-flex items-center gap-1 cursor-pointer"
-                    >
-                      <MapPin className="w-3 h-3" />
-                      <span>{crop.bed}</span>
-                    </button>
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      {/* Badge de Categoría */}
+                      {(crop.category || inferCropCategory(crop.name)) === 'Interior' ? (
+                        <button
+                          type="button"
+                          onClick={() => setSelectedCategory('Interior')}
+                          title="Filtrar cultivos de interior"
+                          className="text-[11px] font-semibold text-blue-700 bg-blue-50 hover:bg-blue-600 hover:text-white border border-blue-200/80 transition-colors px-2 py-0.5 rounded-full inline-flex items-center gap-1 cursor-pointer"
+                        >
+                          <Home className="w-3 h-3" />
+                          <span>Interior</span>
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => setSelectedCategory('Exterior')}
+                          title="Filtrar cultivos de exterior"
+                          className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-700 hover:text-white border border-emerald-200/80 transition-colors px-2 py-0.5 rounded-full inline-flex items-center gap-1 cursor-pointer"
+                        >
+                          <Trees className="w-3 h-3" />
+                          <span>Exterior</span>
+                        </button>
+                      )}
+
+                      <button
+                        type="button"
+                        onClick={() => setSelectedBed(crop.bed)}
+                        title={`Filtrar por ${crop.bed}`}
+                        className="text-[11px] font-medium text-[#2D5A27] bg-[#2D5A27]/10 hover:bg-[#2D5A27] hover:text-white transition-colors px-2 py-0.5 rounded-full inline-flex items-center gap-1 cursor-pointer"
+                      >
+                        <MapPin className="w-3 h-3" />
+                        <span>{crop.bed}</span>
+                      </button>
+                    </div>
                     <h2 className="text-lg font-bold text-[#1A231E] mt-1">{crop.name}</h2>
                     <p className="text-xs italic text-[#5A655E]">{crop.variety}</p>
                   </div>

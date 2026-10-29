@@ -7,9 +7,11 @@ import {
   X,
   Sparkles,
   Layers,
-  HelpCircle
+  HelpCircle,
+  Trees,
+  Home
 } from 'lucide-react';
-import type { CropItem, CropStage, PageRoute, GardenLocation, LocationType } from '../types/huerta';
+import type { CropItem, CropStage, PageRoute, GardenLocation, LocationType, PlantCategory } from '../types/huerta';
 import { CROPS_DATABASE, type CropCategory, type CropVarietyInfo, getCropImage, calculateDynamicWaterFrequency } from '../data/cropsDatabase';
 import { loadLocations, addLocation } from '../services/huertaStorage';
 
@@ -74,7 +76,11 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
   const [newLocationSun, setNewLocationSun] = useState<'Pleno sol' | 'Semisombra' | 'Sombra'>('Pleno sol');
   const [locationSuccessMsg, setLocationSuccessMsg] = useState<string | null>(null);
 
-  const [selectedCropName, setSelectedCropName] = useState<string>(CROPS_DATABASE[0].cropName);
+  const [selectedPlantCategory, setSelectedPlantCategory] = useState<PlantCategory>('Exterior');
+  const [selectedCropName, setSelectedCropName] = useState<string>(() => {
+    const firstOutdoor = CROPS_DATABASE.find(c => c.category === 'Exterior');
+    return firstOutdoor ? firstOutdoor.cropName : CROPS_DATABASE[0].cropName;
+  });
   const [selectedVarietyName, setSelectedVarietyName] = useState<string>(CROPS_DATABASE[0].varieties[0].varietyName);
 
   const [plantedDate, setPlantedDate] = useState<string>(getTodayString());
@@ -113,6 +119,18 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
   const currentVariety: CropVarietyInfo | undefined = isNotSure
     ? currentCategory?.generalInfo
     : currentCategory?.varieties.find((v) => v.varietyName === selectedVarietyName);
+
+  const availableCropsForCategory = CROPS_DATABASE.filter(
+    (c) => (c.category || 'Exterior') === selectedPlantCategory
+  );
+
+  const handlePlantCategoryChange = (cat: PlantCategory) => {
+    setSelectedPlantCategory(cat);
+    const firstOfCategory = CROPS_DATABASE.find((c) => (c.category || 'Exterior') === cat);
+    if (firstOfCategory) {
+      handleCropNameChange(firstOfCategory.cropName);
+    }
+  };
 
   const handleCropNameChange = (newCropName: string) => {
     setSelectedCropName(newCropName);
@@ -221,6 +239,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
       id: 'crop-' + Date.now(),
       name: varietyLabel,
       variety: currentVariety ? currentVariety.botanicalName : 'Cultivo registrado',
+      category: selectedPlantCategory,
       bed: bed.trim(),
       plantedDate: plantedDate || getTodayString(),
       daysToHarvest: Number(daysToHarvest) || 30,
@@ -239,7 +258,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
           title: 'Siembra registrada',
           date: plantedDate || getTodayString(),
           time: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
-          notes: `Ubicación: ${bed.trim()}. Etapa inicial: ${stage}. ${isNotSure ? 'Configuración general de especie aplicada.' : ''}`
+          notes: `Categoría: Planta de ${selectedPlantCategory.toLowerCase()}. Ubicación: ${bed.trim()}. Etapa inicial: ${stage}. ${isNotSure ? 'Configuración general de especie aplicada.' : ''}`
         }
       ]
     };
@@ -283,6 +302,50 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
       )}
 
       <form onSubmit={handleSubmit} className="bg-[#FFFFFF] border border-[#E2DFD7] rounded-2xl p-6 sm:p-8 space-y-6 shadow-xs">
+        {/* Selector de Categoría: Plantas de Exterior vs Plantas de Interior */}
+        <div>
+          <label className="block text-xs font-semibold text-[#1A231E] mb-2">
+            Categoría del cultivo *
+          </label>
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => handlePlantCategoryChange('Exterior')}
+              className={`flex items-center justify-center gap-2.5 px-4 py-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                selectedPlantCategory === 'Exterior'
+                  ? 'bg-[#2D5A27] text-white border-[#2D5A27] shadow-sm shadow-[#2D5A27]/20 ring-2 ring-[#2D5A27]/30'
+                  : 'bg-[#FAF9F6] border-[#D5E0D3] text-[#4A554E] hover:border-[#2D5A27] hover:bg-white'
+              }`}
+            >
+              <Trees className={`w-4 h-4 ${selectedPlantCategory === 'Exterior' ? 'text-emerald-300' : 'text-[#2D5A27]'}`} />
+              <div className="text-left">
+                <span className="block leading-tight font-bold">Plantas de Exterior</span>
+                <span className={`text-[10px] block font-normal leading-tight mt-0.5 ${selectedPlantCategory === 'Exterior' ? 'text-emerald-100' : 'text-[#5A655E]'}`}>
+                  Huerta, bancales, sol directo
+                </span>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handlePlantCategoryChange('Interior')}
+              className={`flex items-center justify-center gap-2.5 px-4 py-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                selectedPlantCategory === 'Interior'
+                  ? 'bg-[#1E3A8A] text-white border-[#1E3A8A] shadow-sm shadow-[#1E3A8A]/20 ring-2 ring-[#1E3A8A]/30'
+                  : 'bg-[#FAF9F6] border-[#D5E0D3] text-[#4A554E] hover:border-[#1E3A8A] hover:bg-white'
+              }`}
+            >
+              <Home className={`w-4 h-4 ${selectedPlantCategory === 'Interior' ? 'text-blue-300' : 'text-blue-600'}`} />
+              <div className="text-left">
+                <span className="block leading-tight font-bold">Plantas de Interior</span>
+                <span className={`text-[10px] block font-normal leading-tight mt-0.5 ${selectedPlantCategory === 'Interior' ? 'text-blue-100' : 'text-[#5A655E]'}`}>
+                  Salón, luz indirecta, macetas
+                </span>
+              </div>
+            </button>
+          </div>
+        </div>
+
         {/* Especie y Variedad con opción 'No estoy seguro' */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
@@ -295,7 +358,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
               onChange={(e) => handleCropNameChange(e.target.value)}
               className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27] cursor-pointer"
             >
-              {CROPS_DATABASE.map((crop) => (
+              {availableCropsForCategory.map((crop) => (
                 <option key={crop.cropName} value={crop.cropName}>
                   {crop.cropName}
                 </option>

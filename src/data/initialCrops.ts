@@ -14,6 +14,7 @@ export const INITIAL_CROPS: CropItem[] = [
     id: 'crop-1',
     name: 'Tomate Cherry',
     variety: 'Solanum lycopersicum var. cerasiforme',
+    category: 'Exterior',
     bed: 'Bancal Sur #1',
     plantedDate: getTodayFormatted(-20),
     daysToHarvest: 18,
@@ -61,6 +62,7 @@ export const INITIAL_CROPS: CropItem[] = [
     id: 'crop-2',
     name: 'Albahaca Genovesa',
     variety: 'Ocimum basilicum',
+    category: 'Exterior',
     bed: 'Bancal Sur #1',
     plantedDate: getTodayFormatted(-15),
     daysToHarvest: 7,
@@ -100,6 +102,7 @@ export const INITIAL_CROPS: CropItem[] = [
     id: 'crop-3',
     name: 'Lechuga Hoja de Roble',
     variety: 'Lactuca sativa',
+    category: 'Exterior',
     bed: 'Mesa de Cultivo Norte #2',
     plantedDate: getTodayFormatted(-10),
     daysToHarvest: 12,
@@ -139,6 +142,7 @@ export const INITIAL_CROPS: CropItem[] = [
     id: 'crop-4',
     name: 'Zanahoria Nantesa',
     variety: 'Daucus carota',
+    category: 'Exterior',
     bed: 'Jardinera Profunda #3',
     plantedDate: getTodayFormatted(-25),
     daysToHarvest: 26,
@@ -171,6 +175,42 @@ export const INITIAL_CROPS: CropItem[] = [
         title: 'Riego',
         date: getTodayFormatted(-2),
         time: '09:00'
+      }
+    ]
+  }
+,
+  {
+    id: 'crop-5',
+    name: 'Pothos Dorado',
+    variety: 'Epipremnum aureum',
+    category: 'Interior',
+    bed: 'Maceta Salón Interior',
+    plantedDate: getTodayFormatted(-40),
+    daysToHarvest: 15,
+    stage: 'Crecimiento',
+    recommendedMoisturePercent: 50,
+    sunHours: 3.5,
+    waterFrequencyDays: 5,
+    lastWatered: 'Ayer, 18:00',
+    notes: 'Planta de interior en estantería con luz indirecta.',
+    imageUrl: '/crops/hierbas.svg',
+    imageAlt: 'Pothos Dorado de interior',
+    log: [
+      {
+        id: 'log-501',
+        type: 'Siembra',
+        title: 'Ubicación en maceta de interior',
+        date: getTodayFormatted(-40),
+        time: '11:00',
+        notes: 'Sustrato aireado con perlita en salón luminoso.'
+      },
+      {
+        id: 'log-502',
+        type: 'Riego',
+        title: 'Riego moderado',
+        date: getTodayFormatted(-1),
+        time: '18:00',
+        notes: 'Comprobación de humedad superficial seca.'
       }
     ]
   }

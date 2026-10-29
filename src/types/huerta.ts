@@ -11,6 +11,8 @@ export type PageRoute =
   | 'admin-donaciones'
   | '404';
 
+export type PlantCategory = 'Interior' | 'Exterior';
+
 export type CropStage = 'Semilla' | 'Plántula' | 'Crecimiento' | 'Floración' | 'Cosecha';
 
 export type LogEntryType =
@@ -37,6 +39,7 @@ export interface CropItem {
   id: string;
   name: string;
   variety: string;
+  category?: PlantCategory; // 'Interior' o 'Exterior'
   bed: string;
   plantedDate: string;
   daysToHarvest: number;

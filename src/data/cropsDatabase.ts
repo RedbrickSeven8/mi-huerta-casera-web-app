@@ -1,4 +1,4 @@
-import type { CropStage } from '../types/huerta';
+import type { CropStage, PlantCategory } from '../types/huerta';
 
 export interface CropVarietyInfo {
   varietyName: string;
@@ -14,6 +14,7 @@ export interface CropVarietyInfo {
 
 export interface CropCategory {
   cropName: string;
+  category?: PlantCategory;
   climateOverview: string;
   generalInfo: CropVarietyInfo;
   varieties: CropVarietyInfo[];
@@ -184,7 +185,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Templado",
         "notes": "Tomate de ensalada grande, carnoso y jugoso. Precisa abono rico en potasio y calcio para evitar podredumbre apical."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Cilantro",
@@ -241,7 +243,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Templado y frío",
         "notes": "Variedad tradicional colombiana de semilla pequeña e intenso sabor. Riegos frecuentes para mantener el follaje tierno y verde."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Lechuga",
@@ -315,7 +318,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Templado con buena luz",
         "notes": "Hojas con tonalidades rojizas y moradas ricas en antocianinas. Requiere sol suave para fijar su intenso color pigmentado."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Cebolla de rama / junca",
@@ -372,7 +376,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Clima frío de altura (Nariño/Boyacá)",
         "notes": "Tallo grueso, macizo y vigoroso. Alta resistencia a bajas temperaturas y heladas de sabana."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Cebolla cabezona",
@@ -446,7 +451,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Templado y frío",
         "notes": "Bulbo blanco brillante de sabor suave y crujiente. Muy buscada para ensaladas frescas y ceviches."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Zanahoria",
@@ -503,7 +509,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Frío",
         "notes": "Raíz cilíndrica lisa, de corazón fino y sabor muy dulce. Requiere suelo suelto y arenoso con buen mantillo."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Rábano",
@@ -560,7 +567,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Frío y templado",
         "notes": "Mantiene su textura firme sin ponerse fofo incluso cuando alcanza mayor tamaño. Resistente a temperaturas bajas."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Acelga",
@@ -617,7 +625,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Frío y templado",
         "notes": "Variedad gigante de hojas abullonadas y pencas muy anchas de color marfil. Gran rendimiento por planta."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Espinaca",
@@ -674,7 +683,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Frío y templado",
         "notes": "Espinaca adaptada a pisos térmicos andinos. Follaje verde intenso resistente a cambios leves de temperatura."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Fríjol",
@@ -748,7 +758,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Cálido y templado",
         "notes": "Variedad de porte arbustivo (determinado) que no requiere tutorado alto. Ciclo más corto y grano moteado."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Habichuela",
@@ -805,7 +816,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Templado",
         "notes": "Variedad trepadora tradicional colombiana de vaina larga y recta, muy tierna para ensaladas cocidas y guisos."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Arveja",
@@ -862,7 +874,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Frío y templado frío",
         "notes": "Vainas tiernas de maduración uniforme. Alta rusticidad frente a bajas temperaturas y rocíos matutinos."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Pimentón y ají",
@@ -936,7 +949,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Cálido y templado",
         "notes": "Frutos alargados, delgados y picantes. Excelente para secar, moler o preparar salsas picantes caseras."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Pepino cohombro",
@@ -993,7 +1007,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Cálido húmedo y templado",
         "notes": "Especialmente resistente a hongos foliares en temporadas lluviosas. Frutos medianos de piel fina."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Calabacín / Zucchini",
@@ -1050,7 +1065,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Templado con buena radiación",
         "notes": "Piel amarilla dorada y sabor suave ligeramente dulce. Atractivo contraste visual en el huerto y en la mesa."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Remolacha",
@@ -1107,7 +1123,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Frío andino",
         "notes": "Forma esférica perfecta, color rojo rubí intenso y pulpa dulce sin anillos marcados. Ideal para conservación."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Papa criolla",
@@ -1164,7 +1181,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Frío andino",
         "notes": "Variedad mejorada de alto rendimiento y uniformidad de tubérculos. Buena resistencia al tizón tardío."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Fresa",
@@ -1238,7 +1256,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Templado y frío",
         "notes": "Producción precoz al inicio de temporada. Fruto simétrico de color rojo medio y pulpa jugosa."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Albahaca",
@@ -1312,7 +1331,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Templado y cálido",
         "notes": "Hojas verde claro con fresco aroma y sabor cítrico a limón. Ideal para infusiones, pescados y ensaladas."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Perejil",
@@ -1369,7 +1389,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Frío y templado",
         "notes": "Hojas planas verde oscuro de aroma más robusto e intenso. El preferido para guisos y caldos aromáticos."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Hierbabuena",
@@ -1409,7 +1430,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Templado y frío",
         "notes": "Aroma fresco y dulce tradicional de las huertas familiares colombianas. Esencial en infusiones, limonadas y aromáticas."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Menta",
@@ -1449,7 +1471,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Frío y templado",
         "notes": "Hojas con alto contenido de mentol, tallos ligeramente violáceos y frescor balsámico penetrante."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Orégano",
@@ -1506,7 +1529,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Cálido y templado",
         "notes": "Orégano de hoja ancha, gruesa y aterciopelada muy común en Colombia. Aroma potente, ideal para sopas y marinados."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Tomillo",
@@ -1546,7 +1570,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Templado y seco",
         "notes": "Hojas diminutas grisáceas con potente contenido de timol. Cosechar ramitas en flor para máxima concentración de aroma."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Romero",
@@ -1586,7 +1611,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Templado y cálido",
         "notes": "Hojas aciculares verde oscuro con envés blanquecino y aroma alcanforado y resinoso. Esquejes arraigan con facilidad."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Limonaria / Limoncillo",
@@ -1626,7 +1652,8 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Cálido y templado",
         "notes": "Hojas acintadas largas y bulbos tiernos con alto porcentaje de citral. Popular en agua de panela y cocina fusión."
       }
-    ]
+    ],
+    "category": "Exterior"
   },
   {
     "cropName": "Caléndula",
@@ -1666,6 +1693,287 @@ export const CROPS_DATABASE: CropCategory[] = [
         "climateAdaptation": "Frío y templado",
         "notes": "Capítulos florales de color naranja y amarillo brillante. Excelente compañera de bancal para tomates, lechugas y aromáticas."
       }
+    ],
+    "category": "Exterior"
+  },
+  {
+    "cropName": "Pothos / Potus",
+    "category": "Interior",
+    "climateOverview": "Planta de interior purificadora muy resistente (15-28°C). Prefiere luz indirecta moderada o baja y riegos espaciados cuando el sustrato seque.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Epipremnum aureum",
+      "stageDaysToHarvest": {
+        "Semilla": 180,
+        "Plántula": 90,
+        "Crecimiento": 45,
+        "Floración": 30,
+        "Cosecha": 15
+      },
+      "waterFrequencyDays": 5,
+      "sunHours": 3.0,
+      "recommendedMoisturePercent": 50,
+      "recommendedBed": "",
+      "notes": "Ideal para estanterías y macetas colgantes de interior. Riego moderado cuando la superficie del sustrato esté seca.",
+      "climateAdaptation": "Interior templado, tolerante a iluminación tenue y sombra."
+    },
+    "varieties": [
+      {
+        "varietyName": "Pothos Dorado",
+        "botanicalName": "Epipremnum aureum 'Golden'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "",
+        "notes": "Hojas jaspeadas en tonos amarillo y verde vivo. Muy resistente y decorativa.",
+        "climateAdaptation": "Interior bien iluminado o con luz indirecta tamizada."
+      },
+      {
+        "varietyName": "Pothos Marble Queen",
+        "botanicalName": "Epipremnum aureum 'Marble Queen'",
+        "stageDaysToHarvest": {
+          "Semilla": 190,
+          "Plántula": 95,
+          "Crecimiento": 50,
+          "Floración": 35,
+          "Cosecha": 20
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 4.0,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "",
+        "notes": "Jaspeado blanco crema abundante. Demanda algo más de luz indirecta para conservar el contraste.",
+        "climateAdaptation": "Interior con abundante luz indirecta."
+      }
+    ]
+  },
+  {
+    "cropName": "Monstera Deliciosa",
+    "category": "Interior",
+    "climateOverview": "Planta tropical de interior por excelencia (18-30°C). Destaca por sus hojas grandes fenestradas. Exige luz indirecta brillante y humedad media-alta.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Monstera deliciosa Liebm.",
+      "stageDaysToHarvest": {
+        "Semilla": 240,
+        "Plántula": 120,
+        "Crecimiento": 60,
+        "Floración": 40,
+        "Cosecha": 20
+      },
+      "waterFrequencyDays": 6,
+      "sunHours": 3.5,
+      "recommendedMoisturePercent": 55,
+      "recommendedBed": "",
+      "notes": "Limpiar el polvo de las hojas periódicamente con un paño húmedo. Evitar sol directo para no quemar las hojas.",
+      "climateAdaptation": "Salones e interiores cálidos con luz indirecta constante."
+    },
+    "varieties": [
+      {
+        "varietyName": "Monstera Deliciosa Clásica",
+        "botanicalName": "Monstera deliciosa var. deliciosa",
+        "stageDaysToHarvest": {
+          "Semilla": 240,
+          "Plántula": 120,
+          "Crecimiento": 60,
+          "Floración": 40,
+          "Cosecha": 20
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 3.5,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "",
+        "notes": "Costilla de Adán clásica con grandes hojas acanaladas. Tutorar con fibra de coco.",
+        "climateAdaptation": "Espacios interiores luminosos sin sol directo."
+      }
+    ]
+  },
+  {
+    "cropName": "Sansevieria / Lengua de Suegra",
+    "category": "Interior",
+    "climateOverview": "Una de las plantas de interior más longevas y resistentes (12-32°C). Excelente purificadora de aire nocturno con mínimo requerimiento hídrico.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Dracaena trifasciata (Prain) Mabb.",
+      "stageDaysToHarvest": {
+        "Semilla": 200,
+        "Plántula": 100,
+        "Crecimiento": 50,
+        "Floración": 30,
+        "Cosecha": 15
+      },
+      "waterFrequencyDays": 10,
+      "sunHours": 2.5,
+      "recommendedMoisturePercent": 40,
+      "recommendedBed": "",
+      "notes": "Riego muy espaciado: regar únicamente cuando el sustrato esté completamente seco. Gran tolerancia al olvido.",
+      "climateAdaptation": "Se adapta a sombras densas o interiores con poca luz natural."
+    },
+    "varieties": [
+      {
+        "varietyName": "Sansevieria Laurentii",
+        "botanicalName": "Dracaena trifasciata 'Laurentii'",
+        "stageDaysToHarvest": {
+          "Semilla": 200,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 10,
+        "sunHours": 3.0,
+        "recommendedMoisturePercent": 40,
+        "recommendedBed": "",
+        "notes": "Bordes dorados distintivos a lo largo de hojas erectas y rígidas.",
+        "climateAdaptation": "Espacios interiores residenciales o de oficina."
+      },
+      {
+        "varietyName": "Sansevieria Moonshine",
+        "botanicalName": "Dracaena trifasciata 'Moonshine'",
+        "stageDaysToHarvest": {
+          "Semilla": 200,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 30,
+          "Cosecha": 15
+        },
+        "waterFrequencyDays": 10,
+        "sunHours": 3.0,
+        "recommendedMoisturePercent": 40,
+        "recommendedBed": "",
+        "notes": "Tonalidad verde plateado claro muy moderna y decorativa.",
+        "climateAdaptation": "Interiores luminosos o semi-sombreados."
+      }
+    ]
+  },
+  {
+    "cropName": "Espatifilo / Cuna de Moisés",
+    "category": "Interior",
+    "climateOverview": "Elegante planta de interior con brácteas blancas (16-26°C). Filtra toxinas del aire e indica sed bajando sutilmente sus hojas.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Spathiphyllum wallisii",
+      "stageDaysToHarvest": {
+        "Semilla": 160,
+        "Plántula": 80,
+        "Crecimiento": 40,
+        "Floración": 20,
+        "Cosecha": 10
+      },
+      "waterFrequencyDays": 4,
+      "sunHours": 2.5,
+      "recommendedMoisturePercent": 65,
+      "recommendedBed": "",
+      "notes": "Prefiere sustrato húmedo sin encharcamiento y sombra o luz tamizada. Pulverizar follaje en días secos.",
+      "climateAdaptation": "Interior fresco y sombreado, dormitorios y salas de estar."
+    },
+    "varieties": [
+      {
+        "varietyName": "Espatifilo Flor Blanca",
+        "botanicalName": "Spathiphyllum wallisii 'Sweet Chico'",
+        "stageDaysToHarvest": {
+          "Semilla": 160,
+          "Plántula": 80,
+          "Crecimiento": 40,
+          "Floración": 20,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 2.5,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "",
+        "notes": "Floración blanca continua con hojas lustrosas verde oscuro.",
+        "climateAdaptation": "Sombra luminosa o luz difusa en interior."
+      }
+    ]
+  },
+  {
+    "cropName": "Calathea / Maranta",
+    "category": "Interior",
+    "climateOverview": "Planta de oración fascinante de interior (18-27°C). Cierra sus hojas en la noche y muestra envés purpúreo. Requiere alta humedad ambiental.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Goeppertia insignis / Calathea",
+      "stageDaysToHarvest": {
+        "Semilla": 170,
+        "Plántula": 85,
+        "Crecimiento": 45,
+        "Floración": 25,
+        "Cosecha": 10
+      },
+      "waterFrequencyDays": 4,
+      "sunHours": 3.0,
+      "recommendedMoisturePercent": 70,
+      "recommendedBed": "",
+      "notes": "Regar con agua reposada o filtrada para evitar puntas marrones. Luz indirecta suave.",
+      "climateAdaptation": "Interiores protegidos de corrientes frías y sol directo."
+    },
+    "varieties": [
+      {
+        "varietyName": "Calathea Orbifolia",
+        "botanicalName": "Goeppertia orbifolia",
+        "stageDaysToHarvest": {
+          "Semilla": 170,
+          "Plántula": 85,
+          "Crecimiento": 45,
+          "Floración": 25,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 3.0,
+        "recommendedMoisturePercent": 70,
+        "recommendedBed": "",
+        "notes": "Enormes hojas redondeadas con rayas verde plateado y verde oliva.",
+        "climateAdaptation": "Interior húmedo y cálido."
+      }
+    ]
+  },
+  {
+    "cropName": "Suculenta Echeveria",
+    "category": "Interior",
+    "climateOverview": "Planta crasa compacta en forma de roseta (15-28°C). Ideal para repisas de ventanas soleadas interiores, escritorios y pequeños maceteros.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Echeveria elegans Rose",
+      "stageDaysToHarvest": {
+        "Semilla": 150,
+        "Plántula": 75,
+        "Crecimiento": 40,
+        "Floración": 25,
+        "Cosecha": 10
+      },
+      "waterFrequencyDays": 8,
+      "sunHours": 4.5,
+      "recommendedMoisturePercent": 35,
+      "recommendedBed": "",
+      "notes": "Riego por inmersión o en la base evitando que quede agua estancada en el corazón de la roseta.",
+      "climateAdaptation": "Ventrana interior soleada y bien ventilada."
+    },
+    "varieties": [
+      {
+        "varietyName": "Echeveria Elegans (Rosa de Alabastro)",
+        "botanicalName": "Echeveria elegans",
+        "stageDaysToHarvest": {
+          "Semilla": 150,
+          "Plántula": 75,
+          "Crecimiento": 40,
+          "Floración": 25,
+          "Cosecha": 10
+        },
+        "waterFrequencyDays": 8,
+        "sunHours": 4.5,
+        "recommendedMoisturePercent": 35,
+        "recommendedBed": "",
+        "notes": "Hojas carnosas de tono verde azulado pálido con pruina protectora.",
+        "climateAdaptation": "Interior con luz solar directa matutina junto a ventanal."
+      }
     ]
   }
 ];
@@ -1694,6 +2002,37 @@ export function getDaysToHarvestForCrop(cropName: string, varietyName: string, s
     Cosecha: 0
   };
   return defaults[stage];
+}
+
+/**
+ * Determina si un cultivo pertenece a interior o exterior a partir de la base botánica
+ */
+export function inferCropCategory(cropName: string): PlantCategory {
+  const match = CROPS_DATABASE.find(
+    (c) => c.cropName.toLowerCase() === cropName.toLowerCase()
+  );
+  if (match && match.category) {
+    return match.category;
+  }
+  const lower = cropName.toLowerCase();
+  if (
+    lower.includes('pothos') ||
+    lower.includes('potus') ||
+    lower.includes('monstera') ||
+    lower.includes('costilla') ||
+    lower.includes('sansevieria') ||
+    lower.includes('lengua de suegra') ||
+    lower.includes('espatifilo') ||
+    lower.includes('cuna de moisés') ||
+    lower.includes('calathea') ||
+    lower.includes('maranta') ||
+    lower.includes('suculenta') ||
+    lower.includes('echeveria') ||
+    lower.includes('interior')
+  ) {
+    return 'Interior';
+  }
+  return 'Exterior';
 }
 
 export function calculateAutomaticStage(
@@ -1747,6 +2086,24 @@ export function calculateAutomaticStage(
 
 export function getCropImage(cropName: string): { imageUrl: string; imageAlt: string } {
   const lower = cropName.toLowerCase();
+  if (lower.includes('pothos') || lower.includes('potus')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Pothos / Potus de interior' };
+  }
+  if (lower.includes('monstera') || lower.includes('costilla')) {
+    return { imageUrl: '/crops/acelga.svg', imageAlt: 'Monstera Deliciosa de interior' };
+  }
+  if (lower.includes('sansevieria') || lower.includes('lengua de suegra')) {
+    return { imageUrl: '/crops/cebolla.svg', imageAlt: 'Sansevieria de interior' };
+  }
+  if (lower.includes('espatifilo') || lower.includes('moisés') || lower.includes('moises')) {
+    return { imageUrl: '/crops/calendula.svg', imageAlt: 'Espatifilo de interior' };
+  }
+  if (lower.includes('calathea') || lower.includes('maranta')) {
+    return { imageUrl: '/crops/lechuga.svg', imageAlt: 'Calathea de interior' };
+  }
+  if (lower.includes('suculenta') || lower.includes('echeveria')) {
+    return { imageUrl: '/crops/rabano.svg', imageAlt: 'Suculenta Echeveria de interior' };
+  }
   if (lower.includes('tomate')) {
     return { imageUrl: '/crops/tomate.svg', imageAlt: 'Tomate Chonto / Cherry / Milano' };
   }

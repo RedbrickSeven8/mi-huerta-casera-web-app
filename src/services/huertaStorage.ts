@@ -1,4 +1,4 @@
-import { calculateDynamicWaterFrequency } from '../data/cropsDatabase';
+import { calculateDynamicWaterFrequency, inferCropCategory } from '../data/cropsDatabase';
 import type { CropItem, GardenTask, GardenLocation, CropLogEntry } from '../types/huerta';
 import { INITIAL_CROPS, INITIAL_TASKS } from '../data/initialCrops';
 import { getUser } from './authService';
@@ -58,7 +58,11 @@ export function loadCrops(): CropItem[] {
       localStorage.setItem(key, JSON.stringify([]));
       return [];
     }
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw) as CropItem[];
+    return parsed.map((c) => ({
+      ...c,
+      category: c.category || inferCropCategory(c.name)
+    }));
   } catch {
     return [];
   }
