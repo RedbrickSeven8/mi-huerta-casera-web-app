@@ -1696,9 +1696,285 @@ export const CROPS_DATABASE: CropCategory[] = [
     ],
     "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
   },
-    {
-    "cropName": "Hortensia (Hydrangea)",
-    "climateOverview": "Clima templado a fresco con sombra parcial y riego generoso. Floración abundante y espectacular en jardines exteriores.",
+  {
+    "cropName": "Veranera / Buganvilla (Bougainvillea)",
+    "climateOverview": "Arbusto trepador vigoroso y muy rústico para exteriores a pleno sol directo y clima cálido a templado. Excepcional resistencia a sequías y profusa floración de brácteas coloreadas.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Bougainvillea spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 180,
+        "Plántula": 90,
+        "Crecimiento": 45,
+        "Floración": 15,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 5,
+      "sunHours": 7.5,
+      "recommendedMoisturePercent": 40,
+      "recommendedBed": "Muro o Pérgola Exterior",
+      "climateAdaptation": "Pleno sol cálido y seco",
+      "notes": "Riego espaciado dejando secar el sustrato entre riegos. El exceso de humedad inhibe la floración y produce solo follaje verde."
+    },
+    "varieties": [
+      {
+        "varietyName": "Fucsia",
+        "botanicalName": "Bougainvillea spectabilis 'Fuchsia'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 8.0,
+        "recommendedMoisturePercent": 40,
+        "recommendedBed": "Muro o Pérgola Exterior",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Brácteas fucsia magenta vibrantes muy densas y de crecimiento trepador enérgico sobre muros y celosías."
+      },
+      {
+        "varietyName": "Blanca",
+        "botanicalName": "Bougainvillea 'White Pride'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 40,
+        "recommendedBed": "Fachada o Valla Exterior",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Brácteas blanco puro muy elegante que contrastan con follaje verde oscuro profundo."
+      },
+      {
+        "varietyName": "Naranja",
+        "botanicalName": "Bougainvillea 'Orange King'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 8.0,
+        "recommendedMoisturePercent": 40,
+        "recommendedBed": "Arco o Muro Soleado",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Espectacular tono naranja cobrizo que vira a salmón dorado con la exposición solar directa."
+      },
+      {
+        "varietyName": "Variegada",
+        "botanicalName": "Bougainvillea 'Variegata'",
+        "stageDaysToHarvest": {
+          "Semilla": 190,
+          "Plántula": 95,
+          "Crecimiento": 50,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 42,
+        "recommendedBed": "Macetero o Muro Exterior",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Follaje bicolor verde orlado de crema o amarillo marfil con brácteas magenta intenso."
+      },
+      {
+        "varietyName": "Enana",
+        "botanicalName": "Bougainvillea 'Pixie' / 'Bambino'",
+        "stageDaysToHarvest": {
+          "Semilla": 150,
+          "Plántula": 75,
+          "Crecimiento": 35,
+          "Floración": 12,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 45,
+        "recommendedBed": "Maceta Exterior de Terraza",
+        "climateAdaptation": "Pleno sol a sol directo",
+        "notes": "Porte arbustivo compacto sin espinas agresivas, ideal para macetones, balcones y borduras."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Novios / Geranios (Pelargonium)",
+    "climateOverview": "Clásicas plantas florales de exterior para balcones, jardineras y patios soleados. Floración continua, hojas aromáticas aterciopeladas y gran resistencia a vientos.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Pelargonium spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 90,
+        "Plántula": 55,
+        "Crecimiento": 30,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 6.5,
+      "recommendedMoisturePercent": 55,
+      "recommendedBed": "Jardinera de Balcón",
+      "climateAdaptation": "Templado exterior soleado",
+      "notes": "Retirar flores y hojas secas periódicamente para estimular floración constante. Regar en la base sin mojar el follaje."
+    },
+    "varieties": [
+      {
+        "varietyName": "Zonal (novio de jardín)",
+        "botanicalName": "Pelargonium zonale",
+        "stageDaysToHarvest": {
+          "Semilla": 90,
+          "Plántula": 55,
+          "Crecimiento": 30,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Bancal o Jardinera Frontal",
+        "climateAdaptation": "Exterior soleado",
+        "notes": "Porte erguido, hojas con anillo oscuro concéntrico (zona) y umbelas densas de tonos vivos."
+      },
+      {
+        "varietyName": "Colgante / Hiedra",
+        "botanicalName": "Pelargonium peltatum",
+        "stageDaysToHarvest": {
+          "Semilla": 85,
+          "Plántula": 50,
+          "Crecimiento": 28,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.0,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Cesta Colgante Exterior",
+        "climateAdaptation": "Balcones y alféizares",
+        "notes": "Tallos rastreros y péndulos de hojas carnosas estilo hiedra, perfecto para colgar en cascada."
+      },
+      {
+        "varietyName": "Pensamiento (real)",
+        "botanicalName": "Pelargonium domesticum / grandiflorum",
+        "stageDaysToHarvest": {
+          "Semilla": 95,
+          "Plántula": 60,
+          "Crecimiento": 35,
+          "Floración": 12,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 5.5,
+        "recommendedMoisturePercent": 58,
+        "recommendedBed": "Jardinera Semisombra Fresca",
+        "climateAdaptation": "Clima templado a fresco",
+        "notes": "Flores grandes aterciopeladas con manchas oscuras centrales similares a los pensamientos reales."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "San Joaquín / Hibisco (Hibiscus rosa-sinensis)",
+    "climateOverview": "Arbusto perenne tropical y subtropical de flores acampanadas llamativas con pistilo sobresaliente prominente. Requiere sol directo para florecer todo el año.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Hibiscus rosa-sinensis",
+      "stageDaysToHarvest": {
+        "Semilla": 120,
+        "Plántula": 70,
+        "Crecimiento": 35,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 2,
+      "sunHours": 7.0,
+      "recommendedMoisturePercent": 65,
+      "recommendedBed": "Jardín Exterior Soleado",
+      "climateAdaptation": "Cálido y templado exterior",
+      "notes": "Suelo rico en nutrientes con drenaje impecable. Agradece fertilizaciones ricas en potasio durante floración."
+    },
+    "varieties": [
+      {
+        "varietyName": "Rojo doble",
+        "botanicalName": "Hibiscus rosa-sinensis 'Rubro-plenus'",
+        "stageDaysToHarvest": {
+          "Semilla": 120,
+          "Plántula": 70,
+          "Crecimiento": 35,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Seto Floral Exterior",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Flores de pétalos múltiples densos y color escarlata profundo que semejan rosas tropicales."
+      },
+      {
+        "varietyName": "Amarillo sencillo",
+        "botanicalName": "Hibiscus rosa-sinensis 'Yellow Submarine'",
+        "stageDaysToHarvest": {
+          "Semilla": 110,
+          "Plántula": 65,
+          "Crecimiento": 30,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 62,
+        "recommendedBed": "Bancal Exterior Central",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Flores sencillas de 5 pétalos amarillo canario brillante con centro granate o rojo vivo."
+      },
+      {
+        "varietyName": "Salmón",
+        "botanicalName": "Hibiscus rosa-sinensis 'Salmon Queen'",
+        "stageDaysToHarvest": {
+          "Semilla": 115,
+          "Plántula": 68,
+          "Crecimiento": 32,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 64,
+        "recommendedBed": "Macizo Floral Exterior",
+        "climateAdaptation": "Pleno sol a sol parcial",
+        "notes": "Cálido matiz melocotón y salmón pastel muy florífero durante los meses de alta insolación."
+      },
+      {
+        "varietyName": "Variegado",
+        "botanicalName": "Hibiscus rosa-sinensis 'Cooperi'",
+        "stageDaysToHarvest": {
+          "Semilla": 130,
+          "Plántula": 75,
+          "Crecimiento": 40,
+          "Floración": 12,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Jardín de Contraste",
+        "climateAdaptation": "Pleno sol suave o semisombra",
+        "notes": "Follaje espectacular tricolor jaspeado de blanco, verde y rosa con flores rojas solitarias."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Hortensia (Hydrangea macrophylla)",
+    "climateOverview": "Arbusto caducifolio o perennifolio apreciado por sus gigantescas cabezuelas florales esféricas. Exige suelo ácido fértil, alta humedad y semisombra protegida del sol quemante de mediodía.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
       "botanicalName": "Hydrangea macrophylla",
@@ -1713,13 +1989,13 @@ export const CROPS_DATABASE: CropCategory[] = [
       "sunHours": 4.5,
       "recommendedMoisturePercent": 75,
       "recommendedBed": "Jardín Exterior Semisombra",
-      "climateAdaptation": "Clima templado a frío húmedo",
-      "notes": "Suelo ácido y rico en materia orgánica. Mantener el sustrato siempre fresco sin encharcar."
+      "climateAdaptation": "Clima templado a fresco húmedo",
+      "notes": "Suelo ácido y rico en materia orgánica. Mantener el sustrato siempre fresco sin encharcar las raíces."
     },
     "varieties": [
       {
-        "varietyName": "Macrophylla Azul/Rosa",
-        "botanicalName": "Hydrangea macrophylla var. hortensia",
+        "varietyName": "Azul",
+        "botanicalName": "Hydrangea macrophylla 'Nikko Blue'",
         "stageDaysToHarvest": {
           "Semilla": 180,
           "Plántula": 120,
@@ -1730,101 +2006,261 @@ export const CROPS_DATABASE: CropCategory[] = [
         "waterFrequencyDays": 2,
         "sunHours": 4.5,
         "recommendedMoisturePercent": 75,
-        "recommendedBed": "Jardín Exterior Semisombra",
-        "climateAdaptation": "Semisombra exterior húmeda",
-        "notes": "Grandes inflorescencias esféricas. El pH del sustrato determina el tono (ácido = azul, neutro/alcalino = rosa)."
+        "recommendedBed": "Suelo Ácido Semisombra",
+        "climateAdaptation": "Semisombra fresca ácida",
+        "notes": "Tonos azul intenso logrados mediante sulfato de aluminio o tierra ácida de pH 4.5 - 5.5."
+      },
+      {
+        "varietyName": "Rosada",
+        "botanicalName": "Hydrangea macrophylla 'Pink Diamond'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 120,
+          "Crecimiento": 60,
+          "Floración": 20,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 4.5,
+        "recommendedMoisturePercent": 75,
+        "recommendedBed": "Bancal Semisombra Neutro",
+        "climateAdaptation": "Semisombra templada",
+        "notes": "Inflorescencias rosa fucsia a magenta suave en sustratos neutros o ligeramente calcáreos (pH 6.0 - 6.8)."
+      },
+      {
+        "varietyName": "Blanca",
+        "botanicalName": "Hydrangea macrophylla 'Madame Emile Mouillère'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 120,
+          "Crecimiento": 60,
+          "Floración": 20,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 4.0,
+        "recommendedMoisturePercent": 78,
+        "recommendedBed": "Rincón Fresco Semisombra",
+        "climateAdaptation": "Semisombra protegida",
+        "notes": "Globos blancos puros luminosos que viran a verde menta suave con el paso de las semanas."
       }
     ],
     "category": "Plantas de exterior"
   },
   {
-    "cropName": "Lavanda",
-    "climateOverview": "Clima mediterráneo, templado y cálido a pleno sol. Muy resistente a la sequía y excelente atrayente de polinizadores.",
+    "cropName": "Ave del paraíso (Strelitzia)",
+    "climateOverview": "Planta exótica majestuosa de hojas coriáceas verde grisáceas y flores con forma de cabeza de ave crestada. Excelente resistencia a vientos y pleno sol exterior.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
-      "botanicalName": "Lavandula angustifolia",
+      "botanicalName": "Strelitzia spp.",
       "stageDaysToHarvest": {
-        "Semilla": 120,
-        "Plántula": 75,
-        "Crecimiento": 40,
-        "Floración": 15,
+        "Semilla": 240,
+        "Plántula": 150,
+        "Crecimiento": 70,
+        "Floración": 25,
         "Cosecha": 0
       },
       "waterFrequencyDays": 4,
-      "sunHours": 7.5,
-      "recommendedMoisturePercent": 45,
-      "recommendedBed": "Bancal Exterior Soleado",
-      "climateAdaptation": "Pleno sol, suelo muy drenado",
-      "notes": "Riego moderado a escaso. Evitar acumulación de agua en las raíces; perfecta para rocallas y jardines secos."
+      "sunHours": 7.0,
+      "recommendedMoisturePercent": 50,
+      "recommendedBed": "Césped o Macizo Exterior",
+      "climateAdaptation": "Pleno sol templado a cálido",
+      "notes": "Riego moderado permitiendo secar la capa superior de tierra. Excelente drenaje indispensable."
     },
     "varieties": [
       {
-        "varietyName": "Angustifolia Francesa",
-        "botanicalName": "Lavandula angustifolia",
+        "varietyName": "Reginae (clásica naranja)",
+        "botanicalName": "Strelitzia reginae",
         "stageDaysToHarvest": {
-          "Semilla": 120,
-          "Plántula": 75,
-          "Crecimiento": 40,
-          "Floración": 15,
+          "Semilla": 240,
+          "Plántula": 150,
+          "Crecimiento": 70,
+          "Floración": 25,
           "Cosecha": 0
         },
         "waterFrequencyDays": 4,
-        "sunHours": 8.0,
-        "recommendedMoisturePercent": 45,
-        "recommendedBed": "Bancal Exterior Soleado",
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Macizo Floral Soleado",
         "climateAdaptation": "Pleno sol exterior",
-        "notes": "Espigas florales violetas muy aromáticas. Favorece la polinización en todo el jardín y la huerta."
-      }
-    ],
-    "category": "Plantas de exterior"
-  },
-  {
-    "cropName": "Geranio / Pelargonio",
-    "climateOverview": "Planta de floración continua para balcones, terrazas y jardines soleados. Tolera calor y vientos exteriores.",
-    "generalInfo": {
-      "varietyName": "No estoy seguro (Especie general)",
-      "botanicalName": "Pelargonium zonale",
-      "stageDaysToHarvest": {
-        "Semilla": 90,
-        "Plántula": 55,
-        "Crecimiento": 30,
-        "Floración": 10,
-        "Cosecha": 0
+        "notes": "Flor icónica con sépalos naranja brillante y pétalos azules intensos en espata horizontal rígida."
       },
-      "waterFrequencyDays": 3,
-      "sunHours": 6.5,
-      "recommendedMoisturePercent": 55,
-      "recommendedBed": "Jardinera Exterior",
-      "climateAdaptation": "Exterior soleado y templado",
-      "notes": "Retirar flores marchitas para estimular nuevos botones. Proteger de lluvias torrenciales continuadas."
-    },
-    "varieties": [
       {
-        "varietyName": "Zonale Clásico",
-        "botanicalName": "Pelargonium zonale",
+        "varietyName": "Nicolai (gigante blanca)",
+        "botanicalName": "Strelitzia nicolai",
         "stageDaysToHarvest": {
-          "Semilla": 90,
-          "Plántula": 55,
-          "Crecimiento": 30,
-          "Floración": 10,
+          "Semilla": 300,
+          "Plántula": 180,
+          "Crecimiento": 90,
+          "Floración": 30,
           "Cosecha": 0
         },
         "waterFrequencyDays": 3,
         "sunHours": 6.5,
-        "recommendedMoisturePercent": 55,
-        "recommendedBed": "Jardinera Exterior",
-        "climateAdaptation": "Balcones y exteriores",
-        "notes": "Colores intensos rojo, fucsia y blanco. Regar en la base sin mojar el follaje ni las flores."
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Jardín Amplio de Fondo",
+        "climateAdaptation": "Pleno sol a sol parcial",
+        "notes": "Porte arbóreo de hasta 5-7 metros con hojas monumentales tipo platanillo y flores blancas con bráctea purpúrea oscura."
       }
     ],
     "category": "Plantas de exterior"
   },
   {
-    "cropName": "Buganvilla / Veranera",
-    "climateOverview": "Arbusto trepador vigoroso para exteriores con sol directo intenso y clima cálido a templado. Hojas modificadas (brácteas) muy coloridas.",
+    "cropName": "Heliconias y platanillos",
+    "climateOverview": "Plantas tropicales exuberantes de gran porte con brácteas colgantes o erguidas de colores intensos. Necesitan calor, abundante luz natural y humedad constante en suelo.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
-      "botanicalName": "Bougainvillea spectabilis",
+      "botanicalName": "Heliconia spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 200,
+        "Plántula": 120,
+        "Crecimiento": 60,
+        "Floración": 20,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 2,
+      "sunHours": 6.0,
+      "recommendedMoisturePercent": 75,
+      "recommendedBed": "Bancal Húmedo de Jardín",
+      "climateAdaptation": "Cálido húmedo a templado",
+      "notes": "Requiere suelo rico en compost y riegos generosos sin encharcamiento prolongado."
+    },
+    "varieties": [
+      {
+        "varietyName": "Rostrata (pico de tucán)",
+        "botanicalName": "Heliconia rostrata",
+        "stageDaysToHarvest": {
+          "Semilla": 200,
+          "Plántula": 120,
+          "Crecimiento": 60,
+          "Floración": 20,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 6.0,
+        "recommendedMoisturePercent": 75,
+        "recommendedBed": "Jardín Tropical Exterior",
+        "climateAdaptation": "Semisombra o sol suave",
+        "notes": "Inflorescencia péndula colgante de brácteas rojo escarlata bordeadas de amarillo oro y ápice verde."
+      },
+      {
+        "varietyName": "Psittacorum (chita)",
+        "botanicalName": "Heliconia psittacorum",
+        "stageDaysToHarvest": {
+          "Semilla": 160,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 70,
+        "recommendedBed": "Bordura Tropical Exterior",
+        "climateAdaptation": "Pleno sol a sol parcial",
+        "notes": "Porte más bajo y compacto (1 a 1.5 m) con flores erectas anaranjadas ideales para setos y flor cortada."
+      },
+      {
+        "varietyName": "Wagneriana",
+        "botanicalName": "Heliconia wagneriana",
+        "stageDaysToHarvest": {
+          "Semilla": 220,
+          "Plántula": 130,
+          "Crecimiento": 65,
+          "Floración": 20,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 6.0,
+        "recommendedMoisturePercent": 78,
+        "recommendedBed": "Macizo Alto de Jardín",
+        "climateAdaptation": "Tropical húmedo",
+        "notes": "Brácteas erectas de rosa pálido a rojo con quilla verde limón muy duraderas en la mata."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Corona de Cristo (Euphorbia milii)",
+    "climateOverview": "Suculenta arbustiva leñosa provista de espinas afiladas y flores (ciatios) casi perpetuas. Extraordinaria tolerancia al calor seco y pleno sol inclemente.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Euphorbia milii",
+      "stageDaysToHarvest": {
+        "Semilla": 150,
+        "Plántula": 90,
+        "Crecimiento": 40,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 6,
+      "sunHours": 7.5,
+      "recommendedMoisturePercent": 35,
+      "recommendedBed": "Rocalla o Jardinera Soleada",
+      "climateAdaptation": "Pleno sol y sequedad",
+      "notes": "Regar únicamente cuando el sustrato esté completamente seco. Su savia blanca lechosa es irritante."
+    },
+    "varieties": [
+      {
+        "varietyName": "Roja clásica",
+        "botanicalName": "Euphorbia milii var. splendens 'Red'",
+        "stageDaysToHarvest": {
+          "Semilla": 150,
+          "Plántula": 90,
+          "Crecimiento": 40,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 8.0,
+        "recommendedMoisturePercent": 35,
+        "recommendedBed": "Jardinera Soleada Exterior",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Brácteas redondeadas color rojo carmesí brillante en ramilletes constantes."
+      },
+      {
+        "varietyName": "Amarilla",
+        "botanicalName": "Euphorbia milii 'Lutea'",
+        "stageDaysToHarvest": {
+          "Semilla": 150,
+          "Plántula": 90,
+          "Crecimiento": 40,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 6,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 35,
+        "recommendedBed": "Rocalla o Maceta Exterior",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Flores amarillo mantequilla a limón vivo que aportan contraste cálido en composiciones secas."
+      },
+      {
+        "varietyName": "Gigante tailandesa",
+        "botanicalName": "Euphorbia milii 'Poysean' (Thai Hybrid)",
+        "stageDaysToHarvest": {
+          "Semilla": 160,
+          "Plántula": 95,
+          "Crecimiento": 45,
+          "Floración": 12,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 38,
+        "recommendedBed": "Maceta de Gran Calibre",
+        "climateAdaptation": "Pleno sol ventilado",
+        "notes": "Hojas carnosas más anchas y brácteas gigantes de hasta 5 cm de diámetro con tonalidades jaspeadas."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Ixora",
+    "climateOverview": "Arbusto leñoso de hojas brillantes coriáceas y densas inflorescencias globulares en corimbo. Apreciadísimo para setos vivos y macizos ornamentales a pleno sol o ligera semisombra.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Ixora spp.",
       "stageDaysToHarvest": {
         "Semilla": 180,
         "Plántula": 100,
@@ -1832,17 +2268,17 @@ export const CROPS_DATABASE: CropCategory[] = [
         "Floración": 15,
         "Cosecha": 0
       },
-      "waterFrequencyDays": 5,
-      "sunHours": 8.0,
-      "recommendedMoisturePercent": 40,
-      "recommendedBed": "Pérgola / Muro Exterior",
-      "climateAdaptation": "Pleno sol y sequedad moderada",
-      "notes": "Requiere soporte o celosía para trepar. Regar con moderación para favorecer una floración más densa."
+      "waterFrequencyDays": 3,
+      "sunHours": 6.5,
+      "recommendedMoisturePercent": 60,
+      "recommendedBed": "Seto Vivo Exterior",
+      "climateAdaptation": "Cálido exterior a pleno sol",
+      "notes": "Prefiere sustratos ligeramente ácidos y ricos en humus. Tolera muy bien la poda de formación."
     },
     "varieties": [
       {
-        "varietyName": "Spectabilis Magenta",
-        "botanicalName": "Bougainvillea spectabilis",
+        "varietyName": "Coccinea (roja grande)",
+        "botanicalName": "Ixora coccinea",
         "stageDaysToHarvest": {
           "Semilla": 180,
           "Plántula": 100,
@@ -1850,19 +2286,711 @@ export const CROPS_DATABASE: CropCategory[] = [
           "Floración": 15,
           "Cosecha": 0
         },
-        "waterFrequencyDays": 5,
-        "sunHours": 8.0,
-        "recommendedMoisturePercent": 40,
-        "recommendedBed": "Pérgola / Muro Exterior",
-        "climateAdaptation": "Exterior soleado",
-        "notes": "Espectacular despliegue fucsia y púrpura en épocas secas y soleadas."
+        "waterFrequencyDays": 3,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Seto Floral de Jardín",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Inflorescencias globosas de 8-12 cm con decenas de flores tubulares rojo fuego."
+      },
+      {
+        "varietyName": "Enana roja",
+        "botanicalName": "Ixora 'Taiwanese Dwarf Red'",
+        "stageDaysToHarvest": {
+          "Semilla": 150,
+          "Plántula": 85,
+          "Crecimiento": 40,
+          "Floración": 12,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Bordura Baja de Jardín",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Porte enano compacto (40-60 cm) con follaje menudo y flores rojas tupidas."
+      },
+      {
+        "varietyName": "Enana amarilla",
+        "botanicalName": "Ixora 'Taiwanese Dwarf Yellow'",
+        "stageDaysToHarvest": {
+          "Semilla": 150,
+          "Plántula": 85,
+          "Crecimiento": 40,
+          "Floración": 12,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Bordura Baja Soleada",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Ramilletes compactos amarillo canario muy luminosos para delinear senderos y bancales."
+      },
+      {
+        "varietyName": "Rosada",
+        "botanicalName": "Ixora 'Nora Grant' Pink",
+        "stageDaysToHarvest": {
+          "Semilla": 170,
+          "Plántula": 95,
+          "Crecimiento": 45,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 62,
+        "recommendedBed": "Macizo de Arbustos",
+        "climateAdaptation": "Pleno sol a sol parcial",
+        "notes": "Flores rosa intenso orquídea que florecen continuamente en climas templados y cálidos."
       }
     ],
     "category": "Plantas de exterior"
   },
   {
-    "cropName": "Rosal de Jardín",
-    "climateOverview": "Arbusto floral exterior de máxima nobleza. Exige mínimo 6 horas de sol directo, sustrato enriquecido y buen flujo de aire.",
+    "cropName": "Duranta",
+    "climateOverview": "Arbusto perenne vigoroso de rápido crecimiento utilizado masivamente para setos divisorios, topiaria y jardinería exterior. Muy resistente al calor y podas repetidas.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Duranta erecta",
+      "stageDaysToHarvest": {
+        "Semilla": 120,
+        "Plántula": 70,
+        "Crecimiento": 35,
+        "Floración": 15,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 7.0,
+      "recommendedMoisturePercent": 55,
+      "recommendedBed": "Seto o Cerramiento Exterior",
+      "climateAdaptation": "Pleno sol cálido y templado",
+      "notes": "Crecimiento rápido. Podar con regularidad para densificar el follaje. Sus bayas doradas son decorativas pero tóxicas si se ingieren."
+    },
+    "varieties": [
+      {
+        "varietyName": "Repens (verde común)",
+        "botanicalName": "Duranta erecta 'Repens'",
+        "stageDaysToHarvest": {
+          "Semilla": 120,
+          "Plántula": 70,
+          "Crecimiento": 35,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Seto Divisorio Alto",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Hojas verde intenso lustroso con racimos colgantes de flores violeta azulado y frutos anaranjados."
+      },
+      {
+        "varietyName": "Gold / Limón",
+        "botanicalName": "Duranta erecta 'Gold Mound' / 'Aurea'",
+        "stageDaysToHarvest": {
+          "Semilla": 120,
+          "Plántula": 70,
+          "Crecimiento": 35,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Bordura Amarilla de Contraste",
+        "climateAdaptation": "Pleno sol directo",
+        "notes": "Follaje amarillo dorado limón muy brillante bajo sol pleno, ideal para contrastar con plantas de follaje verde oscuro."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Eugenia (Syzygium paniculatum)",
+    "climateOverview": "Arbusto o árbol pequeño de follaje denso y reluciente, célebre en paisajismo por sus brotes nuevos de color cobrizo rojizo. Perfecto para setos formales y pantallas visuales.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Syzygium paniculatum",
+      "stageDaysToHarvest": {
+        "Semilla": 180,
+        "Plántula": 110,
+        "Crecimiento": 55,
+        "Floración": 20,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 6.5,
+      "recommendedMoisturePercent": 60,
+      "recommendedBed": "Seto Perimetral de Jardín",
+      "climateAdaptation": "Pleno sol a sol parcial",
+      "notes": "Acepta podas arquitectónicas frecuentes. Riego regular los primeros meses tras el trasplante hasta que desarrolle raíz profunda."
+    },
+    "varieties": [
+      {
+        "varietyName": "Seto tradicional",
+        "botanicalName": "Syzygium paniculatum 'Standard'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 110,
+          "Crecimiento": 55,
+          "Floración": 20,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Seto Perimetral Alto",
+        "climateAdaptation": "Exterior soleado",
+        "notes": "Alcanza de 2 a 4 metros, excelente para privacidad perimetral con brotes rojizos espectaculares tras cada poda."
+      },
+      {
+        "varietyName": "Enana",
+        "botanicalName": "Syzygium paniculatum 'Compacta' / 'Nana'",
+        "stageDaysToHarvest": {
+          "Semilla": 150,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 58,
+        "recommendedBed": "Bordura Baja o Topiaria",
+        "climateAdaptation": "Exterior soleado",
+        "notes": "Porte denso y ramificado bajo (60-120 cm), ideal para macetas cónicas o esferas podadas."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Agapanto (Agapanthus africanus)",
+    "climateOverview": "Planta herbácea perenne rizomatosa con hojas acintadas arqueadas verde oscuro y majestuosas umbelas esféricas de flores celestes o blancas.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Agapanthus africanus",
+      "stageDaysToHarvest": {
+        "Semilla": 180,
+        "Plántula": 100,
+        "Crecimiento": 50,
+        "Floración": 20,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 4,
+      "sunHours": 6.5,
+      "recommendedMoisturePercent": 50,
+      "recommendedBed": "Bordura o Macizo Exterior",
+      "climateAdaptation": "Pleno sol a semisombra",
+      "notes": "Gran resistencia a la sequía gracias a sus gruesos rizomas carnosos. Riego moderado evitando el estancamiento de agua."
+    },
+    "varieties": [
+      {
+        "varietyName": "Azul",
+        "botanicalName": "Agapanthus africanus 'Blue'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 20,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Macizo de Flor Azul",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Umbelas con 30-50 flores tubulares acampanadas de color azul cielo a violeta zafiro."
+      },
+      {
+        "varietyName": "Blanco",
+        "botanicalName": "Agapanthus africanus 'Albus'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 20,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 50,
+        "recommendedBed": "Bordura Blanca Iluminada",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Flores blanco puro deslumbrantes que destacan sobre follaje denso y oscuro."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Lantana",
+    "climateOverview": "Arbusto o cubresuelos rústico y sumamente florífero que tolera sol ardiente, vientos y suelos pobres. Es uno de los mayores imanes de mariposas y polinizadores.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Lantana spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 90,
+        "Plántula": 50,
+        "Crecimiento": 25,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 4,
+      "sunHours": 7.5,
+      "recommendedMoisturePercent": 40,
+      "recommendedBed": "Talud o Rocalla Soleada",
+      "climateAdaptation": "Pleno sol y calor",
+      "notes": "Riego espaciado y moderado. Hojas aromáticas ásperas que ahuyentan herbívoros."
+    },
+    "varieties": [
+      {
+        "varietyName": "Camara (multicolor/bandera española)",
+        "botanicalName": "Lantana camara",
+        "stageDaysToHarvest": {
+          "Semilla": 90,
+          "Plántula": 50,
+          "Crecimiento": 25,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 8.0,
+        "recommendedMoisturePercent": 40,
+        "recommendedBed": "Arbusto Floral Frontal",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Inflorescencias que cambian de color del amarillo al naranja y rojo en la misma cabezuela."
+      },
+      {
+        "varietyName": "Montevidensis (morada rastrera)",
+        "botanicalName": "Lantana montevidensis",
+        "stageDaysToHarvest": {
+          "Semilla": 80,
+          "Plántula": 45,
+          "Crecimiento": 22,
+          "Floración": 8,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 42,
+        "recommendedBed": "Talud Colgante o Rocalla",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Hábito tapizante rastrero o colgante cubierto de pequeñas flores lavanda violáceo."
+      },
+      {
+        "varietyName": "Enana amarilla",
+        "botanicalName": "Lantana 'New Gold'",
+        "stageDaysToHarvest": {
+          "Semilla": 85,
+          "Plántula": 48,
+          "Crecimiento": 24,
+          "Floración": 8,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 8.0,
+        "recommendedMoisturePercent": 40,
+        "recommendedBed": "Maceta o Bordura Soleada",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Porte muy bajo y estéril que florece sin pausa con flores amarillo oro puro."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Gardenia / Jazmín del Cabo",
+    "climateOverview": "Arbusto ornamental célebre por sus flores blanco ceroso de perfume embriagador inconfundible y follaje verde lustroso perenne.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Gardenia jasminoides",
+      "stageDaysToHarvest": {
+        "Semilla": 180,
+        "Plántula": 120,
+        "Crecimiento": 60,
+        "Floración": 18,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 2,
+      "sunHours": 5.0,
+      "recommendedMoisturePercent": 70,
+      "recommendedBed": "Jardín Exterior Semisombra Ácida",
+      "climateAdaptation": "Semisombra templada cálida",
+      "notes": "Sustrato ácido (pH 5.0 - 6.0) bien drenado y húmedo. Aportar quelatos de hierro si aparecen hojas amarillas con venas verdes."
+    },
+    "varieties": [
+      {
+        "varietyName": "Radicans (enana)",
+        "botanicalName": "Gardenia jasminoides 'Radicans'",
+        "stageDaysToHarvest": {
+          "Semilla": 150,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 5.0,
+        "recommendedMoisturePercent": 68,
+        "recommendedBed": "Bordura Aromática Baja",
+        "climateAdaptation": "Semisombra",
+        "notes": "Porte rastrero enano (30-50 cm) con flores dobles pequeñas muy perfumadas para bordear caminos."
+      },
+      {
+        "varietyName": "August Beauty",
+        "botanicalName": "Gardenia jasminoides 'August Beauty'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 120,
+          "Crecimiento": 60,
+          "Floración": 18,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 5.5,
+        "recommendedMoisturePercent": 70,
+        "recommendedBed": "Macizo Floral Perfumado",
+        "climateAdaptation": "Sol matutino o semisombra",
+        "notes": "Grandes flores dobles de hasta 8 cm de diámetro con fragancia dulce muy potente y prolongada."
+      },
+      {
+        "varietyName": "Cuatro estaciones",
+        "botanicalName": "Gardenia jasminoides 'Four Seasons'",
+        "stageDaysToHarvest": {
+          "Semilla": 170,
+          "Plántula": 110,
+          "Crecimiento": 55,
+          "Floración": 16,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 5.0,
+        "recommendedMoisturePercent": 70,
+        "recommendedBed": "Maceta de Terraza Protegida",
+        "climateAdaptation": "Semisombra húmeda",
+        "notes": "Capacidad de rebrotar flores a lo largo de varias temporadas al año en climas estables."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Petunia",
+    "climateOverview": "Planta herbácea anual o perenne de exterior famosa por sus abundantes flores acampanadas en forma de trompeta con amplísima gama de colores y rápido crecimiento.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Petunia x hybrida",
+      "stageDaysToHarvest": {
+        "Semilla": 70,
+        "Plántula": 40,
+        "Crecimiento": 20,
+        "Floración": 8,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 2,
+      "sunHours": 6.5,
+      "recommendedMoisturePercent": 60,
+      "recommendedBed": "Jardinera o Maceta Colgante",
+      "climateAdaptation": "Pleno sol y ventilación",
+      "notes": "Requiere buen drenaje y riegos frecuentes pero sin encharcar. Eliminar flores marchitas para asegurar brotación continua."
+    },
+    "varieties": [
+      {
+        "varietyName": "Surfinia (colgante)",
+        "botanicalName": "Petunia x atkinsiana 'Surfinia'",
+        "stageDaysToHarvest": {
+          "Semilla": 70,
+          "Plántula": 40,
+          "Crecimiento": 20,
+          "Floración": 8,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Cesta Colgante de Balcón",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Hábito colgante vigoroso que forma cascadas florales de hasta 1 metro de longitud y tolera lluvias mejor."
+      },
+      {
+        "varietyName": "Grandiflora",
+        "botanicalName": "Petunia x hybrida 'Grandiflora'",
+        "stageDaysToHarvest": {
+          "Semilla": 75,
+          "Plántula": 42,
+          "Crecimiento": 22,
+          "Floración": 8,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 58,
+        "recommendedBed": "Bancal de Flor de Temporada",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Flores muy grandes (8-10 cm) de pétalos aterciopelados con garganta contrastada."
+      },
+      {
+        "varietyName": "Calibrachoa (mini petunia)",
+        "botanicalName": "Calibrachoa x hybrida (Million Bells)",
+        "stageDaysToHarvest": {
+          "Semilla": 65,
+          "Plántula": 35,
+          "Crecimiento": 18,
+          "Floración": 7,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Jardinera Mixta de Balcón",
+        "climateAdaptation": "Pleno sol a semisombra",
+        "notes": "Centenares de diminutas campanas florales autorreparables que no requieren pinzado manual de flores secas."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Cordiline / Drácena roja (Cordyline fruticosa)",
+    "climateOverview": "Planta arbustiva de hojas lanceoladas erectas o arqueadas con tonalidades púrpuras, rojizas y rosadas fascinantes. Aporta un foco visual vertical de aire tropical.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Cordyline fruticosa",
+      "stageDaysToHarvest": {
+        "Semilla": 180,
+        "Plántula": 100,
+        "Crecimiento": 50,
+        "Floración": 20,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 5.5,
+      "recommendedMoisturePercent": 65,
+      "recommendedBed": "Jardín Tropical o Maceta Exterior",
+      "climateAdaptation": "Semisombra o sol filtrado cálido",
+      "notes": "Evitar vientos fríos secantes. Riego moderado constante dejando secar ligeramente el sustrato entre riegos."
+    },
+    "varieties": [
+      {
+        "varietyName": "Red Sister",
+        "botanicalName": "Cordyline fruticosa 'Red Sister'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 20,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.0,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Macizo de Follaje Rojo",
+        "climateAdaptation": "Sol suave a semisombra",
+        "notes": "Hojas de tono fucsia encendido y borgoña oscuro con alta intensidad de color."
+      },
+      {
+        "varietyName": "Kiwi",
+        "botanicalName": "Cordyline fruticosa 'Kiwi'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 20,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 5.5,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Macetero de Entrada Exterior",
+        "climateAdaptation": "Semisombra luminosa",
+        "notes": "Follaje variegado rayado con estrías verde lima, crema y márgenes rosa fosforescente."
+      },
+      {
+        "varietyName": "Rubra",
+        "botanicalName": "Cordyline fruticosa 'Rubra'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 20,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.0,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Bancal de Fondo Tropical",
+        "climateAdaptation": "Sol filtrado o semisombra",
+        "notes": "Hojas anchas verde cobrizo que viran a rojo vino tinto profundo."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Achira / Canna índica",
+    "climateOverview": "Herbácea rizomatosa de rápido crecimiento, hojas semejantes a las del plátano y flores llamativas amarillas, naranjas o rojas en espiga.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Canna indica",
+      "stageDaysToHarvest": {
+        "Semilla": 120,
+        "Plántula": 70,
+        "Crecimiento": 35,
+        "Floración": 12,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 2,
+      "sunHours": 7.0,
+      "recommendedMoisturePercent": 75,
+      "recommendedBed": "Bancal Húmedo o Estanque",
+      "climateAdaptation": "Pleno sol y humedad abundante",
+      "notes": "Suelo muy fértil y riego frecuente; prospera incluso cerca de fuentes o estanques exteriores."
+    },
+    "varieties": [
+      {
+        "varietyName": "Roja común",
+        "botanicalName": "Canna indica 'Red'",
+        "stageDaysToHarvest": {
+          "Semilla": 120,
+          "Plántula": 70,
+          "Crecimiento": 35,
+          "Floración": 12,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 75,
+        "recommendedBed": "Seto Floral Húmedo",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Flores rojas intensas y follaje verde lustroso muy rústico."
+      },
+      {
+        "varietyName": "Pretoria (hoja rayada)",
+        "botanicalName": "Canna 'Pretoria' (Bengal Tiger)",
+        "stageDaysToHarvest": {
+          "Semilla": 130,
+          "Plántula": 75,
+          "Crecimiento": 40,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 75,
+        "recommendedBed": "Macizo Tropical de Impacto",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Hojas espectaculares rayadas de amarillo y verde con flores naranja melón luminosas."
+      },
+      {
+        "varietyName": "Amarilla moteada",
+        "botanicalName": "Canna 'Yellow King Humbert'",
+        "stageDaysToHarvest": {
+          "Semilla": 125,
+          "Plántula": 72,
+          "Crecimiento": 38,
+          "Floración": 12,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 75,
+        "recommendedBed": "Bancal Floral Soleado",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Pétalos amarillo oro salpicados con pecas y motas rojo escarlata."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Pentas (Pentas lanceolata)",
+    "climateOverview": "Arbusto floral siempreverde con racimos densos en corimbo de flores estrelladas de 5 puntas. Florece incansablemente y es un polo de atracción para colibríes y mariposas.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Pentas lanceolata",
+      "stageDaysToHarvest": {
+        "Semilla": 90,
+        "Plántula": 50,
+        "Crecimiento": 25,
+        "Floración": 8,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 6.5,
+      "recommendedMoisturePercent": 60,
+      "recommendedBed": "Jardinera o Macizo Polinizador",
+      "climateAdaptation": "Pleno sol a semisombra templada",
+      "notes": "Pellizcar las flores pasadas para multiplicar nuevos brotes florales. Riego moderado constante."
+    },
+    "varieties": [
+      {
+        "varietyName": "Roja",
+        "botanicalName": "Pentas lanceolata 'Red'",
+        "stageDaysToHarvest": {
+          "Semilla": 90,
+          "Plántula": 50,
+          "Crecimiento": 25,
+          "Floración": 8,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Bancal de Polinizadores",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Ramilletes rojo rubí vivo especialmente atrayentes para colibríes."
+      },
+      {
+        "varietyName": "Rosada",
+        "botanicalName": "Pentas lanceolata 'Pink'",
+        "stageDaysToHarvest": {
+          "Semilla": 90,
+          "Plántula": 50,
+          "Crecimiento": 25,
+          "Floración": 8,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Jardinera Frontal",
+        "climateAdaptation": "Pleno sol a semisombra",
+        "notes": "Flores rosa dulce pastel de excelente durabilidad en climas cálidos y templados."
+      },
+      {
+        "varietyName": "Lavanda",
+        "botanicalName": "Pentas lanceolata 'Lavender'",
+        "stageDaysToHarvest": {
+          "Semilla": 90,
+          "Plántula": 50,
+          "Crecimiento": 25,
+          "Floración": 8,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Macizo Floral Armónico",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Estrellas violeta lavanda suave que combinan con follajes plateados y amarillos."
+      },
+      {
+        "varietyName": "Blanca",
+        "botanicalName": "Pentas lanceolata 'White'",
+        "stageDaysToHarvest": {
+          "Semilla": 90,
+          "Plántula": 50,
+          "Crecimiento": 25,
+          "Floración": 8,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 60,
+        "recommendedBed": "Jardín de Noche / Luna",
+        "climateAdaptation": "Pleno sol a semisombra",
+        "notes": "Blanco inmaculado resplandeciente tanto a la luz solar como bajo iluminación nocturna."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Rosas de jardín",
+    "climateOverview": "La reina de las flores exteriores. Arbusto caducifolio o perennifolio de fragancia inigualable que exige al menos 6 horas de sol directo, ventilación y suelo muy nutrido.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
       "botanicalName": "Rosa spp.",
@@ -1878,12 +3006,12 @@ export const CROPS_DATABASE: CropCategory[] = [
       "recommendedMoisturePercent": 65,
       "recommendedBed": "Macizo Floral Exterior",
       "climateAdaptation": "Clima templado exterior soleado",
-      "notes": "Podas anuales de formación y saneamiento. Riego profundo a nivel del suelo para prevenir oídio o mancha negra."
+      "notes": "Podas anuales de saneamiento. Regar directo a la base de la tierra para evitar manchas fúngicas en las hojas."
     },
     "varieties": [
       {
-        "varietyName": "Rosa Grandiflora",
-        "botanicalName": "Rosa grandiflora",
+        "varietyName": "Híbrida de té",
+        "botanicalName": "Rosa x hybrida de té",
         "stageDaysToHarvest": {
           "Semilla": 150,
           "Plántula": 90,
@@ -1892,11 +3020,386 @@ export const CROPS_DATABASE: CropCategory[] = [
           "Cosecha": 0
         },
         "waterFrequencyDays": 2,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Bancal Exclusivo de Rosas",
+        "climateAdaptation": "Pleno sol ventilado",
+        "notes": "Capullos cónicos elegantes solitarios sobre tallos largos, la rosa clásica de corte por excelencia."
+      },
+      {
+        "varietyName": "Floribunda",
+        "botanicalName": "Rosa floribunda",
+        "stageDaysToHarvest": {
+          "Semilla": 140,
+          "Plántula": 85,
+          "Crecimiento": 40,
+          "Floración": 12,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
         "sunHours": 7.0,
         "recommendedMoisturePercent": 65,
-        "recommendedBed": "Macizo Floral Exterior",
-        "climateAdaptation": "Exterior soleado aireado",
-        "notes": "Flores grandes solitarias o en ramilletes de fragancia persistente."
+        "recommendedBed": "Macizo Arbustivo Floral",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Racimos tupidos de múltiples flores simultáneas que crean macizos continuos de color."
+      },
+      {
+        "varietyName": "Rosa miniatura",
+        "botanicalName": "Rosa chinensis 'Minima'",
+        "stageDaysToHarvest": {
+          "Semilla": 110,
+          "Plántula": 65,
+          "Crecimiento": 30,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 62,
+        "recommendedBed": "Jardinera de Ventana o Balcón",
+        "climateAdaptation": "Pleno sol directo",
+        "notes": "Arbusto menudo (25-45 cm) con rosas diminutas perfectas para borduras o macetas en exterior."
+      },
+      {
+        "varietyName": "Rosal trepador",
+        "botanicalName": "Rosa arvensis / Rosa x hybrida 'Climber'",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 110,
+          "Crecimiento": 60,
+          "Floración": 18,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Pérgola, Arco o Celosía",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Largas ramas sarmentosas que cubren celosías, arcos y muros con espectaculares floraciones masivas."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Agave",
+    "climateOverview": "Suculenta xerófita arquitectónica de hojas suculentas gigantes dispuestas en roseta basal rígida. Insuperable resistencia a sequías extremas y sol abrasador.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Agave spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 365,
+        "Plántula": 180,
+        "Crecimiento": 90,
+        "Floración": 30,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 10,
+      "sunHours": 8.0,
+      "recommendedMoisturePercent": 25,
+      "recommendedBed": "Jardín Seco o Rocalla Xérica",
+      "climateAdaptation": "Pleno sol árido y calor",
+      "notes": "Riego muy escaso y drenaje arenoso perfecto. El exceso de humedad provoca pudrición basal inmediata."
+    },
+    "varieties": [
+      {
+        "varietyName": "Americana (variegado y azul)",
+        "botanicalName": "Agave americana var. variegata / protoamericana",
+        "stageDaysToHarvest": {
+          "Semilla": 365,
+          "Plántula": 180,
+          "Crecimiento": 90,
+          "Floración": 30,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 10,
+        "sunHours": 8.5,
+        "recommendedMoisturePercent": 25,
+        "recommendedBed": "Rocalla Monumental Exterior",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Rosetas majestuosas de hasta 2 metros con espinas marginales y bandas verde azuladas o márgenes amarillo crema."
+      },
+      {
+        "varietyName": "Attenuata (cuello de cisne)",
+        "botanicalName": "Agave attenuata",
+        "stageDaysToHarvest": {
+          "Semilla": 240,
+          "Plántula": 120,
+          "Crecimiento": 60,
+          "Floración": 25,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 7,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 35,
+        "recommendedBed": "Macetero Escultural de Terraza",
+        "climateAdaptation": "Pleno sol suave o semisombra",
+        "notes": "Agave sin espinas de hojas suaves verde glauco y elegante inflorescencia curvada en trompa de cisne."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Bromelias de sol",
+    "climateOverview": "Bromelias adaptadas a pleno sol directo que acumulan agua en su roseta central 'tanque' y exhiben hojas coriáceas en tonalidades rojizas, anaranjadas y doradas.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Bromeliaceae (géneros Aechmea / Neoregelia)",
+      "stageDaysToHarvest": {
+        "Semilla": 200,
+        "Plántula": 120,
+        "Crecimiento": 60,
+        "Floración": 20,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 4,
+      "sunHours": 7.0,
+      "recommendedMoisturePercent": 50,
+      "recommendedBed": "Macizo Tropical Soleado",
+      "climateAdaptation": "Pleno sol a sol parcial",
+      "notes": "Mantener agua limpia en el centro de la roseta. Sustrato muy poroso a base de corteza, fibra y perlita."
+    },
+    "varieties": [
+      {
+        "varietyName": "Aechmea blanchetiana (naranja)",
+        "botanicalName": "Aechmea blanchetiana",
+        "stageDaysToHarvest": {
+          "Semilla": 200,
+          "Plántula": 120,
+          "Crecimiento": 60,
+          "Floración": 20,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 8.0,
+        "recommendedMoisturePercent": 48,
+        "recommendedBed": "Foco Escultural Soleado",
+        "climateAdaptation": "Pleno sol directo",
+        "notes": "Hojas de hasta 1 metro que bajo sol intenso adquieren un asombroso color naranja cobrizo y amarillo brillante."
+      },
+      {
+        "varietyName": "Neoregelia fireball",
+        "botanicalName": "Neoregelia 'Fireball'",
+        "stageDaysToHarvest": {
+          "Semilla": 160,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 52,
+        "recommendedBed": "Bordura de Bromelias o Tronco",
+        "climateAdaptation": "Pleno sol a sol suave",
+        "notes": "Rosetas pequeñas estoloníferas compactas de color rojo fuego profundo que cubren suelo o madera."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Jazmín trepador",
+    "climateOverview": "Trepadoras leñosas aromáticas para pérgolas, celosías, rejas y muros exteriores. Famosas por su perfume embriagador que inunda el jardín al atardecer y anochecer.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Jasminum / Trachelospermum / Cestrum",
+      "stageDaysToHarvest": {
+        "Semilla": 160,
+        "Plántula": 90,
+        "Crecimiento": 45,
+        "Floración": 15,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 6.5,
+      "recommendedMoisturePercent": 60,
+      "recommendedBed": "Pérgola, Reja o Muro Soleado",
+      "climateAdaptation": "Pleno sol a semisombra",
+      "notes": "Guiar los tallos jóvenes mediante tutores o ataduras suaves. Riego regular asegurando un buen drenaje."
+    },
+    "varieties": [
+      {
+        "varietyName": "De la noche (Cestrum nocturnum)",
+        "botanicalName": "Cestrum nocturnum (Galán de noche)",
+        "stageDaysToHarvest": {
+          "Semilla": 150,
+          "Plántula": 85,
+          "Crecimiento": 40,
+          "Floración": 12,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.0,
+        "recommendedMoisturePercent": 62,
+        "recommendedBed": "Rincón Cercano a Ventana o Terraza",
+        "climateAdaptation": "Sol matutino o semisombra",
+        "notes": "Arbusto trepador con racimos de flores blanco verdoso que liberan una intensa fragancia nocturna inconfundible."
+      },
+      {
+        "varietyName": "Estrella (Trachelospermum jasminoides)",
+        "botanicalName": "Trachelospermum jasminoides (Jazmín de leche)",
+        "stageDaysToHarvest": {
+          "Semilla": 170,
+          "Plántula": 95,
+          "Crecimiento": 50,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 58,
+        "recommendedBed": "Muro o Valla Perimetral",
+        "climateAdaptation": "Pleno sol o semisombra",
+        "notes": "Hojas coriáceas perennes verde oscuro y miles de florecillas blancas estrelladas con perfume dulce de jazmín."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Mussaenda",
+    "climateOverview": "Arbusto o arbolito tropical decorativo caracterizado por sus grandes sépalos petaloides dilatados y vistosos que recubren casi por completo el follaje.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Mussaenda spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 190,
+        "Plántula": 110,
+        "Crecimiento": 55,
+        "Floración": 18,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 6.5,
+      "recommendedMoisturePercent": 65,
+      "recommendedBed": "Jardín Tropical Frontal",
+      "climateAdaptation": "Cálido y templado soleado",
+      "notes": "Suelo húmedo bien drenado rico en compost. Proteger de heladas o vientos secos extremos."
+    },
+    "varieties": [
+      {
+        "varietyName": "Dona Luz (rosada)",
+        "botanicalName": "Mussaenda 'Dona Luz'",
+        "stageDaysToHarvest": {
+          "Semilla": 190,
+          "Plántula": 110,
+          "Crecimiento": 55,
+          "Floración": 18,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Macizo de Foco Tropical",
+        "climateAdaptation": "Pleno sol o sol parcial",
+        "notes": "Espectaculares brácteas rosado salmón intenso que envuelven las pequeñas flores tubulares estrelladas."
+      },
+      {
+        "varietyName": "Dona Aurora (blanca)",
+        "botanicalName": "Mussaenda philippica 'Dona Aurora'",
+        "stageDaysToHarvest": {
+          "Semilla": 190,
+          "Plántula": 110,
+          "Crecimiento": 55,
+          "Floración": 18,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Jardín Blanco Iluminado",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Hojas florales blanco marfil puro que asemejan nieve tropical sobre el verde oscuro."
+      },
+      {
+        "varietyName": "Roja",
+        "botanicalName": "Mussaenda erythrophylla 'Red'",
+        "stageDaysToHarvest": {
+          "Semilla": 190,
+          "Plántula": 110,
+          "Crecimiento": 55,
+          "Floración": 18,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Bancal Floral Soleado",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Grandes sépalos rojo terciopelo escarlata encendido de alto impacto estético."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Palmas de jardín exterior",
+    "climateOverview": "Palmas estilizadas y elegantes de exterior adaptadas a plena intemperie solar, jardines residenciales, patios y frentes de vivienda.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Arecaceae (géneros Phoenix / Wodyetia / Hyophorbe)",
+      "stageDaysToHarvest": {
+        "Semilla": 300,
+        "Plántula": 180,
+        "Crecimiento": 90,
+        "Floración": 30,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 4,
+      "sunHours": 7.5,
+      "recommendedMoisturePercent": 50,
+      "recommendedBed": "Césped o Macetero Escultural Exterior",
+      "climateAdaptation": "Pleno sol templado a cálido",
+      "notes": "Suelo arenoso profundo bien drenado. Riego profundo espaciado y abono rico en magnesio y potasio."
+    },
+    "varieties": [
+      {
+        "varietyName": "Fénix (Phoenix roebelenii)",
+        "botanicalName": "Phoenix roebelenii (Palma fénix enana)",
+        "stageDaysToHarvest": {
+          "Semilla": 240,
+          "Plántula": 140,
+          "Crecimiento": 70,
+          "Floración": 25,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Jardinera o Frente de Jardín",
+        "climateAdaptation": "Pleno sol a semisombra",
+        "notes": "Palma enana esbelta (1.5 a 2.5 m) con finas frondas arqueadas plumosas verde brillante."
+      },
+      {
+        "varietyName": "Cola de zorro (Wodyetia bifurcata)",
+        "botanicalName": "Wodyetia bifurcata (Foxtail Palm)",
+        "stageDaysToHarvest": {
+          "Semilla": 300,
+          "Plántula": 180,
+          "Crecimiento": 90,
+          "Floración": 30,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 8.0,
+        "recommendedMoisturePercent": 48,
+        "recommendedBed": "Jardín Abierto Soleado",
+        "climateAdaptation": "Pleno sol",
+        "notes": "Tronco anillado liso y frondas excepcionales con folíolos en espiral tupida semejantes a la cola de un zorro."
+      },
+      {
+        "varietyName": "Botella (Hyophorbe verschaffeltii)",
+        "botanicalName": "Hyophorbe lagenicaulis / verschaffeltii",
+        "stageDaysToHarvest": {
+          "Semilla": 300,
+          "Plántula": 180,
+          "Crecimiento": 90,
+          "Floración": 30,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 7.5,
+        "recommendedMoisturePercent": 45,
+        "recommendedBed": "Punto Focal Escultural",
+        "climateAdaptation": "Pleno sol cálido",
+        "notes": "Tronco único abombado en la base con forma de botella y corona de 4 a 6 hojas rígidas ascendentes."
       }
     ],
     "category": "Plantas de exterior"
@@ -3602,11 +5105,17 @@ export function inferCropCategory(cropName: string): PlantCategory {
     return 'Plantas de interior';
   }
 
-  // 3. Plantas de exterior (ornamentales, arbustos, flores)
+  // 3. Plantas de exterior (ornamentales, arbustos, flores, palmas de exterior)
   const outdoorKeywords = [
-    'hortensia', 'hydrangea', 'lavanda', 'geranio', 'pelargonio',
-    'buganvilla', 'veranera', 'rosal', 'rosa', 'jazmín', 'jazmin',
-    'petunia', 'hibisco', 'exterior'
+    'veranera', 'buganvilla', 'bougainvillea', 'novios', 'geranio', 'pelargonio',
+    'san joaquín', 'san joaquin', 'hibisco', 'hibiscus', 'hortensia', 'hydrangea',
+    'ave del paraíso', 'ave del paraiso', 'strelitzia', 'heliconia', 'platanillo',
+    'corona de cristo', 'milii', 'ixora', 'duranta', 'eugenia', 'agapanto', 'agapanthus',
+    'lantana', 'gardenia', 'jazmín del cabo', 'jazmin del cabo', 'petunia', 'surfinia',
+    'calibrachoa', 'cordiline', 'drácena roja', 'dracena roja', 'fruticosa', 'achira',
+    'canna', 'pentas', 'rosas de jardín', 'rosal', 'agave', 'blanchetiana', 'fireball',
+    'bromelias de sol', 'jazmín trepador', 'jazmin trepador', 'mussaenda',
+    'palmas de jardín exterior', 'palmas de jardin exterior', 'exterior'
   ];
   if (outdoorKeywords.some(kw => lower.includes(kw))) {
     return 'Plantas de exterior';
@@ -3730,21 +5239,78 @@ export function getCropImage(cropName: string): { imageUrl: string; imageAlt: st
     return { imageUrl: '/crops/rabano.svg', imageAlt: 'Cactus o suculenta de interior' };
   }
 
-  // Plantas de exterior ornamentales y florales
+  // Plantas de exterior ornamentales, florales, arbustos y palmas
+  if (lower.includes('veranera') || lower.includes('buganvilla') || lower.includes('bougainvillea')) {
+    return { imageUrl: '/crops/fresa.svg', imageAlt: 'Veranera / Buganvilla en exterior' };
+  }
+  if (lower.includes('novios') || lower.includes('geranio') || lower.includes('pelargonio')) {
+    return { imageUrl: '/crops/pimiento.svg', imageAlt: 'Novios / Geranios de jardín' };
+  }
+  if (lower.includes('san joaquín') || lower.includes('san joaquin') || lower.includes('hibisco') || lower.includes('hibiscus')) {
+    return { imageUrl: '/crops/calendula.svg', imageAlt: 'San Joaquín / Hibisco exterior' };
+  }
   if (lower.includes('hortensia') || lower.includes('hydrangea')) {
     return { imageUrl: '/crops/calendula.svg', imageAlt: 'Hortensia para jardín exterior' };
   }
+  if (lower.includes('ave del paraíso') || lower.includes('ave del paraiso') || lower.includes('strelitzia')) {
+    return { imageUrl: '/crops/zanahoria.svg', imageAlt: 'Ave del paraíso exterior' };
+  }
+  if (lower.includes('heliconia') || lower.includes('platanillo')) {
+    return { imageUrl: '/crops/pimiento.svg', imageAlt: 'Heliconia y platanillos exterior' };
+  }
+  if (lower.includes('corona de cristo')) {
+    return { imageUrl: '/crops/rabano.svg', imageAlt: 'Corona de Cristo exterior' };
+  }
+  if (lower.includes('ixora')) {
+    return { imageUrl: '/crops/tomate.svg', imageAlt: 'Ixora floral de jardín' };
+  }
+  if (lower.includes('duranta')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Duranta ornamental exterior' };
+  }
+  if (lower.includes('eugenia')) {
+    return { imageUrl: '/crops/cebolla.svg', imageAlt: 'Eugenia para setos de jardín' };
+  }
+  if (lower.includes('agapanto') || lower.includes('agapanthus')) {
+    return { imageUrl: '/crops/lechuga.svg', imageAlt: 'Agapanto floral exterior' };
+  }
+  if (lower.includes('lantana')) {
+    return { imageUrl: '/crops/calendula.svg', imageAlt: 'Lantana multicolor exterior' };
+  }
+  if (lower.includes('gardenia') || lower.includes('jazmín del cabo') || lower.includes('jazmin del cabo')) {
+    return { imageUrl: '/crops/calendula.svg', imageAlt: 'Gardenia / Jazmín del Cabo' };
+  }
+  if (lower.includes('petunia') || lower.includes('surfinia') || lower.includes('calibrachoa')) {
+    return { imageUrl: '/crops/calendula.svg', imageAlt: 'Petunia floral de exterior' };
+  }
+  if (lower.includes('cordiline') || lower.includes('drácena roja') || lower.includes('dracena roja')) {
+    return { imageUrl: '/crops/remolacha.svg', imageAlt: 'Cordiline / Drácena roja' };
+  }
+  if (lower.includes('achira') || lower.includes('canna')) {
+    return { imageUrl: '/crops/frijol.svg', imageAlt: 'Achira / Canna índica' };
+  }
+  if (lower.includes('pentas')) {
+    return { imageUrl: '/crops/calendula.svg', imageAlt: 'Pentas lanceolata exterior' };
+  }
+  if (lower.includes('rosas de jardín') || lower.includes('rosal') || lower.includes('rosa')) {
+    return { imageUrl: '/crops/calendula.svg', imageAlt: 'Rosas de jardín exterior' };
+  }
+  if (lower.includes('agave')) {
+    return { imageUrl: '/crops/acelga.svg', imageAlt: 'Agave arquitectónico exterior' };
+  }
+  if (lower.includes('bromelias de sol') || lower.includes('aechmea') || lower.includes('fireball')) {
+    return { imageUrl: '/crops/zanahoria.svg', imageAlt: 'Bromelias de sol exterior' };
+  }
+  if (lower.includes('jazmín trepador') || lower.includes('jazmin trepador')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Jazmín trepador perfumado' };
+  }
+  if (lower.includes('mussaenda')) {
+    return { imageUrl: '/crops/fresa.svg', imageAlt: 'Mussaenda tropical exterior' };
+  }
+  if (lower.includes('palmas de jardín exterior') || lower.includes('palmas de jardin exterior')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Palmas de jardín exterior' };
+  }
   if (lower.includes('lavanda')) {
     return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Lavanda aromática exterior' };
-  }
-  if (lower.includes('geranio') || lower.includes('pelargonio')) {
-    return { imageUrl: '/crops/pimiento.svg', imageAlt: 'Geranio floral de exterior' };
-  }
-  if (lower.includes('buganvilla') || lower.includes('veranera')) {
-    return { imageUrl: '/crops/fresa.svg', imageAlt: 'Buganvilla trepadora de exterior' };
-  }
-  if (lower.includes('rosal') || lower.includes('rosa')) {
-    return { imageUrl: '/crops/calendula.svg', imageAlt: 'Rosal de jardín exterior' };
   }
 
   // Plantas de exterior / huerta
