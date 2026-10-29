@@ -11,10 +11,46 @@ const getTodayFormatted = (offsetDays = 0) => {
 
 export const INITIAL_CROPS: CropItem[] = [
   {
+    id: 'crop-7',
+    name: 'Lavanda Francesa',
+    variety: 'Lavandula angustifolia',
+    category: 'Plantas de exterior',
+    bed: 'Jardinera Balcón Exterior',
+    plantedDate: getTodayFormatted(-30),
+    daysToHarvest: 14,
+    stage: 'Floración',
+    recommendedMoisturePercent: 45,
+    sunHours: 7.5,
+    waterFrequencyDays: 4,
+    lastWatered: 'Ayer, 09:15',
+    notes: 'Planta de exterior a pleno sol. Excelente atrayente de polinizadores.',
+    imageUrl: '/crops/hierbas.svg',
+    imageAlt: 'Lavanda Francesa de exterior',
+    log: [
+      {
+        id: 'log-701',
+        type: 'Siembra',
+        title: 'Plantación en jardinera exterior',
+        date: getTodayFormatted(-30),
+        time: '10:00',
+        notes: 'Sustrato muy drenante con grava en fondo.'
+      },
+      {
+        id: 'log-702',
+        type: 'Riego',
+        title: 'Riego ligero',
+        date: getTodayFormatted(-1),
+        time: '09:15',
+        notes: 'Revisión de floración y fragancia.'
+      }
+    ]
+  },
+
+  {
     id: 'crop-1',
     name: 'Tomate Cherry',
     variety: 'Solanum lycopersicum var. cerasiforme',
-    category: 'Exterior',
+    category: 'Plantas de Huerta',
     bed: 'Bancal Sur #1',
     plantedDate: getTodayFormatted(-20),
     daysToHarvest: 18,
@@ -62,7 +98,7 @@ export const INITIAL_CROPS: CropItem[] = [
     id: 'crop-2',
     name: 'Albahaca Genovesa',
     variety: 'Ocimum basilicum',
-    category: 'Exterior',
+    category: 'Otros complementarios y transversales (cactus, aromáticas, etc.)',
     bed: 'Bancal Sur #1',
     plantedDate: getTodayFormatted(-15),
     daysToHarvest: 7,
@@ -102,7 +138,7 @@ export const INITIAL_CROPS: CropItem[] = [
     id: 'crop-3',
     name: 'Lechuga Hoja de Roble',
     variety: 'Lactuca sativa',
-    category: 'Exterior',
+    category: 'Plantas de Huerta',
     bed: 'Mesa de Cultivo Norte #2',
     plantedDate: getTodayFormatted(-10),
     daysToHarvest: 12,
@@ -142,7 +178,7 @@ export const INITIAL_CROPS: CropItem[] = [
     id: 'crop-4',
     name: 'Zanahoria Nantesa',
     variety: 'Daucus carota',
-    category: 'Exterior',
+    category: 'Plantas de Huerta',
     bed: 'Jardinera Profunda #3',
     plantedDate: getTodayFormatted(-25),
     daysToHarvest: 26,
@@ -183,7 +219,7 @@ export const INITIAL_CROPS: CropItem[] = [
     id: 'crop-5',
     name: 'Pothos Dorado',
     variety: 'Epipremnum aureum',
-    category: 'Interior',
+    category: 'Plantas de interior',
     bed: 'Maceta Salón Interior',
     plantedDate: getTodayFormatted(-40),
     daysToHarvest: 15,
@@ -218,7 +254,7 @@ export const INITIAL_CROPS: CropItem[] = [
     id: 'crop-6',
     name: 'Monstera Deliciosa',
     variety: 'Monstera deliciosa',
-    category: 'Interior',
+    category: 'Plantas de interior',
     bed: 'Maceta Salón Luminoso',
     plantedDate: getTodayFormatted(-35),
     daysToHarvest: 20,

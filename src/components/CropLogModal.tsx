@@ -130,21 +130,35 @@ export const CropLogModal: React.FC<CropLogModalProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-xl font-bold text-[#1A231E]">Bitácora: {crop.name}</h2>
-                <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1 ${
-                  (crop.category || inferCropCategory(crop.name)) === 'Interior'
-                    ? 'bg-blue-50 text-blue-700 border border-blue-200'
-                    : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-                }`}>
-                  {(crop.category || inferCropCategory(crop.name)) === 'Interior' ? (
-                    <>
-                      <Home className="w-3 h-3" /> Interior
-                    </>
-                  ) : (
-                    <>
-                      <Trees className="w-3 h-3" /> Exterior
-                    </>
-                  )}
-                </span>
+                {(() => {
+                  const cat = crop.category || inferCropCategory(crop.name);
+                  if (cat === 'Plantas de interior') {
+                    return (
+                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1 bg-blue-50 text-blue-700 border border-blue-200">
+                        <Home className="w-3 h-3" /> Plantas de interior
+                      </span>
+                    );
+                  }
+                  if (cat === 'Plantas de exterior') {
+                    return (
+                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1 bg-amber-50 text-amber-800 border border-amber-200">
+                        <Trees className="w-3 h-3" /> Plantas de exterior
+                      </span>
+                    );
+                  }
+                  if (cat === 'Otros complementarios y transversales (cactus, aromáticas, etc.)') {
+                    return (
+                      <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1 bg-purple-50 text-purple-700 border border-purple-200">
+                        <Sparkles className="w-3 h-3" /> Complementarios y transversales
+                      </span>
+                    );
+                  }
+                  return (
+                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1 bg-emerald-50 text-emerald-800 border border-emerald-200">
+                      <Sprout className="w-3 h-3" /> Plantas de Huerta
+                    </span>
+                  );
+                })()}
                 <span className="text-[11px] font-medium bg-[#2D5A27]/10 text-[#2D5A27] px-2 py-0.5 rounded-full">
                   {crop.bed}
                 </span>

@@ -11,7 +11,11 @@ export type PageRoute =
   | 'admin-donaciones'
   | '404';
 
-export type PlantCategory = 'Interior' | 'Exterior';
+export type PlantCategory =
+  | 'Plantas de interior'
+  | 'Plantas de exterior'
+  | 'Plantas de Huerta'
+  | 'Otros complementarios y transversales (cactus, aromáticas, etc.)';
 
 export type CropStage = 'Semilla' | 'Plántula' | 'Crecimiento' | 'Floración' | 'Cosecha';
 
@@ -39,7 +43,7 @@ export interface CropItem {
   id: string;
   name: string;
   variety: string;
-  category?: PlantCategory; // 'Interior' o 'Exterior'
+  category?: PlantCategory;
   bed: string;
   plantedDate: string;
   daysToHarvest: number;

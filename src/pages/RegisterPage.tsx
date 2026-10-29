@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import {
-  AlertCircle,
+import {AlertCircle,
   Plus,
   MapPin,
   X,
@@ -9,8 +8,7 @@ import {
   Layers,
   HelpCircle,
   Trees,
-  Home
-} from 'lucide-react';
+  Home, Sprout} from 'lucide-react';
 import type { CropItem, CropStage, PageRoute, GardenLocation, LocationType, PlantCategory } from '../types/huerta';
 import { CROPS_DATABASE, type CropCategory, type CropVarietyInfo, getCropImage, calculateDynamicWaterFrequency } from '../data/cropsDatabase';
 import { loadLocations, addLocation } from '../services/huertaStorage';
@@ -76,10 +74,10 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
   const [newLocationSun, setNewLocationSun] = useState<'Pleno sol' | 'Semisombra' | 'Sombra'>('Pleno sol');
   const [locationSuccessMsg, setLocationSuccessMsg] = useState<string | null>(null);
 
-  const [selectedPlantCategory, setSelectedPlantCategory] = useState<PlantCategory>('Exterior');
+  const [selectedPlantCategory, setSelectedPlantCategory] = useState<PlantCategory>('Plantas de Huerta');
   const [selectedCropName, setSelectedCropName] = useState<string>(() => {
-    const firstOutdoor = CROPS_DATABASE.find(c => c.category === 'Exterior');
-    return firstOutdoor ? firstOutdoor.cropName : CROPS_DATABASE[0].cropName;
+    const firstHuerta = CROPS_DATABASE.find(c => c.category === 'Plantas de Huerta');
+    return firstHuerta ? firstHuerta.cropName : CROPS_DATABASE[0].cropName;
   });
   const [selectedVarietyName, setSelectedVarietyName] = useState<string>(CROPS_DATABASE[0].varieties[0].varietyName);
 
@@ -121,12 +119,12 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
     : currentCategory?.varieties.find((v) => v.varietyName === selectedVarietyName);
 
   const availableCropsForCategory = CROPS_DATABASE.filter(
-    (c) => (c.category || 'Exterior') === selectedPlantCategory
+    (c) => (c.category || 'Plantas de Huerta') === selectedPlantCategory
   );
 
   const handlePlantCategoryChange = (cat: PlantCategory) => {
     setSelectedPlantCategory(cat);
-    const firstOfCategory = CROPS_DATABASE.find((c) => (c.category || 'Exterior') === cat);
+    const firstOfCategory = CROPS_DATABASE.find((c) => (c.category || 'Plantas de Huerta') === cat);
     if (firstOfCategory) {
       handleCropNameChange(firstOfCategory.cropName);
     }
@@ -258,7 +256,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
           title: 'Siembra registrada',
           date: plantedDate || getTodayString(),
           time: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
-          notes: `Categoría: Planta de ${selectedPlantCategory.toLowerCase()}. Ubicación: ${bed.trim()}. Etapa inicial: ${stage}. ${isNotSure ? 'Configuración general de especie aplicada.' : ''}`
+          notes: `Categoría: ${selectedPlantCategory}. Ubicación: ${bed.trim()}. Etapa inicial: ${stage}. ${isNotSure ? 'Configuración general de especie aplicada.' : ''}`
         }
       ]
     };
@@ -302,44 +300,92 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
       )}
 
       <form onSubmit={handleSubmit} className="bg-[#FFFFFF] border border-[#E2DFD7] rounded-2xl p-6 sm:p-8 space-y-6 shadow-xs">
-        {/* Selector de Categoría: Plantas de Exterior vs Plantas de Interior */}
+        {/* Selector de Categoría (4 categorías solicitadas) */}
         <div>
           <label className="block text-xs font-semibold text-[#1A231E] mb-2">
             Categoría del cultivo *
           </label>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            {/* Plantas de interior */}
             <button
               type="button"
-              onClick={() => handlePlantCategoryChange('Exterior')}
-              className={`flex items-center justify-center gap-2.5 px-4 py-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                selectedPlantCategory === 'Exterior'
-                  ? 'bg-[#2D5A27] text-white border-[#2D5A27] shadow-sm shadow-[#2D5A27]/20 ring-2 ring-[#2D5A27]/30'
-                  : 'bg-[#FAF9F6] border-[#D5E0D3] text-[#4A554E] hover:border-[#2D5A27] hover:bg-white'
-              }`}
-            >
-              <Trees className={`w-4 h-4 ${selectedPlantCategory === 'Exterior' ? 'text-emerald-300' : 'text-[#2D5A27]'}`} />
-              <div className="text-left">
-                <span className="block leading-tight font-bold">Plantas de Exterior</span>
-                <span className={`text-[10px] block font-normal leading-tight mt-0.5 ${selectedPlantCategory === 'Exterior' ? 'text-emerald-100' : 'text-[#5A655E]'}`}>
-                  Huerta, bancales, sol directo
-                </span>
-              </div>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => handlePlantCategoryChange('Interior')}
-              className={`flex items-center justify-center gap-2.5 px-4 py-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                selectedPlantCategory === 'Interior'
+              onClick={() => handlePlantCategoryChange('Plantas de interior')}
+              className={`flex items-start gap-3 p-3 rounded-xl border text-left text-xs transition-all cursor-pointer ${
+                selectedPlantCategory === 'Plantas de interior'
                   ? 'bg-[#1E3A8A] text-white border-[#1E3A8A] shadow-sm shadow-[#1E3A8A]/20 ring-2 ring-[#1E3A8A]/30'
                   : 'bg-[#FAF9F6] border-[#D5E0D3] text-[#4A554E] hover:border-[#1E3A8A] hover:bg-white'
               }`}
             >
-              <Home className={`w-4 h-4 ${selectedPlantCategory === 'Interior' ? 'text-blue-300' : 'text-blue-600'}`} />
-              <div className="text-left">
-                <span className="block leading-tight font-bold">Plantas de Interior</span>
-                <span className={`text-[10px] block font-normal leading-tight mt-0.5 ${selectedPlantCategory === 'Interior' ? 'text-blue-100' : 'text-[#5A655E]'}`}>
-                  Salón, luz indirecta, macetas
+              <div className={`p-2 rounded-lg shrink-0 ${selectedPlantCategory === 'Plantas de interior' ? 'bg-white/20 text-white' : 'bg-blue-50 text-blue-700'}`}>
+                <Home className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <span className="block font-bold leading-tight">Plantas de interior</span>
+                <span className={`text-[11px] block mt-0.5 ${selectedPlantCategory === 'Plantas de interior' ? 'text-blue-100' : 'text-[#5A655E]'}`}>
+                  Salón, luz indirecta, follaje y macetas
+                </span>
+              </div>
+            </button>
+
+            {/* Plantas de exterior */}
+            <button
+              type="button"
+              onClick={() => handlePlantCategoryChange('Plantas de exterior')}
+              className={`flex items-start gap-3 p-3 rounded-xl border text-left text-xs transition-all cursor-pointer ${
+                selectedPlantCategory === 'Plantas de exterior'
+                  ? 'bg-[#B45309] text-white border-[#B45309] shadow-sm shadow-[#B45309]/20 ring-2 ring-[#B45309]/30'
+                  : 'bg-[#FAF9F6] border-[#D5E0D3] text-[#4A554E] hover:border-[#B45309] hover:bg-white'
+              }`}
+            >
+              <div className={`p-2 rounded-lg shrink-0 ${selectedPlantCategory === 'Plantas de exterior' ? 'bg-white/20 text-white' : 'bg-amber-50 text-amber-800'}`}>
+                <Trees className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <span className="block font-bold leading-tight">Plantas de exterior</span>
+                <span className={`text-[11px] block mt-0.5 ${selectedPlantCategory === 'Plantas de exterior' ? 'text-amber-100' : 'text-[#5A655E]'}`}>
+                  Jardín, florales, arbustos y pleno sol
+                </span>
+              </div>
+            </button>
+
+            {/* Plantas de Huerta */}
+            <button
+              type="button"
+              onClick={() => handlePlantCategoryChange('Plantas de Huerta')}
+              className={`flex items-start gap-3 p-3 rounded-xl border text-left text-xs transition-all cursor-pointer ${
+                selectedPlantCategory === 'Plantas de Huerta'
+                  ? 'bg-[#2D5A27] text-white border-[#2D5A27] shadow-sm shadow-[#2D5A27]/20 ring-2 ring-[#2D5A27]/30'
+                  : 'bg-[#FAF9F6] border-[#D5E0D3] text-[#4A554E] hover:border-[#2D5A27] hover:bg-white'
+              }`}
+            >
+              <div className={`p-2 rounded-lg shrink-0 ${selectedPlantCategory === 'Plantas de Huerta' ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-800'}`}>
+                <Sprout className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <span className="block font-bold leading-tight">Plantas de Huerta</span>
+                <span className={`text-[11px] block mt-0.5 ${selectedPlantCategory === 'Plantas de Huerta' ? 'text-emerald-100' : 'text-[#5A655E]'}`}>
+                  Hortalizas, verduras, bancales y cosecha
+                </span>
+              </div>
+            </button>
+
+            {/* Otros complementarios y transversales */}
+            <button
+              type="button"
+              onClick={() => handlePlantCategoryChange('Otros complementarios y transversales (cactus, aromáticas, etc.)')}
+              className={`flex items-start gap-3 p-3 rounded-xl border text-left text-xs transition-all cursor-pointer ${
+                selectedPlantCategory === 'Otros complementarios y transversales (cactus, aromáticas, etc.)'
+                  ? 'bg-[#6B21A8] text-white border-[#6B21A8] shadow-sm shadow-[#6B21A8]/20 ring-2 ring-[#6B21A8]/30'
+                  : 'bg-[#FAF9F6] border-[#D5E0D3] text-[#4A554E] hover:border-[#6B21A8] hover:bg-white'
+              }`}
+            >
+              <div className={`p-2 rounded-lg shrink-0 ${selectedPlantCategory === 'Otros complementarios y transversales (cactus, aromáticas, etc.)' ? 'bg-white/20 text-white' : 'bg-purple-50 text-purple-700'}`}>
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <span className="block font-bold leading-tight">Otros complementarios y transversales</span>
+                <span className={`text-[11px] block mt-0.5 ${selectedPlantCategory === 'Otros complementarios y transversales (cactus, aromáticas, etc.)' ? 'text-purple-100' : 'text-[#5A655E]'}`}>
+                  Cactus, suculentas, aromáticas y medicinales
                 </span>
               </div>
             </button>

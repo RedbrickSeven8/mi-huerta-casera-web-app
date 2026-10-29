@@ -120,8 +120,10 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   const categoryCounts = useMemo(() => {
     const counts = {
       Todas: crops.length,
-      Exterior: crops.filter((c) => (c.category || inferCropCategory(c.name)) === 'Exterior').length,
-      Interior: crops.filter((c) => (c.category || inferCropCategory(c.name)) === 'Interior').length
+      'Plantas de interior': crops.filter((c) => (c.category || inferCropCategory(c.name)) === 'Plantas de interior').length,
+      'Plantas de exterior': crops.filter((c) => (c.category || inferCropCategory(c.name)) === 'Plantas de exterior').length,
+      'Plantas de Huerta': crops.filter((c) => (c.category || inferCropCategory(c.name)) === 'Plantas de Huerta').length,
+      'Otros complementarios y transversales (cactus, aromáticas, etc.)': crops.filter((c) => (c.category || inferCropCategory(c.name)) === 'Otros complementarios y transversales (cactus, aromáticas, etc.)').length
     };
     return counts;
   }, [crops]);
@@ -300,7 +302,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
             </span>
             <div>
               <h2 className="text-sm font-bold text-[#1A231E]">Categoría de Cultivo</h2>
-              <p className="text-[11px] text-[#5A655E]">Filtrado inteligente para plantas de exterior y plantas de interior</p>
+              <p className="text-[11px] text-[#5A655E]">Filtra por tipo de cultivo: Interior, Exterior, Huerta y Transversales</p>
             </div>
           </div>
           <span className="text-xs text-[#5A655E] bg-[#FAF9F6] border border-[#E2DFD7] px-2.5 py-1 rounded-full font-medium">
@@ -308,77 +310,134 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 pt-1">
+          {/* Todas */}
           <motion.button
             whileTap={{ scale: 0.98 }}
             type="button"
             onClick={() => setSelectedCategory('Todas')}
-            className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+            className={`flex items-center justify-between px-3 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
               selectedCategory === 'Todas'
                 ? 'bg-[#1A231E] text-white border-[#1A231E] shadow-xs'
                 : 'bg-[#FAF9F6] border-[#E2DFD7] text-[#4A554E] hover:border-[#1A231E]'
             }`}
           >
-            <div className="flex items-center gap-2">
-              <Layers className="w-4 h-4" />
-              <span>Todos los cultivos</span>
+            <div className="flex items-center gap-2 min-w-0">
+              <Layers className="w-4 h-4 shrink-0" />
+              <span className="truncate">Todos</span>
             </div>
-            <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
+            <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold shrink-0 ml-1.5 ${
               selectedCategory === 'Todas' ? 'bg-white/20 text-white' : 'bg-white text-[#1A231E] border border-[#E2DFD7]'
             }`}>
               {categoryCounts.Todas}
             </span>
           </motion.button>
 
+          {/* Plantas de interior */}
           <motion.button
             whileTap={{ scale: 0.98 }}
             type="button"
-            onClick={() => setSelectedCategory('Exterior')}
-            className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
-              selectedCategory === 'Exterior'
-                ? 'bg-[#2D5A27] text-white border-[#2D5A27] shadow-xs'
-                : 'bg-[#FAF9F6] border-[#E2DFD7] text-[#4A554E] hover:border-[#2D5A27]'
-            }`}
-          >
-            <div className="flex items-center gap-2">
-              <Trees className={`w-4 h-4 ${selectedCategory === 'Exterior' ? 'text-emerald-200' : 'text-[#2D5A27]'}`} />
-              <div className="text-left">
-                <span className="block leading-tight">Plantas de Exterior</span>
-                <span className={`text-[10px] font-normal ${selectedCategory === 'Exterior' ? 'text-emerald-100' : 'text-[#5A655E]'}`}>
-                  Huerta y bancales
-                </span>
-              </div>
-            </div>
-            <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
-              selectedCategory === 'Exterior' ? 'bg-white/20 text-white' : 'bg-[#E3EBDD] text-[#2D5A27]'
-            }`}>
-              {categoryCounts.Exterior}
-            </span>
-          </motion.button>
-
-          <motion.button
-            whileTap={{ scale: 0.98 }}
-            type="button"
-            onClick={() => setSelectedCategory('Interior')}
-            className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
-              selectedCategory === 'Interior'
+            onClick={() => setSelectedCategory('Plantas de interior')}
+            className={`flex items-center justify-between px-3 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+              selectedCategory === 'Plantas de interior'
                 ? 'bg-[#1E3A8A] text-white border-[#1E3A8A] shadow-xs'
                 : 'bg-[#FAF9F6] border-[#E2DFD7] text-[#4A554E] hover:border-[#1E3A8A]'
             }`}
           >
-            <div className="flex items-center gap-2">
-              <Home className={`w-4 h-4 ${selectedCategory === 'Interior' ? 'text-blue-200' : 'text-blue-600'}`} />
-              <div className="text-left">
-                <span className="block leading-tight">Plantas de Interior</span>
-                <span className={`text-[10px] font-normal ${selectedCategory === 'Interior' ? 'text-blue-100' : 'text-[#5A655E]'}`}>
-                  Salón y luz indirecta
+            <div className="flex items-center gap-2 min-w-0">
+              <Home className={`w-4 h-4 shrink-0 ${selectedCategory === 'Plantas de interior' ? 'text-blue-200' : 'text-blue-600'}`} />
+              <div className="text-left min-w-0">
+                <span className="block leading-tight truncate">Interior</span>
+                <span className={`text-[10px] font-normal block truncate ${selectedCategory === 'Plantas de interior' ? 'text-blue-100' : 'text-[#5A655E]'}`}>
+                  Luz indirecta
                 </span>
               </div>
             </div>
-            <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
-              selectedCategory === 'Interior' ? 'bg-white/20 text-white' : 'bg-blue-50 text-blue-700'
+            <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold shrink-0 ml-1.5 ${
+              selectedCategory === 'Plantas de interior' ? 'bg-white/20 text-white' : 'bg-blue-50 text-blue-700'
             }`}>
-              {categoryCounts.Interior}
+              {categoryCounts['Plantas de interior']}
+            </span>
+          </motion.button>
+
+          {/* Plantas de exterior */}
+          <motion.button
+            whileTap={{ scale: 0.98 }}
+            type="button"
+            onClick={() => setSelectedCategory('Plantas de exterior')}
+            className={`flex items-center justify-between px-3 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+              selectedCategory === 'Plantas de exterior'
+                ? 'bg-[#B45309] text-white border-[#B45309] shadow-xs'
+                : 'bg-[#FAF9F6] border-[#E2DFD7] text-[#4A554E] hover:border-[#B45309]'
+            }`}
+          >
+            <div className="flex items-center gap-2 min-w-0">
+              <Trees className={`w-4 h-4 shrink-0 ${selectedCategory === 'Plantas de exterior' ? 'text-amber-200' : 'text-amber-700'}`} />
+              <div className="text-left min-w-0">
+                <span className="block leading-tight truncate">Exterior</span>
+                <span className={`text-[10px] font-normal block truncate ${selectedCategory === 'Plantas de exterior' ? 'text-amber-100' : 'text-[#5A655E]'}`}>
+                  Jardín y sol
+                </span>
+              </div>
+            </div>
+            <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold shrink-0 ml-1.5 ${
+              selectedCategory === 'Plantas de exterior' ? 'bg-white/20 text-white' : 'bg-amber-50 text-amber-800'
+            }`}>
+              {categoryCounts['Plantas de exterior']}
+            </span>
+          </motion.button>
+
+          {/* Plantas de Huerta */}
+          <motion.button
+            whileTap={{ scale: 0.98 }}
+            type="button"
+            onClick={() => setSelectedCategory('Plantas de Huerta')}
+            className={`flex items-center justify-between px-3 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+              selectedCategory === 'Plantas de Huerta'
+                ? 'bg-[#2D5A27] text-white border-[#2D5A27] shadow-xs'
+                : 'bg-[#FAF9F6] border-[#E2DFD7] text-[#4A554E] hover:border-[#2D5A27]'
+            }`}
+          >
+            <div className="flex items-center gap-2 min-w-0">
+              <Sprout className={`w-4 h-4 shrink-0 ${selectedCategory === 'Plantas de Huerta' ? 'text-emerald-200' : 'text-[#2D5A27]'}`} />
+              <div className="text-left min-w-0">
+                <span className="block leading-tight truncate">Huerta</span>
+                <span className={`text-[10px] font-normal block truncate ${selectedCategory === 'Plantas de Huerta' ? 'text-emerald-100' : 'text-[#5A655E]'}`}>
+                  Hortalizas
+                </span>
+              </div>
+            </div>
+            <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold shrink-0 ml-1.5 ${
+              selectedCategory === 'Plantas de Huerta' ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-800'
+            }`}>
+              {categoryCounts['Plantas de Huerta']}
+            </span>
+          </motion.button>
+
+          {/* Otros complementarios y transversales */}
+          <motion.button
+            whileTap={{ scale: 0.98 }}
+            type="button"
+            onClick={() => setSelectedCategory('Otros complementarios y transversales (cactus, aromáticas, etc.)')}
+            className={`flex items-center justify-between px-3 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+              selectedCategory === 'Otros complementarios y transversales (cactus, aromáticas, etc.)'
+                ? 'bg-[#6B21A8] text-white border-[#6B21A8] shadow-xs'
+                : 'bg-[#FAF9F6] border-[#E2DFD7] text-[#4A554E] hover:border-[#6B21A8]'
+            }`}
+          >
+            <div className="flex items-center gap-2 min-w-0">
+              <Sparkles className={`w-4 h-4 shrink-0 ${selectedCategory === 'Otros complementarios y transversales (cactus, aromáticas, etc.)' ? 'text-purple-200' : 'text-purple-600'}`} />
+              <div className="text-left min-w-0">
+                <span className="block leading-tight truncate">Transversales</span>
+                <span className={`text-[10px] font-normal block truncate ${selectedCategory === 'Otros complementarios y transversales (cactus, aromáticas, etc.)' ? 'text-purple-100' : 'text-[#5A655E]'}`}>
+                  Cactus y aromas
+                </span>
+              </div>
+            </div>
+            <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold shrink-0 ml-1.5 ${
+              selectedCategory === 'Otros complementarios y transversales (cactus, aromáticas, etc.)' ? 'bg-white/20 text-white' : 'bg-purple-50 text-purple-700'
+            }`}>
+              {categoryCounts['Otros complementarios y transversales (cactus, aromáticas, etc.)']}
             </span>
           </motion.button>
         </div>
@@ -665,27 +724,59 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                     {/* Al pulsar sobre la etiqueta del bancal, activa el filtro de esa ubicación */}
                     <div className="flex flex-wrap items-center gap-1.5">
                       {/* Badge de Categoría */}
-                      {(crop.category || inferCropCategory(crop.name)) === 'Interior' ? (
-                        <button
-                          type="button"
-                          onClick={() => setSelectedCategory('Interior')}
-                          title="Filtrar cultivos de interior"
-                          className="text-[11px] font-semibold text-blue-700 bg-blue-50 hover:bg-blue-600 hover:text-white border border-blue-200/80 transition-colors px-2 py-0.5 rounded-full inline-flex items-center gap-1 cursor-pointer"
-                        >
-                          <Home className="w-3 h-3" />
-                          <span>Interior</span>
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          onClick={() => setSelectedCategory('Exterior')}
-                          title="Filtrar cultivos de exterior"
-                          className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-700 hover:text-white border border-emerald-200/80 transition-colors px-2 py-0.5 rounded-full inline-flex items-center gap-1 cursor-pointer"
-                        >
-                          <Trees className="w-3 h-3" />
-                          <span>Exterior</span>
-                        </button>
-                      )}
+                      {(() => {
+                        const cat = crop.category || inferCropCategory(crop.name);
+                        if (cat === 'Plantas de interior') {
+                          return (
+                            <button
+                              type="button"
+                              onClick={() => setSelectedCategory('Plantas de interior')}
+                              title="Filtrar Plantas de interior"
+                              className="text-[11px] font-semibold text-blue-700 bg-blue-50 hover:bg-blue-600 hover:text-white border border-blue-200/80 transition-colors px-2 py-0.5 rounded-full inline-flex items-center gap-1 cursor-pointer"
+                            >
+                              <Home className="w-3 h-3" />
+                              <span>Interior</span>
+                            </button>
+                          );
+                        }
+                        if (cat === 'Plantas de exterior') {
+                          return (
+                            <button
+                              type="button"
+                              onClick={() => setSelectedCategory('Plantas de exterior')}
+                              title="Filtrar Plantas de exterior"
+                              className="text-[11px] font-semibold text-amber-800 bg-amber-50 hover:bg-amber-600 hover:text-white border border-amber-200/80 transition-colors px-2 py-0.5 rounded-full inline-flex items-center gap-1 cursor-pointer"
+                            >
+                              <Trees className="w-3 h-3" />
+                              <span>Exterior</span>
+                            </button>
+                          );
+                        }
+                        if (cat === 'Otros complementarios y transversales (cactus, aromáticas, etc.)') {
+                          return (
+                            <button
+                              type="button"
+                              onClick={() => setSelectedCategory('Otros complementarios y transversales (cactus, aromáticas, etc.)')}
+                              title="Filtrar Otros complementarios y transversales"
+                              className="text-[11px] font-semibold text-purple-700 bg-purple-50 hover:bg-purple-600 hover:text-white border border-purple-200/80 transition-colors px-2 py-0.5 rounded-full inline-flex items-center gap-1 cursor-pointer"
+                            >
+                              <Sparkles className="w-3 h-3" />
+                              <span>Transversal</span>
+                            </button>
+                          );
+                        }
+                        return (
+                          <button
+                            type="button"
+                            onClick={() => setSelectedCategory('Plantas de Huerta')}
+                            title="Filtrar Plantas de Huerta"
+                            className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-700 hover:text-white border border-emerald-200/80 transition-colors px-2 py-0.5 rounded-full inline-flex items-center gap-1 cursor-pointer"
+                          >
+                            <Sprout className="w-3 h-3" />
+                            <span>Huerta</span>
+                          </button>
+                        );
+                      })()}
 
                       <button
                         type="button"

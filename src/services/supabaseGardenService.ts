@@ -1,5 +1,6 @@
 import { supabase, isSupabaseConfigured } from './supabaseClient';
 import type { CropItem, CropLogEntry, GardenTask, GardenLocation, PlantCategory } from '../types/huerta';
+import { inferCropCategory } from '../data/cropsDatabase';
 
 export interface SupabaseProfile {
   id: string;
@@ -187,7 +188,7 @@ export async function fetchSupabaseCrops(userId: string, locations: GardenLocati
       id: row.id,
       name: row.name,
       variety: row.variety || '',
-      category: (row.category as PlantCategory) || (['pothos', 'monstera', 'sansevieria', 'espatifilo', 'calathea', 'suculenta', 'interior'].some(k => row.name.toLowerCase().includes(k)) ? 'Interior' : 'Exterior'),
+      category: (row.category as PlantCategory) || inferCropCategory(row.name),
       bed: bedName,
       stage: row.stage as CropItem['stage'],
       plantedDate: row.planted_date,

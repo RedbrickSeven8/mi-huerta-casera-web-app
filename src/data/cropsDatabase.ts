@@ -186,7 +186,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Tomate de ensalada grande, carnoso y jugoso. Precisa abono rico en potasio y calcio para evitar podredumbre apical."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Cilantro",
@@ -244,7 +244,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Variedad tradicional colombiana de semilla pequeña e intenso sabor. Riegos frecuentes para mantener el follaje tierno y verde."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Lechuga",
@@ -319,7 +319,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Hojas con tonalidades rojizas y moradas ricas en antocianinas. Requiere sol suave para fijar su intenso color pigmentado."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Cebolla de rama / junca",
@@ -377,7 +377,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Tallo grueso, macizo y vigoroso. Alta resistencia a bajas temperaturas y heladas de sabana."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Cebolla cabezona",
@@ -452,7 +452,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Bulbo blanco brillante de sabor suave y crujiente. Muy buscada para ensaladas frescas y ceviches."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Zanahoria",
@@ -510,7 +510,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Raíz cilíndrica lisa, de corazón fino y sabor muy dulce. Requiere suelo suelto y arenoso con buen mantillo."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Rábano",
@@ -568,7 +568,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Mantiene su textura firme sin ponerse fofo incluso cuando alcanza mayor tamaño. Resistente a temperaturas bajas."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Acelga",
@@ -626,7 +626,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Variedad gigante de hojas abullonadas y pencas muy anchas de color marfil. Gran rendimiento por planta."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Espinaca",
@@ -684,7 +684,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Espinaca adaptada a pisos térmicos andinos. Follaje verde intenso resistente a cambios leves de temperatura."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Fríjol",
@@ -759,7 +759,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Variedad de porte arbustivo (determinado) que no requiere tutorado alto. Ciclo más corto y grano moteado."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Habichuela",
@@ -817,7 +817,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Variedad trepadora tradicional colombiana de vaina larga y recta, muy tierna para ensaladas cocidas y guisos."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Arveja",
@@ -875,7 +875,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Vainas tiernas de maduración uniforme. Alta rusticidad frente a bajas temperaturas y rocíos matutinos."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Pimentón y ají",
@@ -950,7 +950,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Frutos alargados, delgados y picantes. Excelente para secar, moler o preparar salsas picantes caseras."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Pepino cohombro",
@@ -1008,7 +1008,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Especialmente resistente a hongos foliares en temporadas lluviosas. Frutos medianos de piel fina."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Calabacín / Zucchini",
@@ -1066,7 +1066,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Piel amarilla dorada y sabor suave ligeramente dulce. Atractivo contraste visual en el huerto y en la mesa."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Remolacha",
@@ -1124,7 +1124,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Forma esférica perfecta, color rojo rubí intenso y pulpa dulce sin anillos marcados. Ideal para conservación."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Papa criolla",
@@ -1182,7 +1182,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Variedad mejorada de alto rendimiento y uniformidad de tubérculos. Buena resistencia al tizón tardío."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Fresa",
@@ -1257,7 +1257,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Producción precoz al inicio de temporada. Fruto simétrico de color rojo medio y pulpa jugosa."
       }
     ],
-    "category": "Exterior"
+    "category": "Plantas de Huerta"
   },
   {
     "cropName": "Albahaca",
@@ -1332,7 +1332,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Hojas verde claro con fresco aroma y sabor cítrico a limón. Ideal para infusiones, pescados y ensaladas."
       }
     ],
-    "category": "Exterior"
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
   },
   {
     "cropName": "Perejil",
@@ -1390,7 +1390,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Hojas planas verde oscuro de aroma más robusto e intenso. El preferido para guisos y caldos aromáticos."
       }
     ],
-    "category": "Exterior"
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
   },
   {
     "cropName": "Hierbabuena",
@@ -1431,7 +1431,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Aroma fresco y dulce tradicional de las huertas familiares colombianas. Esencial en infusiones, limonadas y aromáticas."
       }
     ],
-    "category": "Exterior"
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
   },
   {
     "cropName": "Menta",
@@ -1472,7 +1472,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Hojas con alto contenido de mentol, tallos ligeramente violáceos y frescor balsámico penetrante."
       }
     ],
-    "category": "Exterior"
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
   },
   {
     "cropName": "Orégano",
@@ -1530,7 +1530,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Orégano de hoja ancha, gruesa y aterciopelada muy común en Colombia. Aroma potente, ideal para sopas y marinados."
       }
     ],
-    "category": "Exterior"
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
   },
   {
     "cropName": "Tomillo",
@@ -1571,7 +1571,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Hojas diminutas grisáceas con potente contenido de timol. Cosechar ramitas en flor para máxima concentración de aroma."
       }
     ],
-    "category": "Exterior"
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
   },
   {
     "cropName": "Romero",
@@ -1612,7 +1612,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Hojas aciculares verde oscuro con envés blanquecino y aroma alcanforado y resinoso. Esquejes arraigan con facilidad."
       }
     ],
-    "category": "Exterior"
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
   },
   {
     "cropName": "Limonaria / Limoncillo",
@@ -1653,7 +1653,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Hojas acintadas largas y bulbos tiernos con alto porcentaje de citral. Popular en agua de panela y cocina fusión."
       }
     ],
-    "category": "Exterior"
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
   },
   {
     "cropName": "Caléndula",
@@ -1694,11 +1694,216 @@ export const CROPS_DATABASE: CropCategory[] = [
         "notes": "Capítulos florales de color naranja y amarillo brillante. Excelente compañera de bancal para tomates, lechugas y aromáticas."
       }
     ],
-    "category": "Exterior"
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)"
+  },
+    {
+    "cropName": "Hortensia (Hydrangea)",
+    "climateOverview": "Clima templado a fresco con sombra parcial y riego generoso. Floración abundante y espectacular en jardines exteriores.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Hydrangea macrophylla",
+      "stageDaysToHarvest": {
+        "Semilla": 180,
+        "Plántula": 120,
+        "Crecimiento": 60,
+        "Floración": 20,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 2,
+      "sunHours": 4.5,
+      "recommendedMoisturePercent": 75,
+      "recommendedBed": "Jardín Exterior Semisombra",
+      "climateAdaptation": "Clima templado a frío húmedo",
+      "notes": "Suelo ácido y rico en materia orgánica. Mantener el sustrato siempre fresco sin encharcar."
+    },
+    "varieties": [
+      {
+        "varietyName": "Macrophylla Azul/Rosa",
+        "botanicalName": "Hydrangea macrophylla var. hortensia",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 120,
+          "Crecimiento": 60,
+          "Floración": 20,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 4.5,
+        "recommendedMoisturePercent": 75,
+        "recommendedBed": "Jardín Exterior Semisombra",
+        "climateAdaptation": "Semisombra exterior húmeda",
+        "notes": "Grandes inflorescencias esféricas. El pH del sustrato determina el tono (ácido = azul, neutro/alcalino = rosa)."
+      }
+    ],
+    "category": "Plantas de exterior"
   },
   {
+    "cropName": "Lavanda",
+    "climateOverview": "Clima mediterráneo, templado y cálido a pleno sol. Muy resistente a la sequía y excelente atrayente de polinizadores.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Lavandula angustifolia",
+      "stageDaysToHarvest": {
+        "Semilla": 120,
+        "Plántula": 75,
+        "Crecimiento": 40,
+        "Floración": 15,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 4,
+      "sunHours": 7.5,
+      "recommendedMoisturePercent": 45,
+      "recommendedBed": "Bancal Exterior Soleado",
+      "climateAdaptation": "Pleno sol, suelo muy drenado",
+      "notes": "Riego moderado a escaso. Evitar acumulación de agua en las raíces; perfecta para rocallas y jardines secos."
+    },
+    "varieties": [
+      {
+        "varietyName": "Angustifolia Francesa",
+        "botanicalName": "Lavandula angustifolia",
+        "stageDaysToHarvest": {
+          "Semilla": 120,
+          "Plántula": 75,
+          "Crecimiento": 40,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 4,
+        "sunHours": 8.0,
+        "recommendedMoisturePercent": 45,
+        "recommendedBed": "Bancal Exterior Soleado",
+        "climateAdaptation": "Pleno sol exterior",
+        "notes": "Espigas florales violetas muy aromáticas. Favorece la polinización en todo el jardín y la huerta."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Geranio / Pelargonio",
+    "climateOverview": "Planta de floración continua para balcones, terrazas y jardines soleados. Tolera calor y vientos exteriores.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Pelargonium zonale",
+      "stageDaysToHarvest": {
+        "Semilla": 90,
+        "Plántula": 55,
+        "Crecimiento": 30,
+        "Floración": 10,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 3,
+      "sunHours": 6.5,
+      "recommendedMoisturePercent": 55,
+      "recommendedBed": "Jardinera Exterior",
+      "climateAdaptation": "Exterior soleado y templado",
+      "notes": "Retirar flores marchitas para estimular nuevos botones. Proteger de lluvias torrenciales continuadas."
+    },
+    "varieties": [
+      {
+        "varietyName": "Zonale Clásico",
+        "botanicalName": "Pelargonium zonale",
+        "stageDaysToHarvest": {
+          "Semilla": 90,
+          "Plántula": 55,
+          "Crecimiento": 30,
+          "Floración": 10,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 3,
+        "sunHours": 6.5,
+        "recommendedMoisturePercent": 55,
+        "recommendedBed": "Jardinera Exterior",
+        "climateAdaptation": "Balcones y exteriores",
+        "notes": "Colores intensos rojo, fucsia y blanco. Regar en la base sin mojar el follaje ni las flores."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Buganvilla / Veranera",
+    "climateOverview": "Arbusto trepador vigoroso para exteriores con sol directo intenso y clima cálido a templado. Hojas modificadas (brácteas) muy coloridas.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Bougainvillea spectabilis",
+      "stageDaysToHarvest": {
+        "Semilla": 180,
+        "Plántula": 100,
+        "Crecimiento": 50,
+        "Floración": 15,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 5,
+      "sunHours": 8.0,
+      "recommendedMoisturePercent": 40,
+      "recommendedBed": "Pérgola / Muro Exterior",
+      "climateAdaptation": "Pleno sol y sequedad moderada",
+      "notes": "Requiere soporte o celosía para trepar. Regar con moderación para favorecer una floración más densa."
+    },
+    "varieties": [
+      {
+        "varietyName": "Spectabilis Magenta",
+        "botanicalName": "Bougainvillea spectabilis",
+        "stageDaysToHarvest": {
+          "Semilla": 180,
+          "Plántula": 100,
+          "Crecimiento": 50,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 5,
+        "sunHours": 8.0,
+        "recommendedMoisturePercent": 40,
+        "recommendedBed": "Pérgola / Muro Exterior",
+        "climateAdaptation": "Exterior soleado",
+        "notes": "Espectacular despliegue fucsia y púrpura en épocas secas y soleadas."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+  {
+    "cropName": "Rosal de Jardín",
+    "climateOverview": "Arbusto floral exterior de máxima nobleza. Exige mínimo 6 horas de sol directo, sustrato enriquecido y buen flujo de aire.",
+    "generalInfo": {
+      "varietyName": "No estoy seguro (Especie general)",
+      "botanicalName": "Rosa spp.",
+      "stageDaysToHarvest": {
+        "Semilla": 150,
+        "Plántula": 90,
+        "Crecimiento": 45,
+        "Floración": 15,
+        "Cosecha": 0
+      },
+      "waterFrequencyDays": 2,
+      "sunHours": 7.0,
+      "recommendedMoisturePercent": 65,
+      "recommendedBed": "Macizo Floral Exterior",
+      "climateAdaptation": "Clima templado exterior soleado",
+      "notes": "Podas anuales de formación y saneamiento. Riego profundo a nivel del suelo para prevenir oídio o mancha negra."
+    },
+    "varieties": [
+      {
+        "varietyName": "Rosa Grandiflora",
+        "botanicalName": "Rosa grandiflora",
+        "stageDaysToHarvest": {
+          "Semilla": 150,
+          "Plántula": 90,
+          "Crecimiento": 45,
+          "Floración": 15,
+          "Cosecha": 0
+        },
+        "waterFrequencyDays": 2,
+        "sunHours": 7.0,
+        "recommendedMoisturePercent": 65,
+        "recommendedBed": "Macizo Floral Exterior",
+        "climateAdaptation": "Exterior soleado aireado",
+        "notes": "Flores grandes solitarias o en ramilletes de fragancia persistente."
+      }
+    ],
+    "category": "Plantas de exterior"
+  },
+{
     "cropName": "Monstera",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Planta tropical de interior por excelencia (18-30°C). Destaca por sus hojas de gran tamaño y perforaciones naturales. Requiere luz indirecta brillante y riego moderado cuando el sustrato seque en la parte superior.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -1773,7 +1978,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Pothos / Miami (Epipremnum aureum)",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Planta purificadora extremadamente resistente (15-28°C). Prospera con luz difusa moderada y riegos espaciados cuando el sustrato seque.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -1865,7 +2070,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Sansevieria / Lengua de suegra",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Planta purificadora sobresaliente y casi indestructible (13-32°C). Libera oxígeno de noche y tolera períodos prolongados sin riego.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -1974,7 +2179,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Zamioculca (ZZ Plant)",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Planta todoterreno de interior (16-30°C) con tubérculos subterráneos que almacenan agua. Excelente resistencia a condiciones de poca luz y olvido de riegos.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -2049,7 +2254,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Ficus",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Árboles y arbustos de interior con porte escultórico (16-28°C). Prefieren luz abundante indirecta, riego medido y estabilidad sin corrientes bruscas ni traslados frecuentes.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -2158,7 +2363,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Filodendro (Philodendron)",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Familia de aráceas tropicales de porte colgante o erguido (18-28°C). Resaltan por la diversidad de texturas, variegaciones y siluetas.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -2267,7 +2472,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Calatea (Calathea / Goeppertia)",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Plantas tropicales selváticas (18-27°C) con fascinantes patrones geométricos en el follaje y envés púrpura. Exigen humedad ambiental media-alta y agua reposada sin cal.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -2359,7 +2564,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Maranta (Planta de la oración)",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Planta fascinante de interior (18-26°C) que levanta sus hojas por la noche en gesto de oración. Resalta por sus venaciones coloreadas y crecimiento rastrero o colgante.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -2417,7 +2622,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Espatifilo / Cuna de Moisés",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Planta purificadora con elegantes espatas blancas (16-26°C). Filtra toxinas del aire e inclina sus hojas avisando con claridad cuando necesita riego.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -2492,7 +2697,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Anturio",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Planta tropical de interior reconocida por sus brácteas florales cerosas y duraderas (18-28°C) o por sus imponentes hojas venadas aterciopeladas.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -2584,7 +2789,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Aglaonema",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Planta asiática de follaje ornamental altamente resistente y adaptable (16-28°C). Tolera luz baja y aporta llamativos colores plateados y rojizos.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -2659,7 +2864,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Peperomia",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Plantas compactas semi-suculentas de porte ordenado (16-26°C). Hojas carnosas que retienen agua; ideales para mesas de centro, escritorios y repisas.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -2751,7 +2956,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Palmas de interior",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Palmeras tropicales adaptadas a interiores luminosos (17-28°C). Aportan frescura, altura y elegancia natural mientras purifican el aire.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -2826,7 +3031,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Helechos",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Plantas ancestrales de frondas exuberantes (16-25°C). Demandan humedad ambiental constante, sustrato aireado y luz difusa sin sol directo.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -2901,7 +3106,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Drácena / Tronco de Brasil",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Plantas estructurales arbóreas de interior (16-28°C). Muy resistentes al aire seco y capaces de prosperar en espacios de trabajo y salones.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -2976,7 +3181,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Begonia",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Plantas de hojas policromáticas y asimétricas (17-26°C). Follajes con motas plateadas, espirales y reflejos satinados que decoran cualquier estancia.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -3051,7 +3256,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Singonio (Syngonium)",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Planta tropical de interior versátil con hojas en punta de flecha (16-28°C). Funciona como trepadora en tutor o en macetas colgantes frondosas.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -3126,7 +3331,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Crotón",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Arbusto tropical con estallido de color en el follaje (18-29°C). Necesita abundante luminosidad indirecta para manifestar sus vivos tonos amarillos, naranjas y rojos.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -3201,7 +3406,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Cinta / Mala madre (Chlorophytum)",
-    "category": "Interior",
+    "category": "Plantas de interior",
     "climateOverview": "Planta clásica de interior sumamente agradecida y purificadora (13-27°C). Emite estolones colgantes con hijuelos ('hijos') de gran valor decorativo.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -3259,7 +3464,7 @@ export const CROPS_DATABASE: CropCategory[] = [
   },
   {
     "cropName": "Cactus y suculentas de interior",
-    "category": "Interior",
+    "category": "Otros complementarios y transversales (cactus, aromáticas, etc.)",
     "climateOverview": "Plantas crasas y cactáceas ideales para interiores (15-28°C). Almacenan agua en hojas o tallos y demandan muy poco mantenimiento.",
     "generalInfo": {
       "varietyName": "No estoy seguro (Especie general)",
@@ -3361,7 +3566,7 @@ export function getDaysToHarvestForCrop(cropName: string, varietyName: string, s
 }
 
 /**
- * Determina si un cultivo pertenece a interior o exterior a partir de la base botánica
+ * Determina a qué categoría pertenece un cultivo a partir de la base botánica y palabras clave
  */
 export function inferCropCategory(cropName: string): PlantCategory {
   const match = CROPS_DATABASE.find(
@@ -3371,6 +3576,19 @@ export function inferCropCategory(cropName: string): PlantCategory {
     return match.category;
   }
   const lower = cropName.toLowerCase();
+
+  // 1. Otros complementarios y transversales (cactus, aromáticas, etc.)
+  const transversalKeywords = [
+    'albahaca', 'perejil', 'hierbabuena', 'menta', 'orégano', 'oregano',
+    'tomillo', 'romero', 'limonaria', 'limoncillo', 'caléndula', 'calendula',
+    'cactus', 'suculenta', 'crassula', 'jade', 'haworthia', 'echeveria',
+    'aromática', 'aromatica', 'medicinal'
+  ];
+  if (transversalKeywords.some(kw => lower.includes(kw))) {
+    return 'Otros complementarios y transversales (cactus, aromáticas, etc.)';
+  }
+
+  // 2. Plantas de interior
   const indoorKeywords = [
     'monstera', 'pothos', 'potus', 'miami', 'epipremnum', 'sansevieria', 'lengua de suegra',
     'zamioculca', 'zz', 'ficus', 'filodendro', 'philodendron', 'calatea', 'calathea',
@@ -3378,13 +3596,24 @@ export function inferCropCategory(cropName: string): PlantCategory {
     'aglaonema', 'peperomia', 'palma', 'areca', 'chamaedorea', 'raphis', 'helecho',
     'culantrillo', 'cuerno de alce', 'drácena', 'dracena', 'tronco de brasil',
     'begonia', 'singonio', 'syngonium', 'crotón', 'croton', 'cinta', 'mala madre',
-    'chlorophytum', 'cactus', 'suculenta', 'crassula', 'jade', 'haworthia',
-    'schlumbergera', 'interior'
+    'chlorophytum', 'schlumbergera', 'interior'
   ];
   if (indoorKeywords.some(kw => lower.includes(kw))) {
-    return 'Interior';
+    return 'Plantas de interior';
   }
-  return 'Exterior';
+
+  // 3. Plantas de exterior (ornamentales, arbustos, flores)
+  const outdoorKeywords = [
+    'hortensia', 'hydrangea', 'lavanda', 'geranio', 'pelargonio',
+    'buganvilla', 'veranera', 'rosal', 'rosa', 'jazmín', 'jazmin',
+    'petunia', 'hibisco', 'exterior'
+  ];
+  if (outdoorKeywords.some(kw => lower.includes(kw))) {
+    return 'Plantas de exterior';
+  }
+
+  // 4. Por defecto para hortalizas y cultivos alimenticios: Plantas de Huerta
+  return 'Plantas de Huerta';
 }
 
 export function calculateAutomaticStage(
@@ -3499,6 +3728,23 @@ export function getCropImage(cropName: string): { imageUrl: string; imageAlt: st
   }
   if (lower.includes('cactus') || lower.includes('suculenta') || lower.includes('crassula') || lower.includes('jade') || lower.includes('haworthia') || lower.includes('schlumbergera') || lower.includes('echeveria')) {
     return { imageUrl: '/crops/rabano.svg', imageAlt: 'Cactus o suculenta de interior' };
+  }
+
+  // Plantas de exterior ornamentales y florales
+  if (lower.includes('hortensia') || lower.includes('hydrangea')) {
+    return { imageUrl: '/crops/calendula.svg', imageAlt: 'Hortensia para jardín exterior' };
+  }
+  if (lower.includes('lavanda')) {
+    return { imageUrl: '/crops/hierbas.svg', imageAlt: 'Lavanda aromática exterior' };
+  }
+  if (lower.includes('geranio') || lower.includes('pelargonio')) {
+    return { imageUrl: '/crops/pimiento.svg', imageAlt: 'Geranio floral de exterior' };
+  }
+  if (lower.includes('buganvilla') || lower.includes('veranera')) {
+    return { imageUrl: '/crops/fresa.svg', imageAlt: 'Buganvilla trepadora de exterior' };
+  }
+  if (lower.includes('rosal') || lower.includes('rosa')) {
+    return { imageUrl: '/crops/calendula.svg', imageAlt: 'Rosal de jardín exterior' };
   }
 
   // Plantas de exterior / huerta
