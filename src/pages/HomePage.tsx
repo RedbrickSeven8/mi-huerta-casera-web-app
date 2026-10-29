@@ -247,6 +247,8 @@ export const HomePage: React.FC<HomePageProps> = ({
                   >
                     <div className="flex items-center gap-3">
                       <img
+          loading="lazy"
+          decoding="async"
                         src={crop.imageUrl}
                         alt={crop.imageAlt}
                         className="w-10 h-10 rounded-lg object-contain bg-white border border-[#E2DFD7] p-1 shrink-0"
@@ -542,10 +544,11 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div className="relative group">
                 <div className="absolute -inset-1 rounded-2xl bg-gradient-to-tr from-[#2D5A27] to-emerald-400 opacity-20 blur-sm group-hover:opacity-30 transition-opacity" />
                 <img
+                  loading="lazy"
+                  decoding="async"
                   src="/daniel-profile.jpg"
                   alt="Daniel - Desarrollador de Mi Huerta Casera"
                   className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-2xl object-cover border-2 border-white shadow-md"
-                  loading="lazy"
                 />
               </div>
               <div className="mt-4">

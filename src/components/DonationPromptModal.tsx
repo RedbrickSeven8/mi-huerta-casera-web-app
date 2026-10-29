@@ -105,6 +105,8 @@ export const DonationPromptModal: React.FC<DonationPromptModalProps> = ({
               <div className="flex items-center gap-3">
                 <div className="relative">
                   <img
+          loading="lazy"
+          decoding="async"
                     src="/daniel-profile.jpg"
                     alt="Daniel - Creador de Mi Huerta Casera"
                     className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl object-cover border-2 border-white shadow-md ring-2 ring-amber-400/40"

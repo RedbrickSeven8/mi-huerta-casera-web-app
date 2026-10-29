@@ -30,18 +30,25 @@ import { Header } from './components/Header';
 import { Breadcrumbs } from './components/Breadcrumbs';
 import { Footer } from './components/Footer';
 import { CookieBanner } from './components/CookieBanner';
-import { HomePage } from './pages/HomePage';
-import { DashboardPage } from './pages/DashboardPage';
-import { CalendarPage } from './pages/CalendarPage';
-import { RegisterPage } from './pages/RegisterPage';
-import { ThankYouPage } from './pages/ThankYouPage';
-import { AuditLogPage } from './pages/AuditLogPage';
-import { AdminDonationsPage } from './pages/AdminDonationsPage';
+import { lazy, Suspense } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Sprout } from 'lucide-react';
 import { DonationPromptModal, type TriggerReason } from './components/DonationPromptModal';
 import { incrementWaterCount, incrementStageCount } from './services/donationTriggerService';
 import { fetchUserDonorStatus } from './services/donationService';
-import { PrivacyPolicyPage, TermsConditionsPage, CookiePolicyPage } from './pages/LegalPages';
-import { NotFoundPage } from './pages/NotFoundPage';
+
+// Carga Lazy de todas las páginas de la aplicación
+const HomePage = lazy(() => import('./pages/HomePage').then((m) => ({ default: m.HomePage })));
+const DashboardPage = lazy(() => import('./pages/DashboardPage').then((m) => ({ default: m.DashboardPage })));
+const CalendarPage = lazy(() => import('./pages/CalendarPage').then((m) => ({ default: m.CalendarPage })));
+const RegisterPage = lazy(() => import('./pages/RegisterPage').then((m) => ({ default: m.RegisterPage })));
+const ThankYouPage = lazy(() => import('./pages/ThankYouPage').then((m) => ({ default: m.ThankYouPage })));
+const AuditLogPage = lazy(() => import('./pages/AuditLogPage').then((m) => ({ default: m.AuditLogPage })));
+const AdminDonationsPage = lazy(() => import('./pages/AdminDonationsPage').then((m) => ({ default: m.AdminDonationsPage })));
+const PrivacyPolicyPage = lazy(() => import('./pages/LegalPages').then((m) => ({ default: m.PrivacyPolicyPage })));
+const TermsConditionsPage = lazy(() => import('./pages/LegalPages').then((m) => ({ default: m.TermsConditionsPage })));
+const CookiePolicyPage = lazy(() => import('./pages/LegalPages').then((m) => ({ default: m.CookiePolicyPage })));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })));
 
 const STAGE_ORDER: CropStage[] = ['Semilla', 'Plántula', 'Crecimiento', 'Floración', 'Cosecha'];
 
@@ -576,45 +583,73 @@ export function App() {
       />
       <Breadcrumbs currentRoute={currentRoute} onNavigate={handleNavigate} />
 
-      <main className="flex-1">
-        {currentRoute === 'inicio' && <HomePage crops={crops} tasks={tasks} onNavigate={handleNavigate} user={user} onAuthChange={handleAuthChange} />}
-        {currentRoute === 'dashboard' && (
-          <DashboardPage
-            crops={crops}
-            locations={locations}
-            onWaterCrop={handleWaterCrop}
-            onAdvanceStage={handleAdvanceStage}
-            onDeleteCrop={handleDeleteCrop}
-            onDeleteLocation={handleDeleteLocation}
-            onAddLogEntry={handleAddLogEntry}
-            onDeleteLogEntry={handleDeleteLogEntry}
-            onNavigate={handleNavigate}
-            user={user}
-            onAuthChange={handleAuthChange}
-          />
-        )}
-        {currentRoute === 'calendario' && (
-          <CalendarPage
-            tasks={tasks}
-            crops={crops}
-            onToggleTask={handleToggleTask}
-            onAddTask={handleAddTask}
-            onDeleteTask={handleDeleteTask}
-            onNavigate={handleNavigate}
-            user={user}
-            onAuthChange={handleAuthChange}
-          />
-        )}
-        {currentRoute === 'registro' && (
-          <RegisterPage onAddCrop={handleAddCrop} onNavigate={handleNavigate} />
-        )}
-        {currentRoute === 'agradecimiento' && <ThankYouPage onNavigate={handleNavigate} />}
-        {currentRoute === 'auditoria' && <AuditLogPage onNavigate={handleNavigate} />}
-        {currentRoute === 'admin-donaciones' && <AdminDonationsPage onNavigate={handleNavigate} user={user} />}
-        {currentRoute === 'privacidad' && <PrivacyPolicyPage onNavigate={handleNavigate} />}
-        {currentRoute === 'terminos' && <TermsConditionsPage onNavigate={handleNavigate} />}
-        {currentRoute === 'cookies' && <CookiePolicyPage onNavigate={handleNavigate} />}
-        {currentRoute === '404' && <NotFoundPage onNavigate={handleNavigate} />}
+      <main className="flex-1 relative overflow-hidden">
+        <Suspense
+          fallback={
+            <div className="min-h-[50vh] flex flex-col items-center justify-center p-8 space-y-3">
+              <motion.div
+                animate={{ rotate: 360, scale: [1, 1.1, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                className="w-12 h-12 rounded-2xl bg-[#2D5A27]/10 text-[#2D5A27] flex items-center justify-center border border-[#2D5A27]/20 shadow-xs"
+              >
+                <Sprout className="w-6 h-6 animate-pulse" />
+              </motion.div>
+              <p className="text-xs font-semibold text-[#5A655E] tracking-wide">
+                Cargando tu huerta...
+              </p>
+            </div>
+          }
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentRoute}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full"
+            >
+              {currentRoute === 'inicio' && <HomePage crops={crops} tasks={tasks} onNavigate={handleNavigate} user={user} onAuthChange={handleAuthChange} />}
+              {currentRoute === 'dashboard' && (
+                <DashboardPage
+                  crops={crops}
+                  locations={locations}
+                  onWaterCrop={handleWaterCrop}
+                  onAdvanceStage={handleAdvanceStage}
+                  onDeleteCrop={handleDeleteCrop}
+                  onDeleteLocation={handleDeleteLocation}
+                  onAddLogEntry={handleAddLogEntry}
+                  onDeleteLogEntry={handleDeleteLogEntry}
+                  onNavigate={handleNavigate}
+                  user={user}
+                  onAuthChange={handleAuthChange}
+                />
+              )}
+              {currentRoute === 'calendario' && (
+                <CalendarPage
+                  tasks={tasks}
+                  crops={crops}
+                  onToggleTask={handleToggleTask}
+                  onAddTask={handleAddTask}
+                  onDeleteTask={handleDeleteTask}
+                  onNavigate={handleNavigate}
+                  user={user}
+                  onAuthChange={handleAuthChange}
+                />
+              )}
+              {currentRoute === 'registro' && (
+                <RegisterPage onAddCrop={handleAddCrop} onNavigate={handleNavigate} />
+              )}
+              {currentRoute === 'agradecimiento' && <ThankYouPage onNavigate={handleNavigate} />}
+              {currentRoute === 'auditoria' && <AuditLogPage onNavigate={handleNavigate} />}
+              {currentRoute === 'admin-donaciones' && <AdminDonationsPage onNavigate={handleNavigate} user={user} />}
+              {currentRoute === 'privacidad' && <PrivacyPolicyPage onNavigate={handleNavigate} />}
+              {currentRoute === 'terminos' && <TermsConditionsPage onNavigate={handleNavigate} />}
+              {currentRoute === 'cookies' && <CookiePolicyPage onNavigate={handleNavigate} />}
+              {currentRoute === '404' && <NotFoundPage onNavigate={handleNavigate} />}
+            </motion.div>
+          </AnimatePresence>
+        </Suspense>
       </main>
 
       <Footer onNavigate={handleNavigate} />

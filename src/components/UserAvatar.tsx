@@ -41,6 +41,8 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
     <div className={`relative inline-flex shrink-0 ${className}`}>
       {picture ? (
         <img
+          loading="lazy"
+          decoding="async"
           src={picture}
           alt={name}
           className={`${sizeClasses[size]} rounded-full border border-[#2D5A27]/30 object-cover shadow-xs`}

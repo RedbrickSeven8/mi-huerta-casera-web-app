@@ -516,6 +516,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <img
+          loading="lazy"
+          decoding="async"
                     src={crop.imageUrl}
                     alt={crop.imageAlt}
                     className="w-14 h-14 rounded-xl object-contain bg-[#FAF9F6] border border-[#E2DFD7] shrink-0 p-1"

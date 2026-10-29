@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { ChevronRight, Home } from 'lucide-react';
 import type { PageRoute } from '../types/huerta';
 
@@ -29,7 +30,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ currentRoute, onNaviga
       aria-label="Breadcrumb"
       className="bg-[#F2EFE9]/70 border-b border-[#E2DFD7] py-2.5 px-4 sm:px-6"
     >
-      <div className="max-w-6xl mx-auto flex items-center flex-wrap gap-1.5 text-xs text-[#5A655E]">
+      <motion.div initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.25 }} className="max-w-6xl mx-auto flex items-center flex-wrap gap-1.5 text-xs text-[#5A655E]">
         <button
           type="button"
           onClick={() => onNavigate('inicio')}
@@ -60,7 +61,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ currentRoute, onNaviga
             </span>
           </>
         )}
-      </div>
+      </motion.div>
     </nav>
   );
 };
