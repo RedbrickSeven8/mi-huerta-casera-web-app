@@ -10,7 +10,11 @@ import {
   CheckCircle2,
   Droplets,
   Sun,
-  Lightbulb} from 'lucide-react';
+  Lightbulb,
+  Coffee,
+  Heart,
+  ExternalLink
+} from 'lucide-react';
 import type { CropItem, GardenTask, PageRoute } from '../types/huerta';
 import { GoogleAuthButton } from '../components/GoogleAuthButton';
 import type { UserProfile } from '../services/authService';
@@ -435,10 +439,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                   3
                 </div>
                 <h3 className="text-base font-bold text-[#1A231E]">
-                  «Síndrome del bebé gigante»: Tratar a todas por igual
+                  «Falso todo terreno»: Tratar a todas por igual
                 </h3>
                 <p className="text-xs text-[#4A554E] leading-relaxed">
-                  Exigirle a un brote recién nacido que resista lo mismo que una planta madura. Cada etapa exige su propio menú: no alimentas a un bebé con un filete.
+                  Creer que un brote recién germinado aguanta el mismo sol, abono y riego que una planta adulta lista para cosecha. Cada ciclo tiene sus propias reglas de juego.
                 </p>
                 <div className="text-[11px] font-semibold text-[#2D5A27] bg-[#2D5A27]/5 p-2.5 rounded-lg border border-[#2D5A27]/10">
                   Solución: Seguimiento secuencial de Semilla → Plántula → Crecimiento → Floración → Cosecha.
@@ -520,7 +524,77 @@ export const HomePage: React.FC<HomePageProps> = ({
         </>
       )}
 
-      
+      {/* Sección Comunitaria / Proyecto Gratuito y Donaciones */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-4 pb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="relative overflow-hidden rounded-3xl border border-[#E2DFD7] bg-gradient-to-br from-[#FFFFFF] via-[#FAF9F6] to-[#F2EFE9] p-6 sm:p-10 shadow-sm"
+        >
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#2D5A27]/5 rounded-full blur-3xl pointer-events-none" />
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10">
+            <div className="md:col-span-4 flex flex-col items-center text-center">
+              <div className="relative group">
+                <div className="absolute -inset-1 rounded-2xl bg-gradient-to-tr from-[#2D5A27] to-emerald-400 opacity-20 blur-sm group-hover:opacity-30 transition-opacity" />
+                <img
+                  src="/daniel-profile.jpg"
+                  alt="Daniel - Desarrollador de Mi Huerta Casera"
+                  className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-2xl object-cover border-2 border-white shadow-md"
+                  loading="lazy"
+                />
+              </div>
+              <div className="mt-4">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2D5A27]/10 text-[#2D5A27] text-xs font-bold">
+                  <Sprout className="w-3.5 h-3.5" />
+                  Creador del proyecto
+                </span>
+                <p className="mt-2 text-sm font-bold text-[#1A231E]">Daniel</p>
+                <p className="text-xs text-[#5A655E]">Desarrollador & entusiasta del autocultivo</p>
+              </div>
+            </div>
+
+            <div className="md:col-span-8 space-y-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-800 text-xs font-semibold">
+                <Heart className="w-3.5 h-3.5 text-amber-600 fill-amber-600" />
+                <span>Proyecto 100% libre y gratuito</span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#1A231E] leading-snug">
+                Mantengamos esta huerta viva y abierta para todos
+              </h2>
+
+              <p className="text-xs sm:text-sm text-[#4A554E] leading-relaxed">
+                ¡Hola! Soy Daniel, desarrollador y entusiasta del autocultivo. Creé{' '}
+                <strong className="text-[#1A231E]">Mi Huerta Casera</strong>, una aplicación web gratuita para que cualquier persona aprenda a planificar, cuidar y llevar el seguimiento de su huerta en casa sin frustraciones (ni plantas marchitas).
+              </p>
+
+              <p className="text-xs sm:text-sm text-[#4A554E] leading-relaxed">
+                Tu donación ayuda directamente a cubrir los costos de infraestructura (hosting, dominio y servicios de backend) para mantener la app abierta y gratuita para toda la comunidad. ¡Cada café cuenta!
+              </p>
+
+              <div className="pt-2 flex flex-wrap items-center gap-4">
+                <a
+                  href="https://link.mercadopago.com.co/mihuertacasera"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-[#2D5A27] text-white text-xs sm:text-sm font-bold hover:bg-[#23471F] transition-all shadow-sm hover:shadow-md cursor-pointer"
+                >
+                  <Coffee className="w-4 h-4 text-amber-300" />
+                  <span>Apoyar en Mercado Pago</span>
+                  <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+                </a>
+                <span className="text-[11px] text-[#5A655E] flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+                  Aportes seguros procesados por Mercado Pago Colombia
+                </span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </section>
     </div>
   );
 };
+
