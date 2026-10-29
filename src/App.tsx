@@ -37,6 +37,8 @@ import { RegisterPage } from './pages/RegisterPage';
 import { ThankYouPage } from './pages/ThankYouPage';
 import { AuditLogPage } from './pages/AuditLogPage';
 import { AdminDonationsPage } from './pages/AdminDonationsPage';
+import { DonationPromptModal, type TriggerReason } from './components/DonationPromptModal';
+import { incrementWaterCount, incrementStageCount } from './services/donationTriggerService';
 import { fetchUserDonorStatus } from './services/donationService';
 import { PrivacyPolicyPage, TermsConditionsPage, CookiePolicyPage } from './pages/LegalPages';
 import { NotFoundPage } from './pages/NotFoundPage';
@@ -81,6 +83,13 @@ const getCurrentTimeString = () => {
 
 export function App() {
   const [currentRoute, setCurrentRoute] = useState<PageRoute>(resolveInitialRoute);
+  const [donationPromptOpen, setDonationPromptOpen] = useState(false);
+  const [donationPromptReason, setDonationPromptReason] = useState<TriggerReason>('add_crop');
+
+  const triggerDonationPrompt = (reason: TriggerReason) => {
+    setDonationPromptReason(reason);
+    setDonationPromptOpen(true);
+  };
   const [user, setUser] = useState<UserProfile | null>(() => getUser());
   const [crops, setCrops] = useState<CropItem[]>(() => loadCrops());
   const [tasks, setTasks] = useState<GardenTask[]>(() => loadTasks());
@@ -296,6 +305,11 @@ export function App() {
 
     setTasks(updatedTasks);
     saveBothToCloud(updated, updatedTasks);
+
+    const { shouldPrompt } = incrementWaterCount();
+    if (shouldPrompt) {
+      triggerDonationPrompt('water_milestone');
+    }
   };
 
   const handleAdvanceStage = (cropId: string) => {
@@ -345,6 +359,11 @@ export function App() {
     }
 
     saveBothToCloud(updated, updatedTasks);
+
+    const { shouldPrompt } = incrementStageCount();
+    if (shouldPrompt) {
+      triggerDonationPrompt('stage_milestone');
+    }
   };
 
   const handleDeleteCrop = (cropId: string) => {
@@ -360,6 +379,7 @@ export function App() {
     // Persistir eliminación atómica en Supabase
     persistCropDelete(cropId);
     saveBothToCloud(updatedCrops, updatedTasks);
+    triggerDonationPrompt('add_crop');
   };
 
   const handleDeleteLocation = (locationName: string) => {
@@ -393,6 +413,7 @@ export function App() {
     newTasks.forEach((t) => persistNewTask(t));
 
     saveBothToCloud(updatedCrops, updatedTasks);
+    triggerDonationPrompt('add_crop');
   };
 
   const handleAddLogEntry = (cropId: string, entry: Omit<CropLogEntry, 'id'>) => {
@@ -431,6 +452,11 @@ export function App() {
     }
 
     saveBothToCloud(updated, updatedTasks);
+
+    const { shouldPrompt } = incrementStageCount();
+    if (shouldPrompt) {
+      triggerDonationPrompt('stage_milestone');
+    }
   };
 
   const handleDeleteLogEntry = (cropId: string, logId: string) => {
@@ -517,6 +543,7 @@ export function App() {
     }
 
     saveBothToCloud(updatedCrops, updatedTasks);
+    triggerDonationPrompt('add_crop');
   };
 
   const handleAddTask = (taskData: Omit<GardenTask, 'id' | 'completed'>) => {
@@ -529,6 +556,7 @@ export function App() {
     setTasks(updated);
     persistNewTask(newTask);
     saveTasks(updated);
+    triggerDonationPrompt('add_task');
   };
 
   const handleDeleteTask = (taskId: string) => {
@@ -591,6 +619,13 @@ export function App() {
 
       <Footer onNavigate={handleNavigate} />
       <CookieBanner onNavigate={handleNavigate} />
+
+      <DonationPromptModal
+        isOpen={donationPromptOpen}
+        onClose={() => setDonationPromptOpen(false)}
+        reason={donationPromptReason}
+        user={user}
+      />
     </div>
   );
 }
