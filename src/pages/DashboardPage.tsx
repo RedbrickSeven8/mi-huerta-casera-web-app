@@ -60,17 +60,42 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   const [cropToDelete, setCropToDelete] = useState<CropItem | null>(null);
   const [locationToDelete, setLocationToDelete] = useState<string | null>(null);
 
-  // Ubicaciones disponibles combinando las guardadas y las presentes en cultivos
-  // Solo las ubicaciones creadas por el usuario (más la opción global 'Todas')
+  // Ubicaciones / bancales disponibles combinando las guardadas por el usuario y las asignadas en cultivos
   const availableBeds = useMemo(() => {
-    const userLocationNames = locations.map((l) => l.name).filter(Boolean);
-    return ['Todas', ...userLocationNames];
-  }, [locations]);
+    const locNames = locations.map((l) => l.name.trim()).filter(Boolean);
+    const cropBeds = crops.map((c) => c.bed?.trim()).filter(Boolean);
+    
+    // Lista unificada preservando nombres originales
+    const seen = new Set<string>();
+    const unified: string[] = [];
+
+    // Priorizar nombres de ubicaciones configuradas
+    locNames.forEach((name) => {
+      const lower = name.toLowerCase();
+      if (!seen.has(lower)) {
+        seen.add(lower);
+        unified.push(name);
+      }
+    });
+
+    // Agregar bancales provenientes de cultivos si no estaban en ubicaciones
+    cropBeds.forEach((name) => {
+      const lower = name.toLowerCase();
+      if (!seen.has(lower)) {
+        seen.add(lower);
+        unified.push(name);
+      }
+    });
+
+    return ['Todas', ...unified];
+  }, [locations, crops]);
 
   const bedCounts = useMemo(() => {
     const counts: Record<string, number> = { Todas: crops.length };
     crops.forEach((c) => {
-      counts[c.bed] = (counts[c.bed] || 0) + 1;
+      const bedKey = c.bed?.trim() || '';
+      counts[bedKey] = (counts[bedKey] || 0) + 1;
+      counts[bedKey.toLowerCase()] = (counts[bedKey.toLowerCase()] || 0) + 1;
     });
     return counts;
   }, [crops]);
@@ -274,11 +299,16 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 >
                   <span>{bedName}</span>
                   <span
-                    className={`text-[11px] px-1.5 py-0.2 rounded-full font-semibold ${
-                      isSelected ? 'bg-white/20 text-white' : 'bg-[#F2EFE9] text-[#1A231E]'
+                    className={`text-[11px] px-2 py-0.5 rounded-full font-bold transition-colors ${
+                      isSelected
+                        ? 'bg-white/25 text-white ring-1 ring-white/30'
+                        : count > 0
+                        ? 'bg-[#E3EBDD] text-[#2D5A27]'
+                        : 'bg-[#F2EFE9] text-[#8A958E]'
                     }`}
+                    title={`${count} cultivo${count === 1 ? '' : 's'}`}
                   >
-                    {count}
+                    {count} {count === 1 ? 'cultivo' : 'cultivos'}
                   </span>
                 </motion.button>
 
