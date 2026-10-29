@@ -1,7 +1,28 @@
-import { useState, useEffect } from 'react';
-import type { CropItem, CropStage, CropLogEntry, GardenTask, PageRoute } from './types/huerta';
-import { loadCrops, saveCrops, loadTasks, saveTasks, saveBothToCloud, fetchRemoteGardenData, generateTasksForCrop, recalculateTasksForCrop, loadLocations, deleteLocation } from './services/huertaStorage';
-import type { GardenLocation } from './types/huerta';
+import { useState, useEffect, useRef } from 'react';
+import type { CropItem, CropStage, CropLogEntry, GardenTask, PageRoute, GardenLocation } from './types/huerta';
+import {
+  loadCrops,
+  saveCrops,
+  loadTasks,
+  saveTasks,
+  saveBothToCloud,
+  generateTasksForCrop,
+  recalculateTasksForCrop,
+  loadLocations,
+  deleteLocation,
+  syncAllWithSupabase,
+  subscribeToSupabaseGarden,
+  persistNewCrop,
+  persistCropUpdate,
+  persistCropDelete,
+  persistNewCropLog,
+  persistDeleteCropLog,
+  persistNewTask,
+  persistTaskStatus,
+  persistDeleteTask,
+  fetchRemoteGardenData
+} from './services/huertaStorage';
+import { isSupabaseConfigured } from './services/supabaseClient';
 import { updatePageTitle } from './services/seoManager';
 import { getDaysToHarvestForCrop } from './data/cropsDatabase';
 import { getUser, type UserProfile } from './services/authService';
@@ -55,21 +76,47 @@ const getCurrentTimeString = () => {
   return d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
 };
 
-// Respetar las decisiones y etapas establecidas por el usuario
-function getSynchronizedInitialCrops(): CropItem[] {
-  return loadCrops();
-}
-
 export function App() {
   const [currentRoute, setCurrentRoute] = useState<PageRoute>(resolveInitialRoute);
   const [user, setUser] = useState<UserProfile | null>(() => getUser());
-  const [crops, setCrops] = useState<CropItem[]>(() => getSynchronizedInitialCrops());
+  const [crops, setCrops] = useState<CropItem[]>(() => loadCrops());
   const [tasks, setTasks] = useState<GardenTask[]>(() => loadTasks());
   const [locations, setLocations] = useState<GardenLocation[]>(() => loadLocations());
+
+  const unsubscribeRealtimeRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     updatePageTitle(currentRoute);
   }, [currentRoute]);
+
+  // Manejador del canal de tiempo real de Supabase (WebSockets CDC)
+  useEffect(() => {
+    if (!user || !isSupabaseConfigured) {
+      if (unsubscribeRealtimeRef.current) {
+        unsubscribeRealtimeRef.current();
+        unsubscribeRealtimeRef.current = null;
+      }
+      return;
+    }
+
+    const unsubscribe = subscribeToSupabaseGarden(user.id, () => {
+      // Sincronización reactiva instantánea al recibir CDC
+      syncAllWithSupabase(user.id, user.email).then((remote) => {
+        if (remote.locations) setLocations(remote.locations);
+        if (remote.crops) setCrops(remote.crops);
+        if (remote.tasks) setTasks(remote.tasks);
+      });
+    });
+
+    unsubscribeRealtimeRef.current = unsubscribe;
+
+    return () => {
+      if (unsubscribeRealtimeRef.current) {
+        unsubscribeRealtimeRef.current();
+        unsubscribeRealtimeRef.current = null;
+      }
+    };
+  }, [user]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -77,10 +124,10 @@ export function App() {
     };
     window.addEventListener('popstate', handlePopState);
 
-    // Real-time synchronization loop between devices (iPad, celular, desktop)
+    // Si Supabase no está configurado, fallback al sync secundario
     const checkRemoteSync = () => {
       const currentUser = getUser();
-      if (!currentUser) return;
+      if (!currentUser || isSupabaseConfigured) return;
 
       fetchRemoteGardenData().then(({ crops: remoteCrops, tasks: remoteTasks, updated_at: remoteUpdatedAt }) => {
         if (!remoteCrops && !remoteTasks) return;
@@ -88,7 +135,6 @@ export function App() {
         const userKey = currentUser.email || currentUser.id;
         const localUpdatedAt = localStorage.getItem('mi_huerta_casera_updated_at_' + userKey);
 
-        // Si la versión local es más reciente o igual a la nube, no devolver el estado
         if (remoteUpdatedAt && localUpdatedAt && new Date(localUpdatedAt) >= new Date(remoteUpdatedAt)) {
           return;
         }
@@ -118,176 +164,207 @@ export function App() {
       });
     };
 
-    // Execute immediately on mount
-    checkRemoteSync();
+    if (!isSupabaseConfigured) {
+      checkRemoteSync();
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === 'visible') {
+          checkRemoteSync();
+        }
+      };
+      window.addEventListener('visibilitychange', handleVisibilityChange);
+      window.addEventListener('focus', checkRemoteSync);
+      const pollInterval = setInterval(checkRemoteSync, 3500);
 
-    // Check on tab focus / visibility change (e.g. switching back to browser on iPad or phone)
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        checkRemoteSync();
-      }
-    };
-    window.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('focus', checkRemoteSync);
-
-    // Real-time polling every 3.5 seconds
-    const pollInterval = setInterval(checkRemoteSync, 3500);
+      return () => {
+        window.removeEventListener('popstate', handlePopState);
+        window.removeEventListener('visibilitychange', handleVisibilityChange);
+        window.removeEventListener('focus', checkRemoteSync);
+        clearInterval(pollInterval);
+      };
+    }
 
     return () => {
       window.removeEventListener('popstate', handlePopState);
-      window.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('focus', checkRemoteSync);
-      clearInterval(pollInterval);
     };
   }, []);
 
-  // When auth state changes, re-load local or remote user crops & tasks
+  // Al cambiar estado de autenticación, hidratar datos desde Supabase o localStorage
   const handleAuthChange = (newUser: UserProfile | null) => {
     setUser(newUser);
     if (newUser) {
-      // Reload user data
-      const localCrops = loadCrops();
-      const localTasks = loadTasks();
-      setCrops(localCrops);
-      setTasks(localTasks);
+      if (isSupabaseConfigured) {
+        syncAllWithSupabase(newUser.id, newUser.email).then((remote) => {
+          if (remote.crops && remote.crops.length > 0) {
+            setCrops(remote.crops);
+          } else {
+            const current = loadCrops();
+            setCrops(current);
+            current.forEach((crop) => persistNewCrop(crop));
+          }
 
-      // Attempt remote sync
-      fetchRemoteGardenData().then(({ crops: remoteCrops, tasks: remoteTasks }) => {
-        if (remoteCrops && remoteCrops.length > 0) {
-          setCrops(remoteCrops);
-          // save locally without re-triggering remote overwrite of fresher cloud data
-          const userKey = 'mi_huerta_casera_crops_v3_' + (newUser.email || newUser.id);
-          localStorage.setItem(userKey, JSON.stringify(remoteCrops));
-        } else {
-          // If remote is empty, push local data to seed the cloud
-          saveCrops(localCrops);
-        }
+          if (remote.tasks && remote.tasks.length > 0) {
+            setTasks(remote.tasks);
+          } else {
+            const currentT = loadTasks();
+            setTasks(currentT);
+            currentT.forEach((task) => persistNewTask(task));
+          }
 
-        if (remoteTasks && remoteTasks.length > 0) {
-          setTasks(remoteTasks);
-          const taskKey = 'mi_huerta_casera_tasks_v3_' + (newUser.email || newUser.id);
-          localStorage.setItem(taskKey, JSON.stringify(remoteTasks));
-        } else {
-          saveTasks(localTasks);
-        }
-      });
+          if (remote.locations && remote.locations.length > 0) {
+            setLocations(remote.locations);
+          } else {
+            setLocations(loadLocations());
+          }
+        });
+      } else {
+        const localCrops = loadCrops();
+        const localTasks = loadTasks();
+        setCrops(localCrops);
+        setTasks(localTasks);
+      }
     } else {
       setCrops(loadCrops());
       setTasks(loadTasks());
+      setLocations(loadLocations());
     }
   };
 
   const handleNavigate = (route: PageRoute) => {
     setCurrentRoute(route);
-    const urlPath = route === 'inicio' ? '/' : `/${route}`;
-    window.history.pushState({}, '', urlPath);
+    const targetUrl = route === 'inicio' ? '/' : `/${route}`;
+    if (window.location.pathname !== targetUrl) {
+      window.history.pushState({}, '', targetUrl);
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Water crop: Keep recommended moisture constant, update lastWatered, and recalculate calendar tasks
   const handleWaterCrop = (cropId: string) => {
-    const nowTime = getCurrentTimeString();
     const today = getTodayString();
-    let updatedCropTarget: CropItem | null = null;
-    const updated = crops.map((c) => {
-      if (c.id !== cropId) return c;
-      const logEntry: CropLogEntry = {
-        id: 'log-' + Date.now(),
-        type: 'Riego',
-        title: 'Riego registrado en el cultivo',
-        date: today,
-        time: nowTime,
-        notes: `Riego manual efectuado. Humedad recomendada de la especie (${c.recommendedMoisturePercent}%).`
-      };
-      const existingLogs = c.log || [];
-      const updatedCrop = {
-        ...c,
-        lastWatered: `Hoy, ${nowTime}`,
-        log: [logEntry, ...existingLogs]
-      };
-      updatedCropTarget = updatedCrop;
-      return updatedCrop;
+    const nowTime = getCurrentTimeString();
+    let updatedTargetCrop: CropItem | null = null;
+
+    const updated = crops.map((crop) => {
+      if (crop.id === cropId) {
+        const newLogEntry: CropLogEntry = {
+          id: 'log-' + Date.now(),
+          type: 'Riego',
+          title: 'Riego registrado',
+          date: today,
+          time: nowTime,
+          notes: 'Riego manual registrado desde el panel.'
+        };
+        const existingLogs = crop.log || [];
+        const nextCrop = {
+          ...crop,
+          lastWatered: `Hoy, ${nowTime}`,
+          log: [newLogEntry, ...existingLogs]
+        };
+        updatedTargetCrop = nextCrop;
+
+        // Persistir de forma atómica en Supabase
+        persistCropUpdate(cropId, { lastWatered: nextCrop.lastWatered });
+        persistNewCropLog(cropId, newLogEntry);
+
+        return nextCrop;
+      }
+      return crop;
     });
 
     setCrops(updated);
 
-    // Actualización reactiva del calendario ante registro de riego
-    let updatedTasks = tasks;
-    if (updatedCropTarget) {
-      updatedTasks = recalculateTasksForCrop(updatedCropTarget, tasks);
-      setTasks(updatedTasks);
+    // Marcar como completada cualquier tarea de riego pendiente para hoy
+    let updatedTasks = tasks.map((t) => {
+      if (t.cropId === cropId && t.type === 'Riego' && !t.completed) {
+        persistTaskStatus(t.id, true, new Date().toISOString());
+        return { ...t, completed: true, completedAt: new Date().toISOString() };
+      }
+      return t;
+    });
+
+    if (updatedTargetCrop) {
+      updatedTasks = recalculateTasksForCrop(updatedTargetCrop, updatedTasks);
     }
+
+    setTasks(updatedTasks);
     saveBothToCloud(updated, updatedTasks);
   };
 
-  // Advance stage: log the event in bitácora and dynamically update calendar tasks
   const handleAdvanceStage = (cropId: string) => {
-    const nowTime = getCurrentTimeString();
     const today = getTodayString();
+    const nowTime = getCurrentTimeString();
     let updatedCropTarget: CropItem | null = null;
-    const updated = crops.map((c) => {
-      if (c.id !== cropId) return c;
-      const idx = STAGE_ORDER.indexOf(c.stage);
-      const nextStage = STAGE_ORDER[(idx + 1) % STAGE_ORDER.length];
-      const recalculatedDays = getDaysToHarvestForCrop(c.name, c.variety, nextStage);
-      const logEntry: CropLogEntry = {
-        id: 'log-' + Date.now(),
-        type: 'Cambio de etapa',
-        title: `Evolución fenológica a etapa: ${nextStage}`,
-        date: today,
-        time: nowTime,
-        notes: `Transición de ${c.stage} a ${nextStage}. Días estimados para cosecha recalculados a ${recalculatedDays} días.`
-      };
-      const existingLogs = c.log || [];
-      const updatedCrop = {
-        ...c,
-        stage: nextStage,
-        daysToHarvest: recalculatedDays,
-        log: [logEntry, ...existingLogs]
-      };
-      updatedCropTarget = updatedCrop;
-      return updatedCrop;
+
+    const updated = crops.map((crop) => {
+      if (crop.id === cropId) {
+        const currentIndex = STAGE_ORDER.indexOf(crop.stage);
+        const nextIndex = (currentIndex + 1) % STAGE_ORDER.length;
+        const nextStage = STAGE_ORDER[nextIndex];
+
+        const days = getDaysToHarvestForCrop(crop.name, crop.variety, nextStage);
+        const newLogEntry: CropLogEntry = {
+          id: 'log-stage-' + Date.now(),
+          type: 'Cambio de etapa',
+          title: `Cambio a ${nextStage}`,
+          date: today,
+          time: nowTime,
+          notes: `Etapa fenológica avanzada a ${nextStage}. Días estimados a cosecha recalculados a ${days} d.`
+        };
+        const existingLogs = crop.log || [];
+        const nextCrop = {
+          ...crop,
+          stage: nextStage,
+          daysToHarvest: days,
+          log: [newLogEntry, ...existingLogs]
+        };
+        updatedCropTarget = nextCrop;
+
+        // Persistir de forma atómica en Supabase
+        persistCropUpdate(cropId, { stage: nextStage, daysToHarvest: days });
+        persistNewCropLog(cropId, newLogEntry);
+
+        return nextCrop;
+      }
+      return crop;
     });
 
     setCrops(updated);
 
-    // Actualización reactiva del calendario ante cambio fenológico de etapa
     let updatedTasks = tasks;
     if (updatedCropTarget) {
       updatedTasks = recalculateTasksForCrop(updatedCropTarget, tasks);
       setTasks(updatedTasks);
     }
+
     saveBothToCloud(updated, updatedTasks);
   };
 
-  // Eliminar un cultivo, sus tareas asociadas en el calendario y su bitácora
   const handleDeleteCrop = (cropId: string) => {
     const targetCrop = crops.find((c) => c.id === cropId);
     const updatedCrops = crops.filter((c) => c.id !== cropId);
-    // Eliminar también las tareas del calendario asociadas a este cultivo (por id o nombre)
-    const updatedTasks = tasks.filter((t) => t.cropId !== cropId && (!targetCrop || t.cropName !== targetCrop.name));
-    
+    const updatedTasks = tasks.filter(
+      (t) => t.cropId !== cropId && (!targetCrop || t.cropName !== targetCrop.name)
+    );
+
     setCrops(updatedCrops);
     setTasks(updatedTasks);
+
+    // Persistir eliminación atómica en Supabase
+    persistCropDelete(cropId);
     saveBothToCloud(updatedCrops, updatedTasks);
   };
 
-  // Eliminar una ubicación/bancal y todos los cultivos asociados a él (con sus tareas)
   const handleDeleteLocation = (locationName: string) => {
-    // 1. Eliminar ubicación de storage
     const { remainingLocations } = deleteLocation(locationName);
     setLocations(remainingLocations);
 
-    // 2. Identificar cultivos en esa ubicación
     const cropsInLocation = crops.filter((c) => c.bed.toLowerCase() === locationName.toLowerCase());
     const cropIdsToRemove = new Set(cropsInLocation.map((c) => c.id));
     const cropNamesToRemove = new Set(cropsInLocation.map((c) => c.name));
 
-    // 3. Filtrar cultivos restantes
     const remainingCrops = crops.filter((c) => !cropIdsToRemove.has(c.id));
-
-    // 4. Filtrar tareas restantes
     const remainingTasks = tasks.filter((t) => !cropIdsToRemove.has(t.cropId) && !cropNamesToRemove.has(t.cropName));
+
+    cropsInLocation.forEach((crop) => persistCropDelete(crop.id));
 
     setCrops(remainingCrops);
     setTasks(remainingTasks);
@@ -296,114 +373,140 @@ export function App() {
 
   const handleAddCrop = (newCrop: CropItem) => {
     const updatedCrops = [newCrop, ...crops];
-    // Generar automáticamente las tareas agronómicas (riego periódico, abonado, poda, cosecha)
     const newTasks = generateTasksForCrop(newCrop);
     const updatedTasks = [...newTasks, ...tasks];
 
     setCrops(updatedCrops);
     setTasks(updatedTasks);
-    // Guardar atómicamente ambos en localStorage y sincronizar con la nube
+
+    // Persistir de forma atómica en Supabase
+    persistNewCrop(newCrop);
+    newTasks.forEach((t) => persistNewTask(t));
+
     saveBothToCloud(updatedCrops, updatedTasks);
   };
 
-  // Add manual log entry to a specific crop and reactively refresh calendar if it's a watering or stage record
-  const handleAddLogEntry = (cropId: string, entryData: Omit<CropLogEntry, 'id'>) => {
+  const handleAddLogEntry = (cropId: string, entry: Omit<CropLogEntry, 'id'>) => {
     const newEntry: CropLogEntry = {
-      ...entryData,
-      id: 'log-' + Date.now() + '-' + Math.random().toString(36).substring(2, 5)
+      ...entry,
+      id: 'log-' + Date.now()
     };
-    let updatedCropTarget: CropItem | null = null;
-    const updated = crops.map((c) => {
-      if (c.id !== cropId) return c;
-      const existingLogs = c.log || [];
-      const updatedCrop = {
-        ...c,
-        lastWatered: entryData.type === 'Riego' ? `${entryData.date} ${entryData.time || ''}`.trim() : c.lastWatered,
-        log: [newEntry, ...existingLogs]
-      };
-      updatedCropTarget = updatedCrop;
-      return updatedCrop;
+
+    let targetCropUpdated: CropItem | null = null;
+    const updated = crops.map((crop) => {
+      if (crop.id === cropId) {
+        const existingLogs = crop.log || [];
+        const nextCrop = {
+          ...crop,
+          lastWatered: newEntry.type === 'Riego' ? `Hoy, ${newEntry.time || '12:00'}` : crop.lastWatered,
+          log: [newEntry, ...existingLogs]
+        };
+        targetCropUpdated = nextCrop;
+        return nextCrop;
+      }
+      return crop;
     });
 
     setCrops(updated);
 
+    // Persistir de forma atómica en Supabase
+    persistNewCropLog(cropId, newEntry);
+    if (newEntry.type === 'Riego' && targetCropUpdated) {
+      persistCropUpdate(cropId, { lastWatered: (targetCropUpdated as CropItem).lastWatered });
+    }
+
     let updatedTasks = tasks;
-    if (updatedCropTarget && (entryData.type === 'Riego' || entryData.type === 'Cambio de etapa')) {
-      updatedTasks = recalculateTasksForCrop(updatedCropTarget, tasks);
+    if (targetCropUpdated && newEntry.type === 'Riego') {
+      updatedTasks = recalculateTasksForCrop(targetCropUpdated, tasks);
       setTasks(updatedTasks);
     }
+
     saveBothToCloud(updated, updatedTasks);
   };
 
-  // Delete log entry from a crop
   const handleDeleteLogEntry = (cropId: string, logId: string) => {
-    const updated = crops.map((c) => {
-      if (c.id !== cropId) return c;
-      const filteredLog = (c.log || []).filter((l) => l.id !== logId);
-      return {
-        ...c,
-        log: filteredLog
-      };
+    const updated = crops.map((crop) => {
+      if (crop.id === cropId) {
+        const existingLogs = crop.log || [];
+        return {
+          ...crop,
+          log: existingLogs.filter((l) => l.id !== logId)
+        };
+      }
+      return crop;
     });
+
     setCrops(updated);
+    persistDeleteCropLog(logId);
     saveCrops(updated);
   };
 
-  // Toggle task: when marked as completed, record into the crop's bitácora!
   const handleToggleTask = (taskId: string) => {
-    const targetTask = tasks.find((t) => t.id === taskId);
-    if (!targetTask) return;
-
-    const willBeCompleted = !targetTask.completed;
     const today = getTodayString();
     const nowTime = getCurrentTimeString();
 
-    // Update tasks
-    let updatedTasks = tasks.map((t) => {
-      if (t.id !== taskId) return t;
-      return {
-        ...t,
-        completed: willBeCompleted,
-        completedAt: willBeCompleted ? today : undefined
-      };
+    let targetTask: GardenTask | null = null;
+    let willBeCompleted = false;
+
+    let updatedTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        targetTask = task;
+        willBeCompleted = !task.completed;
+        const completedAt = willBeCompleted ? new Date().toISOString() : undefined;
+        persistTaskStatus(taskId, willBeCompleted, completedAt);
+        return {
+          ...task,
+          completed: willBeCompleted,
+          completedAt
+        };
+      }
+      return task;
     });
+
+    if (!targetTask) return;
+
     setTasks(updatedTasks);
 
-    // If marked as completed, also log into crop bitácora and recalculate pending tasks if it was a watering task
     let updatedCrops = crops;
     let targetCropUpdated: CropItem | null = null;
     if (willBeCompleted) {
       updatedCrops = crops.map((c) => {
-        if (c.id === targetTask.cropId || (targetTask.cropId === 'general' && c.name === targetTask.cropName)) {
+        if (c.id === (targetTask as GardenTask).cropId || ((targetTask as GardenTask).cropId === 'general' && c.name === (targetTask as GardenTask).cropName)) {
           const logEntry: CropLogEntry = {
             id: 'log-task-' + Date.now(),
-            type: targetTask.type,
-            title: `Labor: ${targetTask.type}`,
+            type: (targetTask as GardenTask).type,
+            title: `Labor: ${(targetTask as GardenTask).type}`,
             date: today,
             time: nowTime,
             notes: `Completada desde calendario.`,
-            taskId: targetTask.id
+            taskId: (targetTask as GardenTask).id
           };
           const existingLogs = c.log || [];
           const updatedCrop = {
             ...c,
-            lastWatered: targetTask.type === 'Riego' ? `Hoy, ${nowTime}` : c.lastWatered,
+            lastWatered: (targetTask as GardenTask).type === 'Riego' ? `Hoy, ${nowTime}` : c.lastWatered,
             log: [logEntry, ...existingLogs]
           };
           targetCropUpdated = updatedCrop;
+
+          // Persistir en Supabase
+          persistNewCropLog(c.id, logEntry);
+          if ((targetTask as GardenTask).type === 'Riego') {
+            persistCropUpdate(c.id, { lastWatered: updatedCrop.lastWatered });
+          }
+
           return updatedCrop;
         }
         return c;
       });
       setCrops(updatedCrops);
 
-      if (targetCropUpdated && targetTask.type === 'Riego') {
+      if (targetCropUpdated && (targetTask as GardenTask).type === 'Riego') {
         updatedTasks = recalculateTasksForCrop(targetCropUpdated, updatedTasks);
         setTasks(updatedTasks);
       }
     }
 
-    // Persist and sync both atomically to avoid race conditions
     saveBothToCloud(updatedCrops, updatedTasks);
   };
 
@@ -415,12 +518,14 @@ export function App() {
     };
     const updated = [newTask, ...tasks];
     setTasks(updated);
+    persistNewTask(newTask);
     saveTasks(updated);
   };
 
   const handleDeleteTask = (taskId: string) => {
     const updated = tasks.filter((t) => t.id !== taskId);
     setTasks(updated);
+    persistDeleteTask(taskId);
     saveTasks(updated);
   };
 
