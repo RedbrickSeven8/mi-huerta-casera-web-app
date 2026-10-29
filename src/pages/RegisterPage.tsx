@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
-  ShieldCheck,
   AlertCircle,
   Plus,
   MapPin,
@@ -11,8 +10,6 @@ import {
   HelpCircle
 } from 'lucide-react';
 import type { CropItem, CropStage, PageRoute, GardenLocation, LocationType } from '../types/huerta';
-import { recordConsentEvent } from '../services/auditLogger';
-import { hasAcceptedLegalConsents, setAcceptedLegalConsents } from '../services/consentService';
 import { CROPS_DATABASE, type CropCategory, type CropVarietyInfo, getCropImage, calculateDynamicWaterFrequency, getCurrentSeason } from '../data/cropsDatabase';
 import { loadLocations, addLocation } from '../services/huertaStorage';
 
@@ -44,7 +41,6 @@ const getTodayString = () => {
 };
 
 export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigate }) => {
-  const [alreadyAcceptedConsents, setAlreadyAcceptedConsents] = useState<boolean>(() => hasAcceptedLegalConsents());
 
   // Locations list from storage
   const [locations, setLocations] = useState<GardenLocation[]>(() => loadLocations());
@@ -72,8 +68,6 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
   const [sunHours, setSunHours] = useState<number>(CROPS_DATABASE[0].varieties[0].sunHours);
   const [notes, setNotes] = useState<string>(CROPS_DATABASE[0].varieties[0].notes);
 
-  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
-  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const currentCategory: CropCategory | undefined = CROPS_DATABASE.find(
@@ -158,32 +152,11 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!alreadyAcceptedConsents) {
-      if (!acceptedPrivacy || !acceptedTerms) {
-        setErrorMessage(
-          'Acepta la Política de Privacidad y los Términos y Condiciones para registrar el cultivo.'
-        );
-        return;
-      }
-
-      recordConsentEvent({
-        consentType: 'Política de Privacidad',
-        status: 'Aceptado',
-        acceptanceMethod: 'Casilla de verificación (Checkbox individual)',
-        formOrigin: 'Formulario de Creación de Cultivo'
-      });
-
-      recordConsentEvent({
-        consentType: 'Términos y Condiciones',
-        status: 'Aceptado',
-        acceptanceMethod: 'Casilla de verificación (Checkbox individual)',
-        formOrigin: 'Formulario de Creación de Cultivo'
-      });
-
-      setAcceptedLegalConsents(true);
-      setAlreadyAcceptedConsents(true);
+    if (!bed.trim()) {
+      setErrorMessage('Por favor asigna o crea una ubicación para el cultivo.');
+      return;
     }
+    setErrorMessage(null);
 
     const img = getCropImage(selectedCropName);
     const varietyLabel = isNotSure
@@ -560,75 +533,14 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onAddCrop, onNavigat
           </label>
           <textarea
             id="crop-notes"
-            rows={2}
+            rows={5}
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
-            className="w-full rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27]"
+            className="w-full min-h-[120px] rounded-xl border border-[#D5E0D3] bg-[#FAF9F6] px-3.5 py-2.5 text-sm text-[#1A231E] focus:outline-none focus:ring-2 focus:ring-[#2D5A27] resize-y"
           />
         </div>
 
-        {alreadyAcceptedConsents ? (
-          <div className="p-3.5 rounded-xl bg-[#2D5A27]/5 border border-[#2D5A27]/20 flex items-center justify-between gap-3">
-            <span className="text-xs text-[#2D5A27] font-medium">Consentimientos legales aceptados.</span>
-          </div>
-        ) : (
-          <div className="p-4 rounded-xl bg-[#FAF9F6] border border-[#E2DFD7] space-y-3">
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-[#1A231E]">
-              <ShieldCheck className="w-4 h-4 text-[#2D5A27]" />
-              <span>Consentimientos (Responsable: las paginas de dani)</span>
-            </div>
-
-            <label htmlFor="accept-privacy" className="flex items-start gap-2 text-xs text-[#4A554E] cursor-pointer">
-              <input
-                id="accept-privacy"
-                type="checkbox"
-                checked={acceptedPrivacy}
-                onChange={(e) => {
-                  setAcceptedPrivacy(e.target.checked);
-                  setErrorMessage(null);
-                }}
-                className="mt-0.5 rounded border-[#8A968E] text-[#2D5A27]"
-              />
-              <span>
-                Acepto la{' '}
-                <button
-                  type="button"
-                  onClick={() => onNavigate('privacidad')}
-                  className="underline font-semibold text-[#2D5A27]"
-                >
-                  Política de Privacidad
-                </button>
-                . *
-              </span>
-            </label>
-
-            <label htmlFor="accept-terms" className="flex items-start gap-2 text-xs text-[#4A554E] cursor-pointer">
-              <input
-                id="accept-terms"
-                type="checkbox"
-                checked={acceptedTerms}
-                onChange={(e) => {
-                  setAcceptedTerms(e.target.checked);
-                  setErrorMessage(null);
-                }}
-                className="mt-0.5 rounded border-[#8A968E] text-[#2D5A27]"
-              />
-              <span>
-                Acepto los{' '}
-                <button
-                  type="button"
-                  onClick={() => onNavigate('terminos')}
-                  className="underline font-semibold text-[#2D5A27]"
-                >
-                  Términos y Condiciones
-                </button>
-                . *
-              </span>
-            </label>
-          </div>
-        )}
-
-        <div className="flex justify-end pt-2">
+                <div className="flex justify-end pt-2">
           <motion.button
             whileTap={{ scale: 0.95 }}
             type="submit"

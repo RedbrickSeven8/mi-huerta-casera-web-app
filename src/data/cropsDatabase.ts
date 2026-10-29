@@ -130,7 +130,7 @@ export const CROPS_DATABASE: CropCategory[] = [
       recommendedMoisturePercent: 80,
       recommendedBed: 'Mesa de Cultivo Norte #1',
       climateAdaptation: 'Clima templado a fresco',
-      notes: 'Suelo: Sustrato suelto, aireado y rico en materia orgánica (humus de lombriz al 20% y fibra de coco para retener humedad sin compactar). Riego: Mantén el suelo uniformemente fresco sin encharcar el cuello de la raíz. Cuidados: Excelente asociación con cebollas, zanahorias y rábanos; evita el sol abrasador del mediodía para prevenir hojas amargas.'
+      notes: 'Prefiere tierra suelta y fresca que no se compacte. Riega con frecuencia pero sin encharcar, para que las hojas se mantengan crujientes y dulces. Dale sol de la mañana o semisombra; si el sol del mediodía es muy fuerte, las hojas pueden ponerse amargas.'
     },
     varieties: [
       {
@@ -148,7 +148,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         recommendedMoisturePercent: 80,
         recommendedBed: 'Mesa de Cultivo Norte #1',
         climateAdaptation: 'Clima templado y fresco',
-        notes: 'Suelo: Requiere sustrato fértil con buen drenaje, pH entre 6.0 y 6.8 y aporte continuo de nitrógeno orgánico. Riego: Riegos matinales ligeros y constantes. Cuidados: Forma cogollos rizados crujientes; cosecha cortando las hojas basales exteriores para extender la producción varias semanas.'
+        notes: 'Tierra suave y con buen abono. Mantén la tierra siempre húmeda con riegos suaves por la mañana. Cosecha cortando las hojas de afuera hacia adentro para que la planta siga produciendo durante semanas.'
       },
       {
         varietyName: 'Lechuga Hoja de Roble',
@@ -165,7 +165,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         recommendedMoisturePercent: 80,
         recommendedBed: 'Mesa de Cultivo Norte #2',
         climateAdaptation: 'Adaptable a templado y semisombra',
-        notes: 'Suelo: Tierra mullida y esponjosa enriquecida con compost maduro. Riego: Humedad estable; un acolchado de paja fina previene salpicaduras en las hojas tiernas. Cuidados: Gran resistencia al espigado; cosechar hoja a hoja según necesidad culinaria.'
+        notes: 'Tierra esponjosa y rica en nutrientes. Le gusta la humedad constante y agradece una capa de hojarasca o paja encima de la tierra para no salpicar sus hojas al regar. Puedes ir sacando hojas sueltas para tus ensaladas.'
       },
       {
         varietyName: 'Lechuga Romana (Crespa)',
@@ -182,7 +182,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         recommendedMoisturePercent: 78,
         recommendedBed: 'Bancal Central #2',
         climateAdaptation: 'Clima templado',
-        notes: 'Suelo: Tolera sustratos más densos siempre que tengan buen drenaje y nutrientes balanceados. Riego: Profundo cada 2 días en horas frescas. Cuidados: De porte erguido y nervadura crujiente; atar las hojas suavemente 5 días antes de cosechar blanquea y suaviza el cogollo central.'
+        notes: 'Tierra fértil con buen drenaje para que el agua no se quede estancada. Riega cada dos días en las horas frescas. Si atas suavemente las hojas unos días antes de cosechar, el corazón quedará más tierno y blanquito.'
       }
     ]
   },
@@ -204,7 +204,7 @@ export const CROPS_DATABASE: CropCategory[] = [
       recommendedMoisturePercent: 70,
       recommendedBed: 'Bancal Sur #1',
       climateAdaptation: 'Clima templado y cálido con pleno sol',
-      notes: 'Suelo: Profundo, rico en compost y con aporte de calcio y fósforo para evitar podredumbre apical. Riego: Siempre al pie de la planta en la base del tallo; jamás mojar hojas ni flores para prevenir hongos como el mildiu y tizón. Cuidados: Entutorar desde temprano y podar los chupones axilares para concentrar la energía en frutos grandes.'
+      notes: 'Le encanta el sol directo la mayor parte del día. Riega siempre en la tierra, directo a la raíz, sin mojar las hojas ni las flores para que no le salgan manchas. Ponle una estaca o guía para amarrar las ramas y retira los brotes pequeños que salen en las axilas para que dé frutos grandes.'
     },
     varieties: [
       {
@@ -222,7 +222,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         recommendedMoisturePercent: 72,
         recommendedBed: 'Bancal Sur #1',
         climateAdaptation: 'Templado y cálido',
-        notes: 'Suelo: Sustrato nutritivo mezclado con humus de lombriz y ceniza vegetal rica en potasio. Riego: Regular y profundo sin encharcamientos; reducir el agua en maduración para concentrar azúcares. Cuidados: Fruto ovalado y carnoso; tutorado firme con cañas o hilo y deshoje inferior progresivo para maximizar ventilación.'
+        notes: 'Necesita tierra profunda y bien alimentada con abono casero. Riega con regularidad pero sin hacer barro. Amárralo a un palo firme a medida que crezca y retira las hojas viejas de abajo para que le entre buen aire y luz a los tomates.'
       },
       {
         varietyName: 'Tomate Cherry',
@@ -239,7 +239,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         recommendedMoisturePercent: 70,
         recommendedBed: 'Bancal Sur #1',
         climateAdaptation: 'Muy adaptable a huertos en maceta y balcones',
-        notes: 'Suelo: Requiere macetas de mínimo 15-20 litros con sustrato liviano y perlita. Riego: Constante cada 2 días; cambios bruscos de humedad pueden rajar la piel del fruto. Cuidados: Altísima productividad en racimos; asociación benéfica inmediata con albahaca para repeler plagas y potenciar sabor.'
+        notes: 'Ideal para macetas o cajones en balcones y terrazas. Mantén la humedad constante para que la piel del tomate no se parta. Si siembras albahaca cerca, tus tomates crecerán más felices y protegidos.'
       },
       {
         varietyName: 'Tomate Milano / Larga Vida',
@@ -256,7 +256,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         recommendedMoisturePercent: 68,
         recommendedBed: 'Bancal Sur #2',
         climateAdaptation: 'Templado con buena radiación',
-        notes: 'Suelo: Requiere tierra profunda y fértil con buen contenido de materia orgánica madura. Riego: Riego en goteo o localizado en la base. Cuidados: Frutos redondeados de pulpa firme y excelente conservación poscosecha; acolchado en la base para aislar frutos bajos de la humedad del suelo.'
+        notes: 'Tierra profunda y fértil. Riega despacio en la base de la planta. Cuando los frutos empiecen a crecer, asegúrate de que no toquen el suelo para mantenerlos limpios y sanos.'
       }
     ]
   },
@@ -278,7 +278,7 @@ export const CROPS_DATABASE: CropCategory[] = [
       recommendedMoisturePercent: 65,
       recommendedBed: 'Jardinera Profunda #3',
       climateAdaptation: 'Clima fresco y templado',
-      notes: 'Suelo: Clave fundamental: sustrato arenoso, sumamente suelto y libre de piedras o terrones duros; de lo contrario las raíces se bifurcan y deforman. Profundidad mínima de 25-30 cm. Riego: Suave y regular en forma de lluvia fina; no dejar que la capa superior se reseque durante la germinación. Cuidados: Aclareo temprano dejando 5 cm entre plantas.'
+      notes: 'La clave está en que la tierra sea muy suelta, arenosa y sin piedras ni terrones duros, para que la zanahoria pueda crecer hacia abajo derecha y sin deformarse. Riega con una lluvia suave para mantener la tierra húmeda mientras nace.'
     },
     varieties: [
       {
@@ -296,7 +296,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         recommendedMoisturePercent: 65,
         recommendedBed: 'Jardinera Profunda #3',
         climateAdaptation: 'Climas templados y frescos',
-        notes: 'Suelo: Tierra suelta con arena de río lavada y compost bien descompuesto; evitar estiércoles frescos que provocan ramificación de la raíz. Riego: Riego cada 3 días manteniendo humedad homogénea. Cuidados: Raíces cilíndricas dulces de punta redondeada; aporcar ligeramente para cubrir el hombro de la raíz y evitar que tome color verdoso por el sol.'
+        notes: 'Tierra muy ligera y profunda (al menos 25 cm). Riega cada 3 días con cuidado de no desenterrar las plantitas. Si ves que la parte de arriba de la raíz asoma a la superficie, tápala con un poquito de tierra para que no se ponga verde con el sol.'
       },
       {
         varietyName: 'Zanahoria Chantenay',
@@ -313,7 +313,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         recommendedMoisturePercent: 65,
         recommendedBed: 'Jardinera Profunda #3',
         climateAdaptation: 'Adaptable a contenedores medianos',
-        notes: 'Suelo: Ideal para bancales o jardineras caseras con menor profundidad, gracias a su forma cónica corta y ancha. Riego: Regular, evitando tanto la sequía prolongada como el encharcamiento que pudre el ápice. Cuidados: Excelente germinación; cosechar cuando la raíz alcance 3-4 cm de grosor superior.'
+        notes: 'Es más cortita y ancha, por lo que va perfecta en jardineras o cajones que no sean tan hondos. Riega regularmente para que la raíz crezca dulce y jugosa sin cuartearse.'
       }
     ]
   },
@@ -335,7 +335,7 @@ export const CROPS_DATABASE: CropCategory[] = [
       recommendedMoisturePercent: 70,
       recommendedBed: 'Bancal Principal #1',
       climateAdaptation: 'Clima cálido y templado',
-      notes: 'Suelo: Sustrato cálido, liviano, rico en humus y con drenaje impecable para evitar hongos en el cuello radicular. Riego: Moderado y constante; no tolera saturación de agua. Cuidados: Despuntar la primera flor en la cruz del tallo estimula la ramificación lateral y una mayor floración posterior.'
+      notes: 'Le gusta mucho el calor y los rincones soleados. La tierra debe quedar húmeda pero nunca empapada. Si le quitas la primera florecita que sale en el centro, la planta se ramificará con más fuerza y dará más pimientos después.'
     },
     varieties: [
       {
@@ -353,7 +353,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         recommendedMoisturePercent: 70,
         recommendedBed: 'Bancal Principal #1',
         climateAdaptation: 'Cálido y templado soleado',
-        notes: 'Suelo: Muy demandante de materia orgánica madura, fósforo y magnesio. Riego: Cada 2 días en la base; el déficit hídrico causa caída de flores. Cuidados: Frutos gruesos de pared carnosa; colocar tutores de apoyo porque el peso de los pimientos puede quebrar las ramas tiernas.'
+        notes: 'Necesita tierra fértil con buen abono. Riega cada dos días en la base sin dejar que la tierra se seque por completo. Como los pimentones se ponen pesados, ponle una vara de apoyo para que el peso no parta la rama.'
       },
       {
         varietyName: 'Ají Dulce',
@@ -370,7 +370,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         recommendedMoisturePercent: 68,
         recommendedBed: 'Bancal Principal #2',
         climateAdaptation: 'Cálido y templado',
-        notes: 'Suelo: Sustrato bien aireado con mezcla de tierra negra, compost y perlita. Riego: Riegos regulares dejando secar levemente la superficie entre aplicaciones. Cuidados: Gran rusticidad y resistencia natural contra plagas; cosechar en verde o cuando madure al rojo brillante para mayor dulzor aromático.'
+        notes: 'Muy fácil de cuidar y resistente. Le gusta el sol y riegos espaciados cuando la superficie de la tierra empiece a secarse. Puedes cosecharlos verdes o esperar a que maduren a rojo para un sabor más dulce y aromático.'
       }
     ]
   },
@@ -392,7 +392,7 @@ export const CROPS_DATABASE: CropCategory[] = [
       recommendedMoisturePercent: 82,
       recommendedBed: 'Mesa de Cultivo Sombra',
       climateAdaptation: 'Clima fresco y frío con luz difusa',
-      notes: 'Suelo: Sustrato rico en nitrógeno orgánico, fresco y húmedo pero con drenaje ágil. Riego: Frecuente y suave para conservar la ternura de las hojas. Cuidados: Ubicar en áreas del huerto que reciban sol de mañana o semisombra fresca; cosechar las hojas exteriores de forma continua.'
+      notes: 'Le gustan los lugares frescos y con sol suave de la mañana o semisombra. La tierra debe estar rica y siempre húmeda. Corta las hojas grandes exteriores con tijera o con la mano para que el centro siga sacando brotes.'
     },
     varieties: [
       {
@@ -410,7 +410,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         recommendedMoisturePercent: 82,
         recommendedBed: 'Mesa de Cultivo Sombra',
         climateAdaptation: 'Clima fresco',
-        notes: 'Suelo: Tierra mullida con compost bien digerido. Riego: Diario en cantidades moderadas evitando encharcamientos. Cuidados: Hojas gigantes muy tiernas; excelente para cultivo denso en jardineras o mesas de cultivo.'
+        notes: 'Tierra suave y con buen abono. Riega poquito pero seguido, sin hacer charcos. Crece rápido y tiene hojas anchas muy suaves para ensaladas o cocinar.'
       }
     ]
   },
@@ -432,7 +432,7 @@ export const CROPS_DATABASE: CropCategory[] = [
       recommendedMoisturePercent: 68,
       recommendedBed: 'Bancal Sur #1',
       climateAdaptation: 'Templado y cálido',
-      notes: 'Suelo: Sustrato fértil, poroso y bien oxigenado con compost o humus. Riego: Regular en la base sin tocar las hojas para evitar manchas negras; no dejar que la planta se marchite. Cuidados: Podar las puntas superiores regularmente (poda apical) para promover un arbusto denso y lleno de brotes nuevos.'
+      notes: 'Le encanta el sol y estar protegida del frío o corrientes de viento. Riega en la base para no manchar las hojas. Corta o pellizca las puntas de arriba con frecuencia para que no florezca tan rápido y se convierta en un arbusto frondoso lleno de hojas aromáticas.'
     },
     varieties: [
       {
@@ -450,7 +450,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         recommendedMoisturePercent: 68,
         recommendedBed: 'Bancal Sur #1 (Asociación)',
         climateAdaptation: 'Templado y cálido',
-        notes: 'Suelo: Mezcla equilibrada de sustrato universal con perlita y humus. Riego: Cada 2 días en horas de la mañana. Cuidados: Cortar espigas florales apenas aparezcan para evitar que las hojas se vuelvan leñosas y amargas; asociar junto a tomates para repeler mosca blanca y pulgones.'
+        notes: 'Tierra esponjosa en maceta o bancal. Riega cada 2 días por la mañana. Corta las flores apenas comiencen a asomarse para que las hojas sigan tiernas y sabrosas. Si la pones al lado de los tomates, se ayudan mutuamente.'
       },
       {
         varietyName: 'Albahaca Morada',
@@ -467,7 +467,7 @@ export const CROPS_DATABASE: CropCategory[] = [
         recommendedMoisturePercent: 68,
         recommendedBed: 'Bancal Sur #1',
         climateAdaptation: 'Templado con buena luminosidad',
-        notes: 'Suelo: Tierra ligera con buen drenaje. Riego: Riegos moderados cada 2 días. Cuidados: Requiere buena radiación solar para fijar su intenso color púrpura y aroma especiado; excelente en macetas de alféizar o terrazas.'
+        notes: 'Necesita bastante luz solar para mantener su llamativo color morado y su aroma especiado. Riega con moderación cada dos días cuando notes la tierra apenas seca.'
       }
     ]
   }

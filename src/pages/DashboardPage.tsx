@@ -143,7 +143,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
 
         <div className="p-6 bg-white rounded-2xl border border-[#E2DFD7] shadow-xs max-w-md mx-auto space-y-4">
           <div className="flex justify-center pt-2">
-            <GoogleAuthButton user={user} onAuthChange={onAuthChange} />
+            <GoogleAuthButton user={user} onAuthChange={onAuthChange} onNavigate={onNavigate} />
           </div>
         </div>
       </motion.div>

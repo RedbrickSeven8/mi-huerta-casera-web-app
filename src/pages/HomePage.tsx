@@ -296,7 +296,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   {/* CTA Principal en el primer Viewport */}
                   <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     <div className="flex items-center">
-                      <GoogleAuthButton onAuthChange={onAuthChange} />
+                      <GoogleAuthButton user={user} onAuthChange={onAuthChange} onNavigate={onNavigate} />
                     </div>
                     <span className="text-xs text-[#5A655E] self-center">o prueba con acceso demo inmediato</span>
                   </div>
@@ -512,7 +512,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
               <div className="flex justify-center pt-2">
                 <div className="bg-white/10 p-3 rounded-2xl border border-white/20 backdrop-blur inline-block">
-                  <GoogleAuthButton onAuthChange={onAuthChange} />
+                  <GoogleAuthButton user={user} onAuthChange={onAuthChange} onNavigate={onNavigate} />
                 </div>
               </div>
             </div>

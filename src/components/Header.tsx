@@ -63,7 +63,7 @@ export const Header: React.FC<HeaderProps> = ({ currentRoute, onNavigate, user, 
         </nav>
 
         <div className="flex items-center gap-3">
-          <GoogleAuthButton user={user} onAuthChange={onAuthChange} />
+          <GoogleAuthButton user={user} onAuthChange={onAuthChange} onNavigate={onNavigate} />
         </div>
       </div>
 
