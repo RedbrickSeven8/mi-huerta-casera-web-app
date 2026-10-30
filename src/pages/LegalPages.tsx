@@ -24,7 +24,7 @@ export const PrivacyPolicyPage: React.FC<LegalPageProps> = ({ onNavigate }) => (
       </div>
 
       <p>
-        <strong>1. Responsable del Tratamiento:</strong> El responsable de esta aplicación web y del tratamiento de los datos recabados a través de <em>Mi Huerta Casera</em> (dominio <code>https://mi-huerta-casera-stitch.surge.sh</code>) es <strong>las paginas de dani</strong>.
+        <strong>1. Responsable del Tratamiento:</strong> El responsable de esta aplicación web y del tratamiento de los datos recabados a través de <em>Mi Huerta Casera</em> (dominio <code>https://mi-huerta-casera.surge.sh</code>) es <strong>las paginas de dani</strong>.
       </p>
 
       <p>

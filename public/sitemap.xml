@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://mi-huerta-casera-stitch.surge.sh/</loc>
+    <loc>https://mi-huerta-casera.surge.sh/</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://mi-huerta-casera-stitch.surge.sh/dashboard</loc>
+    <loc>https://mi-huerta-casera.surge.sh/dashboard</loc>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://mi-huerta-casera-stitch.surge.sh/calendario</loc>
+    <loc>https://mi-huerta-casera.surge.sh/calendario</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mi-huerta-casera-stitch.surge.sh/registro</loc>
+    <loc>https://mi-huerta-casera.surge.sh/registro</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mi-huerta-casera-stitch.surge.sh/auditoria</loc>
+    <loc>https://mi-huerta-casera.surge.sh/auditoria</loc>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://mi-huerta-casera-stitch.surge.sh/privacidad</loc>
+    <loc>https://mi-huerta-casera.surge.sh/privacidad</loc>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://mi-huerta-casera-stitch.surge.sh/terminos</loc>
+    <loc>https://mi-huerta-casera.surge.sh/terminos</loc>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://mi-huerta-casera-stitch.surge.sh/cookies</loc>
+    <loc>https://mi-huerta-casera.surge.sh/cookies</loc>
     <priority>0.4</priority>
   </url>
 </urlset>

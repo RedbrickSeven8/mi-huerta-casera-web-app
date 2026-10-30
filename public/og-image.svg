@@ -7,5 +7,5 @@
   <text x="120" y="360" font-family="system-ui, sans-serif" font-size="32" font-weight="400" fill="#4A554E">Gestiona y haz seguimiento a tu huerta casera en tiempo real</text>
   <rect x="120" y="420" width="320" height="64" rx="12" fill="#2D5A27"/>
   <text x="155" y="460" font-family="system-ui, sans-serif" font-size="24" font-weight="600" fill="#FAF9F6">Aplicación Web / SaaS</text>
-  <text x="120" y="535" font-family="system-ui, sans-serif" font-size="20" fill="#6E7A72">Responsable: las paginas de dani · mi-huerta-casera-stitch.surge.sh</text>
+  <text x="120" y="535" font-family="system-ui, sans-serif" font-size="20" fill="#6E7A72">Responsable: las paginas de dani · mi-huerta-casera.surge.sh</text>
 </svg>
